@@ -4,8 +4,8 @@ export default () => (
   <div>
     <h1>Bacpaca!</h1>
     <p>
-      <Link>
-        <a href="/about">About</a>
+      <Link href="/about">
+        <a>About</a>
       </Link>
     </p>
   </div>

@@ -11,7 +11,7 @@ export default () => (
     </p>
     <Blank />
     <p>
-      <Link prefetch href="/">
+      <Link href="/">
         <a>Home</a>
       </Link>
     </p>
