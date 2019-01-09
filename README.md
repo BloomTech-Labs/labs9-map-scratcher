@@ -11,3 +11,8 @@
 - Lola Heffernan
 - Conner Hoessly
 - Sam Ko
+
+## Deployment links
+
+- front-end: https://frontend-j6twi8q56.now.sh/
+- back-end: 
