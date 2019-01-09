@@ -4,12 +4,12 @@
 
 //-- Dependencies --------------------------------
 const { GraphQLServer } = require('graphql-yoga');
-const { prisma } = require('./src/generated/prisma-client')
+const { prisma } = require('./generated/prisma-client')
 //------------------------------------------------
 
 const resolvers = {
     Query: {
-        info: () => `This is the API of a Hackernews Clone`,
+        info: () => `This is Backpaca`,
         user: (root, args, context, info) => {
             return context.prisma.users()
         }

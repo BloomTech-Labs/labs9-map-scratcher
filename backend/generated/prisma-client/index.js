@@ -12,6 +12,6 @@ var models = [
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
   typeDefs,
   models,
-  endpoint: `https://us1.prisma.sh/lola-heffernan-dd34fe/backpaca/dev`
+  endpoint: `https://backpaca-ed6c7c4fde.herokuapp.com/backpaca/prod`
 });
 exports.prisma = new exports.Prisma();

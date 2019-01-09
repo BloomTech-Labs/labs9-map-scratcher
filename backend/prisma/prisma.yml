@@ -1,12 +1,6 @@
-# The HTTP endpoint for your Prisma API
-#endpoint: ''
-endpoint: https://us1.prisma.sh/lola-heffernan-dd34fe/backpaca/dev
-
-# Points to the file that contains your datamodel
+endpoint: https://backpaca-ed6c7c4fde.herokuapp.com/backpaca/prod
 datamodel: datamodel.prisma
 
-# Specifies language & location for the generated Prisma client
 generate:
   - generator: javascript-client
-    output: ../src/generated/prisma-client
-
+    output: ./generated/prisma-client/
