@@ -3,32 +3,29 @@
 //==============================================================================
 
 //-- Dependencies --------------------------------
-const { GraphQLServer } = require('graphql-yoga')
-
+const { GraphQLServer } = require('graphql-yoga');
+const { prisma } = require('./src/generated/prisma-client')
 //------------------------------------------------
-const typeDefs = `
-type Query {
-    info: String!
-    user: [User!]!
-}
-type User {
-    id: ID!
-    name: String!
-}
-`;
-let users = [{
-    id: '1',
-    name: 'Albert Paca',
-}];
+
 const resolvers = {
     Query: {
         info: () => `This is the API of a Hackernews Clone`,
-        user: () => users,
+        user: (root, args, context, info) => {
+            return context.prisma.users()
+        }
     },
+    Mutation: {
+        post: (root, args, context) => {
+            return context.prisma.createUser({
+                name: args.name
+            })
+        }
+    }
 };
 const server = new GraphQLServer({
-    typeDefs,
+    typeDefs: './schema.graphql',
     resolvers,
+    context: { prisma },
 });
 
 //-- Start Server ---------------------------------------
