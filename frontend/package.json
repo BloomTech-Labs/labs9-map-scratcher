@@ -1,7 +1,6 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "next",
@@ -19,5 +18,9 @@
     "next": "^7.0.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Lambda-School-Labs/labs9-map-scratcher/issues"
+  },
+  "description": ""
 }
