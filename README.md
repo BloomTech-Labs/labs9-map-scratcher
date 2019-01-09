@@ -14,5 +14,5 @@
 
 ## Deployment links
 
-- front-end: https://frontend-j6twi8q56.now.sh/
+- front-end: https://frontend-9v3kr16u3.now.sh/
 - back-end: 
