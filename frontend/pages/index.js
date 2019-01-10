@@ -3,10 +3,13 @@ import Link from 'next/link';
 export default () => (
   <div>
     <h1>Bacpaca!</h1>
-    <p>
+    <div>
       <Link href="/about">
-        <a>About</a>
+        <a>About </a>
       </Link>
-    </p>
+      <Link href="/users">
+        <a>Users</a>
+      </Link>
+    </div>
   </div>
 );
