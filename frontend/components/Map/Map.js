@@ -4,10 +4,7 @@ import { Map, TileLayer, GeoJSON } from 'react-leaflet';
 
 const center = [51.505, -0.09];
 
-const bound1 = L.latLng(90, -180);
-const bound2 = L.latLng(-90, 180);
 
-const bounds = L.latLngBounds(bound1, bound2);
 
 class WorldMap extends React.Component {
   constructor() {
@@ -29,6 +26,15 @@ class WorldMap extends React.Component {
     })
   }
 
+  componentDidUpdate (prevState) {
+    const bound1 = L.latLng(90, -180);
+    const bound2 = L.latLng(-90, 180);
+
+    const bounds = L.latLngBounds(bound1, bound2);
+    if (this.map) {
+      this.map.leafletElement.fitBounds(bounds);
+    }
+  }
 
   render() {
     if (!this.state.components) {
