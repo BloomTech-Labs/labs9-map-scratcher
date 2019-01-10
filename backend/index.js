@@ -4,28 +4,19 @@
 
 //-- Dependencies --------------------------------
 const { GraphQLServer } = require('graphql-yoga');
-const { prisma } = require('./generated/prisma-client')
+const { prisma } = require('./prisma/generated/prisma-client');
+const { resolvers } = require('./resolvers');
 //------------------------------------------------
 
-const resolvers = {
-    Query: {
-        info: () => `This is Backpaca`,
-        user: (root, args, context, info) => {
-            return context.prisma.users()
-        }
-    },
-    Mutation: {
-        post: (root, args, context) => {
-            return context.prisma.createUser({
-                name: args.name
-            })
-        }
-    }
-};
 const server = new GraphQLServer({
-    typeDefs: './prisma-schema.js',
+    typeDefs: './schema.graphql',
     resolvers,
-    context: { prisma },
+    context: request => {
+      return {
+        ...request,
+        prisma
+      }
+    }
 });
 
 //-- Start Server ---------------------------------------

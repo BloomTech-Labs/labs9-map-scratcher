@@ -13,6 +13,9 @@ export default () => (
       <Link href="/login">
         <a>Login</a>
       </Link>
+      <Link href="/map">
+        <a>Map</a>
+      </Link>
     </div>
   </div>
 );
