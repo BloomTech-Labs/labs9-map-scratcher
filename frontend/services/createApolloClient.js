@@ -1,6 +1,6 @@
 // ==================================================
 // next-with-apollo -> withApollo: A HOC that allows
-// the Apollo Client to work with nextjs (SSR)
+// the Apollo Client to work with Next.js (SSR)
 // ==================================================
 import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-boost';
