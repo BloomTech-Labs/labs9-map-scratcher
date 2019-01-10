@@ -1,6 +1,14 @@
+// ==================================================
+// next/app -> App: Next.js uses the App component to
+// initialize pages. We wrap ApolloProvider accordingly
+// in order to access the ApolloClient from any page
+// ==================================================
 import App, { Container } from 'next/app';
+import { ApolloProvider } from 'react-apollo';
 
-export default class MyApp extends App {
+import createApolloClient from '../services/createApolloClient.js';
+
+class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
     let pageProps = {};
 
@@ -13,12 +21,16 @@ export default class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { apollo, Component, pageProps } = this.props;
 
     return (
       <Container>
-        <Component {...pageProps} />
+        <ApolloProvider client={apollo}>
+          <Component {...pageProps} />
+        </ApolloProvider>
       </Container>
     );
   }
 }
+
+export default createApolloClient(MyApp);
