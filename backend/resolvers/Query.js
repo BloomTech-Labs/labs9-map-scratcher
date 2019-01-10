@@ -4,9 +4,12 @@ const Query = {
   },
   country: (parent, args, context) => {
     return context.prisma.countries()
+  },
+  hello: (parent, args, context) => {
+    return 'Hello!'
   }
 };
 
 module.exports = {
   Query
-}; 
+};

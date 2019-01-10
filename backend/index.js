@@ -4,7 +4,7 @@
 
 //-- Dependencies --------------------------------
 const { GraphQLServer } = require('graphql-yoga');
-const { prisma } = require('./generated/prisma-client');
+const { prisma } = require('./prisma/generated/prisma-client');
 const { resolvers } = require('./resolvers');
 //------------------------------------------------
 
