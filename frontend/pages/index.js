@@ -2,14 +2,20 @@ import Link from 'next/link';
 
 export default () => (
   <div>
-    <h1>Bacpaca!</h1>
-    <p>
+    <h1>Backpaca!</h1>
+    <div>
       <Link href="/about">
-        <a>About</a>
+        <a>About </a>
+      </Link>
+      <Link href="/users">
+        <a>Users</a>
+      </Link>
+      <Link href="/login">
+        <a>Login</a>
       </Link>
       <Link href="/map">
         <a>Map</a>
       </Link>
-    </p>
+    </div>
   </div>
 );
