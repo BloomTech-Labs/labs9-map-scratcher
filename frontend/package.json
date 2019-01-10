@@ -1,9 +1,10 @@
 {
   "name": "frontend",
   "version": "1.0.0",
+  "description": "Backpaca is an web application that allows users to brag about their travel experiences and plan future adventures with their friends.",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 1738",
     "build": "next build",
     "start": "next start"
   },
@@ -25,6 +26,5 @@
   },
   "bugs": {
     "url": "https://github.com/Lambda-School-Labs/labs9-map-scratcher/issues"
-  },
-  "description": ""
+  }
 }
