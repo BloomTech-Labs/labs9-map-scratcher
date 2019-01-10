@@ -16,6 +16,7 @@
   "license": "ISC",
   "homepage": "https://github.com/Lambda-School-Labs/labs9-map-scratcher#readme",
   "dependencies": {
+    "apollo-boost": "^0.1.23",
     "apollo-client": "^2.4.8",
     "grommet": "^2.3.0",
     "next": "^7.0.2",
