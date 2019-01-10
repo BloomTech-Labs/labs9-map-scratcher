@@ -4,7 +4,7 @@ export default () => (
   <div>
     <h1>About</h1>
     <p>
-      Bacpaca is an web application that allows users to brag about their travel experiences and
+      Backpaca is an web application that allows users to brag about their travel experiences and
       plan future adventures with their friends.
     </p>
     <p>
