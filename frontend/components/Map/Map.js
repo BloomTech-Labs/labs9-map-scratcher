@@ -65,7 +65,7 @@ class WorldMap extends React.Component {
       maxBounds={bounds}
       zoomControl={true}
       >
-      <div style={{height:'100vh'}}></div>
+      <div style={{height:'90vh'}}></div>
       <TileLayer
         attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
