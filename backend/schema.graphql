@@ -1,13 +1,30 @@
 type Query {
-    info: String!
-    user: [User!]!
+    user: User!
 }
 
 type Mutation {
-    post(name: String!): User!
+    createUser(name: String!, nickname: String!, email: String!): User!
+    updateUser(name: String!, nickname: String!, email: String! id: ID!): User!
 }
 
 type User {
-    id: ID!
-    name: String!
+  id: ID! @unique
+  name: String!
+  nickname: String!
+  email: String! @unique
+  visits: [Visit!]!
+}
+
+type Country {
+  id: ID! @unique
+  name: String!
+  code: String!
+}
+
+type Visit {
+id: ID! @unique
+user: User!
+country: Country!
+note: String
+level: Int
 }
