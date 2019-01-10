@@ -12,5 +12,12 @@
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/Lambda-School-Labs/labs9-map-scratcher#readme"
+  "bugs": {
+    "url": "https://github.com/Lambda-School-Labs/labs9-map-scratcher/issues"
+  },
+  "homepage": "https://github.com/Lambda-School-Labs/labs9-map-scratcher#readme",
+  "dependencies": {
+    "graphql-yoga": "^1.16.9",
+    "prisma-client-lib": "^1.24.0"
+  }
 }
