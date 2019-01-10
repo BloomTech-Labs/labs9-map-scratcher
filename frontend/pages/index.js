@@ -10,6 +10,9 @@ export default () => (
       <Link href="/users">
         <a>Users</a>
       </Link>
+      <Link href="/login">
+        <a>Login</a>
+      </Link>
     </div>
   </div>
 );
