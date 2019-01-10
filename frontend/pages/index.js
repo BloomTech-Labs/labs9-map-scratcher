@@ -16,6 +16,9 @@ export default () => (
       <Link href="/map">
         <a>Map</a>
       </Link>
+      <Link href="/settings">
+        <a>Settings</a>
+      </Link>
     </div>
   </div>
 );
