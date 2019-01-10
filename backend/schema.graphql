@@ -1,6 +1,6 @@
 type Query {
     user: User!
-    hello(name: String): String!
+    hello: String!
 }
 
 type Mutation {
@@ -9,21 +9,21 @@ type Mutation {
 }
 
 type User {
-  id: ID! @unique
+  id: ID!
   name: String!
   nickname: String!
-  email: String! @unique
+  email: String!
   visits: [Visit!]!
 }
 
 type Country {
-  id: ID! @unique
+  id: ID!
   name: String!
   code: String!
 }
 
 type Visit {
-id: ID! @unique
+id: ID!
 user: User!
 country: Country!
 note: String

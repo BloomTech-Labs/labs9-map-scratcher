@@ -7,10 +7,10 @@ const { Visit } = require ('./Visit');
 
 const resolvers = {
   Query,
-  Mutation,
-  User,
-  Country,
-  Visit
+  // Mutation,
+  // User,
+  // Country,
+  // Visit
 }
 
 module.exports = {
