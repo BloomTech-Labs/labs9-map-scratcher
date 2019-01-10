@@ -1,5 +1,21 @@
 type User {
   id: ID! @unique
   name: String!
-  age: Int
+  nickname: String!
+  email: String! @unique
+  visits: [Visit!]! @relation(name: "UserCountries")
+}
+
+type Country {
+  id: ID! @unique
+  name: String!
+  code: String!
+}
+
+type Visit {
+id: ID! @unique
+user: User! @relation(name: "UserCountries")
+country: Country!
+note: String
+level: Int
 }
