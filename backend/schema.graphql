@@ -1,14 +1,18 @@
 type Query {
     user(id: ID!): User!
+    users: [User!]!
     hello: String!
-    visit(id: ID!): Visit!
-    visits: [Visit!]!
     country(id: ID!): Country!
+    countries: [Country!]!
+    visits: [Visit!]!
+    visit(id: ID!): Visit!
+
 }
 
 type Mutation {
     createUser(name: String!, nickname: String!, email: String!): User!
     updateUser(name: String!, nickname: String!, email: String! id: ID!): User!
+    # createVisit(user: ID!, country: ID!, level: Int, note: String): Visit!
 }
 
 type User {
@@ -23,6 +27,7 @@ type Country {
   id: ID!
   name: String!
   code: String!
+  visits: [Visit]
 }
 
 type Visit {

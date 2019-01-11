@@ -1,8 +1,8 @@
 const Country = {
-  name: ({ id }, args, context) => {
-    return context.prisma.country({ id })
-  }
-}; 
+  visits: (parent, args, context) => {
+    return context.prisma.visits({country: parent.id })
+  },
+};
 
 module.exports = {
   Country

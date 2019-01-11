@@ -2,23 +2,28 @@
 
 //-- Construct Query -----------------------------
 const Query = {
-  hello: () => 'Hello',
-  // country: (parent, args, context) => {
-  //   return context.prisma.countries()
-  // },
-  user: (parent, args, context) => {
-    return context.prisma.user({ id: args.id })
-  },
-  country: (parent, args, context) => {
-    return context.prisma.country({ id: args.id })
-  },
-  visit: (parent, args, context) => {
-    return context.prisma.visit({ id: args.id })
-  },
-  visits: (parent, args, context) => {
-    return context.prisma.visits()
-  }
-}
+  //--Sanity Check
+    hello: () => 'Hello',
+    user: (parent, args, context) => {
+        return context.prisma.user({id: args.id});
+    },
+    users: (parent, args, context) => {
+      return context.prisma.users();
+    },
+    countries: (parent, args, context) => {
+      return context.prisma.countries();
+    },
+    country: (parent, args, context) => {
+      return context.prisma.country({ id: args.id });
+    },
+    visits: (parent, args, context) => {
+      return context.prisma.visits();
+    },
+    visit: (parent, args, context) => {
+      return context.prisma.visit({ id: args.id })
+    },
+
+};
 
 //-- Export --------------------------------------
 module.exports = {
