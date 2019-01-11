@@ -1,11 +1,13 @@
 import Link from 'next/link';
 
 // import WorldMap from '../components/Map/Map';
-//
+
 // export default () => (
 //   <div>
 //     <h1>Map?</h1>
-//     <WorldMap />
+//     <div style={{height:'100vh'}}>
+//       <WorldMap />
+//     </div>
 //     <p>
 //       <Link href="/">
 //         <a>Home</a>
@@ -23,7 +25,9 @@ const DynamicComponentWithNoSSR = dynamic(() => import('../components/Map/Map'),
 export default () => (
   <div>
     <h1>Map?</h1>
-    <DynamicComponentWithNoSSR />
+    <div style={{height:'400px',width:'100%',margin:'0'}}>
+      <DynamicComponentWithNoSSR />
+    </div>
     <p>
           <Link href="/">
             <a>Home</a>

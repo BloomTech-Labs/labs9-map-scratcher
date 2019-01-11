@@ -5,7 +5,7 @@
 // ==================================================
 import App, { Container } from 'next/app';
 import { ApolloProvider } from 'react-apollo';
-
+import Meta from '../components/Meta.js';
 import createApolloClient from '../services/createApolloClient.js';
 
 class MyApp extends App {
@@ -26,6 +26,7 @@ class MyApp extends App {
     return (
       <Container>
         <ApolloProvider client={apollo}>
+          <Meta />
           <Component {...pageProps} />
         </ApolloProvider>
       </Container>
