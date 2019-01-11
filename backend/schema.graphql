@@ -6,7 +6,7 @@ type Query {
     countries: [Country!]!
     visits: [Visit!]!
     visit(id: ID!): Visit!
-  
+
 }
 
 type Mutation {

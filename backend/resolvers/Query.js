@@ -1,5 +1,3 @@
-
-
 //== Root Query ================================================================
 
 //-- Construct Query -----------------------------
@@ -24,10 +22,10 @@ const Query = {
     visit: (parent, args, context) => {
       return context.prisma.visit({ id: args.id })
     },
-  
+
 };
 
 //-- Export --------------------------------------
 module.exports = {
-    Query
-};
+  Query
+}

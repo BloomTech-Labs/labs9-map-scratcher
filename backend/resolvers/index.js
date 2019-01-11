@@ -1,9 +1,8 @@
-const { Query } = require('./Query');
-const { Mutation } = require('./Mutation');
-const { User } = require('./User');
-const { Country } = require('./Country');
-const { Visit } = require ('./Visit');
-
+const { Query } = require('./Query')
+const { Mutation } = require('./Mutation')
+const { User } = require('./User')
+const { Country } = require('./Country')
+const { Visit } = require('./Visit')
 
 const resolvers = {
   Query,
