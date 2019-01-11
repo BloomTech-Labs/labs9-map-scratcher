@@ -1,6 +1,9 @@
 type Query {
     user(id: ID!): User!
     hello: String!
+    visit(id: ID!): Visit!
+    visits: [Visit!]!
+    country(id: ID!): Country!
 }
 
 type Mutation {
