@@ -10,7 +10,7 @@ const resolvers = {
   // Mutation,
   User,
   // Country,
-  // Visit
+  Visit
 }
 
 module.exports = {

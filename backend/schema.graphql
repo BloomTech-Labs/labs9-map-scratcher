@@ -2,9 +2,11 @@ type Query {
     user(id: ID!): User!
     users: [User!]!
     hello: String!
+    country(id: ID!): Country!
     countries: [Country!]!
-
-
+    visits: [Visit!]!
+    visit(id: ID!): Visit!
+  
 }
 
 type Mutation {
@@ -25,6 +27,7 @@ type Country {
   id: ID!
   name: String!
   code: String!
+  visits: [Visit]
 }
 
 type Visit {
