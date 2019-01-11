@@ -4,7 +4,7 @@ const User = {
     nickname: (parent) => parent.nickname,
     email: (parent) => parent.email,
     visits: (parent, args, context) => {
-        return context.prisma.visit({user: parent.name})
+        return context.prisma.user({id: parent.id}).visits();
     }
 }
 
