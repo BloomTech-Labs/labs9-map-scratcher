@@ -20,7 +20,7 @@ type User {
   name: String!
   nickname: String!
   email: String!
-  visits: [Visit!]!
+  visits: [Visit]
 }
 
 type Country {

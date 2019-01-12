@@ -13,7 +13,7 @@ const Mutation = {
     })
   },
   // createVisit: async (parent, )
-}; 
+};
 
 module.exports = {
   Mutation
