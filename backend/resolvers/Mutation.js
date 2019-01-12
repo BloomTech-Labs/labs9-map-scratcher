@@ -1,3 +1,5 @@
+
+//-- Construct Mutation -----------------------------
 const Mutation = {
   createUser: async (parent, { name, nickname, email }, context) => {
     return context.prisma.createUser({
@@ -13,6 +15,7 @@ const Mutation = {
     })
   },
   // createVisit: async (parent, )
+  //createFriendship:  (?)
 };
 
 module.exports = {
