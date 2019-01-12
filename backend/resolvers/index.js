@@ -8,7 +8,7 @@ const resolvers = {
   Query,
   // Mutation,
   User,
-  // Country,
+  Country,
   Visit
 }
 

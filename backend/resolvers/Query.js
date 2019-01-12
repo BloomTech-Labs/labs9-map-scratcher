@@ -20,9 +20,8 @@ const Query = {
       return context.prisma.visits();
     },
     visit: (parent, args, context) => {
-      return context.prisma.visit({ id: args.id })
+      return context.prisma.visit({ id: args.id });
     },
-
 };
 
 //-- Export --------------------------------------
