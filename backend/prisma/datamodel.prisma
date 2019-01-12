@@ -3,19 +3,20 @@ type User {
   name: String!
   nickname: String!
   email: String! @unique
-  visits: [Visit!]! @relation(name: "UserCountries")
+  visits: [Visit] @relation(name: "UserCountries")
 }
 
 type Country {
   id: ID! @unique
   name: String!
   code: String!
+  visits: [Visit] @relation(name: "CountryVisits")
 }
 
 type Visit {
 id: ID! @unique
 user: User! @relation(name: "UserCountries")
-country: Country!
+country: Country! @relation(name: "CountryVisits")
 note: String
 level: Int
 }

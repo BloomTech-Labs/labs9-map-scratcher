@@ -19,6 +19,7 @@ type Country {
   id: ID!
   name: String!
   code: String!
+  visits(where: VisitWhereInput, orderBy: VisitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Visit!]
 }
 
 type CountryConnection {
@@ -30,11 +31,17 @@ type CountryConnection {
 input CountryCreateInput {
   name: String!
   code: String!
+  visits: VisitCreateManyWithoutCountryInput
 }
 
-input CountryCreateOneInput {
-  create: CountryCreateInput
+input CountryCreateOneWithoutVisitsInput {
+  create: CountryCreateWithoutVisitsInput
   connect: CountryWhereUniqueInput
+}
+
+input CountryCreateWithoutVisitsInput {
+  name: String!
+  code: String!
 }
 
 type CountryEdge {
@@ -79,14 +86,10 @@ input CountrySubscriptionWhereInput {
   NOT: [CountrySubscriptionWhereInput!]
 }
 
-input CountryUpdateDataInput {
-  name: String
-  code: String
-}
-
 input CountryUpdateInput {
   name: String
   code: String
+  visits: VisitUpdateManyWithoutCountryInput
 }
 
 input CountryUpdateManyMutationInput {
@@ -94,16 +97,21 @@ input CountryUpdateManyMutationInput {
   code: String
 }
 
-input CountryUpdateOneRequiredInput {
-  create: CountryCreateInput
-  update: CountryUpdateDataInput
-  upsert: CountryUpsertNestedInput
+input CountryUpdateOneRequiredWithoutVisitsInput {
+  create: CountryCreateWithoutVisitsInput
+  update: CountryUpdateWithoutVisitsDataInput
+  upsert: CountryUpsertWithoutVisitsInput
   connect: CountryWhereUniqueInput
 }
 
-input CountryUpsertNestedInput {
-  update: CountryUpdateDataInput!
-  create: CountryCreateInput!
+input CountryUpdateWithoutVisitsDataInput {
+  name: String
+  code: String
+}
+
+input CountryUpsertWithoutVisitsInput {
+  update: CountryUpdateWithoutVisitsDataInput!
+  create: CountryCreateWithoutVisitsInput!
 }
 
 input CountryWhereInput {
@@ -149,6 +157,9 @@ input CountryWhereInput {
   code_not_starts_with: String
   code_ends_with: String
   code_not_ends_with: String
+  visits_every: VisitWhereInput
+  visits_some: VisitWhereInput
+  visits_none: VisitWhereInput
   AND: [CountryWhereInput!]
   OR: [CountryWhereInput!]
   NOT: [CountryWhereInput!]
@@ -411,9 +422,14 @@ type VisitConnection {
 
 input VisitCreateInput {
   user: UserCreateOneWithoutVisitsInput!
-  country: CountryCreateOneInput!
+  country: CountryCreateOneWithoutVisitsInput!
   note: String
   level: Int
+}
+
+input VisitCreateManyWithoutCountryInput {
+  create: [VisitCreateWithoutCountryInput!]
+  connect: [VisitWhereUniqueInput!]
 }
 
 input VisitCreateManyWithoutUserInput {
@@ -421,8 +437,14 @@ input VisitCreateManyWithoutUserInput {
   connect: [VisitWhereUniqueInput!]
 }
 
+input VisitCreateWithoutCountryInput {
+  user: UserCreateOneWithoutVisitsInput!
+  note: String
+  level: Int
+}
+
 input VisitCreateWithoutUserInput {
-  country: CountryCreateOneInput!
+  country: CountryCreateOneWithoutVisitsInput!
   note: String
   level: Int
 }
@@ -513,7 +535,7 @@ input VisitSubscriptionWhereInput {
 
 input VisitUpdateInput {
   user: UserUpdateOneRequiredWithoutVisitsInput
-  country: CountryUpdateOneRequiredInput
+  country: CountryUpdateOneRequiredWithoutVisitsInput
   note: String
   level: Int
 }
@@ -526,6 +548,17 @@ input VisitUpdateManyDataInput {
 input VisitUpdateManyMutationInput {
   note: String
   level: Int
+}
+
+input VisitUpdateManyWithoutCountryInput {
+  create: [VisitCreateWithoutCountryInput!]
+  delete: [VisitWhereUniqueInput!]
+  connect: [VisitWhereUniqueInput!]
+  disconnect: [VisitWhereUniqueInput!]
+  update: [VisitUpdateWithWhereUniqueWithoutCountryInput!]
+  upsert: [VisitUpsertWithWhereUniqueWithoutCountryInput!]
+  deleteMany: [VisitScalarWhereInput!]
+  updateMany: [VisitUpdateManyWithWhereNestedInput!]
 }
 
 input VisitUpdateManyWithoutUserInput {
@@ -544,15 +577,32 @@ input VisitUpdateManyWithWhereNestedInput {
   data: VisitUpdateManyDataInput!
 }
 
-input VisitUpdateWithoutUserDataInput {
-  country: CountryUpdateOneRequiredInput
+input VisitUpdateWithoutCountryDataInput {
+  user: UserUpdateOneRequiredWithoutVisitsInput
   note: String
   level: Int
+}
+
+input VisitUpdateWithoutUserDataInput {
+  country: CountryUpdateOneRequiredWithoutVisitsInput
+  note: String
+  level: Int
+}
+
+input VisitUpdateWithWhereUniqueWithoutCountryInput {
+  where: VisitWhereUniqueInput!
+  data: VisitUpdateWithoutCountryDataInput!
 }
 
 input VisitUpdateWithWhereUniqueWithoutUserInput {
   where: VisitWhereUniqueInput!
   data: VisitUpdateWithoutUserDataInput!
+}
+
+input VisitUpsertWithWhereUniqueWithoutCountryInput {
+  where: VisitWhereUniqueInput!
+  update: VisitUpdateWithoutCountryDataInput!
+  create: VisitCreateWithoutCountryInput!
 }
 
 input VisitUpsertWithWhereUniqueWithoutUserInput {
