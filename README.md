@@ -14,6 +14,6 @@
 
 ## Deployment links
 
-- front-end: https://frontend-9v3kr16u3.now.sh/
+- front-end: https://backpaca.now.sh/
 - back-end: https://backpaca-yoga.herokuapp.com/
 - database: https://backpaca-ed6c7c4fde.herokuapp.com/backpaca/prod

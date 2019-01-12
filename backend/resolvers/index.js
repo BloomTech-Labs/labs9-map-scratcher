@@ -6,9 +6,9 @@ const { Visit } = require('./Visit')
 
 const resolvers = {
   Query,
-  // Mutation,
+  Mutation,
   User,
-  // Country,
+  Country,
   Visit
 }
 

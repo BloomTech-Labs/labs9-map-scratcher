@@ -1,6 +1,6 @@
 const Country = {
   visits: (parent, args, context) => {
-    return context.prisma.visits({country: parent.id })
+    return context.prisma.country({ id: parent.id}).visits();
   },
 };
 

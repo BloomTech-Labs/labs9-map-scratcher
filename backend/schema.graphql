@@ -6,7 +6,6 @@ type Query {
     countries: [Country!]!
     visits: [Visit!]!
     visit(id: ID!): Visit!
-
 }
 
 type Mutation {
@@ -20,7 +19,7 @@ type User {
   name: String!
   nickname: String!
   email: String!
-  visits: [Visit!]!
+  visits: [Visit]
 }
 
 type Country {
