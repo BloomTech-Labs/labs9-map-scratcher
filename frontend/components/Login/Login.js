@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Icon } from 'semantic-ui-react'
+import { Button, Icon, Input } from 'semantic-ui-react'
 
 export default class Login extends Component {
 
@@ -8,13 +8,13 @@ export default class Login extends Component {
             <form>
                 <div>
                     <h3>Login User</h3>
-                    <input
+                    <Input
                     type='text'
                     placeholder='username'
                     name='username'
                     value=''
                     />
-                    <input
+                    <Input
                     type='text'
                     placeholder='password'
                     name='password'
@@ -24,7 +24,7 @@ export default class Login extends Component {
                     <Button color='twitter'>
                         <Icon name='twitter' /> Login with Twitter
                     </Button>
-                    <button>Register</button>
+                    <Button>Register</Button>
                     </div>
                 </div>
             </form>
