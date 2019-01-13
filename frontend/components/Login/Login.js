@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
+import { Button, Icon } from 'semantic-ui-react'
 
 export default class Login extends Component {
-
-    buttonStyles = {
-        'margin': '.5% 3% 0% 4%',
-    }
 
 	render() {
 		return (
@@ -24,7 +21,9 @@ export default class Login extends Component {
                     value=''
                     />
                     <div>
-                    <button style={this.buttonStyles}>Log in</button>
+                    <Button color='twitter'>
+                        <Icon name='twitter' /> Login with Twitter
+                    </Button>
                     <button>Register</button>
                     </div>
                 </div>

@@ -6,7 +6,11 @@ export default () => (
   <div>
     <p>
       <Link href="/">
-        <a>Home</a>
+        <a>Home </a>
+      </Link>
+      >
+      <Link href="/login">
+        <a> Login</a>
       </Link>
     </p>
     <Login />
