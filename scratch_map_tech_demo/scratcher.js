@@ -3,12 +3,18 @@
 //== Scratchable Canvas ========================================================
 
 class Scratcher {
+
+    //-- Initialization ------------------------------
     constructor(container) {
         // Setup Main canvas and drawing context
         const scratchCanvas = document.createElement('canvas');
         scratchCanvas.addEventListener(
             'mousemove',
             this.handleMouseMove.bind(this),
+        );
+        scratchCanvas.addEventListener(
+            'touchmove',
+            this.handleTouchMove.bind(this),
         );
         container.appendChild(scratchCanvas);
         this.context = scratchCanvas.getContext('2d');
@@ -36,6 +42,8 @@ class Scratcher {
             this.draw();
         });
     }
+
+    //-- Resource Loading and Management -------------
     async loadResources() {
         const imagesToLoad = {
             alphaMask: 'alpha_mask.svg',
@@ -63,6 +71,8 @@ class Scratcher {
             aspectRatio: resourceElement.width / resourceElement.height,
         };
     }
+    
+    //-- Drawing -------------------------------------
     draw() {
         if(!this.ready) { return;}
         const context = this.context;
@@ -125,6 +135,13 @@ class Scratcher {
         context.restore();
         context.putImageData(scratchData, 0, 0);
     }
+
+    //-- Interaction ---------------------------------
+    handleTouchMove(touchEvent) {
+        touchEvent.preventDefault();
+        touchEvent = touchEvent.changedTouches[0];
+        this.handleMouseMove(touchEvent);
+    }
     handleMouseMove(mouseEvent) {
         const bounds = this.context.canvas.getBoundingClientRect();
         const mouseX = mouseEvent.clientX - bounds.left;
@@ -149,6 +166,6 @@ class Scratcher {
         this.compositingContext.stroke();
         requestAnimationFrame(() => {
             this.draw();
-        })
+        });
     }
 }
