@@ -26,6 +26,7 @@ class Test extends Component {
                         <a> Settings</a>
                     </Link>
                 </p>
+                <div>Test Component</div>
                 <Query query={USER_QUERY}>
                 {({ loading, error, data }) => {
                     if (loading) return <div>Fetching</div>
