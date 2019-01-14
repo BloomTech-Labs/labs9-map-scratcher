@@ -4,12 +4,25 @@
 // ==================================================
 import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-boost';
+import { InMemoryCache } from 'apollo-cache-inmemory'
 
 import { devURL, prodURL } from './config.js';
+
+const defaults = {
+  user: null,
+  friends: [],
+  isLoggedIn: false
+}
+
+const cache = new InMemoryCache();
 
 export default withApollo(
   () =>
     new ApolloClient({
-      uri: process.env.NODE_ENV === 'development' ? devURL : prodURL
+      uri: process.env.NODE_ENV === 'development' ? devURL : prodURL,
+      clientState: {
+        cache,
+        defaults,
+      }
     })
 );
