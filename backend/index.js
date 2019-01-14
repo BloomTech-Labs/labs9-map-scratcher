@@ -12,7 +12,6 @@ const { GraphQLServer } = require('graphql-yoga')
 const { prisma } = require('./prisma/generated/prisma-client')
 
 const { resolvers } = require('./resolvers')
-require('./services/passport/passport')(prisma)
 //------------------------------------------------
 
 const server = new GraphQLServer({
@@ -26,6 +25,7 @@ const server = new GraphQLServer({
   }
 })
 
+require('./services/passport/passport')(server)
 require('./services/passport/middleware')(server)
 require('./services/passport/routes')(server)
 
