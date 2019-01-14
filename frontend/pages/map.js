@@ -14,7 +14,7 @@ export default () => (
         </Link>
         <div>> </div>
         <Link href='/map'>
-           Map
+          <a>Map</a>
         </Link>
       </div>
       <div className='nav-right'>
@@ -30,9 +30,6 @@ export default () => (
     <h1>My Travels &or;</h1>
     <input type='text' placeholder='search'/>
     </div>
-    
-    <div style={{height:'400px',width:'100%',margin:'0'}}>
-      <DynamicMap />
-    </div>
+    <DynamicMap />
   </div>
 )
