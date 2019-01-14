@@ -3,6 +3,9 @@ type User {
   name: String!
   nickname: String!
   email: String! @unique
+  twitterHandle: String
+  scratchingAutomated: Boolean @default(value: "false")
+  isPrivate: Boolean @default(value: "false")
   visits: [Visit] @relation(name: "UserCountries")
 }
 
