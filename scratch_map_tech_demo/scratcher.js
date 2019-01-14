@@ -5,7 +5,9 @@
 class Scratcher {
 
     //-- Initialization ------------------------------
-    constructor(container) {
+    constructor(container, options, callback) {
+        // Store provided completion callback
+        this.completionCallback = callback;
         // Setup Main canvas and drawing context
         const scratchCanvas = document.createElement('canvas');
         scratchCanvas.addEventListener(
@@ -135,6 +137,18 @@ class Scratcher {
         context.restore();
         context.putImageData(scratchData, 0, 0);
     }
+    eraseScratchLine(startX, startY, endX, endY) {
+        this.compositingContext.strokeStyle = 'black';
+        this.compositingContext.lineWidth = 15;
+        this.compositingContext.beginPath();
+        this.compositingContext.moveTo(startX, startY);
+        this.compositingContext.lineTo(endX, endY);
+        this.compositingContext.closePath();
+        this.compositingContext.stroke();
+        requestAnimationFrame(() => {
+            this.draw();
+        });
+    }
 
     //-- Interaction ---------------------------------
     handleTouchMove(touchEvent) {
@@ -156,16 +170,6 @@ class Scratcher {
             x: mouseX,
             y: mouseY,
         };
-        this.compositingContext.strokeStyle = 'black';
-        this.compositingContext.lineWidth = 15;
-        this.compositingContext.lineCap = "round";
-        this.compositingContext.beginPath();
-        this.compositingContext.moveTo(startX, startY);
-        this.compositingContext.lineTo(mouseX, mouseY);
-        this.compositingContext.closePath();
-        this.compositingContext.stroke();
-        requestAnimationFrame(() => {
-            this.draw();
-        });
+        this.eraseScratchLine(startX, startY, mouseX, mouseY);
     }
 }
