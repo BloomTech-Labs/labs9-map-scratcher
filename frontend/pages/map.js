@@ -14,7 +14,7 @@ export default () => (
         </Link>
         <div>></div>
         <Link href='/map'>
-          Map
+          <a>Map</a>
         </Link>
       </div>
       <div className='nav-right'>
