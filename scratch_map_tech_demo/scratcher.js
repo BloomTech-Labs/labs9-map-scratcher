@@ -13,6 +13,9 @@ const COMPLETION_PIXEL_RATIO = 1/75;
 const OUTLINE_WIDTH = 3;
 /* OUTLINE_WIDTH: The size of the outline around the scratchable country map.
     Will be rounded up to nearest integer. */
+const SCRATCH_LINE_WIDTH = 28;
+/* SCRATCH_LINE_WIDTH: the width of lines that are scratched into the map while
+    the user scratches across the map (either via mouse or touch device). */
 
 
 //== Initialization ============================================================
@@ -23,6 +26,8 @@ class Scratcher {
         this.completionCallback = callback;
         // Setup Main canvas and drawing context
         const scratchCanvas = document.createElement('canvas');
+        scratchCanvas.width  = 300;
+        scratchCanvas.height = 300;
         scratchCanvas.addEventListener(
             'mousemove',
             this.handleMouseMove.bind(this),
@@ -231,7 +236,7 @@ class Scratcher {
         // Draw a line on compositing canvas from start(x,y) to end(x,y)
         const context = this.compositingContext;
         context.strokeStyle = 'black';
-        context.lineWidth = 15;
+        context.lineWidth = SCRATCH_LINE_WIDTH;
         context.beginPath();
         context.moveTo(startX, startY);
         context.lineTo(endX, endY);
