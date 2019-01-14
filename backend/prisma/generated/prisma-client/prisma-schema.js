@@ -233,6 +233,9 @@ type User {
   name: String!
   nickname: String!
   email: String!
+  twitterHandle: String
+  scratchingAutomated: Boolean
+  isPrivate: Boolean
   visits(where: VisitWhereInput, orderBy: VisitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Visit!]
 }
 
@@ -246,6 +249,9 @@ input UserCreateInput {
   name: String!
   nickname: String!
   email: String!
+  twitterHandle: String
+  scratchingAutomated: Boolean
+  isPrivate: Boolean
   visits: VisitCreateManyWithoutUserInput
 }
 
@@ -258,6 +264,9 @@ input UserCreateWithoutVisitsInput {
   name: String!
   nickname: String!
   email: String!
+  twitterHandle: String
+  scratchingAutomated: Boolean
+  isPrivate: Boolean
 }
 
 type UserEdge {
@@ -274,6 +283,12 @@ enum UserOrderByInput {
   nickname_DESC
   email_ASC
   email_DESC
+  twitterHandle_ASC
+  twitterHandle_DESC
+  scratchingAutomated_ASC
+  scratchingAutomated_DESC
+  isPrivate_ASC
+  isPrivate_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -285,6 +300,9 @@ type UserPreviousValues {
   name: String!
   nickname: String!
   email: String!
+  twitterHandle: String
+  scratchingAutomated: Boolean
+  isPrivate: Boolean
 }
 
 type UserSubscriptionPayload {
@@ -309,6 +327,9 @@ input UserUpdateInput {
   name: String
   nickname: String
   email: String
+  twitterHandle: String
+  scratchingAutomated: Boolean
+  isPrivate: Boolean
   visits: VisitUpdateManyWithoutUserInput
 }
 
@@ -316,6 +337,9 @@ input UserUpdateManyMutationInput {
   name: String
   nickname: String
   email: String
+  twitterHandle: String
+  scratchingAutomated: Boolean
+  isPrivate: Boolean
 }
 
 input UserUpdateOneRequiredWithoutVisitsInput {
@@ -329,6 +353,9 @@ input UserUpdateWithoutVisitsDataInput {
   name: String
   nickname: String
   email: String
+  twitterHandle: String
+  scratchingAutomated: Boolean
+  isPrivate: Boolean
 }
 
 input UserUpsertWithoutVisitsInput {
@@ -393,6 +420,24 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  twitterHandle: String
+  twitterHandle_not: String
+  twitterHandle_in: [String!]
+  twitterHandle_not_in: [String!]
+  twitterHandle_lt: String
+  twitterHandle_lte: String
+  twitterHandle_gt: String
+  twitterHandle_gte: String
+  twitterHandle_contains: String
+  twitterHandle_not_contains: String
+  twitterHandle_starts_with: String
+  twitterHandle_not_starts_with: String
+  twitterHandle_ends_with: String
+  twitterHandle_not_ends_with: String
+  scratchingAutomated: Boolean
+  scratchingAutomated_not: Boolean
+  isPrivate: Boolean
+  isPrivate_not: Boolean
   visits_every: VisitWhereInput
   visits_some: VisitWhereInput
   visits_none: VisitWhereInput
