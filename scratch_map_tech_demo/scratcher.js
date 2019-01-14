@@ -7,10 +7,10 @@ const COMPLETION_CHECK_RATE = 1000/4;
 /* Completion Check Rate: The number of miliseconds between checks to see if
     the user has completed scratching the entire map. (only takes place during
     and immediately after scratch actions.) */
-const COMPLETION_PIXEL_RATIO = 1/75;
+const COMPLETION_PIXEL_RATIO = 1/70;
 /* Completion Pixel Ratio: The ratio of unscratched pixels to scratchable pixels
     below which scratching is considered complete. */
-const OUTLINE_WIDTH = 3;
+const OUTLINE_WIDTH = 5;
 /* OUTLINE_WIDTH: The size of the outline around the scratchable country map.
     Will be rounded up to nearest integer. */
 const SCRATCH_LINE_WIDTH = 28;
@@ -98,7 +98,9 @@ class Scratcher {
         // Clear Canvas
         context.clearRect(0, 0, canvas.width, canvas.height);
         // Set Alpha Mask
-        this.centerImage(this.imageCountry, context, OUTLINE_WIDTH);
+        this.centerImage(this.imageCountry, context, {
+            margin: OUTLINE_WIDTH,
+        });
         context.globalCompositeOperation = 'source-in';
         // Draw Background
         context.fillStyle = this.colorScratch;
@@ -128,9 +130,13 @@ class Scratcher {
         const stampContext = stampCanvas.getContext('2d');
         // Draw country shape onto stamp canvas
         stampContext.fillStyle = this.colorBorder;
+        stampContext.globalAlpha = 0.3;
         stampContext.fillRect(0, 0, stampCanvas.width, stampCanvas.height);
         stampContext.globalCompositeOperation = 'destination-in';
-        this.centerImage(this.imageCountry, stampContext, OUTLINE_WIDTH);
+        this.centerImage(this.imageCountry, stampContext, {
+            margin: OUTLINE_WIDTH,
+        });
+        stampContext.globalAlpha = 1;
         // Build outline by repeatedly drawing "stamp" at several pixel offsets
         let outlineWidth = OUTLINE_WIDTH;
         for(let iteration = 0; iteration < outlineWidth; iteration++) {
@@ -152,12 +158,22 @@ class Scratcher {
     }
     
     //-- Draw image centered on supplied context -----
-    centerImage(sourceImage, context, margin, offsetX, offsetY) {
-        /* Draw sourceImage into the center of supplied context, optionally
-            offset by (x,y), and leaving an optional margin around all edges.
+    centerImage(sourceImage, context, options) {
+        /* Draw sourceImage into the center of supplied context, with options:
+            offsetX / offsetY: Offset drawing location by number of pixels,
+                which is useful for a slight thickness effect.
+            margin: Allow a margin of extra pixels around the image, which is
+                useful for drawing an outline around the shape later.
+            cover: Set to True to ensure that the image covers the entire canvas
+                while perserving its aspect ratio. This is necessary to ensure
+                that the country's flag covers all of its map area.
         */
         const canvas = context.canvas;
-        margin = margin || 0;
+        options = options || {};
+        const margin  = options.margin  || 0;
+        const cover   = options.cover   || false;
+        const offsetX = options.offsetX || 0;
+        const offsetY = options.offsetY || 0;
         // Calculate the available space on the canvas, and its aspect ratio
         const fullWidth  = canvas.width  - (margin*2);
         const fullHeight = canvas.height - (margin*2);
@@ -166,7 +182,11 @@ class Scratcher {
         const resourceRatio = sourceImage.width / sourceImage.height;
         let drawWidth;
         let drawHeight;
-        if(resourceRatio > aspectRatio){
+        let setWidthEqual = (resourceRatio > aspectRatio);
+        if(cover){
+            setWidthEqual = !setWidthEqual;
+        }
+        if(setWidthEqual){
             drawWidth = fullWidth;
             drawHeight = drawWidth / resourceRatio;
         } else {
@@ -197,7 +217,9 @@ class Scratcher {
         const canvas = context.canvas;
         // First center image of country, then overlay black using 'source-out'
         context.save();
-        this.centerImage(this.imageCountry, context, OUTLINE_WIDTH);
+        this.centerImage(this.imageCountry, context, {
+            margin: OUTLINE_WIDTH,
+        });
         context.globalCompositeOperation = 'source-out';
         context.fillStyle = 'black';
         context.fillRect(0, 0, canvas.width, canvas.height);
@@ -222,9 +244,14 @@ class Scratcher {
         this.centerImage(canvas, this.context);
         // Draw flag onto composite context
         context.globalCompositeOperation = 'source-atop';
-        this.centerImage(this.imageFlag, context);
+        this.centerImage(this.imageFlag, context, {
+            cover: true,
+        });
         // Draw composite onto MAIN CONTEXT
-        this.centerImage(canvas, this.context, 0, 0, -1);
+        this.centerImage(canvas, this.context, {
+            offsetX:  0,
+            offsetY: -1,
+        });
         // Replace Scratch amount data
         this.context.restore();
         context.restore();
