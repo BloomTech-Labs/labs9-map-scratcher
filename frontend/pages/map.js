@@ -10,11 +10,11 @@ export default () => (
     <nav style={{display:'flex',justifyContent:'space-between'}}>
       <div className='nav-left' style={{display:'flex'}}>
         <Link href='/'>
-          <a>Home</a>
+          <a>Home </a>
         </Link>
-        <div>></div>
+        <div>> </div>
         <Link href='/map'>
-          Map
+           Map
         </Link>
       </div>
       <div className='nav-right'>

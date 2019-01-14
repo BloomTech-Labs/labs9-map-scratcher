@@ -4,11 +4,13 @@ import Users from '../components/User/Users.js';
 
 export default () => (
   <div>
-    <Users />
-    <p>
-      <Link href="/">
-        <a>Home</a>
+     <Link href="/">
+        <a>Home </a>
       </Link>
-    </p>
+      >
+      <Link href="/users">
+        <a> Users</a>
+      </Link>
+    <Users />
   </div>
 );

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Checkbox, Form, Input } from 'semantic-ui-react'
 
 export default class Settings extends Component {
 
@@ -22,10 +23,10 @@ export default class Settings extends Component {
 
 	render() {
 		return (
-            <form style={this.form}>
+            <Form style={this.form}>
                 <div>
                     <p style={this.giveMeSpace}>Email:
-                        <input
+                        <Input
                         style={this.textSpacing}
                         type='text'
                         placeholder='email'
@@ -34,15 +35,16 @@ export default class Settings extends Component {
                         />
                     </p>
                     <p style={this.giveMeSpace}>
-                        <input
+                        <Checkbox
+                        style={{paddingRight: '5%'}}
                         type='checkbox'
                         name='automateScratchOff'
                         value=''
                         />
-                        Automate scratch off
+                         &nbsp;&nbsp;Automate scratch off
                     </p>
                     <p style={this.giveMeSpace}>Old Password:
-                        <input
+                        <Input
                         style={this.textSpacing}
                         type='text'
                         placeholder='old password'
@@ -51,7 +53,7 @@ export default class Settings extends Component {
                         />
                     </p>
                     <p style={this.giveMeSpace}>New Password:
-                        <input
+                        <Input
                         style={this.textSpacing}
                         type='text'
                         placeholder='new password'
@@ -60,10 +62,10 @@ export default class Settings extends Component {
                         />
                     </p>
                     <div>
-                        <button style={this.buttonStyle} onClick={(e) => e.preventDefault()}>Save</button>
+                        <Button style={this.buttonStyle} onClick={(e) => e.preventDefault()}>Save</Button>
                     </div>
                 </div>
-            </form>
+            </Form>
 		)
 	}
 }
