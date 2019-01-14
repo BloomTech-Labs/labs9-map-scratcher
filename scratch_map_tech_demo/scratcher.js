@@ -6,10 +6,13 @@
 const COMPLETION_CHECK_RATE = 1000/4;
 /* Completion Check Rate: The number of miliseconds between checks to see if
     the user has completed scratching the entire map. (only takes place during
-    and immediately after scratch actions.)*/
+    and immediately after scratch actions.) */
 const COMPLETION_PIXEL_RATIO = 1/75;
 /* Completion Pixel Ratio: The ratio of unscratched pixels to scratchable pixels
-    below which scratching is considered complete.*/
+    below which scratching is considered complete. */
+const OUTLINE_WIDTH = 3;
+/* OUTLINE_WIDTH: The size of the outline around the scratchable country map.
+    Will be rounded up to nearest integer. */
 
 
 //== Initialization ============================================================
@@ -36,56 +39,47 @@ class Scratcher {
         compositingCanvas.height = scratchCanvas.height;
         this.compositingContext = compositingCanvas.getContext('2d');
         //container.appendChild(compositingCanvas);
-        // Configure scratch color
-        this.scratchColor = options.scratchColor;
+        // Configure colors
+        this.colorScratch = options.colorScratch;
+        this.colorBorder  = options.colorBorder ;
         // Load Resources
         this.ready = false;
-        this.resources = {};
-        this.setupResource(compositingCanvas, 'compositingCanvas');
-        const resourcesToLoad = {
-            alphaMask: options.countryImageUrl,
-            flag: options.countryFlagUrl,
-        };
-        this.loadResources(resourcesToLoad).then(() => {
+        this.configureCountry(options.urlCountry, options.urlFlag)
+        .then(() => {
             this.ready = true;
             // Setup scratch overlay
             this.createScratchLayer();
+            // Generate Outline
+            this.generateOutline();
             // Do initial Draw
             requestAnimationFrame(() => {
                 this.draw();
             });
+        // Throw any errors encountered while loading
+        }).catch((error) => {
+            throw error;
         });
     }
 
-
-//== Resource Loading and Management ===========================================
-
-    //-- Load Resources ------------------------------
-    async loadResources(urlsToLoad) {
-        const loadingPromises = [];
-        Object.keys(urlsToLoad).forEach(imageId => {
-            const imageUrl = urlsToLoad[imageId];
-            const loadImage = new Image();
-            const loadPromise = new Promise((resolve, reject) => {
-                loadImage.addEventListener("error", reject);
-                loadImage.addEventListener("load" , () => {
-                    this.setupResource(loadImage, imageId);
-                    resolve();
-                });
-                loadImage.src = imageUrl;
+    //-- Load Resources for specific Country ---------
+    async configureCountry(urlCountry, urlFlag) {
+        // Create images of the map (alpha mask) and flag, to be used in draw
+        this.imageCountry = new Image();
+        this.imageFlag    = new Image();
+        // Create a promise that will resolve once the image loads
+        function loadImage(unloadedImage, urlToLoad) {
+            return new Promise((resolve, reject) => {
+                unloadedImage.addEventListener("error", reject );
+                unloadedImage.addEventListener("load" , resolve);
+                unloadedImage.src = urlToLoad;
             });
-            loadingPromises.push(loadPromise);
-        });
-        return Promise.all(loadingPromises);
+        }
+        // Wrap both promises in one promise
+        return Promise.all([
+            loadImage(this.imageCountry, urlCountry),
+            loadImage(this.imageFlag   , urlFlag   ),
+        ]);
     };
-    
-    //-- Setup Resources -----------------------------
-    setupResource(resourceElement, resourceId) {
-        this.resources[resourceId] = {
-            image: resourceElement,
-            aspectRatio: resourceElement.width / resourceElement.height,
-        };
-    }
 
     
 //== Drawing ===================================================================
@@ -99,15 +93,92 @@ class Scratcher {
         // Clear Canvas
         context.clearRect(0, 0, canvas.width, canvas.height);
         // Set Alpha Mask
-        this.centerImage(this.resources.alphaMask, context);
+        this.centerImage(this.imageCountry, context, OUTLINE_WIDTH);
         context.globalCompositeOperation = 'source-in';
         // Draw Background
-        context.fillStyle = this.scratchColor;
+        context.fillStyle = this.colorScratch;
         context.fillRect(0, 0, canvas.width, canvas.height);
         // Draw Foreground (Map)
         this.drawScratchOverlay();
+        // Draw Outline
+        context.globalCompositeOperation = 'destination-over';
+        context.drawImage(this.imageOutline, 0, 0, canvas.width, canvas.height);
         // Cleanup
         context.restore();
+    }
+    
+    //-- Generate Outline ----------------------------
+    generateOutline() {
+        const context = this.compositingContext;
+        const canvas = context.canvas;
+        // Save old data from compositing canvas
+        const savedData = context.getImageData(
+            0, 0, canvas.width, canvas.height,
+        );
+        context.save();
+        // Create new canvas to use as source image to draw onto this context
+        const stampCanvas = document.createElement('canvas');
+        stampCanvas.width  = canvas.width ;
+        stampCanvas.height = canvas.height;
+        const stampContext = stampCanvas.getContext('2d');
+        // Draw country shape onto stamp canvas
+        stampContext.fillStyle = this.colorBorder;
+        stampContext.fillRect(0, 0, stampCanvas.width, stampCanvas.height);
+        stampContext.globalCompositeOperation = 'destination-in';
+        this.centerImage(this.imageCountry, stampContext, OUTLINE_WIDTH);
+        // Build outline by repeatedly drawing "stamp" at several pixel offsets
+        let outlineWidth = OUTLINE_WIDTH;
+        for(let iteration = 0; iteration < outlineWidth; iteration++) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            for(let posY = -1; posY <= 1; posY++) {
+                for(let posX = -1; posX <= 1; posX++) {
+                    context.drawImage(stampCanvas, posX, posY);
+                }
+            }
+            stampContext.globalCompositeOperation = 'copy';
+            stampContext.drawImage(canvas, 0, 0);
+        }
+        // Save outline for later use
+        this.imageOutline = stampCanvas;
+        //document.body.appendChild(stampCanvas)
+        // Restore compositing canvas to previous state
+        context.restore();
+        context.putImageData(savedData, 0, 0);
+    }
+    
+    //-- Draw image centered on supplied context -----
+    centerImage(sourceImage, context, margin, offsetX, offsetY) {
+        /* Draw sourceImage into the center of supplied context, optionally
+            offset by (x,y), and leaving an optional margin around all edges.
+        */
+        const canvas = context.canvas;
+        margin = margin || 0;
+        // Calculate the available space on the canvas, and its aspect ratio
+        const fullWidth  = canvas.width  - (margin*2);
+        const fullHeight = canvas.height - (margin*2);
+        const aspectRatio = fullWidth / fullHeight;
+        // Calculate dimensions at which to draw the image.
+        const resourceRatio = sourceImage.width / sourceImage.height;
+        let drawWidth;
+        let drawHeight;
+        if(resourceRatio > aspectRatio){
+            drawWidth = fullWidth;
+            drawHeight = drawWidth / resourceRatio;
+        } else {
+            drawHeight = fullHeight;
+            drawWidth = resourceRatio * drawHeight;
+        }
+        // Calculate the offset at which the resized image will be centered
+        let drawOffsetX = ((fullWidth  - drawWidth ) / 2)+margin;
+        let drawOffsetY = ((fullHeight - drawHeight) / 2)+margin;
+        // Apply specified offset (useful for slight thinkess effect)
+        if(offsetX){ drawOffsetX += offsetX;}
+        if(offsetY){ drawOffsetY += offsetY;}
+        // Draw image
+        context.drawImage(
+            sourceImage,
+            drawOffsetX, drawOffsetY, drawWidth, drawHeight,
+        );
     }
     
     //-- Draw an unscratched scratching layer --------
@@ -115,42 +186,19 @@ class Scratcher {
         /* Onto the compositing context, draw full black everywhere except
             within the bounds of the country, which remain transparent. As the
             user scratches the country, the transparent region will be filled
-            with black pixels. */
-        const compositingCanvas = this.compositingContext.canvas;
+            with black pixels.
+        */
+        const context = this.compositingContext;
+        const canvas = context.canvas;
         // First center image of country, then overlay black using 'source-out'
-        this.compositingContext.save();
-        this.centerImage(this.resources.alphaMask, this.compositingContext);
-        this.compositingContext.globalCompositeOperation = 'source-out';
-        this.compositingContext.fillStyle = 'black';
-        this.compositingContext.fillRect(
-            0, 0, compositingCanvas.width, compositingCanvas.height
-        );
-        this.compositingContext.restore();
+        context.save();
+        this.centerImage(this.imageCountry, context, OUTLINE_WIDTH);
+        context.globalCompositeOperation = 'source-out';
+        context.fillStyle = 'black';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.restore();
         // Calculate number of pixels that need to be scratched
         this.itchyPixels = this.unscratchedPixelCount();
-    }
-    
-    //-- Draw image centered on supplied context -----
-    centerImage(drawResource, context, offsetX, offsetY) {
-        const canvas = context.canvas;
-        const aspectRatio = canvas.width / canvas.height;
-        let drawWidth;
-        let drawHeight;
-        if(drawResource.aspectRatio > aspectRatio){
-            drawWidth = canvas.width;
-            drawHeight = drawWidth / drawResource.aspectRatio;
-        } else {
-            drawHeight = canvas.height;
-            drawWidth = drawResource.aspectRatio * drawHeight;
-        }
-        let drawOffsetX = (canvas.width  - drawWidth ) / 2;
-        let drawOffsetY = (canvas.height - drawHeight) / 2;
-        if(offsetX){ drawOffsetX += offsetX;}
-        if(offsetY){ drawOffsetY += offsetY;}
-        context.drawImage(
-            drawResource.image,
-            drawOffsetX, drawOffsetY, drawWidth, drawHeight,
-        );
     }
     
     //-- Overlay scratch layer onto display context --
@@ -166,12 +214,12 @@ class Scratcher {
         context.globalCompositeOperation = 'source-out';
         context.fillStyle = 'black';
         context.fillRect(0, 0, canvas.width, canvas.height);
-        this.centerImage(this.resources.compositingCanvas, this.context);
+        this.centerImage(canvas, this.context);
         // Draw flag onto composite context
         context.globalCompositeOperation = 'source-atop';
-        this.centerImage(this.resources.flag, context);
+        this.centerImage(this.imageFlag, context);
         // Draw composite onto MAIN CONTEXT
-        this.centerImage(this.resources.compositingCanvas, this.context, 0, -1);
+        this.centerImage(canvas, this.context, 0, 0, -1);
         // Replace Scratch amount data
         this.context.restore();
         context.restore();
@@ -180,15 +228,19 @@ class Scratcher {
     
     //-- Erase a line across the scratch layer -------
     eraseScratchLine(startX, startY, endX, endY) {
-        this.compositingContext.strokeStyle = 'black';
-        this.compositingContext.lineWidth = 15;
-        this.compositingContext.beginPath();
-        this.compositingContext.moveTo(startX, startY);
-        this.compositingContext.lineTo(endX, endY);
-        this.compositingContext.closePath();
-        this.compositingContext.stroke();
+        // Draw a line on compositing canvas from start(x,y) to end(x,y)
+        const context = this.compositingContext;
+        context.strokeStyle = 'black';
+        context.lineWidth = 15;
+        context.beginPath();
+        context.moveTo(startX, startY);
+        context.lineTo(endX, endY);
+        context.closePath();
+        context.stroke();
+        // Display Canvas
         requestAnimationFrame(() => {
             this.draw();
+            // Check if canvas is completely scratched
             this.scheduleCompletionCheck();
         });
     }
