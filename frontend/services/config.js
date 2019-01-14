@@ -1,2 +1,2 @@
-export const devURL = 'http://localhost:4444';
-export const prodURL = 'yogaproductionserver';
+export const devURL = 'https://backpaca-yoga.herokuapp.com/';
+export const prodURL = 'https://backpaca-yoga.herokuapp.com/';
