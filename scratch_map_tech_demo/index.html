@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 #scratcher {
-    /*background: green;*/
+    background: green;
 }
 canvas {
     /*
@@ -27,7 +27,19 @@ canvas {
     <script src="scratcher.js"></script>
     <script>
         let scratchDiv = document.getElementById('scratcher');
-        let example = new Scratcher(scratchDiv);
+        function completionCallback() {
+            console.log('SCRATCHING COMPLETED');
+        }
+        const countryOptions = {
+            countryImageUrl: 'peru.png'     ,
+            countryFlagUrl : 'peru_flag.gif',
+            scratchColor   : 'purple'       ,
+        };
+        let example = new Scratcher(
+            scratchDiv,
+            countryOptions,
+            completionCallback,
+        );
         example.draw();
     </script>
 </body>
