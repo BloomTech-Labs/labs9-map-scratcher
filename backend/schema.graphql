@@ -13,7 +13,7 @@ type Mutation {
   updateUser(name: String!, nickname: String!, email: String! id: ID!): User!
   deleteUser(id: ID!): User!
   createCountry(name: String!, code: String!): Country!
-  # createVisit(user: ID!, country: ID!, level: Int, note: String): Visit!
+  createVisit(userId: ID!, countryId: ID!, level: Int, note: String): Visit!
 }
 
 type User {
