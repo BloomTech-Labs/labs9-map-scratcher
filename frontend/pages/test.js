@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { Component } from 'react'
-import { ApolloConsumer, Query } from 'react-apollo'
+import { Query, Mutation, ApolloConsumer } from 'react-apollo'
 import gql from 'graphql-tag'
 
 const USER_QUERY = gql`
@@ -19,8 +19,18 @@ const isLoggedIn = gql`
   }
 `
 
+const createMutation = gql`
+    mutation CreateUser($name: String!, $nickname: String!, $email: String!){
+        createUser(name: $name, nickname: $nickname, email: $email) {
+            name
+        }
+    }
+`
+
 class Test extends Component {
+
     render() {
+        let input;
         return (
             <div>
                 <p>
@@ -33,8 +43,6 @@ class Test extends Component {
                     </Link>
                 </p>
                 {/* Updates state locally, writes directly to the cache. Direct writes are great for one-off mutations that don’t depend on the data that’s currently in the cache, such as writing a single value. */}
-                <ApolloConsumer>
-                    {() => (
                     <Query query={isLoggedIn}>
                     {({ client, data }) => {
                         console.log(data)
@@ -47,8 +55,22 @@ class Test extends Component {
                         )
                     }}
                     </Query>
-                    )}
-                </ApolloConsumer>
+                    {/* add user example */}
+                    <Mutation mutation={createMutation}>
+                       {( createUser, {data} ) => (
+                           <div>
+                               <button
+                                    onClick={e => {
+                                    e.preventDefault();
+                                    createUser({ variables: { name: 'input.name', nickname: 'input.nickname', email: 'input.email' } });
+                                    }}
+                                >
+                                add user
+                            </button>
+                           </div>
+                       )}
+                    </Mutation>
+                    
                 <div>Test Component</div>
                  {/* query data */}
                 <Query query={USER_QUERY}>
