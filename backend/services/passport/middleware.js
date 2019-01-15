@@ -14,8 +14,8 @@ module.exports = ({ express }) => {
   express.use(
     cookieSession({
       name: 'Backpaca',
-      key: keys.cookieKey,
-      maxAge: 60 * 60 * 1000 // 1 hour
+      keys: keys.cookieKey,
+      maxAge: 2 * 60 * 1000 // 1 hour
     })
   )
   express.use(passport.initialize())
