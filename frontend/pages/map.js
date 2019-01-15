@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic'
+import MapIndex from '../components/Map/mapPage/index.js'
 
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false
@@ -21,15 +22,7 @@ export default () => (
         <a>Sign Out</a>
       </div>
     </nav>
-    
-    <div className='map-header' style={{display:'flex',justifyContent:'space-evenly',alignItems:'center'}}>
-      <div className='friend-checkbox' style={{display:'flex'}}>
-        <input type="checkbox" />
-        <div>Show Friends' Travels</div>
-      </div>
-    <h1>My Travels &or;</h1>
-    <input type='text' placeholder='search'/>
-    </div>
+    <MapIndex />
     <DynamicMap />
   </div>
 )

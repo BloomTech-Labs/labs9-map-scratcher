@@ -28,9 +28,22 @@ const createMutation = gql`
 `
 
 class Test extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            nickname: '',
+            email: ''
+        }
+
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    handleChange(event) {
+        this.setState({[event.target.name]: event.target.value});
+      }
 
     render() {
-        let input;
         return (
             <div>
                 <p>
@@ -55,22 +68,45 @@ class Test extends Component {
                         )
                     }}
                     </Query>
-                    {/* add user example */}
-                    <Mutation mutation={createMutation}>
-                       {( createUser, {data} ) => (
-                           <div>
-                               <button
-                                    onClick={e => {
-                                    e.preventDefault();
-                                    createUser({ variables: { name: 'input.name', nickname: 'input.nickname', email: 'input.email' } });
-                                    }}
-                                >
-                                add user
-                            </button>
-                           </div>
-                       )}
-                    </Mutation>
-                    
+                    {/* add user example using a form */}
+                    <form>
+                        <input
+                        type='text'
+                        placeholder='name'
+                        name='name'
+                        value={this.state.name}
+                        onChange={this.handleChange}
+                        />
+                        <input
+                        type='text'
+                        placeholder='nickname'
+                        name='nickname'
+                        value={this.state.nickname}
+                        onChange={this.handleChange}
+                        />
+                        <input
+                        type='text'
+                        placeholder='email'
+                        name='email'
+                        value={this.state.email}
+                        onChange={this.handleChange}
+                        />
+                        <Mutation mutation={createMutation}>
+                        {( createUser ) => (
+                                <button
+                                        onClick={e => {
+                                        e.preventDefault();
+                                        createUser({ variables: { name: this.state.name, nickname: this.state.nickname, email: this.state.email } });
+                                        this.setState({ name: '', nickname: '', email: '' })
+                                        }
+                                    }
+                                        
+                                    >
+                                    add user
+                                </button>
+                        )}
+                        </Mutation>
+                    </form>
                 <div>Test Component</div>
                  {/* query data */}
                 <Query query={USER_QUERY}>
