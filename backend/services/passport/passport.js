@@ -5,23 +5,26 @@ const TwitterStrategy = require('passport-twitter').Strategy
 
 // TWITTER PASSPORT STRATEGY
 // ==============================================
-module.exports = async prisma => {
+module.exports = prisma => {
   // const user = await prisma;
-	// console.log(Object.keys(prisma))
-		const userQuery1 = { id: "cjqpxk83t000o0829p7mr6qto"}
-  	const query = `
-    query {
-      user(id: "cjqpxk83t000o0829p7mr6qto") {
-        id
-        name
-      }
-    }
-  `;
-		//const unknownPromise = prisma.$graphql(query);
-		const unknownPromise = prisma.user(userQuery1)
-  	const result = await unknownPromise;
-    console.log('[user]', result);
-  // passport.serializeUser((user, done) => done(null, user.id))
+  // console.log(Object.keys(prisma))
+  // const userQuery1 = { id: 'cjqpxk83t000o0829p7mr6qto' }
+  // const query = `
+  //   query {
+  //     user(id: "cjqpxk83t000o0829p7mr6qto") {
+  //       id
+  //       name
+  //     }
+  //    }
+  // `
+  // const unknownPromise = prisma.user(userQuery1)
+  // const result = await unknownPromise
+  // console.log('[user]', result)
+  passport.serializeUser((user, done) => done(null, user.id))
+  passport.deserializeUser(async (id, done) => {
+    const user = await prisma.user({ id })
+    done(null, user)
+  })
   // passport.deserializeUser((id, done) => {
   // User.findById(id).then(user => {
   //   done(null, user);
