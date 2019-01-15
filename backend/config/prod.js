@@ -1,4 +1,5 @@
 module.exports = {
-	twitterConsumerKey: 'QEdmM2XlFqiIs8ILzZr9Ndp8n',
-  twitterConsumerSecret: 'mYVYHfPqjvSXYzSfhbah7MIoSp4p8bxCfpDcxsdMH79l947Jrg'
+  twitterConsumerKey: process.env.TWITTER_CONSUMER_KEY,
+	twitterConsumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+	cookieKey: process.env.COOKIE_KEY
 }
