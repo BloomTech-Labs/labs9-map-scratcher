@@ -1,17 +1,19 @@
 type Query {
-    user(id: ID!): User!
-    users: [User!]!
-    hello: String!
-    country(id: ID!): Country!
-    countries: [Country!]!
-    visits: [Visit!]!
-    visit(id: ID!): Visit!
+  user(id: ID!): User!
+  users: [User!]!
+  hello: String!
+  country(id: ID!): Country!
+  countries: [Country!]!
+  visits: [Visit!]!
+  visit(id: ID!): Visit!
 }
 
 type Mutation {
-    createUser(name: String!, nickname: String!, email: String!): User!
-    updateUser(name: String!, nickname: String!, email: String! id: ID!): User!
-    # createVisit(user: ID!, country: ID!, level: Int, note: String): Visit!
+  createUser(name: String!, nickname: String!, email: String!): User!
+  updateUser(name: String!, nickname: String!, email: String! id: ID!): User!
+  deleteUser(id: ID!): User!
+  createCountry(name: String!, code: String!): Country!
+  # createVisit(user: ID!, country: ID!, level: Int, note: String): Visit!
 }
 
 type User {
@@ -20,6 +22,9 @@ type User {
   nickname: String!
   email: String!
   visits: [Visit]
+  twitterHandle: String
+  scratchingAutomated: Boolean
+  isPrivate: Boolean
 }
 
 type Country {
@@ -30,9 +35,9 @@ type Country {
 }
 
 type Visit {
-id: ID!
-user: User!
-country: Country!
-note: String
-level: Int
+  id: ID!
+  user: User!
+  country: Country!
+  note: String
+  level: Int
 }
