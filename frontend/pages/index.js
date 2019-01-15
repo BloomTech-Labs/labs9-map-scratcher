@@ -1,4 +1,12 @@
 import Link from 'next/link';
+import { Query, Mutation, ApolloConsumer } from 'react-apollo'
+import gql from 'graphql-tag'
+
+const isLoggedIn = gql`
+  {
+    isLoggedIn @client 
+  }
+`
 
 export default () => (
   <div>
@@ -20,5 +28,14 @@ export default () => (
         <a>Settings</a>
       </Link>
     </div>
+
+
+
+    <Query query={isLoggedIn}> 
+      {({ client, data }) => {
+        return data.isLoggedIn === true ? <div>true</div>:<div>false</div>
+      }}
+
+    </Query>
   </div>
 );
