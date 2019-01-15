@@ -11,6 +11,7 @@ type Query {
 type Mutation {
     createUser(name: String!, nickname: String!, email: String!): User!
     updateUser(name: String!, nickname: String!, email: String! id: ID!): User!
+    deleteUser(id: ID!): User!
     # createVisit(user: ID!, country: ID!, level: Int, note: String): Visit!
 }
 

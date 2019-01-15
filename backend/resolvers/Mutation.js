@@ -14,6 +14,11 @@ const Mutation = {
       data: { name, nickname, email }
     })
   },
+  deleteUser: async (parent, { id }, context) => {
+    return context.prisma.deleteUser({
+      id
+    })
+  }
   // createVisit: async (parent, )
   //createFriendship:  (?)
 };
