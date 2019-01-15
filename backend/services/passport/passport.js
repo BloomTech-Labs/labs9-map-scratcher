@@ -21,16 +21,12 @@ module.exports = prisma => {
   // const result = await unknownPromise
   // console.log('[user]', result)
   passport.serializeUser((user, done) => done(null, user.id))
+
   passport.deserializeUser(async (id, done) => {
     const user = await prisma.user({ id })
     done(null, user)
   })
-  // passport.deserializeUser((id, done) => {
-  // User.findById(id).then(user => {
-  //   done(null, user);
-  // });
-  // const user = prisma.user({ where: { id: id } });
-  // })
+  
   // passport.use(
   //   new TwitterStrategy(
   //     {
