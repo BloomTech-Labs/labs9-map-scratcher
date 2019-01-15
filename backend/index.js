@@ -7,7 +7,7 @@
 
 // NOTE #2
 // Added a script for the command `prisma deploy` called yarn deploy -> this will
-// inject the environment variables from the config.env file 
+// inject the environment variables from the config.env file
 //==============================================================================
 
 //-- Dependencies --------------------------------
@@ -15,7 +15,6 @@ const { GraphQLServer } = require('graphql-yoga')
 const { prisma } = require('./prisma/generated/prisma-client')
 
 const { resolvers } = require('./resolvers')
-require('dotenv').config({ path: 'config.env' })
 require('./services/passport/passport')(prisma)
 //------------------------------------------------
 
