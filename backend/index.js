@@ -1,10 +1,13 @@
-//NOTE (we should move this but it's fast): i'm using heroku cli to deploy, so from top level of repo check to see if the remote comes with it. if not:
+// NOTE #1 (we should move this but it's fast): i'm using heroku cli to deploy, so from top level // of repo check to see if the remote comes with it. if not:
 
 // you need heroku client
 // `git remote -v` to see if it has the heroku backend or not.
 // if you don't see one: `git remote add heroku-backend https://git.heroku.com/backpaca-yoga.git`
 // then to push changes `git subtree push --prefix backend heroku-backend master`
 
+// NOTE #2
+// Added a script for the command `prisma deploy` called yarn deploy -> this will
+// inject the environment variables from the config.env file 
 //==============================================================================
 
 //-- Dependencies --------------------------------
@@ -12,6 +15,7 @@ const { GraphQLServer } = require('graphql-yoga')
 const { prisma } = require('./prisma/generated/prisma-client')
 
 const { resolvers } = require('./resolvers')
+require('dotenv').config({ path: 'config.env' })
 require('./services/passport/passport')(prisma)
 //------------------------------------------------
 
