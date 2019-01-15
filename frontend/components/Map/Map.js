@@ -5,8 +5,8 @@ import geojson from './countries.geo.json';
 // import { getCountryShape } from './test.js';
 import wc from 'which-country'
 
-const bound1 = L.latLng(90, -180);
-const bound2 = L.latLng(-90, 180);
+const bound1 = L.latLng(85, -170);
+const bound2 = L.latLng(-85, 175);
 const bounds = L.latLngBounds(bound1, bound2);
 //--------------------------------------------
 //possible URLs for the base TileLayer ------
@@ -20,12 +20,22 @@ const bounds = L.latLngBounds(bound1, bound2);
 // <GeoJSON
 //   data={geojson.features}
 //   style = {{ stroke: true, weight: 1, color: 'black', fill: false}} />
+
+//Carto voyager
+// 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+
+// //turns out we don't actually need a tile layer at all but in case
+// <TileLayer
+//   attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+//   url='https://{s}.tile.openstreetmap.se/hydda/base/{z}/{x}/{y}.png'
+// />
 //-------------------------------------------
 //--------------------------------------------
 
 
 //setting a center of the map
-const center = [51.505, -0.09];
+// const center = [51.505, -0.09];
+const center = [0, 0];
 
 
 class WorldMap extends React.Component {
@@ -52,20 +62,19 @@ handleHover = (e) => {
         className="map"
         animate={true}
         onMouseMove={this.handleHover}
-        zoom="2"
+        zoom='3'
+        maxZoom='5'
+        minZoom='2'
         center={center}
         maxBounds={bounds}
         zoomControl={true}
-        style={{height:'80vh'}}
+        style={{height:'100vh', background: 'teal'}}
+        maxBoundsViscosity='1'
       >
-        <TileLayer
-          attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-          url='https://{s}.tile.openstreetmap.se/hydda/base/{z}/{x}/{y}.png'
-        />
 
         <GeoJSON
           data={geojson.features}
-          style={{stroke: true, weight: 1, color: 'black'}}
+          style={{stroke: true, weight: 1, color: 'black', fill: true, fillColor: 'silver', fillOpacity: 1}}
           />
 
         {geojson.features.map(feature => this.state.hovering === feature.properties.ISO_A3 && (
@@ -74,7 +83,7 @@ handleHover = (e) => {
             data={feature}
             style={{stroke: false, fill: true, fillColor: 'firebrick', fillOpacity: 0.8}}
             >
-              <Tooltip direction='bottom'>{feature.properties.ADMIN}</Tooltip>
+
             </GeoJSON>
         ))}
       </Map>
