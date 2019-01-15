@@ -20,6 +20,9 @@ type User {
   nickname: String!
   email: String!
   visits: [Visit]
+  twitterHandle: String
+  scratchingAutomated: Boolean
+  isPrivate: Boolean
 }
 
 type Country {
