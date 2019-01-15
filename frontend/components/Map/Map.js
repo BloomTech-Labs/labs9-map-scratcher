@@ -63,13 +63,13 @@ class WorldMap extends React.Component {
     return (
     //if attempting the commented out portion Map should be LeafletMap and no need to set the maxBounds here (it is set in a lifecycle method above)
       <Map
-      className="map"
-      zoom="3"
-      center={center}
-      maxBounds={bounds}
-      zoomControl={true}
+        className="map"
+        zoom="3"
+        center={center}
+        maxBounds={bounds}
+        zoomControl={true}
+        style={{height:'400px'}}
       >
-      <div style={{height:'100vh'}}></div>
       <TileLayer
         attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'

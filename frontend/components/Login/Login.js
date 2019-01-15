@@ -1,31 +1,30 @@
 import React, { Component } from 'react'
+import { Button, Icon, Input } from 'semantic-ui-react'
 
 export default class Login extends Component {
-
-    buttonStyles = {
-        'margin': '.5% 3% 0% 4%',
-    }
 
 	render() {
 		return (
             <form>
                 <div>
                     <h3>Login User</h3>
-                    <input
+                    <Input
                     type='text'
                     placeholder='username'
                     name='username'
                     value=''
                     />
-                    <input
+                    <Input
                     type='text'
                     placeholder='password'
                     name='password'
                     value=''
                     />
                     <div>
-                    <button style={this.buttonStyles}>Log in</button>
-                    <button>Register</button>
+                    <Button color='twitter'>
+                        <Icon name='twitter' /> Login with Twitter
+                    </Button>
+                    <Button>Register</Button>
                     </div>
                 </div>
             </form>
