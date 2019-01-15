@@ -39,7 +39,7 @@ class WorldMap extends React.Component {
 //gets the country that is being hovered over from the coordinates being hovered over and sets the state if it is a different country from the last.
 handleHover = (e) => {
   const country = wc([e.latlng.lng, e.latlng.lat]);
-  console.log(country)
+  // console.log(country)
 
   if (this.state.hovering !== country) {
     this.setState({ hovering: country });
