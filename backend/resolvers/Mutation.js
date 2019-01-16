@@ -12,7 +12,11 @@ const Mutation = {
   updateUser: async (parent, { name, nickname, email, id }, context) => {
     return await context.prisma.updateUser({
       where: { id },
-      data: { name, nickname, email }
+      data: { 
+        name, 
+        nickname, 
+        email 
+      }
     })
   },
   deleteUser: async (parent, { id }, context) => {
@@ -29,22 +33,42 @@ const Mutation = {
   createVisit: async (parent, { userId, countryId, note, level }, context) => {
     return await context.prisma.createVisit({
       user: {
-        connect: { id: userId }
+        connect: { 
+          id: userId 
+        }
       },
       countryId: {
-        connect: { id: countryId }
+        connect: { 
+          id: countryId 
+        }
       },
       note,
       level
     })
   },
-  // friend mutation is a work-in-progress
-  friend: async (parent, { userId, friendId }, context) => {
-    return await context.prisma.updateUser({
-      where: { id: userId },
-      data: { friends: { connect: { id: friendId } } }
+  updateVisit: async (parent, { id, note, level }, context) => {
+    return await context.prisma.updateVisit({
+      where: { id },
+      data: { 
+        note, level 
+      }
     })
   },
+  friend: async (parent, { userId, friendId }, context) => {
+    return await context.prisma.updateUser({
+      where: { 
+        id: userId 
+      },
+      data: { 
+        friends: { 
+          connect: { 
+            id: friendId 
+          } 
+        } 
+      }
+    })
+  },
+
 };
 
 module.exports = {
