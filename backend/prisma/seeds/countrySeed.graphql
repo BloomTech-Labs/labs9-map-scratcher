@@ -255,4 +255,3 @@ country252: createCountry(data: {name: "South Africa", code: "ZAF"}) { id }
 country253: createCountry(data: {name: "Zambia", code: "ZMB"}) { id }
 country254: createCountry(data: {name: "Zimbabwe", code: "ZWE"}) { id }
 }
-

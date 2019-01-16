@@ -6,4 +6,4 @@ generate:
     output: ./generated/prisma-client/
 
 seed:
-  import:  ./seeds/countrySeed.graphql 
+  import:  ./seeds/countrySeed.graphql
