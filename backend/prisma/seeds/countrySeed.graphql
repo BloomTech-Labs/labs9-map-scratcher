@@ -254,8 +254,6 @@ country251: createCountry(data: {name: "Yemen", code: "YEM"}) { id }
 country252: createCountry(data: {name: "South Africa", code: "ZAF"}) { id }
 country253: createCountry(data: {name: "Zambia", code: "ZMB"}) { id }
 country254: createCountry(data: {name: "Zimbabwe", code: "ZWE"}) { id }
-}
-<<<<<<< HEAD
-=======
 
->>>>>>> 331f7138539adc5f6a9dc22d88c3c4d0541eff7a
+
+}

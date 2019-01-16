@@ -9,7 +9,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(name: String, nickname: String, email: String, twitterHandle: String): User!
+  createUser(twitterHandle: String, name: String, nickname: String, email: String): User!
   updateUser(name: String, nickname: String, email: String id: ID!): User!
   deleteUser(id: ID!): User!
   createCountry(name: String!, code: String!): Country!

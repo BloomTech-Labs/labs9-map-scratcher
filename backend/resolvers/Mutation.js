@@ -1,8 +1,9 @@
 
 //-- Construct Mutation -----------------------------
 const Mutation = {
-  createUser: async (parent, { name, nickname, email }, context) => {
+  createUser: async (parent, { twitterHandle, name, nickname, email }, context) => {
     return await context.prisma.createUser({
+      twitterHandle,
       name,
       nickname,
       email
