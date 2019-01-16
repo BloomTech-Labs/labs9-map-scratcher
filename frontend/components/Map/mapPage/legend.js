@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Feed } from 'semantic-ui-react'
 
 const Legend = () => (
-  <Card style={{zIndex: '500', position: 'absolute', bottom: '0%', left: '90%', width: '6%', background: 'grey'}}>
+  <Card style={{zIndex: '500', position: 'absolute', bottom: '3%', left: '93%', width: '6%', background: 'grey'}}>
     <Card.Content>
       {/* <Card.Header style={{textAlign: 'center'}}>Legend</Card.Header> */}
       <div style={{display: 'flex', alignItems: 'baseline', paddingTop: '3%', alignContent: 'center'}}>

@@ -8,7 +8,7 @@ export default class MapIndex extends Component {
     render() {
         return (
 
-            <div className='map-header' style={{display:'flex',justifyContent:'space-evenly',alignItems:'center'}}>
+            <div className='map-header' style={{display:'flex',justifyContent:'space-evenly',alignItems:'center', zIndex: '1000', position: 'absolute', background: 'white', width: '80%', height: '4rem', top: '2.5%', left: '10%', right: '10%'}}>
             <div className='friend-checkbox' style={{display:'flex'}}>
                 <Checkbox 
                 type='checkbox'
@@ -28,8 +28,7 @@ export default class MapIndex extends Component {
                 icon='users'
                 options={friendsOptions}
                 search
-                
-            />
+                 />
                 <Dropdown
                 button
                 style={{zIndex: '99999', width: '20%', background: 'transparent'}}
@@ -39,7 +38,14 @@ export default class MapIndex extends Component {
                 icon='world'
                 search
                 text='Select Country'
-            />
+                />
+                <Dropdown icon='large user'> 
+                    <Dropdown.Menu>
+                        <Dropdown.Item text='Home' icon='home' href='/' />
+                        <Dropdown.Item text='Settings' icon='setting' />
+                        <Dropdown.Item text='Logout' icon='sign out' />
+                    </Dropdown.Menu>
+                </Dropdown>
             </div>
 
         )
