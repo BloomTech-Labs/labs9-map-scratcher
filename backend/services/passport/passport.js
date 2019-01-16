@@ -23,7 +23,6 @@ module.exports = async prisma => {
         proxy: true
       },
       async (token, tokenSecret, profile, done) => {
-        console.log(profile)
         const existingUser = await prisma.user({
           twitterHandle: profile.displayName
         })
