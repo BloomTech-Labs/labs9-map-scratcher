@@ -16,7 +16,8 @@ type Mutation {
   createVisit(userId: ID!, countryId: ID!, level: Int, note: String): Visit!
   updateVisit(id: ID!, level: Int, note: String): Visit!
   deleteVisit(id: ID!): Visit!
-  friend(userId: ID!, friendId: ID!): User
+  addFriend(userId: ID!, friendId: ID!): User!
+  deleteFriend(userId: ID!, friendId: ID!): User!
 }
 
 type User {

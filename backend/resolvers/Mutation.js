@@ -59,7 +59,7 @@ const Mutation = {
       id
     })
   },
-  friend: async (parent, { userId, friendId }, context) => {
+  addFriend: async (parent, { userId, friendId }, context) => {
     return await context.prisma.updateUser({
       where: { 
         id: userId 
@@ -73,7 +73,20 @@ const Mutation = {
       }
     })
   },
-
+  deleteFriend: async (parent, { userId, friendId }, context) => {
+    return await context.prisma.updateUser({
+      where: {
+        id: userId
+      },
+      data: {
+        friends: {
+          disconnect: {
+            id: friendId
+          }
+        }
+      }
+    })
+  }
 };
 
 module.exports = {
