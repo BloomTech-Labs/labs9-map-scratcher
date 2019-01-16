@@ -238,6 +238,7 @@ type User {
   isPrivate: Boolean
   visits(where: VisitWhereInput, orderBy: VisitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Visit!]
   friends(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  isPremium: Boolean
 }
 
 type UserConnection {
@@ -255,6 +256,7 @@ input UserCreateInput {
   isPrivate: Boolean
   visits: VisitCreateManyWithoutUserInput
   friends: UserCreateManyInput
+  isPremium: Boolean
 }
 
 input UserCreateManyInput {
@@ -275,6 +277,7 @@ input UserCreateWithoutVisitsInput {
   scratchingAutomated: Boolean
   isPrivate: Boolean
   friends: UserCreateManyInput
+  isPremium: Boolean
 }
 
 type UserEdge {
@@ -297,6 +300,8 @@ enum UserOrderByInput {
   scratchingAutomated_DESC
   isPrivate_ASC
   isPrivate_DESC
+  isPremium_ASC
+  isPremium_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -311,6 +316,7 @@ type UserPreviousValues {
   twitterHandle: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
+  isPremium: Boolean
 }
 
 input UserScalarWhereInput {
@@ -388,6 +394,8 @@ input UserScalarWhereInput {
   scratchingAutomated_not: Boolean
   isPrivate: Boolean
   isPrivate_not: Boolean
+  isPremium: Boolean
+  isPremium_not: Boolean
   AND: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   NOT: [UserScalarWhereInput!]
@@ -420,6 +428,7 @@ input UserUpdateDataInput {
   isPrivate: Boolean
   visits: VisitUpdateManyWithoutUserInput
   friends: UserUpdateManyInput
+  isPremium: Boolean
 }
 
 input UserUpdateInput {
@@ -431,6 +440,7 @@ input UserUpdateInput {
   isPrivate: Boolean
   visits: VisitUpdateManyWithoutUserInput
   friends: UserUpdateManyInput
+  isPremium: Boolean
 }
 
 input UserUpdateManyDataInput {
@@ -440,6 +450,7 @@ input UserUpdateManyDataInput {
   twitterHandle: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
+  isPremium: Boolean
 }
 
 input UserUpdateManyInput {
@@ -460,6 +471,7 @@ input UserUpdateManyMutationInput {
   twitterHandle: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
+  isPremium: Boolean
 }
 
 input UserUpdateManyWithWhereNestedInput {
@@ -482,6 +494,7 @@ input UserUpdateWithoutVisitsDataInput {
   scratchingAutomated: Boolean
   isPrivate: Boolean
   friends: UserUpdateManyInput
+  isPremium: Boolean
 }
 
 input UserUpdateWithWhereUniqueNestedInput {
@@ -581,6 +594,8 @@ input UserWhereInput {
   friends_every: UserWhereInput
   friends_some: UserWhereInput
   friends_none: UserWhereInput
+  isPremium: Boolean
+  isPremium_not: Boolean
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -588,6 +603,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  twitterHandle: String
 }
 
 type Visit {

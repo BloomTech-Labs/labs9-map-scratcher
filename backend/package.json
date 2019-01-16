@@ -1,11 +1,12 @@
 {
   "name": "labs9-map-scratcher",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backpaca is an web application that allows users to brag about their travel experiences and plan future adventures with their friends.",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon -e js,graphql -x node index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy": "prisma deploy --env file config.env"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/Lambda-School-Labs/labs9-map-scratcher#readme",
   "dependencies": {
+    "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^6.2.0",
     "graphql-yoga": "^1.16.9",
     "passport": "^0.4.0",

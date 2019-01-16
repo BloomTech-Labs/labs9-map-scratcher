@@ -216,6 +216,8 @@ export type UserOrderByInput =
   | "scratchingAutomated_DESC"
   | "isPrivate_ASC"
   | "isPrivate_DESC"
+  | "isPremium_ASC"
+  | "isPremium_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -263,6 +265,7 @@ export interface UserCreateInput {
   isPrivate?: Boolean;
   visits?: VisitCreateManyWithoutUserInput;
   friends?: UserCreateManyInput;
+  isPremium?: Boolean;
 }
 
 export interface UserUpdateWithoutVisitsDataInput {
@@ -273,6 +276,7 @@ export interface UserUpdateWithoutVisitsDataInput {
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   friends?: UserUpdateManyInput;
+  isPremium?: Boolean;
 }
 
 export interface VisitCreateManyWithoutUserInput {
@@ -361,6 +365,8 @@ export interface UserWhereInput {
   friends_every?: UserWhereInput;
   friends_some?: UserWhereInput;
   friends_none?: UserWhereInput;
+  isPremium?: Boolean;
+  isPremium_not?: Boolean;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
@@ -420,6 +426,7 @@ export interface UserUpdateInput {
   isPrivate?: Boolean;
   visits?: VisitUpdateManyWithoutUserInput;
   friends?: UserUpdateManyInput;
+  isPremium?: Boolean;
 }
 
 export interface VisitUpdateManyWithoutCountryInput {
@@ -468,6 +475,7 @@ export interface UserUpdateManyDataInput {
   twitterHandle?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
+  isPremium?: Boolean;
 }
 
 export interface UserUpdateOneRequiredWithoutVisitsInput {
@@ -552,6 +560,8 @@ export interface UserScalarWhereInput {
   scratchingAutomated_not?: Boolean;
   isPrivate?: Boolean;
   isPrivate_not?: Boolean;
+  isPremium?: Boolean;
+  isPremium_not?: Boolean;
   AND?: UserScalarWhereInput[] | UserScalarWhereInput;
   OR?: UserScalarWhereInput[] | UserScalarWhereInput;
   NOT?: UserScalarWhereInput[] | UserScalarWhereInput;
@@ -650,6 +660,7 @@ export interface UserCreateWithoutVisitsInput {
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   friends?: UserCreateManyInput;
+  isPremium?: Boolean;
 }
 
 export interface UserUpdateDataInput {
@@ -661,6 +672,7 @@ export interface UserUpdateDataInput {
   isPrivate?: Boolean;
   visits?: VisitUpdateManyWithoutUserInput;
   friends?: UserUpdateManyInput;
+  isPremium?: Boolean;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -705,6 +717,7 @@ export interface VisitUpdateWithWhereUniqueWithoutUserInput {
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  twitterHandle?: String;
 }>;
 
 export interface VisitUpdateWithoutUserDataInput {
@@ -843,6 +856,7 @@ export interface UserUpdateManyMutationInput {
   twitterHandle?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
+  isPremium?: Boolean;
 }
 
 export interface VisitSubscriptionWhereInput {
@@ -1029,6 +1043,7 @@ export interface UserPreviousValues {
   twitterHandle?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
+  isPremium?: Boolean;
 }
 
 export interface UserPreviousValuesPromise
@@ -1041,6 +1056,7 @@ export interface UserPreviousValuesPromise
   twitterHandle: () => Promise<String>;
   scratchingAutomated: () => Promise<Boolean>;
   isPrivate: () => Promise<Boolean>;
+  isPremium: () => Promise<Boolean>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -1053,6 +1069,7 @@ export interface UserPreviousValuesSubscription
   twitterHandle: () => Promise<AsyncIterator<String>>;
   scratchingAutomated: () => Promise<AsyncIterator<Boolean>>;
   isPrivate: () => Promise<AsyncIterator<Boolean>>;
+  isPremium: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface UserEdge {
@@ -1080,6 +1097,7 @@ export interface User {
   twitterHandle?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
+  isPremium?: Boolean;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
@@ -1112,6 +1130,7 @@ export interface UserPromise extends Promise<User>, Fragmentable {
       last?: Int;
     }
   ) => T;
+  isPremium: () => Promise<Boolean>;
 }
 
 export interface UserSubscription
@@ -1146,6 +1165,7 @@ export interface UserSubscription
       last?: Int;
     }
   ) => T;
+  isPremium: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface BatchPayload {
