@@ -37,7 +37,7 @@ const Mutation = {
           id: userId 
         }
       },
-      countryId: {
+      country: {
         connect: { 
           id: countryId 
         }
@@ -52,6 +52,11 @@ const Mutation = {
       data: { 
         note, level 
       }
+    })
+  },
+  deleteVisit: async (parent, { id }, context) => {
+    return await context.prisma.deleteVisit({
+      id
     })
   },
   friend: async (parent, { userId, friendId }, context) => {
