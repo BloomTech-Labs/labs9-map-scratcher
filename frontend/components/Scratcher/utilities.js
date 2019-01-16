@@ -124,12 +124,12 @@ export function generateOutline(compositingContext, imageMap, colorOutline) {
     const stampContext = stampCanvas.getContext('2d');
     // Draw country shape onto stamp canvas
     stampContext.fillStyle = colorOutline;
-    stampContext.globalAlpha = 0.3;
-    stampContext.fillRect(0, 0, stampCanvas.width, stampCanvas.height);
-    stampContext.globalCompositeOperation = 'destination-in';
     centerImage(imageMap, stampContext, {
         margin: OUTLINE_WIDTH,
     });
+    stampContext.globalAlpha = 0.3;
+    stampContext.globalCompositeOperation = 'source-in';
+    stampContext.fillRect(0, 0, stampCanvas.width, stampCanvas.height);
     stampContext.globalAlpha = 1;
     // Build outline by repeatedly drawing "stamp" at several pixel offsets
     let outlineWidth = OUTLINE_WIDTH;
@@ -209,6 +209,7 @@ export function createScratchLayer(compositingContext, imageMap, imageFlag) {
     const canvas = compositingContext.canvas;
     // First center image of country, then overlay black using 'source-out'
     compositingContext.save();
+    compositingContext.clearRect(0, 0, canvas.width, canvas.height);
     centerImage(imageMap, compositingContext, {
         margin: OUTLINE_WIDTH,
     });
