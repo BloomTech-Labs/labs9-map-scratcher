@@ -42,7 +42,7 @@ export default class MapIndex extends Component {
                 <Dropdown icon='large user'> 
                     <Dropdown.Menu>
                         <Dropdown.Item text='Home' icon='home' href='/' />
-                        <Dropdown.Item text='Settings' icon='setting' />
+                        <Dropdown.Item text='Settings' icon='setting' href='/settings' />
                         <Dropdown.Item text='Logout' icon='sign out' />
                     </Dropdown.Menu>
                 </Dropdown>
