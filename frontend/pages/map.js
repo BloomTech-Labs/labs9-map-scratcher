@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic'
 import MapIndex from '../components/Map/mapPage/index.js'
+import UserDropDown from '../components/Map/mapPage/mapSettings.js'
 
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false
@@ -19,7 +20,7 @@ export default () => (
         </Link>
       </div>
       <div className='nav-right'>
-        <a>Sign Out</a>
+        <UserDropDown />
       </div>
     </nav>
     <MapIndex />
