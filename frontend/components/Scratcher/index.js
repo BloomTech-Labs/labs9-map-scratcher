@@ -1,5 +1,4 @@
 
-
 /*== Scratcher =================================================================
 
 /*-- Documentation -------------------------------
@@ -28,7 +27,6 @@ of urls.
 import React from 'react';
 import * as utilities from './utilities.js';
 
-
 //== React Life Cycle Methods ==================================================
 
 //-- Constructor and definition ------------------
@@ -40,8 +38,8 @@ export default class Scratcher extends React.Component {
     
     //-- Render --------------------------------------
     render(props) {
-        return <div className="scratcher">
-            <canvas ref={this.canvasRef} />
+        return <div className="scratcher" style={{width: '100%', height: '100%'}}>
+            <canvas ref={this.canvasRef} style={{width: '100%', height: '100%'}}/>
         </div>
     }
     

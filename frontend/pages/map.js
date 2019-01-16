@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import { Dimmer, Loader } from 'semantic-ui-react'
 
 import MapIndex from '../components/Map/mapPage/index.js'
+import UserDropDown from '../components/Map/mapPage/mapSettings.js'
 
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   loading: () => (
@@ -25,8 +26,8 @@ export default () => (
           <a>Map</a>
         </Link>
       </div>
-      <div className="nav-right">
-        <a>Sign Out</a>
+      <div className='nav-right'>
+        <UserDropDown />
       </div>
     </nav>
     <MapIndex />
