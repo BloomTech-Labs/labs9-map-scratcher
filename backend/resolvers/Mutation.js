@@ -14,6 +14,13 @@ const Mutation = {
       data: { name, nickname, email }
     })
   },
+  // friend mutation is a work-in-progress
+  friend: async (parent, { userId, friendId }, context) => {
+    return await context.prisma.updateUser({
+      where: { id: userId },
+      data: { friends: { connect: { id: friendId } } }
+    })
+  },
   deleteUser: async (parent, { id }, context) => {
     return await context.prisma.deleteUser({
       id

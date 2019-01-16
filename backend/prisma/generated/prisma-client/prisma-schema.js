@@ -230,13 +230,14 @@ type Subscription {
 
 type User {
   id: ID!
-  name: String!
-  nickname: String!
-  email: String!
+  name: String
+  nickname: String
+  email: String
   twitterHandle: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
   visits(where: VisitWhereInput, orderBy: VisitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Visit!]
+  friends(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 type UserConnection {
@@ -246,13 +247,19 @@ type UserConnection {
 }
 
 input UserCreateInput {
-  name: String!
-  nickname: String!
-  email: String!
+  name: String
+  nickname: String
+  email: String
   twitterHandle: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
   visits: VisitCreateManyWithoutUserInput
+  friends: UserCreateManyInput
+}
+
+input UserCreateManyInput {
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateOneWithoutVisitsInput {
@@ -261,12 +268,13 @@ input UserCreateOneWithoutVisitsInput {
 }
 
 input UserCreateWithoutVisitsInput {
-  name: String!
-  nickname: String!
-  email: String!
+  name: String
+  nickname: String
+  email: String
   twitterHandle: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
+  friends: UserCreateManyInput
 }
 
 type UserEdge {
@@ -297,12 +305,92 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
-  name: String!
-  nickname: String!
-  email: String!
+  name: String
+  nickname: String
+  email: String
   twitterHandle: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
+}
+
+input UserScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  nickname: String
+  nickname_not: String
+  nickname_in: [String!]
+  nickname_not_in: [String!]
+  nickname_lt: String
+  nickname_lte: String
+  nickname_gt: String
+  nickname_gte: String
+  nickname_contains: String
+  nickname_not_contains: String
+  nickname_starts_with: String
+  nickname_not_starts_with: String
+  nickname_ends_with: String
+  nickname_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  twitterHandle: String
+  twitterHandle_not: String
+  twitterHandle_in: [String!]
+  twitterHandle_not_in: [String!]
+  twitterHandle_lt: String
+  twitterHandle_lte: String
+  twitterHandle_gt: String
+  twitterHandle_gte: String
+  twitterHandle_contains: String
+  twitterHandle_not_contains: String
+  twitterHandle_starts_with: String
+  twitterHandle_not_starts_with: String
+  twitterHandle_ends_with: String
+  twitterHandle_not_ends_with: String
+  scratchingAutomated: Boolean
+  scratchingAutomated_not: Boolean
+  isPrivate: Boolean
+  isPrivate_not: Boolean
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
 }
 
 type UserSubscriptionPayload {
@@ -323,6 +411,17 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
+input UserUpdateDataInput {
+  name: String
+  nickname: String
+  email: String
+  twitterHandle: String
+  scratchingAutomated: Boolean
+  isPrivate: Boolean
+  visits: VisitUpdateManyWithoutUserInput
+  friends: UserUpdateManyInput
+}
+
 input UserUpdateInput {
   name: String
   nickname: String
@@ -331,6 +430,27 @@ input UserUpdateInput {
   scratchingAutomated: Boolean
   isPrivate: Boolean
   visits: VisitUpdateManyWithoutUserInput
+  friends: UserUpdateManyInput
+}
+
+input UserUpdateManyDataInput {
+  name: String
+  nickname: String
+  email: String
+  twitterHandle: String
+  scratchingAutomated: Boolean
+  isPrivate: Boolean
+}
+
+input UserUpdateManyInput {
+  create: [UserCreateInput!]
+  update: [UserUpdateWithWhereUniqueNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueNestedInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
 }
 
 input UserUpdateManyMutationInput {
@@ -340,6 +460,11 @@ input UserUpdateManyMutationInput {
   twitterHandle: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
 }
 
 input UserUpdateOneRequiredWithoutVisitsInput {
@@ -356,11 +481,23 @@ input UserUpdateWithoutVisitsDataInput {
   twitterHandle: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
+  friends: UserUpdateManyInput
+}
+
+input UserUpdateWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateDataInput!
 }
 
 input UserUpsertWithoutVisitsInput {
   update: UserUpdateWithoutVisitsDataInput!
   create: UserCreateWithoutVisitsInput!
+}
+
+input UserUpsertWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {
@@ -441,6 +578,9 @@ input UserWhereInput {
   visits_every: VisitWhereInput
   visits_some: VisitWhereInput
   visits_none: VisitWhereInput
+  friends_every: UserWhereInput
+  friends_some: UserWhereInput
+  friends_none: UserWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -448,7 +588,6 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
-  email: String
 }
 
 type Visit {
