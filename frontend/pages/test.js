@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React, { Component } from 'react'
 import { Query, Mutation, ApolloConsumer } from 'react-apollo'
 import gql from 'graphql-tag'
+import CountryModal from '../components/CountryViewModal/index.js'
 
 const USER_QUERY = gql`
   {
@@ -124,6 +125,7 @@ class Test extends Component {
 
                 }}
                 </Query>
+                <CountryModal />
             </div>
         );
     }
