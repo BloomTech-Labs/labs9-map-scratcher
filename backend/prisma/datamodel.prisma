@@ -8,6 +8,7 @@ type User {
   isPrivate: Boolean @default(value: "false")
   visits: [Visit] @relation(name: "UserCountries")
   friends: [User]
+  isPremium: Boolean
 }
 
 type Country {
