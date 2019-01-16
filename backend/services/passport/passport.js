@@ -7,7 +7,7 @@ const keys = require('../../config/keys')
 
 // TWITTER PASSPORT STRATEGY
 // ==============================================
-module.exports = prisma => {
+module.exports = async prisma => {
   passport.serializeUser((user, done) => done(null, user.id))
   passport.deserializeUser(async (id, done) => {
     const user = await prisma.user({ id })
@@ -23,18 +23,17 @@ module.exports = prisma => {
         proxy: true
       },
       async (token, tokenSecret, profile, done) => {
+        console.log(profile)
         const existingUser = await prisma.user({
           twitterHandle: profile.displayName
         })
         if (existingUser) {
           done(null, existingUser)
         } else {
-          const user = await prisma
-            .user({
-              twitterHandle: profile.displayName
-            })
-            .save()
-          done(null, user)
+          const createdUser = await prisma.createUser({
+            twitterHandle: profile.displayName
+          })
+          done(null, createdUser)
         }
       }
     )
