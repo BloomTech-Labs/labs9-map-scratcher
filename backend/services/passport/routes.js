@@ -23,17 +23,17 @@ module.exports = ({ express }) => {
     passport.authenticate('twitter'),
     (_, res) => {
       if (process.env.NODE_ENV === 'production') {
-        res.redirect('https://backpaca.now.sh/map')
-      } else res.redirect('http://localhost:1738/map')
-
-      express.get('/api/logout', (req, res) => {
-        req.logout()
-        if (process.env.NODE_ENV === 'production') {
-          res.redirect('https://backpaca.now.sh')
-        } else res.redirect('http://localhost:1738')
-      })
-
-      express.get('/api/current_user', (req, res) => res.send(req.user))
+        res.redirect('https://backpaca.now.sh/settings')
+      } else res.redirect('http://localhost:1738/settings')
     }
   )
+
+  express.get('/api/logout', (req, res) => {
+    req.logout()
+    if (process.env.NODE_ENV === 'production') {
+      res.redirect('https://backpaca.now.sh')
+    } else res.redirect('http://localhost:1738')
+  })
+
+  express.get('/api/current_user', (req, res) => res.send(req.user))
 }
