@@ -201,18 +201,6 @@ export type VisitOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type CountryOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "code_ASC"
-  | "code_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -233,45 +221,63 @@ export type UserOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
+export type CountryOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "code_ASC"
+  | "code_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface UserUpdateOneRequiredWithoutVisitsInput {
-  create?: UserCreateWithoutVisitsInput;
-  update?: UserUpdateWithoutVisitsDataInput;
-  upsert?: UserUpsertWithoutVisitsInput;
-  connect?: UserWhereUniqueInput;
+export interface VisitUpdateWithWhereUniqueWithoutCountryInput {
+  where: VisitWhereUniqueInput;
+  data: VisitUpdateWithoutCountryDataInput;
 }
 
 export type CountryWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export interface VisitCreateManyWithoutCountryInput {
-  create?: VisitCreateWithoutCountryInput[] | VisitCreateWithoutCountryInput;
+export interface UserCreateManyInput {
+  create?: UserCreateInput[] | UserCreateInput;
+  connect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
+}
+
+export interface VisitUpdateManyDataInput {
+  note?: String;
+  level?: Int;
+}
+
+export interface UserCreateInput {
+  name?: String;
+  nickname?: String;
+  email?: String;
+  twitterHandle?: String;
+  scratchingAutomated?: Boolean;
+  isPrivate?: Boolean;
+  visits?: VisitCreateManyWithoutUserInput;
+  friends?: UserCreateManyInput;
+}
+
+export interface UserUpdateWithoutVisitsDataInput {
+  name?: String;
+  nickname?: String;
+  email?: String;
+  twitterHandle?: String;
+  scratchingAutomated?: Boolean;
+  isPrivate?: Boolean;
+  friends?: UserUpdateManyInput;
+}
+
+export interface VisitCreateManyWithoutUserInput {
+  create?: VisitCreateWithoutUserInput[] | VisitCreateWithoutUserInput;
   connect?: VisitWhereUniqueInput[] | VisitWhereUniqueInput;
-}
-
-export interface VisitCreateWithoutUserInput {
-  country: CountryCreateOneWithoutVisitsInput;
-  note?: String;
-  level?: Int;
-}
-
-export interface VisitCreateWithoutCountryInput {
-  user: UserCreateOneWithoutVisitsInput;
-  note?: String;
-  level?: Int;
-}
-
-export interface VisitUpsertWithWhereUniqueWithoutCountryInput {
-  where: VisitWhereUniqueInput;
-  update: VisitUpdateWithoutCountryDataInput;
-  create: VisitCreateWithoutCountryInput;
-}
-
-export interface UserCreateOneWithoutVisitsInput {
-  create?: UserCreateWithoutVisitsInput;
-  connect?: UserWhereUniqueInput;
 }
 
 export interface UserWhereInput {
@@ -352,18 +358,18 @@ export interface UserWhereInput {
   visits_every?: VisitWhereInput;
   visits_some?: VisitWhereInput;
   visits_none?: VisitWhereInput;
+  friends_every?: UserWhereInput;
+  friends_some?: UserWhereInput;
+  friends_none?: UserWhereInput;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
-export interface UserCreateWithoutVisitsInput {
-  name: String;
-  nickname: String;
-  email: String;
-  twitterHandle?: String;
-  scratchingAutomated?: Boolean;
-  isPrivate?: Boolean;
+export interface VisitCreateWithoutUserInput {
+  country: CountryCreateOneWithoutVisitsInput;
+  note?: String;
+  level?: Int;
 }
 
 export interface CountrySubscriptionWhereInput {
@@ -377,15 +383,43 @@ export interface CountrySubscriptionWhereInput {
   NOT?: CountrySubscriptionWhereInput[] | CountrySubscriptionWhereInput;
 }
 
+export interface CountryCreateOneWithoutVisitsInput {
+  create?: CountryCreateWithoutVisitsInput;
+  connect?: CountryWhereUniqueInput;
+}
+
+export interface VisitUpdateManyMutationInput {
+  note?: String;
+  level?: Int;
+}
+
+export interface CountryCreateWithoutVisitsInput {
+  name: String;
+  code: String;
+}
+
+export interface VisitCreateInput {
+  user: UserCreateOneWithoutVisitsInput;
+  country: CountryCreateOneWithoutVisitsInput;
+  note?: String;
+  level?: Int;
+}
+
 export interface CountryUpdateInput {
   name?: String;
   code?: String;
   visits?: VisitUpdateManyWithoutCountryInput;
 }
 
-export interface VisitUpdateManyMutationInput {
-  note?: String;
-  level?: Int;
+export interface UserUpdateInput {
+  name?: String;
+  nickname?: String;
+  email?: String;
+  twitterHandle?: String;
+  scratchingAutomated?: Boolean;
+  isPrivate?: Boolean;
+  visits?: VisitUpdateManyWithoutUserInput;
+  friends?: UserUpdateManyInput;
 }
 
 export interface VisitUpdateManyWithoutCountryInput {
@@ -405,64 +439,15 @@ export interface VisitUpdateManyWithoutCountryInput {
     | VisitUpdateManyWithWhereNestedInput;
 }
 
-export interface VisitCreateInput {
-  user: UserCreateOneWithoutVisitsInput;
-  country: CountryCreateOneWithoutVisitsInput;
-  note?: String;
-  level?: Int;
-}
-
-export interface VisitUpdateWithWhereUniqueWithoutCountryInput {
-  where: VisitWhereUniqueInput;
-  data: VisitUpdateWithoutCountryDataInput;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  email?: String;
-}>;
-
-export interface VisitUpdateWithoutCountryDataInput {
-  user?: UserUpdateOneRequiredWithoutVisitsInput;
-  note?: String;
-  level?: Int;
-}
-
-export interface CountryUpsertWithoutVisitsInput {
-  update: CountryUpdateWithoutVisitsDataInput;
-  create: CountryCreateWithoutVisitsInput;
-}
-
-export interface UserUpdateInput {
+export interface CountryUpdateManyMutationInput {
   name?: String;
-  nickname?: String;
-  email?: String;
-  twitterHandle?: String;
-  scratchingAutomated?: Boolean;
-  isPrivate?: Boolean;
-  visits?: VisitUpdateManyWithoutUserInput;
+  code?: String;
 }
 
-export interface CountryUpdateOneRequiredWithoutVisitsInput {
-  create?: CountryCreateWithoutVisitsInput;
-  update?: CountryUpdateWithoutVisitsDataInput;
-  upsert?: CountryUpsertWithoutVisitsInput;
-  connect?: CountryWhereUniqueInput;
-}
-
-export interface UserUpdateWithoutVisitsDataInput {
-  name?: String;
-  nickname?: String;
-  email?: String;
-  twitterHandle?: String;
-  scratchingAutomated?: Boolean;
-  isPrivate?: Boolean;
-}
-
-export interface VisitUpdateWithoutUserDataInput {
-  country?: CountryUpdateOneRequiredWithoutVisitsInput;
-  note?: String;
-  level?: Int;
+export interface UserUpsertWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput;
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
 }
 
 export interface UserUpsertWithoutVisitsInput {
@@ -470,21 +455,106 @@ export interface UserUpsertWithoutVisitsInput {
   create: UserCreateWithoutVisitsInput;
 }
 
-export interface VisitUpdateManyWithoutUserInput {
-  create?: VisitCreateWithoutUserInput[] | VisitCreateWithoutUserInput;
-  delete?: VisitWhereUniqueInput[] | VisitWhereUniqueInput;
-  connect?: VisitWhereUniqueInput[] | VisitWhereUniqueInput;
-  disconnect?: VisitWhereUniqueInput[] | VisitWhereUniqueInput;
-  update?:
-    | VisitUpdateWithWhereUniqueWithoutUserInput[]
-    | VisitUpdateWithWhereUniqueWithoutUserInput;
-  upsert?:
-    | VisitUpsertWithWhereUniqueWithoutUserInput[]
-    | VisitUpsertWithWhereUniqueWithoutUserInput;
-  deleteMany?: VisitScalarWhereInput[] | VisitScalarWhereInput;
-  updateMany?:
-    | VisitUpdateManyWithWhereNestedInput[]
-    | VisitUpdateManyWithWhereNestedInput;
+export interface VisitUpdateWithoutCountryDataInput {
+  user?: UserUpdateOneRequiredWithoutVisitsInput;
+  note?: String;
+  level?: Int;
+}
+
+export interface UserUpdateManyDataInput {
+  name?: String;
+  nickname?: String;
+  email?: String;
+  twitterHandle?: String;
+  scratchingAutomated?: Boolean;
+  isPrivate?: Boolean;
+}
+
+export interface UserUpdateOneRequiredWithoutVisitsInput {
+  create?: UserCreateWithoutVisitsInput;
+  update?: UserUpdateWithoutVisitsDataInput;
+  upsert?: UserUpsertWithoutVisitsInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface UserScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  nickname?: String;
+  nickname_not?: String;
+  nickname_in?: String[] | String;
+  nickname_not_in?: String[] | String;
+  nickname_lt?: String;
+  nickname_lte?: String;
+  nickname_gt?: String;
+  nickname_gte?: String;
+  nickname_contains?: String;
+  nickname_not_contains?: String;
+  nickname_starts_with?: String;
+  nickname_not_starts_with?: String;
+  nickname_ends_with?: String;
+  nickname_not_ends_with?: String;
+  email?: String;
+  email_not?: String;
+  email_in?: String[] | String;
+  email_not_in?: String[] | String;
+  email_lt?: String;
+  email_lte?: String;
+  email_gt?: String;
+  email_gte?: String;
+  email_contains?: String;
+  email_not_contains?: String;
+  email_starts_with?: String;
+  email_not_starts_with?: String;
+  email_ends_with?: String;
+  email_not_ends_with?: String;
+  twitterHandle?: String;
+  twitterHandle_not?: String;
+  twitterHandle_in?: String[] | String;
+  twitterHandle_not_in?: String[] | String;
+  twitterHandle_lt?: String;
+  twitterHandle_lte?: String;
+  twitterHandle_gt?: String;
+  twitterHandle_gte?: String;
+  twitterHandle_contains?: String;
+  twitterHandle_not_contains?: String;
+  twitterHandle_starts_with?: String;
+  twitterHandle_not_starts_with?: String;
+  twitterHandle_ends_with?: String;
+  twitterHandle_not_ends_with?: String;
+  scratchingAutomated?: Boolean;
+  scratchingAutomated_not?: Boolean;
+  isPrivate?: Boolean;
+  isPrivate_not?: Boolean;
+  AND?: UserScalarWhereInput[] | UserScalarWhereInput;
+  OR?: UserScalarWhereInput[] | UserScalarWhereInput;
+  NOT?: UserScalarWhereInput[] | UserScalarWhereInput;
 }
 
 export interface CountryWhereInput {
@@ -544,46 +614,53 @@ export interface CountryCreateInput {
   visits?: VisitCreateManyWithoutCountryInput;
 }
 
-export interface VisitScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
+export interface UserUpdateManyInput {
+  create?: UserCreateInput[] | UserCreateInput;
+  update?:
+    | UserUpdateWithWhereUniqueNestedInput[]
+    | UserUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | UserUpsertWithWhereUniqueNestedInput[]
+    | UserUpsertWithWhereUniqueNestedInput;
+  delete?: UserWhereUniqueInput[] | UserWhereUniqueInput;
+  connect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
+  disconnect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
+  deleteMany?: UserScalarWhereInput[] | UserScalarWhereInput;
+  updateMany?:
+    | UserUpdateManyWithWhereNestedInput[]
+    | UserUpdateManyWithWhereNestedInput;
+}
+
+export interface VisitCreateWithoutCountryInput {
+  user: UserCreateOneWithoutVisitsInput;
   note?: String;
-  note_not?: String;
-  note_in?: String[] | String;
-  note_not_in?: String[] | String;
-  note_lt?: String;
-  note_lte?: String;
-  note_gt?: String;
-  note_gte?: String;
-  note_contains?: String;
-  note_not_contains?: String;
-  note_starts_with?: String;
-  note_not_starts_with?: String;
-  note_ends_with?: String;
-  note_not_ends_with?: String;
   level?: Int;
-  level_not?: Int;
-  level_in?: Int[] | Int;
-  level_not_in?: Int[] | Int;
-  level_lt?: Int;
-  level_lte?: Int;
-  level_gt?: Int;
-  level_gte?: Int;
-  AND?: VisitScalarWhereInput[] | VisitScalarWhereInput;
-  OR?: VisitScalarWhereInput[] | VisitScalarWhereInput;
-  NOT?: VisitScalarWhereInput[] | VisitScalarWhereInput;
+}
+
+export interface UserUpdateWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput;
+  data: UserUpdateDataInput;
+}
+
+export interface UserCreateWithoutVisitsInput {
+  name?: String;
+  nickname?: String;
+  email?: String;
+  twitterHandle?: String;
+  scratchingAutomated?: Boolean;
+  isPrivate?: Boolean;
+  friends?: UserCreateManyInput;
+}
+
+export interface UserUpdateDataInput {
+  name?: String;
+  nickname?: String;
+  email?: String;
+  twitterHandle?: String;
+  scratchingAutomated?: Boolean;
+  isPrivate?: Boolean;
+  visits?: VisitUpdateManyWithoutUserInput;
+  friends?: UserUpdateManyInput;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -597,9 +674,21 @@ export interface UserSubscriptionWhereInput {
   NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
 }
 
-export interface VisitUpdateManyWithWhereNestedInput {
-  where: VisitScalarWhereInput;
-  data: VisitUpdateManyDataInput;
+export interface VisitUpdateManyWithoutUserInput {
+  create?: VisitCreateWithoutUserInput[] | VisitCreateWithoutUserInput;
+  delete?: VisitWhereUniqueInput[] | VisitWhereUniqueInput;
+  connect?: VisitWhereUniqueInput[] | VisitWhereUniqueInput;
+  disconnect?: VisitWhereUniqueInput[] | VisitWhereUniqueInput;
+  update?:
+    | VisitUpdateWithWhereUniqueWithoutUserInput[]
+    | VisitUpdateWithWhereUniqueWithoutUserInput;
+  upsert?:
+    | VisitUpsertWithWhereUniqueWithoutUserInput[]
+    | VisitUpsertWithWhereUniqueWithoutUserInput;
+  deleteMany?: VisitScalarWhereInput[] | VisitScalarWhereInput;
+  updateMany?:
+    | VisitUpdateManyWithWhereNestedInput[]
+    | VisitUpdateManyWithWhereNestedInput;
 }
 
 export interface VisitUpdateInput {
@@ -609,79 +698,40 @@ export interface VisitUpdateInput {
   level?: Int;
 }
 
-export interface VisitUpdateManyDataInput {
+export interface VisitUpdateWithWhereUniqueWithoutUserInput {
+  where: VisitWhereUniqueInput;
+  data: VisitUpdateWithoutUserDataInput;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface VisitUpdateWithoutUserDataInput {
+  country?: CountryUpdateOneRequiredWithoutVisitsInput;
   note?: String;
   level?: Int;
-}
-
-export interface VisitUpsertWithWhereUniqueWithoutUserInput {
-  where: VisitWhereUniqueInput;
-  update: VisitUpdateWithoutUserDataInput;
-  create: VisitCreateWithoutUserInput;
-}
-
-export interface CountryUpdateManyMutationInput {
-  name?: String;
-  code?: String;
 }
 
 export type VisitWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export interface VisitCreateManyWithoutUserInput {
-  create?: VisitCreateWithoutUserInput[] | VisitCreateWithoutUserInput;
-  connect?: VisitWhereUniqueInput[] | VisitWhereUniqueInput;
-}
-
-export interface UserCreateInput {
-  name: String;
-  nickname: String;
-  email: String;
-  twitterHandle?: String;
-  scratchingAutomated?: Boolean;
-  isPrivate?: Boolean;
-  visits?: VisitCreateManyWithoutUserInput;
-}
-
-export interface CountryCreateOneWithoutVisitsInput {
+export interface CountryUpdateOneRequiredWithoutVisitsInput {
   create?: CountryCreateWithoutVisitsInput;
+  update?: CountryUpdateWithoutVisitsDataInput;
+  upsert?: CountryUpsertWithoutVisitsInput;
   connect?: CountryWhereUniqueInput;
 }
 
-export interface CountryCreateWithoutVisitsInput {
-  name: String;
-  code: String;
-}
-
-export interface VisitSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: VisitWhereInput;
-  AND?: VisitSubscriptionWhereInput[] | VisitSubscriptionWhereInput;
-  OR?: VisitSubscriptionWhereInput[] | VisitSubscriptionWhereInput;
-  NOT?: VisitSubscriptionWhereInput[] | VisitSubscriptionWhereInput;
-}
-
-export interface VisitUpdateWithWhereUniqueWithoutUserInput {
-  where: VisitWhereUniqueInput;
-  data: VisitUpdateWithoutUserDataInput;
+export interface UserCreateOneWithoutVisitsInput {
+  create?: UserCreateWithoutVisitsInput;
+  connect?: UserWhereUniqueInput;
 }
 
 export interface CountryUpdateWithoutVisitsDataInput {
   name?: String;
   code?: String;
-}
-
-export interface UserUpdateManyMutationInput {
-  name?: String;
-  nickname?: String;
-  email?: String;
-  twitterHandle?: String;
-  scratchingAutomated?: Boolean;
-  isPrivate?: Boolean;
 }
 
 export interface VisitWhereInput {
@@ -728,6 +778,100 @@ export interface VisitWhereInput {
   NOT?: VisitWhereInput[] | VisitWhereInput;
 }
 
+export interface VisitUpdateManyWithWhereNestedInput {
+  where: VisitScalarWhereInput;
+  data: VisitUpdateManyDataInput;
+}
+
+export interface VisitScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  note?: String;
+  note_not?: String;
+  note_in?: String[] | String;
+  note_not_in?: String[] | String;
+  note_lt?: String;
+  note_lte?: String;
+  note_gt?: String;
+  note_gte?: String;
+  note_contains?: String;
+  note_not_contains?: String;
+  note_starts_with?: String;
+  note_not_starts_with?: String;
+  note_ends_with?: String;
+  note_not_ends_with?: String;
+  level?: Int;
+  level_not?: Int;
+  level_in?: Int[] | Int;
+  level_not_in?: Int[] | Int;
+  level_lt?: Int;
+  level_lte?: Int;
+  level_gt?: Int;
+  level_gte?: Int;
+  AND?: VisitScalarWhereInput[] | VisitScalarWhereInput;
+  OR?: VisitScalarWhereInput[] | VisitScalarWhereInput;
+  NOT?: VisitScalarWhereInput[] | VisitScalarWhereInput;
+}
+
+export interface VisitUpsertWithWhereUniqueWithoutUserInput {
+  where: VisitWhereUniqueInput;
+  update: VisitUpdateWithoutUserDataInput;
+  create: VisitCreateWithoutUserInput;
+}
+
+export interface CountryUpsertWithoutVisitsInput {
+  update: CountryUpdateWithoutVisitsDataInput;
+  create: CountryCreateWithoutVisitsInput;
+}
+
+export interface UserUpdateManyMutationInput {
+  name?: String;
+  nickname?: String;
+  email?: String;
+  twitterHandle?: String;
+  scratchingAutomated?: Boolean;
+  isPrivate?: Boolean;
+}
+
+export interface VisitSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: VisitWhereInput;
+  AND?: VisitSubscriptionWhereInput[] | VisitSubscriptionWhereInput;
+  OR?: VisitSubscriptionWhereInput[] | VisitSubscriptionWhereInput;
+  NOT?: VisitSubscriptionWhereInput[] | VisitSubscriptionWhereInput;
+}
+
+export interface VisitCreateManyWithoutCountryInput {
+  create?: VisitCreateWithoutCountryInput[] | VisitCreateWithoutCountryInput;
+  connect?: VisitWhereUniqueInput[] | VisitWhereUniqueInput;
+}
+
+export interface UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput;
+  data: UserUpdateManyDataInput;
+}
+
+export interface VisitUpsertWithWhereUniqueWithoutCountryInput {
+  where: VisitWhereUniqueInput;
+  update: VisitUpdateWithoutCountryDataInput;
+  create: VisitCreateWithoutCountryInput;
+}
+
 export interface NodeNode {
   id: ID_Output;
 }
@@ -754,20 +898,21 @@ export interface VisitPreviousValuesSubscription
   level: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface AggregateCountry {
-  count: Int;
+export interface CountryEdge {
+  node: Country;
+  cursor: String;
 }
 
-export interface AggregateCountryPromise
-  extends Promise<AggregateCountry>,
-    Fragmentable {
-  count: () => Promise<Int>;
+export interface CountryEdgePromise extends Promise<CountryEdge>, Fragmentable {
+  node: <T = CountryPromise>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface AggregateCountrySubscription
-  extends Promise<AsyncIterator<AggregateCountry>>,
+export interface CountryEdgeSubscription
+  extends Promise<AsyncIterator<CountryEdge>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  node: <T = CountrySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -795,23 +940,6 @@ export interface UserSubscriptionPayloadSubscription
   previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
-export interface CountryEdge {
-  node: Country;
-  cursor: String;
-}
-
-export interface CountryEdgePromise extends Promise<CountryEdge>, Fragmentable {
-  node: <T = CountryPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface CountryEdgeSubscription
-  extends Promise<AsyncIterator<CountryEdge>>,
-    Fragmentable {
-  node: <T = CountrySubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
 export interface PageInfo {
   hasNextPage: Boolean;
   hasPreviousPage: Boolean;
@@ -835,38 +963,6 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface AggregateVisit {
-  count: Int;
-}
-
-export interface AggregateVisitPromise
-  extends Promise<AggregateVisit>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateVisitSubscription
-  extends Promise<AsyncIterator<AggregateVisit>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
 export interface CountryConnection {
   pageInfo: PageInfo;
   edges: CountryEdge[];
@@ -886,6 +982,22 @@ export interface CountryConnectionSubscription
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<CountryEdgeSubscription>>>() => T;
   aggregate: <T = AggregateCountrySubscription>() => T;
+}
+
+export interface AggregateVisit {
+  count: Int;
+}
+
+export interface AggregateVisitPromise
+  extends Promise<AggregateVisit>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateVisitSubscription
+  extends Promise<AsyncIterator<AggregateVisit>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface VisitConnection {
@@ -909,11 +1021,62 @@ export interface VisitConnectionSubscription
   aggregate: <T = AggregateVisitSubscription>() => T;
 }
 
+export interface UserPreviousValues {
+  id: ID_Output;
+  name?: String;
+  nickname?: String;
+  email?: String;
+  twitterHandle?: String;
+  scratchingAutomated?: Boolean;
+  isPrivate?: Boolean;
+}
+
+export interface UserPreviousValuesPromise
+  extends Promise<UserPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  nickname: () => Promise<String>;
+  email: () => Promise<String>;
+  twitterHandle: () => Promise<String>;
+  scratchingAutomated: () => Promise<Boolean>;
+  isPrivate: () => Promise<Boolean>;
+}
+
+export interface UserPreviousValuesSubscription
+  extends Promise<AsyncIterator<UserPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  nickname: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  twitterHandle: () => Promise<AsyncIterator<String>>;
+  scratchingAutomated: () => Promise<AsyncIterator<Boolean>>;
+  isPrivate: () => Promise<AsyncIterator<Boolean>>;
+}
+
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
 export interface User {
   id: ID_Output;
-  name: String;
-  nickname: String;
-  email: String;
+  name?: String;
+  nickname?: String;
+  email?: String;
   twitterHandle?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
@@ -931,6 +1094,17 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     args?: {
       where?: VisitWhereInput;
       orderBy?: VisitOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  friends: <T = FragmentableArray<User>>(
+    args?: {
+      where?: UserWhereInput;
+      orderBy?: UserOrderByInput;
       skip?: Int;
       after?: String;
       before?: String;
@@ -961,57 +1135,49 @@ export interface UserSubscription
       last?: Int;
     }
   ) => T;
+  friends: <T = Promise<AsyncIterator<UserSubscription>>>(
+    args?: {
+      where?: UserWhereInput;
+      orderBy?: UserOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
-export interface UserEdge {
-  node: User;
-  cursor: String;
+export interface BatchPayload {
+  count: Long;
 }
 
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
     Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  count: () => Promise<Long>;
 }
 
-export interface UserPreviousValues {
-  id: ID_Output;
-  name: String;
-  nickname: String;
-  email: String;
-  twitterHandle?: String;
-  scratchingAutomated?: Boolean;
-  isPrivate?: Boolean;
-}
-
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  nickname: () => Promise<String>;
-  email: () => Promise<String>;
-  twitterHandle: () => Promise<String>;
-  scratchingAutomated: () => Promise<Boolean>;
-  isPrivate: () => Promise<Boolean>;
+  count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
+export interface AggregateCountry {
+  count: Int;
+}
+
+export interface AggregateCountryPromise
+  extends Promise<AggregateCountry>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  nickname: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-  twitterHandle: () => Promise<AsyncIterator<String>>;
-  scratchingAutomated: () => Promise<AsyncIterator<Boolean>>;
-  isPrivate: () => Promise<AsyncIterator<Boolean>>;
+  count: () => Promise<Int>;
+}
+
+export interface AggregateCountrySubscription
+  extends Promise<AsyncIterator<AggregateCountry>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface Visit {
@@ -1127,6 +1293,23 @@ export interface CountrySubscription
   ) => T;
 }
 
+export interface VisitEdge {
+  node: Visit;
+  cursor: String;
+}
+
+export interface VisitEdgePromise extends Promise<VisitEdge>, Fragmentable {
+  node: <T = VisitPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface VisitEdgeSubscription
+  extends Promise<AsyncIterator<VisitEdge>>,
+    Fragmentable {
+  node: <T = VisitSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
 export interface VisitSubscriptionPayload {
   mutation: MutationType;
   node: Visit;
@@ -1189,35 +1372,18 @@ export interface AggregateUserSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface VisitEdge {
-  node: Visit;
-  cursor: String;
-}
-
-export interface VisitEdgePromise extends Promise<VisitEdge>, Fragmentable {
-  node: <T = VisitPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface VisitEdgeSubscription
-  extends Promise<AsyncIterator<VisitEdge>>,
-    Fragmentable {
-  node: <T = VisitSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
 /*
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
-
-export type Long = string;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
 export type ID_Input = string | number;
 export type ID_Output = string;
+
+export type Long = string;
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
