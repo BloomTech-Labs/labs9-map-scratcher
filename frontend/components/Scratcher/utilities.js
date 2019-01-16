@@ -21,10 +21,13 @@ export const SCRATCH_LINE_WIDTH = 28;
 //== Initialization ============================================================
 
 //-- Initialize Canvas ---------------------------
-export function initializeCanvas(canvas, movementHandler) {
+export function initializeCanvas(drawingState, movementHandler) {
     // Setup Main canvas and drawing context
-    canvas.width  = 300;
-    canvas.height = 300;
+    const canvas = drawingState.displayCanvas;
+    // Determine dimensions of available drawing container
+    const bounds = canvas.getBoundingClientRect();
+    canvas.width  = bounds.right  - bounds.left;
+    canvas.height = bounds.bottom - bounds.top ;
     // Add event listeners for sratching actions
     canvas.addEventListener(
         'mousemove',
@@ -40,21 +43,21 @@ export function initializeCanvas(canvas, movementHandler) {
             movementHandler(touchCoordinates.x, touchCoordinates.y);
         },
     );
-    // Return drawing context
-    return canvas.getContext('2d');
+    // Save drawing context
+    drawingState.mainContext = canvas.getContext('2d');
 }
     
 //-- Create Compositing Canvas -------------------
-export function createCompositingCanvas(mainCanvas) {
+export function createCompositingCanvas(drawingState) {
     // Setup compositing canvas and context
     const compositingCanvas = document.createElement('canvas');
-    compositingCanvas.width  = mainCanvas.width ;
-    compositingCanvas.height = mainCanvas.height;
-    return compositingCanvas.getContext('2d');
+    compositingCanvas.width  = drawingState.displayCanvas.width ;
+    compositingCanvas.height = drawingState.displayCanvas.height;
+    drawingState.compositingContext = compositingCanvas.getContext('2d');
 }
 
 //-- Load Resources for specific Country ---------
-export async function configureCountry(urlMap, urlFlag) {
+export async function configureCountry(drawingState, urlMap, urlFlag) {
     // Create images of the map (alpha mask) and flag, to be used in draw
     const imageMap  = new Image();
     const imageFlag = new Image();
@@ -69,48 +72,75 @@ export async function configureCountry(urlMap, urlFlag) {
             unloadedImage.src = urlToLoad;
         });
     }
-    // Wrap both promises in one promise
-    return Promise.all([
+    // Wait for both to load
+    await Promise.all([
         loadImage(imageMap , urlMap ),
         loadImage(imageFlag, urlFlag),
     ]);
+    // Save images
+    drawingState.imageMap  = imageMap ;
+    drawingState.imageFlag = imageFlag;
 };
 
 
 //== Drawing ===================================================================
 
+//-- Check Size (handle resize) ------------------
+export function checkSize(drawingState) {
+    const canvas = drawingState.displayCanvas;
+    const compositingContext = drawingState.compositingContext;
+    // Compare current dimensions to previous dimensions
+    const bounds = canvas.parentNode.getBoundingClientRect();
+    const oldWidth  = canvas.width ;
+    const oldHeight = canvas.height;
+    const newWidth  = bounds.right  - bounds.left;
+    const newHeight = bounds.bottom - bounds.top ;
+    if(newWidth === oldWidth && newHeight === oldHeight) { return;}
+    // Redraw outline at larger size
+    canvas.width  = newWidth ;
+    canvas.height = newHeight;
+    compositingContext.canvas.width  = newWidth ;
+    compositingContext.canvas.height = newHeight;
+    generateOutline(drawingState);
+    // Redraw scratch layer at larger size
+    createScratchLayer(drawingState);
+}
+
 //-- Draw full map scratcher ---------------------
-export function draw(
-    context,
-    compositingContext,
-    imageMap,
-    imageFlag,
-    imageOutline,
-    colorScratch,
-) {
+export function draw(drawingState) {
+    const context = drawingState.mainContext;
     const canvas = context.canvas;
     context.save();
+    // Fix canvas if a resize has occurred since last draw
+    checkSize(drawingState);
     // Clear Canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
     // Set Alpha Mask
-    centerImage(imageMap, context, {
+    centerImage(drawingState.imageMap, context, {
         margin: OUTLINE_WIDTH,
     });
     context.globalCompositeOperation = 'source-in';
     // Draw Background
-    context.fillStyle = colorScratch;
+    context.fillStyle = drawingState.colorScratch;
     context.fillRect(0, 0, canvas.width, canvas.height);
-    // Draw Foreground (Map)
-    drawScratchOverlay(context, compositingContext, imageFlag);
+    // Draw Foreground (Flag)
+    if(drawingState.itchy){
+        drawScratchOverlay(drawingState);
+    }
     // Draw Outline
     context.globalCompositeOperation = 'destination-over';
-    context.drawImage(imageOutline, 0, 0, canvas.width, canvas.height);
+    context.drawImage(
+        drawingState.imageOutline,
+        0, 0,
+        canvas.width, canvas.height
+    );
     // Cleanup
     context.restore();
 }
 
 //-- Generate Outline ----------------------------
-export function generateOutline(compositingContext, imageMap, colorOutline) {
+export function generateOutline(drawingState) {
+    const compositingContext = drawingState.compositingContext;
     const canvas = compositingContext.canvas;
     // Save old data from compositing canvas
     const savedData = compositingContext.getImageData(
@@ -123,8 +153,8 @@ export function generateOutline(compositingContext, imageMap, colorOutline) {
     stampCanvas.height = canvas.height;
     const stampContext = stampCanvas.getContext('2d');
     // Draw country shape onto stamp canvas
-    stampContext.fillStyle = colorOutline;
-    centerImage(imageMap, stampContext, {
+    stampContext.fillStyle = drawingState.colorOutline;
+    centerImage(drawingState.imageMap, stampContext, {
         margin: OUTLINE_WIDTH,
     });
     stampContext.globalAlpha = 0.3;
@@ -147,7 +177,7 @@ export function generateOutline(compositingContext, imageMap, colorOutline) {
     compositingContext.restore();
     compositingContext.putImageData(savedData, 0, 0);
     // Save outline for later use
-    return stampCanvas;
+    drawingState.imageOutline = stampCanvas;
 }
 
 //-- Draw image centered on supplied context -----
@@ -200,17 +230,18 @@ export function centerImage(sourceImage, context, options) {
 }
 
 //-- Draw an unscratched scratching layer --------
-export function createScratchLayer(compositingContext, imageMap, imageFlag) {
+export function createScratchLayer(drawingState) {
     /* Onto the compositing context, draw full black everywhere except
         within the bounds of the country, which remain transparent. As the
         user scratches the country, the transparent region will be filled
         with black pixels.
     */
+    const compositingContext = drawingState.compositingContext;
     const canvas = compositingContext.canvas;
     // First center image of country, then overlay black using 'source-out'
     compositingContext.save();
     compositingContext.clearRect(0, 0, canvas.width, canvas.height);
-    centerImage(imageMap, compositingContext, {
+    centerImage(drawingState.imageMap, compositingContext, {
         margin: OUTLINE_WIDTH,
     });
     compositingContext.globalCompositeOperation = 'source-out';
@@ -220,7 +251,9 @@ export function createScratchLayer(compositingContext, imageMap, imageFlag) {
 }
 
 //-- Overlay scratch layer onto display context --
-export function drawScratchOverlay(mainContext, compositingContext, imageFlag) {
+export function drawScratchOverlay(drawingState) {
+    const mainContext = drawingState.mainContext;
+    const compositingContext = drawingState.compositingContext;
     const canvas = compositingContext.canvas;
     // Get scratch amount data
     const scratchData = compositingContext.getImageData(
@@ -236,7 +269,7 @@ export function drawScratchOverlay(mainContext, compositingContext, imageFlag) {
     centerImage(canvas, mainContext);
     // Draw flag onto composite context
     compositingContext.globalCompositeOperation = 'source-atop';
-    centerImage(imageFlag, compositingContext, {
+    centerImage(drawingState.imageFlag, compositingContext, {
         cover: true,
     });
     // Draw composite onto MAIN CONTEXT
@@ -251,7 +284,8 @@ export function drawScratchOverlay(mainContext, compositingContext, imageFlag) {
 }
 
 //-- Erase a line across the scratch layer -------
-export function eraseScratchLine(compositingContext, startX, startY, endX, endY) {
+export function eraseScratchLine(drawingState, startX, startY, endX, endY) {
+    const compositingContext = drawingState.compositingContext;
     // Draw a line on compositing canvas from start(x,y) to end(x,y)
     compositingContext.strokeStyle = 'black';
     compositingContext.lineWidth = SCRATCH_LINE_WIDTH;
@@ -263,7 +297,8 @@ export function eraseScratchLine(compositingContext, startX, startY, endX, endY)
 }
 
 //-- Count the number of pixels not scratched ----
-export function unscratchedPixelCount(compositingContext){
+export function unscratchedPixelCount(drawingState){
+    const compositingContext = drawingState.compositingContext;
     // Define basic metrics and get imageData from compositingCanvas
     const canvasWidth  = compositingContext.canvas.width ;
     const canvasHeight = compositingContext.canvas.height;
@@ -288,7 +323,8 @@ export function unscratchedPixelCount(compositingContext){
 }
 
 //-- Erase the entire scratch layer --------------
-export function scratchAll(compositingContext) {
+export function scratchAll(drawingState) {
+    const compositingContext = drawingState.compositingContext;
     // Scratch off entire canvas by filling compositingContext with black;
     compositingContext.save();
     compositingContext.fillStyle = 'black';
@@ -323,12 +359,12 @@ export function coordinatesOfMouse(mouseEvent, canvas) {
 }
 
 //-- Check if all the map has been scratched -----
-export function checkCompletion(compositingContext, itchyPixels) {
+export function checkCompletion(drawingState) {
     // Calculate percentage of canvas still unscratched.
-    const unscratchedPixels = unscratchedPixelCount(compositingContext);
-    const unscratchedRatio = unscratchedPixels / itchyPixels;
+    const itchyPixels = unscratchedPixelCount(drawingState);
+    const itchyRatio = itchyPixels / drawingState.itchyPixels;
     // Check if ratio is below the threshold to be considered complete
-    if(unscratchedRatio < COMPLETION_PIXEL_RATIO){
+    if(itchyRatio < COMPLETION_PIXEL_RATIO){
         return true;
     }
 }

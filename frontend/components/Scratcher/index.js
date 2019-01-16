@@ -40,10 +40,9 @@ export default class Scratcher extends React.Component {
     
     //-- Render --------------------------------------
     render(props) {
-        return <canvas
-            ref={this.canvasRef}
-            className="scratcher"
-        />
+        return <div className="scratcher">
+            <canvas ref={this.canvasRef} />
+        </div>
     }
     
     //-- Component has been rendered to the DOM ------
@@ -58,7 +57,7 @@ export default class Scratcher extends React.Component {
             return;
         }
         // Do initial Drawing
-        this.draw();
+        this.draw(this.drawingState);
     }
 
     //-- Component Receives new Props ----------------
@@ -75,7 +74,8 @@ export default class Scratcher extends React.Component {
         );
         // Reconfigure country, if necessary (shape, flag, outline)
         if(needsUpdate) {
-            this.scratchingComplete = false;
+            this.drawingState.colorOutline = this.props.colorOutline;
+            this.drawingState.itchy = this.props.scratchable;
             try {
                 const urlMap  = this.props.urlMap ;
                 const urlFlag = this.props.urlFlag;
@@ -87,7 +87,8 @@ export default class Scratcher extends React.Component {
         }
         // Redraw if necessary
         if(changeColor || needsUpdate) {
-            this.draw();
+            this.drawingState.colorScratch = this.props.colorScratch;
+            this.draw(this.drawingState);
         }
     }
     
@@ -96,8 +97,14 @@ export default class Scratcher extends React.Component {
 
     //-- Setup All Canvases and Values ---------------
     async setup(displayCanvas){
+        // Create drawing state
+        this.drawingState = {
+            displayCanvas: displayCanvas,
+            colorScratch: this.props.colorScratch,
+            colorOutline: this.props.colorOutline,
+        };
         // Setup Drawing Contexts
-        this.generateDrawingContexts(displayCanvas);
+        this.generateDrawingContexts();
         // Configure for current Country
         const urlMap  = this.props.urlMap ;
         const urlFlag = this.props.urlFlag;
@@ -105,42 +112,36 @@ export default class Scratcher extends React.Component {
     }
     
     //-- Generate Drawing Contexts -------------------
-    generateDrawingContexts(displayCanvas) {
+    generateDrawingContexts() {
         const movementHandler = (moveEndX, moveEndY) => {
             this.handleMovement(moveEndX, moveEndY);
         };
-        this.mainContext = utilities.initializeCanvas(
-            displayCanvas, movementHandler,
-        );
-        this.compositingContext = utilities.createCompositingCanvas(
-            displayCanvas,
-        );
+        utilities.initializeCanvas(this.drawingState, movementHandler);
+        utilities.createCompositingCanvas(this.drawingState);
     }
     
     //-- Configure Country ---------------------------
     async configureCountry(urlMap, urlFlag) {
+        // Clear old data
+        this.drawingState.imageMap     = undefined;
+        this.drawingState.imageFlag    = undefined;
+        this.drawingState.imageOutline = undefined;
         // Load Image from Urls
-        const imageArray = await utilities.configureCountry(
+        await utilities.configureCountry(
+            this.drawingState,
             urlMap, urlFlag,
         );
-        this.imageMap  = imageArray[0];
-        this.imageFlag = imageArray[1];
         // Setup scratch overlay
-        const scratchable = this.props.scratchable;
-        utilities.createScratchLayer(
-            this.compositingContext, this.imageMap, this.imageFlag,
-        );
-        if(!scratchable) {
-            utilities.scratchAll(this.compositingContext);
-        }
+        this.drawingState.itchy = this.props.scratchable;
+        utilities.createScratchLayer(this.drawingState);
         // Calculate number of pixels that need to be scratched
-        this.itchyPixels = utilities.unscratchedPixelCount(
-            this.compositingContext,
+        this.drawingState.itchyPixels = utilities.unscratchedPixelCount(
+            this.drawingState,
         );
         // Generate Outline
         const colorOutline = this.props.colorOutline;
         this.imageOutline = utilities.generateOutline(
-            this.compositingContext, this.imageMap, colorOutline,
+            this.drawingState, colorOutline,
         );
     }
 
@@ -150,41 +151,36 @@ export default class Scratcher extends React.Component {
             props.scratchable is true, but no urlMap or urlImage are falsy or
             cannot be loaded.
         */
-        if(!(this.imageMap && this.imageFlag)) { return;}
+        if(!(this.drawingState.imageMap && this.drawingState.imageFlag)) {
+            return;
+        }
         // Redraw canvas on animation frame
         requestAnimationFrame(() => {
-            utilities.draw(
-                this.mainContext, this.compositingContext,
-                this.imageMap, this.imageFlag, this.imageOutline,
-                this.props.colorScratch,
-            );
+            utilities.draw(this.drawingState);
         })
     }
     
     //-- Handle Mouse & Touch Movements --------------
     handleMovement(moveEndX, moveEndY) {
         // Do nothing if the Scratcher isn't current scratchable
-        if(!this.props.scratchable){ return;}
+        if(!this.drawingState.itchy){ return;}
         // Compare to previous events (or initialize if first)
-        const moveStartX = this.lastMoveX || moveEndX;
-        const moveStartY = this.lastMoveY || moveEndY;
+        const moveStartX = this.drawingState.lastMoveX || moveEndX;
+        const moveStartY = this.drawingState.lastMoveY || moveEndY;
         // Store last movement on state, for future comparisons
-        this.lastMoveX = moveEndX;
-        this.lastMoveY = moveEndY;
+        this.drawingState.lastMoveX = moveEndX;
+        this.drawingState.lastMoveY = moveEndY;
         // Scratch line from previous coordinates to current coordinates
         utilities.eraseScratchLine(
-            this.compositingContext,
+            this.drawingState,
             moveStartX, moveStartY, moveEndX, moveEndY,
         );
         // Check if canvas is completely scratched
-        if(!this.scratchingComplete) {
-            const complete = utilities.checkCompletion(
-                this.compositingContext,
-                this.itchyPixels,
-            );
+        if(this.drawingState.itchy) {
+            const complete = utilities.checkCompletion(this.drawingState);
             if(complete) {
-                this.scratchingComplete = true;
-                utilities.scratchAll(this.compositingContext);
+                this.drawingState.itchy = false;
+                utilities.scratchAll(this.drawingState);
                 this.props.handleScratchAll();
             }
         }
