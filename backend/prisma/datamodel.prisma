@@ -1,12 +1,13 @@
 type User {
   id: ID! @unique
-  name: String!
-  nickname: String!
-  email: String! @unique
+  name: String
+  nickname: String
+  email: String
   twitterHandle: String
   scratchingAutomated: Boolean @default(value: "false")
   isPrivate: Boolean @default(value: "false")
   visits: [Visit] @relation(name: "UserCountries")
+  friends: [User]
 }
 
 type Country {
@@ -17,9 +18,9 @@ type Country {
 }
 
 type Visit {
-id: ID! @unique
-user: User! @relation(name: "UserCountries")
-country: Country! @relation(name: "CountryVisits")
-note: String
-level: Int
+  id: ID! @unique
+  user: User! @relation(name: "UserCountries")
+  country: Country! @relation(name: "CountryVisits")
+  note: String
+  level: Int
 }

@@ -1,4 +1,5 @@
-// NOTE #1 (we should move this but it's fast): i'm using heroku cli to deploy, so from top level // of repo check to see if the remote comes with it. if not:
+// NOTE #1 (we should move this but it's fast): i'm using heroku cli to deploy, so from top level
+// of repo check to see if the remote comes with it. if not:
 
 // you need heroku client
 // `git remote -v` to see if it has the heroku backend or not.
