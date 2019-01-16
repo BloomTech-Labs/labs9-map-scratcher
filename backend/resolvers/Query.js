@@ -6,7 +6,7 @@ const Query = {
   hello: () => 'Hello',
   //-- Begin Project Queries
   user: (parent, args, context) => {
-      return context.prisma.user({id: args.id});
+    return context.prisma.user({ id: args.id });
   },
   users: (parent, args, context) => {
     return context.prisma.users();
@@ -23,6 +23,9 @@ const Query = {
   visit: (parent, args, context) => {
     return context.prisma.visit({ id: args.id });
   },
+  friends: (parent, args, context) => {
+    return context.prisma.user({ id: args.id }).friends()
+  }
 };
 
 //-- Export --------------------------------------
