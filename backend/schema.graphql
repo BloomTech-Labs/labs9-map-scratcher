@@ -9,12 +9,12 @@ type Query {
 }
 
 type Mutation {
-  createUser(name: String!, nickname: String!, email: String!): User!
-  updateUser(name: String!, nickname: String!, email: String! id: ID!): User!
+  createUser(name: String, nickname: String, email: String, twitterHandle: String): User!
+  updateUser(name: String, nickname: String, email: String id: ID!): User!
   deleteUser(id: ID!): User!
   createCountry(name: String!, code: String!): Country!
   createVisit(userId: ID!, countryId: ID!, level: Int, note: String): Visit!
-  friend(userId: ID!, friendId: ID!): User!
+  friend(userId: ID!, friendId: ID!): User
 }
 
 type User {
