@@ -717,6 +717,7 @@ export interface VisitUpdateWithWhereUniqueWithoutUserInput {
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  twitterHandle?: String;
 }>;
 
 export interface VisitUpdateWithoutUserDataInput {

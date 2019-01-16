@@ -603,6 +603,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  twitterHandle: String
 }
 
 type Visit {
