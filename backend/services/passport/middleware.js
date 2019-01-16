@@ -14,7 +14,7 @@ module.exports = ({ express }) => {
   express.use(
     cookieSession({
       name: 'Backpaca',
-      keys: keys.cookieKey,
+      keys: [keys.cookieKey],
       maxAge: 5 * 60 * 1000 // 5 minutes
     })
   )
