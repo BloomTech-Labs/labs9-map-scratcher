@@ -42,14 +42,42 @@ class WorldMap extends React.Component {
   constructor() {
     super();
     this.state = {
-      hovering: null
+      hovering: null,
+      userVisits: [{
+            "country": {
+              "name": "Antarctica",
+              "code": "ATA"
+            },
+            "level": 3
+          },
+          {
+            "country": {
+              "name": "Australia",
+              "code": "AUS"
+            },
+            "level": 1
+          }],
+      friendVisits: [{
+            "country": {
+              "name": "Australia",
+              "code": "AUS"
+            },
+            "level": 2
+          },
+          {
+            "country": {
+              "name": "France",
+              "code": "FRA"
+            },
+            "level": 4
+          }],
     }
   }
 
 //gets the country that is being hovered over from the coordinates being hovered over and sets the state if it is a different country from the last.
 handleHover = (e) => {
   const country = wc([e.latlng.lng, e.latlng.lat]);
-  console.log(country)
+  console.log(country);
 
   if (this.state.hovering !== country) {
     this.setState({ hovering: country });
@@ -82,10 +110,72 @@ handleHover = (e) => {
             key={feature.properties.ISO_A3}
             data={feature}
             style={{stroke: false, fill: true, fillColor: 'firebrick', fillOpacity: 0.8}}
-            >
-
-            </GeoJSON>
+            />
         ))}
+
+        {this.state.userVisits && this.state.userVisits.map(visit => {
+          let style = { stroke: false, fill: true }
+          const feature = geojson.features.find(feature => feature.properties.ISO_A3 == visit.country.code)
+          if (visit.level === 1) {
+            style = {
+              ...style,
+              fillColor: 'pink'
+            }
+          }
+          if (visit.level === 2) {
+            style = {
+              ...style,
+              fillColor: 'yellow'
+            }
+          }
+          if (visit.level === 3) {
+            style = {
+              ...style,
+              fillColor: 'green'
+            }
+          }
+          if (visit.level === 4) {
+            style = {
+              ...style,
+              fillColor: 'blue'
+            }
+          }
+          return (<GeoJSON key={visit.country.code} data={feature} style={style}/>)
+          }
+        )}
+
+        {this.state.friendVisits && this.state.friendVisits.map(fvisit => {
+          let style = { stroke: true, weight: 1, fill: false }
+          const feature = geojson.features.find(feature => feature.properties.ISO_A3 == fvisit.country.code)
+          console.log(feature)
+          if (fvisit.level === 1) {
+            style = {
+              ...style,
+              color: 'pink'
+            }
+          }
+          if (fvisit.level === 2) {
+            style = {
+              ...style,
+              color: 'yellow'
+            }
+          }
+          if (fvisit.level === 3) {
+            style = {
+              ...style,
+              color: 'green'
+            }
+          }
+          if (fvisit.level === 4) {
+            style = {
+              ...style,
+              color: 'blue'
+            }
+          }
+          return (<GeoJSON key={fvisit.country.code} data={feature} style={style}/>)
+          }
+        )}
+
       </Map>
     )
   }
