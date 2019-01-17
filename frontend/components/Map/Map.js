@@ -16,7 +16,7 @@ const bound2 = L.latLng(-85, 175);
 const bounds = L.latLngBounds(bound1, bound2);
 
 //making the multi-user visit array easier to use
-const mapBorderVisits = fixData(friendVisitData);
+
 
 
 class WorldMap extends React.Component {
@@ -24,12 +24,19 @@ class WorldMap extends React.Component {
     super(props);
     this.state = {
       hovering: null,
+      borders: null,
+      colors: null,
     }
   }
 
-componentDidUpdate(){
-  console.log(this.props)
-}
+  componentDidMount() {
+    const mapBorderVisits = fixData(this.props.borderData.friends);
+    this.setState({
+      borders: mapBorderVisits,
+      colors: this.props.userData.user.visits,
+    })
+  }
+
 //gets the country from the coordinates under the mouse and sets the state if it is a different country from the last.
 handleHover = (e) => {
   const country = wc([e.latlng.lng, e.latlng.lat]);
@@ -40,6 +47,11 @@ handleHover = (e) => {
 }
 
   render() {
+    if (!this.state.colors || !this.state.borders) {
+      return (
+        <h1>I'm trying </h1>
+      )
+    }
     return (
       <Map
         className="map"
@@ -67,7 +79,7 @@ handleHover = (e) => {
             />
         ))}
 
-        {mapColorVisits.map(visit => {
+        {this.state.colors.map(visit => {
           const {country, level } = visit;
           let style = {
             ...colorStyle,
@@ -80,7 +92,7 @@ handleHover = (e) => {
           }
         )}
 
-        {mapBorderVisits.map(visit => {
+        {this.state.borders.map(visit => {
           const {country, level} = visit;
 
           let style = {
@@ -90,7 +102,7 @@ handleHover = (e) => {
 
           const feature = getFeature(geojson, country.code);
 
-          return (<GeoJSON key={country.code} data={feature} style={style}/>)
+          return (<GeoJSON key={visit.id} data={feature} style={style}/>)
           }
         )}
 
