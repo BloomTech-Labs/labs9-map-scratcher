@@ -2,8 +2,8 @@
 GET -> /auth/twitter
 	Initiate the oauth process.
 
-GET 
-	
+GET
+
 */
 
 // NODE MODULES
@@ -23,8 +23,8 @@ module.exports = ({ express }) => {
     passport.authenticate('twitter'),
     (_, res) => {
       if (process.env.NODE_ENV === 'production') {
-        res.redirect('https://backpaca.now.sh/settings')
-      } else res.redirect('http://localhost:1738/settings')
+        res.redirect('https://backpaca.now.sh/map')
+      } else res.redirect('http://localhost:1738/map')
     }
   )
 
