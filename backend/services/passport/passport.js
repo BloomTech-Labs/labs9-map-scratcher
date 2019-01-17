@@ -24,13 +24,13 @@ module.exports = async prisma => {
       },
       async (token, tokenSecret, profile, done) => {
         const existingUser = await prisma.user({
-          twitterHandle: profile.displayName
+          twitterHandle: profile.username
         })
         if (existingUser) {
           done(null, existingUser)
         } else {
           const createdUser = await prisma.createUser({
-            twitterHandle: profile.displayName
+            twitterHandle: profile.username
           })
           done(null, createdUser)
         }
