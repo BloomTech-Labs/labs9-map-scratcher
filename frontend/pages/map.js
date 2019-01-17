@@ -14,45 +14,65 @@ const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false
 })
 
-export default () => {
-      <div>
-        <MapIndex />
+export default function () {
+    return ( 
         <div>
-          <Query query={FRIENDSVISITS_QUERY} variable={{id}}>
-          {({ loading, error, data }) => {
-              if (loading) return <div>Fetching</div>
-              if (error) return <div>Error</div>
-              const friendsVisitsData = data.user.friends; 
-              return (
-                  <div>
-                      {friendsData.map(user => <div key={user.id}>{user.name} {user.email}</div>)}
-                  </div>
-              )
-          }}
-          </Query>
-          <DynamicMap
-            borderData={this.state.borderData}
-          />
-          <Legend />
+            <MapIndex />
+            <div>
+                <Query query={USERVISITS_QUERY} variable={{id}}>
+                    {responseUserData}
+                </Query>
+            </div>
         </div>
-      </div>
     );
-  }
+}
 
-  // Apollo Query handlers
-  receivedFriendBorderData = (queryResponse) => {
-    // Get data from response;
-    const loading = queryResponse.loading;
-    const error = queryResponse.error;
-    const data = data;
-    const friendsData = data;
-    friendsData.sanityCheck = true;
-    // Handle loading and error states
-    if(loading) { return null}
-    if(error) { return null}
-    // Handle Receiving of Data
-    return this.setState({
-      borderData: friendsData
-    });
-  }
+function renderLoading() {
+    return (
+        <div>Loading</div>
+    );
+}
+function renderError() {
+    return (
+        <div>Error</div>
+    );
+}
+
+function responseUserData (response) {
+    // Get data from response
+    const loading = response.load;
+    const error = response.error;
+    const userData = response.data;
+    // Handle loading and errors
+    if(loading) { return renderLoading();}
+    if(error  ) { return renderError();  }
+    // Magic
+    let responderFunction = responseFriendsVisits.bind(userData);
+    // Return jsx rendering
+    return (
+        <Query query={FRIENDSVISITS_QUERY} variable={{id}}>
+            {responderFunction}
+        </Query>
+    );
+}
+
+function responseFriendsVisits (response) {
+    // Get data from response
+    const loading = response.load;
+    const error = response.error;
+    const friendsVisitsData = response.data;
+    // Handle loading and errors
+    if(loading) { return renderLoading();}
+    if(error  ) { return renderError();  }
+    // Return jsx rendering
+    return finalMapRender(friendsVisitsData, this) // <- Magic from earlier magic
+}
+
+function finalMapRender(borderData, userData) {
+    return (
+        <div>
+            <DynamicMap borderData={this.state.borderData} />
+            <Legend />
+        </div>
+    );
 }
