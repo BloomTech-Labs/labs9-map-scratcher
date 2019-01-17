@@ -89,6 +89,18 @@ const UPDATEVISIT_MUTATION = gql`
     }
   }
 `
+const DELETEVISIT_MUTATION = gql`
+  mutation DeleteVisit(
+      $id: ID!)
+    {
+    deleteVisit(
+      id: $id, 
+    ) 
+    {
+      id
+    }
+  }
+`
 
 const ADDFRIEND_MUTATION = gql`
   mutation AddFriend(
@@ -128,6 +140,7 @@ export default {
   DELETEUSER_MUTATION, 
   CREATEVISIT_MUTATION,
   UPDATEVISIT_MUTATION,
+  DELETEVISIT_MUTATION,
   ADDFRIEND_MUTATION,
   DELETEFRIEND_MUTATION 
 }
