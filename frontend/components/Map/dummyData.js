@@ -1,4 +1,4 @@
-const mapColorVisits = [
+export const mapColorVisits = [
         {
           "level": 3,
           "country": {
@@ -37,7 +37,7 @@ const mapColorVisits = [
       ];
 
 //dummy data for use during testing
-const friendVisitData = [
+export const friendVisitData = [
   {
     "id": "cjqpxk83t000o0829p7mr6qto",
     "name": "Ally Paca",
@@ -102,8 +102,3 @@ const friendVisitData = [
     ]
   }
 ];
-
-module.exports = {
-  mapColorVisits,
-  friendVisitData
-}
