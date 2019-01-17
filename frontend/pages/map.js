@@ -1,9 +1,10 @@
-import dynamic from 'next/dynamic'
-import { Dimmer, Loader } from 'semantic-ui-react'
-import { USERVISITS_QUERY, FRIENDSVISITS_QUERY } from '../services/queries'
+import dynamic from 'next/dynamic';
+import { Dimmer, Loader } from 'semantic-ui-react';
+import { USERVISITS_QUERY, FRIENDSVISITS_QUERY } from '../services/queries';
+import { Query, Mutation, ApolloConsumer } from 'react-apollo';
 
-import MapIndex from '../components/MapHeader/MapIndex.js'
-import Legend from '../components/MapLegend/Legend.js'
+import MapIndex from '../components/MapHeader/MapIndex.js';
+import Legend from '../components/MapLegend/Legend.js';
 
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   loading: () => (
@@ -12,7 +13,9 @@ const DynamicMap = dynamic(() => import('../components/Map/Map'), {
     </Dimmer>
   ),
   ssr: false
-})
+});
+
+const id = "cjqt5c95y00s40894zs7m6q4v";
 
 export default function () {
     return ( 
