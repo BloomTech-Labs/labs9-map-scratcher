@@ -72,7 +72,10 @@ function responseFriendsVisits (response) {
 function finalMapRender(borderData, userData) {
     return (
         <div>
-            <DynamicMap borderData={borderData, userData} />
+            <DynamicMap
+                borderData={borderData}
+                userData={userData}
+            />
             <Legend />
         </div>
     );
