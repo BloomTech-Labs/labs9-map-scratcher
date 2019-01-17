@@ -9,7 +9,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { devURL, prodURL } from './config.js';
 
 const defaults = {
-  userId: null,
+  userId: "cjqt5c95y00s40894zs7m6q4v",
   viewingFriend: false,
   friendId: null,
   isLoggedIn: false
