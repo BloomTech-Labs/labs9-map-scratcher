@@ -46,7 +46,7 @@ const dataWeGet = [
     "visits": [
       {
         "id": "cjr0da23s002r0847hq4jx8g5",
-        "level": 2,
+        "level": 4,
         "country": {
           "id": "cjqy9e28y00i20840rwy5l1ti",
           "name": "Hungary",
@@ -61,7 +61,7 @@ const dataWeGet = [
     "visits": [
       {
         "id": "cjr0cztae000j0847e0nwmvzr",
-        "level": 4,
+        "level": 2,
         "country": {
           "id": "cjqy9e28y00i20840rwy5l1ti",
           "name": "Hungary",
@@ -117,7 +117,7 @@ function fixData(userArray) {
       finalArray.push(visit);
     })
   })
-  return finalArray; 
+  return finalArray;
 }
 
 const tileURLs = {
