@@ -17,17 +17,19 @@ const bounds = L.latLngBounds(bound1, bound2);
 
 //making the multi-user visit array easier to use
 const mapBorderVisits = fixData(friendVisitData);
-console.log(mapBorderVisits);
 
 
 class WorldMap extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       hovering: null,
     }
   }
 
+componentDidUpdate(){
+  console.log(this.props)
+}
 //gets the country from the coordinates under the mouse and sets the state if it is a different country from the last.
 handleHover = (e) => {
   const country = wc([e.latlng.lng, e.latlng.lat]);
