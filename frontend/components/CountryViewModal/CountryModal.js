@@ -22,7 +22,7 @@ class countryModal extends Component {
   constructor(props) {
       super(props)
       this.state = {
-        note = ""
+        note: ""
       }
 
       this.handleChange = this.handleChange.bind(this)
