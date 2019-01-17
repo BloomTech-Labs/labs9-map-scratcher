@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Dropdown, Checkbox } from 'semantic-ui-react'
-import friendsOptions from '../mapPage/friendsOptions.js'
+import friendsOptions from './friendsOptions.js'
 
 export default class MapIndex extends Component {
 
@@ -10,7 +10,7 @@ export default class MapIndex extends Component {
 
             <div className='map-header' style={{display:'flex',justifyContent:'space-evenly',alignItems:'center', zIndex: '1000', position: 'absolute', background: 'white', width: '80%', height: '4rem', top: '2.5%', left: '10%', right: '10%'}}>
             <div className='friend-checkbox' style={{display:'flex'}}>
-                <Checkbox 
+                <Checkbox
                 type='checkbox'
                 name='showFriendsTravels'
                 value=''
@@ -39,7 +39,7 @@ export default class MapIndex extends Component {
                 search
                 text='Select Country'
                 />
-                <Dropdown icon='large user'> 
+                <Dropdown icon='large user'>
                     <Dropdown.Menu>
                         <Dropdown.Item text='Home' icon='home' href='/' />
                         <Dropdown.Item text='Settings' icon='setting' href='/settings' />
