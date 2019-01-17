@@ -9,7 +9,7 @@ const colorsBright = {
 };
 
 const colors = {
-  0: 'gray', //no interaction yet
+  0: 'darkgray', //no interaction yet
   1: '#FD9B9F', //wishlist
   2: '#FDD57B', //transited
   3: '#B2DD83', //visited
