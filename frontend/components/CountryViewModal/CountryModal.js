@@ -21,9 +21,11 @@ import Scatcher from '../Scratcher/index.js'
 class countryModal extends Component {
   constructor(props) {
       super(props)
+    
       this.state = {
         note: ""
       }
+
 
       this.handleChange = this.handleChange.bind(this)
   }

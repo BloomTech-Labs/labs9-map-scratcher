@@ -1,32 +1,10 @@
 import Link from 'next/link';
 import React, { Component } from 'react'
 import { Query, Mutation, ApolloConsumer } from 'react-apollo'
-import gql from 'graphql-tag'
-import CountryModal from '../components/CountryViewModal/CountryModal.js'
 
-const USER_QUERY = gql`
-  {
-    users {
-        id
-        name
-        nickname
-        email
-    }
-  }
-`
-const isLoggedIn = gql`
-  {
-    isLoggedIn @client 
-  }
-`
-
-const createMutation = gql`
-    mutation CreateUser($name: String!, $nickname: String!, $email: String!){
-        createUser(name: $name, nickname: $nickname, email: $email) {
-            name
-        }
-    }
-`
+// import gql from 'graphql-tag'
+import { USERS_QUERY, USER_QUERY, COUNTRIES_QUERY, COUNTRY_QUERY, USERVISITS_QUERY, FRIENDS_QUERY, FRIENDSVISITS_QUERY } from '../services/queries'
+// import CountryModal from '../components/CountryViewModal/CountryModal.js'
 
 class Test extends Component {
     constructor(props) {
@@ -45,6 +23,7 @@ class Test extends Component {
       }
 
     render() {
+        const id = "cjqt5c95y00s40894zs7m6q4v"
         return (
             <div>
                 <p>
@@ -56,76 +35,46 @@ class Test extends Component {
                         <a> Settings</a>
                     </Link>
                 </p>
-                {/* Updates state locally, writes directly to the cache. Direct writes are great for one-off mutations that don’t depend on the data that’s currently in the cache, such as writing a single value. */}
-                    <Query query={isLoggedIn}>
-                    {({ client, data }) => {
-                        console.log(data)
-                        return(
-                            <button  onClick={() => {
-                                data.isLoggedIn === true ? client.writeData({ data: { isLoggedIn: false }}): client.writeData({ data: { isLoggedIn: true } })
-                            }}>
-                                click
-                            </button>
-                        )
-                    }}
-                    </Query>
-                    {/* add user example using a form */}
-                    <form>
-                        <input
-                        type='text'
-                        placeholder='name'
-                        name='name'
-                        value={this.state.name}
-                        onChange={this.handleChange}
-                        />
-                        <input
-                        type='text'
-                        placeholder='nickname'
-                        name='nickname'
-                        value={this.state.nickname}
-                        onChange={this.handleChange}
-                        />
-                        <input
-                        type='text'
-                        placeholder='email'
-                        name='email'
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                        />
-                        <Mutation mutation={createMutation}>
-                        {( createUser ) => (
-                                <button
-                                        onClick={e => {
-                                        e.preventDefault();
-                                        createUser({ variables: { name: this.state.name, nickname: this.state.nickname, email: this.state.email } });
-                                        this.setState({ name: '', nickname: '', email: '' })
-                                        }
-                                    }
-                                        
-                                    >
-                                    add user
-                                </button>
-                        )}
-                        </Mutation>
-                    </form>
-                <div>Test Component</div>
-                 {/* query data */}
-                <Query query={USER_QUERY}>
+                <div>USER</div>
+                <Query query={USER_QUERY} variables={{id}}>
                 {({ loading, error, data }) => {
                     if (loading) return <div>Fetching</div>
                     if (error) return <div>Error</div>
-
-                    const usersToRender = data.users
-
                     return (
                         <div>
-                            {usersToRender.map(user => <div key={user.id}>{user.name} {user.email}</div>)}
+                            {<div key={data.user.id}>{data.user.name} {data.user.email}</div>}
                         </div>
                     )
-
                 }}
                 </Query>
-                <CountryModal />
+                <br></br>
+                <div>USERS</div>
+                <Query query={USERS_QUERY}>
+                {({ loading, error, data }) => {
+                    if (loading) return <div>Fetching</div>
+                    if (error) return <div>Error</div>
+                    const usersData = data.users
+                    return (
+                        <div>
+                            {usersData.map(user => <div key={user.id}>{user.name} {user.email}</div>)}
+                        </div>
+                    )
+                }}
+                </Query>
+                <br></br>
+                <div>FRIENDS</div>
+                <Query query={FRIENDS_QUERY} variables={{id}}>
+                {({ loading, error, data }) => {
+                    if (loading) return <div>Fetching</div>
+                    if (error) return <div>Error</div>
+                    const friendsData = data.friends
+                    return (
+                        <div>
+                            {friendsData.map(user => <div key={user.id}>{user.name} {user.email}</div>)}
+                        </div>
+                    )
+                }}
+                </Query>
             </div>
         );
     }
