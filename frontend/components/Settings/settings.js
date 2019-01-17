@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Checkbox, Form, Input } from 'semantic-ui-react'
 
-import '../../less/settings.less'
+import './settings.less'
 
 export default class Settings extends Component {
   constructor(props) {
@@ -40,11 +40,24 @@ export default class Settings extends Component {
             required
           />
         </Form.Field>
-        <div>
+        <Form.Field>
+          <label>Nickname:</label>
+          <Input
+            name="nickname"
+            onChange={this.handleChange}
+            placeholder="nickname"
+            type="text"
+            value={this.state.nickname}
+            required
+          />
+        </Form.Field>
+        <div className="settings_checkbox">
           <Checkbox type="checkbox" name="automateScratchOff" value="" />
           &nbsp;&nbsp;Automate scratch off
         </div>
-        <Button onClick={e => e.preventDefault()}>Save</Button>
+        <Button className="settings_button" onClick={e => e.preventDefault()}>
+          Save
+        </Button>
       </Form>
     )
   }
