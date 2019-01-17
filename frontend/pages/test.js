@@ -2,7 +2,15 @@ import Link from 'next/link';
 import React, { Component } from 'react'
 import { Query, Mutation, ApolloConsumer } from 'react-apollo'
 // import gql from 'graphql-tag'
-import { USERS_QUERY, USER_QUERY, COUNTRIES_QUERY, COUNTRY_QUERY, USERVISITS_QUERY, FRIENDS_QUERY, FRIENDSVISITS_QUERY } from '../services/queries'
+import {
+    USERS_QUERY,
+    USER_QUERY,
+    COUNTRIES_QUERY,
+    COUNTRY_QUERY,
+    USERVISITS_QUERY,
+    FRIENDS_QUERY,
+    FRIENDSVISITS_QUERY
+} from '../services/queries';
 // import CountryModal from '../components/CountryViewModal/CountryModal.js'
 
 class Test extends Component {

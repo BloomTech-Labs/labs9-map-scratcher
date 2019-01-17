@@ -1,12 +1,17 @@
+
+
+//==============================================================================
+
+//-- Dependencies --------------------------------
 import dynamic from 'next/dynamic';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import { USERVISITS_QUERY, FRIENDSVISITS_QUERY } from '../services/queries';
+import { USERVISITS_QUERY, FRIENDSVISITS_QUERY } from '../services/queries.js';
 import { Query, Mutation, ApolloConsumer } from 'react-apollo';
 import React, { Component } from 'react';
-
 import MapIndex from '../components/MapHeader/MapIndex.js';
 import Legend from '../components/MapLegend/Legend.js';
 
+//------------------------------------------------
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   loading: () => (
     <Dimmer active>
@@ -16,7 +21,22 @@ const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false
 });
 
-const id = "cjqt5c95y00s40894zs7m6q4v";
+//------------------------------------------------
+import gql from 'graphql-tag'
+const testQuery = gql`
+    query {
+    friends(
+        id: "cjqt5c95y00s40894zs7m6q4v")
+    {
+        name
+        visits {
+        country {
+            name
+        }
+        }
+    }
+    }
+`;
 
 
 
@@ -34,23 +54,55 @@ export default class extends Component {
 
     //-- Rendering -----------------------------------
     render() {
+        const id = "cjqt5c95y00s40894zs7m6q4v";
         return (
-            <React.Fragment>
-                <Query query={FRIENDSVISITS_QUERY} variable={{id}}>
-                    {this.handleResponseFriendsMapData}
-                </Query>
-                <Query query={USERVISITS_QUERY} variable={{id}}>
-                    {this.handleResponseUserMapData}
-                </Query>
+            <div>
+                <Query query={USERVISITS_QUERY} variables={{id}}>{
+                    response => {
+                        // Get data from response
+                        let error = response.error;
+                        let loading = response.loading;
+                        const userData = response.data;
+                        // Handle loading and errors
+                        if(loading) {
+                            return this.handleLoading(loading);
+                        }
+                        if(error) {
+                            return this.handleError(error);
+                        }
+                        // asdfjkl;asdf;jklfsdajl;
+                        return (
+                            <Query query={FRIENDSVISITS_QUERY} variables={{id}}>{
+                                friendsResponse => {
+                                    // Get data from response
+                                    error = friendsResponse.error;
+                                    loading = friendsResponse.loading;
+                                    const borderData = friendsResponse.data;
+                                    // Handle loading and errors
+                                    if(loading) {
+                                        return this.handleLoading(loading);
+                                    }
+                                    if(error) {
+                                        return this.handleError(error);
+                                    }
+                                    // Render
+                                    console.log('WHERE IS THIS?', borderData, userData)
+                                    return (
+                                        <div>
+                                            <DynamicMap
+                                                borderData={borderData}
+                                                userData={userData}
+                                            />
+                                            <Legend />
+                                        </div>
+                                    );
+                                }
+                            }</Query>
+                        );
+                    }   
+                }</Query>
                 <MapIndex />
-                <div>
-                    <DynamicMap
-                        borderData={this.state.borderData}
-                        userData={this.state.userData}
-                    />
-                    <Legend />
-                </div>
-            </React.Fragment>
+            </div>
         );
     }
 
@@ -59,42 +111,9 @@ export default class extends Component {
 
     //-- Error Handler -------------------------------
     handleError(error) {
-        console.log('Error:', error);
+        return (<div>Error</div>);
     }
-
-    //-- Receive User Map Data -----------------------
-    handleResponseUserMapData = (response) => {
-        // Get data from response
-        const error = response.error;
-        const userData = response.data;
-        // Handle loading and errors
-        if(error) {
-            this.handleError(error);
-            return;
-        }
-        // Set state and rerender
-        this.setState({
-            userMapData: userData,
-        });
-        // Return empty jsx (a return value is necessary for Query)
-        return null;
-    }
-
-    //-- Receive Map Data for Friends ----------------
-    handleResponseFriendsMapData = (response) => {
-        // Get data from response
-        const error = response.error;
-        const friendsVisitsData = response.data;
-        // Handle loading and errors
-        if(error) {
-            this.handleError(error);
-            return;
-        }
-        // Set state and rerender
-        this.setState({
-            friendsMapData: friendsVisitsData,
-        });
-        // Return empty jsx (a return value is necessary for Query)
-        return null;
+    handleLoading(loading) {
+        return (<div>Loading</div>);
     }
 }
