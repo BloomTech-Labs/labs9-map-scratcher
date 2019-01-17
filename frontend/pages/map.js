@@ -65,13 +65,14 @@ function responseFriendsVisits (response) {
     if(loading) { return renderLoading();}
     if(error  ) { return renderError();  }
     // Return jsx rendering
-    return finalMapRender(friendsVisitsData, this) // <- Magic from earlier magic
+    const userData = this;
+    return finalMapRender(friendsVisitsData, userData); // <- Magic from earlier magic
 }
 
 function finalMapRender(borderData, userData) {
     return (
         <div>
-            <DynamicMap borderData={this.state.borderData} />
+            <DynamicMap borderData={borderData, userData} />
             <Legend />
         </div>
     );
