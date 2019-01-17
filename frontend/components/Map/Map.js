@@ -3,8 +3,9 @@ import L from 'leaflet';
 import { Map, TileLayer, GeoJSON, Tooltip } from 'react-leaflet';
 import geojson from './countries.geo.json';
 import wc from 'which-country'
-import { mapColorVisits, dataWeGet, fixData, getFeature } from './mapHelpers';
+import { fixData, getFeature } from './mapHelpers';
 import { colors, defaultStyle, hoverStyle, colorStyle, borderStyle } from './countryStyles'
+import { mapColorVisits, friendVisitData } from './dummyData';
 
 //setting a center of the map
 const center = [0, 0];
@@ -15,7 +16,7 @@ const bound2 = L.latLng(-85, 175);
 const bounds = L.latLngBounds(bound1, bound2);
 
 //making the multi-user visit array easier to use
-const mapBorderVisits = fixData(dataWeGet);
+const mapBorderVisits = fixData(friendVisitData);
 console.log(mapBorderVisits);
 
 
