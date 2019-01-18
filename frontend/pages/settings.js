@@ -1,6 +1,6 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
-import Settings from '../components/Settings/settings.js'
+import Settings from '../components/Settings/Settings.js'
 
 export default () => (
   <div>
@@ -15,4 +15,4 @@ export default () => (
     </p>
     <Settings />
   </div>
-);
+)

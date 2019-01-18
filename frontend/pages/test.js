@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { Component } from 'react'
 import { Query, Mutation, ApolloConsumer } from 'react-apollo'
+
 // import gql from 'graphql-tag'
 import {
     USERS_QUERY,

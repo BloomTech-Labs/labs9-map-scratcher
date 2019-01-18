@@ -66,6 +66,7 @@ query User($id: ID!) {
     }
 }
 `
+
 export const FRIENDSVISITS_QUERY = gql`
 query User($id: ID!) {
     friends(id: $id) {
