@@ -36,50 +36,7 @@ export default class extends Component {
     }
     displayMap(visitsUser, visitsFriends) {
         return (
-            <div>
-                <Query query={USERVISITS_QUERY} variables={{id}}>{
-                    response => {
-                        // Get data from response
-                        let error = response.error;
-                        let loading = response.loading;
-                        const userData = response.data;
-                        // Handle loading and errors
-                        if(loading) {
-                            return this.handleLoading(loading);
-                        }
-                        if(error) {
-                            return this.handleError(error);
-                        }
-                        // asdfjkl;asdf;jklfsdajl;
-                        return (
-                            <Query query={FRIENDSVISITS_QUERY} variables={{id}}>{
-                                friendsResponse => {
-                                    // Get data from response
-                                    error = friendsResponse.error;
-                                    loading = friendsResponse.loading;
-                                    const borderData = friendsResponse.data;
-                                    // Handle loading and errors
-                                    if(loading) {
-                                        return this.handleLoading(loading);
-                                    }
-                                    if(error) {
-                                        return this.handleError(error);
-                                    }
-                                    // Render
-                                                return (
-                                        <div>
-                                            <DynamicMap
-                                                borderData={borderData}
-                                                userData={userData}
-                                            />
-                                            <Legend />
-                                        </div>
-                                    );
-                                }
-                            }</Query>
-                        );
-                    }
-                }</Query>
+            <React.Fragment>
                 <MapIndex />
                 <div>
                     <DynamicMap
