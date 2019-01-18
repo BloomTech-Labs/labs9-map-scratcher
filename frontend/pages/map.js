@@ -11,6 +11,9 @@ import React, { Component } from 'react';
 import MapIndex from '../components/MapHeader/MapIndex.js';
 import Legend from '../components/MapLegend/Legend.js';
 
+//-- Constants -----------------------------------
+const testUserId = "cjqt5c95y00s40894zs7m6q4v";
+
 //------------------------------------------------
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   loading: () => (
@@ -21,41 +24,19 @@ const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false
 });
 
-//------------------------------------------------
-import gql from 'graphql-tag'
-const testQuery = gql`
-    query {
-    friends(
-        id: "cjqt5c95y00s40894zs7m6q4v")
-    {
-        name
-        visits {
-        country {
-            name
-        }
-        }
-    }
-    }
-`;
-
-
 
 //== React lifecycle methods ===================================================
 
-    //-- Constructor ---------------------------------
 export default class extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            userMapData: null,
-            friendsMapData: null,
-        };
     }
-
-    //-- Rendering -----------------------------------
     render() {
-        const id = "cjqt5c95y00s40894zs7m6q4v";
+        return this.makeQueriesAndRenderMap();
+    }
+    displayMap(visitsUser, visitsFriends) {
         return (
+<<<<<<< HEAD
             <div>
                 <Query query={USERVISITS_QUERY} variables={{id}}>{
                     response => {
@@ -100,19 +81,91 @@ export default class extends Component {
                         );
                     }
                 }</Query>
+=======
+            <React.Fragment>
+>>>>>>> c91f1d750eff3f7d3c3cc042ea3c09643909afe9
                 <MapIndex />
-            </div>
+                <div>
+                    <DynamicMap
+                        visitsFriends={visitsFriends}
+                        visitsUser={visitsUser}
+                    />
+                    <Legend />
+                </div>
+            </React.Fragment>
         );
     }
 
 
 //== Query response handlers ===================================================
 
-    //-- Error Handler -------------------------------
-    handleError(error) {
+    //-- Query Renderers -----------------------------
+    makeQueriesAndRenderMap() {
+        // Not strictly necessary, but it clarifies intent
+        return this.requestVisitsUser();
+    }
+    requestVisitsUser() {
+        let query = USERVISITS_QUERY;
+        let variables = {id: testUserId};
+        let responseHandler = (response) => {
+            return this.handleResponseVisitsUser(response);
+        };
+        return (
+            <Query query={query} variables={variables}>
+                {responseHandler}
+            </Query>
+        );
+    }
+    requestVisitsFriends(visitsUser) {
+        let query = FRIENDSVISITS_QUERY;
+        let variables = {id: testUserId};
+        let responseHandler = (response) => {
+            return this.handleResponseVisitsFriends(response, visitsUser);
+        };
+        return (
+            <Query query={query} variables={variables}>
+                {responseHandler}
+            </Query>
+        );
+    }
+
+    //-- Subcomponent Display ------------------------
+    displayError(error) {
         return (<div>Error</div>);
     }
-    handleLoading(loading) {
+    displayLoading() {
         return (<div>Loading</div>);
+    }
+
+    //-- Response handlers ---------------------------
+    handleResponseVisitsUser(response) {
+        // Get data from response
+        let error = response.error;
+        let loading = response.loading;
+        const visitsUser = response.data;
+        // Handle loading and errors
+        if(loading) {
+            return this.displayLoading();
+        }
+        if(error) {
+            return this.displayError(error);
+        }
+        // Continue Rendering
+        return this.requestVisitsFriends(visitsUser);
+    }
+    handleResponseVisitsFriends(response, visitsUser) {
+        // Get data from response
+        let error = response.error;
+        let loading = response.loading;
+        const visitsFriends = response.data;
+        // Handle loading and errors
+        if(loading) {
+            return this.displayLoading();
+        }
+        if(error) {
+            return this.displayError(error);
+        }
+        // Continue Rendering
+        return this.displayMap(visitsUser, visitsFriends);
     }
 }
