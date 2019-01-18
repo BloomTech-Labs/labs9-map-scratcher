@@ -36,7 +36,6 @@ export default class extends Component {
     }
     displayMap(visitsUser, visitsFriends) {
         return (
-<<<<<<< HEAD
             <div>
                 <Query query={USERVISITS_QUERY} variables={{id}}>{
                     response => {
@@ -81,9 +80,6 @@ export default class extends Component {
                         );
                     }
                 }</Query>
-=======
-            <React.Fragment>
->>>>>>> c91f1d750eff3f7d3c3cc042ea3c09643909afe9
                 <MapIndex />
                 <div>
                     <DynamicMap
