@@ -60,7 +60,9 @@ export default class extends Component {
     requestVisitsUser() {
         let query = USERVISITS_QUERY;
         let variables = {id: testUserId};
-        let responseHandler = this.handleResponseVisitsUser;
+        let responseHandler = (response) => {
+            return this.handleResponseVisitsUser(response);
+        };
         return (
             <Query query={query} variables={variables}>
                 {responseHandler}
@@ -102,7 +104,7 @@ export default class extends Component {
             return this.displayError(error);
         }
         // Continue Rendering
-        this.requestVisitsFriends(visitsUser);
+        return this.requestVisitsFriends(visitsUser);
     }
     handleResponseVisitsFriends(response, visitsUser) {
         // Get data from response
@@ -117,6 +119,6 @@ export default class extends Component {
             return this.displayError(error);
         }
         // Continue Rendering
-        this.displayMap(visitsUser, visitsFriends);
+        return this.displayMap(visitsUser, visitsFriends);
     }
 }
