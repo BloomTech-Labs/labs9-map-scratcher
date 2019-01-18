@@ -30,10 +30,10 @@ class WorldMap extends React.Component {
   }
 
   componentDidMount() {
-    const mapBorderVisits = fixData(this.props.borderData.friends);
+    const mapBorderVisits = fixData(this.props.visitsFriends.friends);
     this.setState({
       borders: mapBorderVisits,
-      colors: this.props.userData.user.visits,
+      colors: this.props.visitsUser.user.visits,
     })
   }
 
