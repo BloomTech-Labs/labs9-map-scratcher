@@ -86,8 +86,7 @@ export default class extends Component {
                                         return this.handleError(error);
                                     }
                                     // Render
-                                    console.log('WHERE IS THIS?', borderData, userData)
-                                    return (
+                                                return (
                                         <div>
                                             <DynamicMap
                                                 borderData={borderData}
@@ -99,7 +98,7 @@ export default class extends Component {
                                 }
                             }</Query>
                         );
-                    }   
+                    }
                 }</Query>
                 <MapIndex />
             </div>
