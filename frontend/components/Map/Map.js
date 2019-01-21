@@ -104,16 +104,16 @@ class WorldMap extends React.Component {
         ))}
 
         {this.state.colors.map(visit => {
-          const { country, level} = visit;
+          const level = visit[3];
           let style = {
             ...colorStyle,
             color: colors[level],
             fillColor: colors[level]
           };
 
-          const feature = getFeature(geojson, country.name)
+          const feature = getFeature(geojson, visit[2])
 
-          return (<GeoJSON key={country.id} data={feature} style={style}/>)
+          return (<GeoJSON key={visit[0]} data={feature} style={style}/>)
           }
         )}
 
