@@ -97,8 +97,11 @@ export default class extends Component {
         // Get data from response
         let error = response.error;
         let loading = response.loading;
-        const visitsUser = response.data.user.visits;
+        let visitsUser = [];
+        visitsUser.push(response.data.user);
+        visitsUser = fixData(visitsUser);
         // Handle loading and errors
+        console.log('user', visitsUser);
         if(loading) {
             return this.displayLoading();
         }
@@ -113,6 +116,7 @@ export default class extends Component {
         let error = response.error;
         let loading = response.loading;
         const visitsFriends = fixData(response.data.friends);
+        console.log('friends', visitsFriends)
         // Handle loading and errors
         if(loading) {
             return this.displayLoading();
