@@ -34,6 +34,9 @@ export default class extends Component {
     }
 
     render() {
+        return this.makeQueriesAndRenderMap();
+    }
+    displayMap(visitsUser, visitsFriends) {
         return (
             <React.Fragment>
                 <MapIndex />
@@ -48,6 +51,84 @@ export default class extends Component {
         );
     }
 
+
+//== Query response handlers ===================================================
+
+    //-- Query Renderers -----------------------------
+    makeQueriesAndRenderMap() {
+        // Not strictly necessary, but it clarifies intent
+        return this.requestVisitsUser();
+    }
+    requestVisitsUser() {
+        let query = USERVISITS_QUERY;
+        let variables = {id: testUserId};
+        let responseHandler = (response) => {
+            return this.handleResponseVisitsUser(response);
+        };
+        return (
+            <Query query={query} variables={variables}>
+                {responseHandler}
+            </Query>
+        );
+    }
+    requestVisitsFriends(visitsUser) {
+      //END OF THE LINE QUERY
+        //-IF THE STATE SAYS WE'RE VIEWING A FRIEND
+          //THEN SEND JUST THAT FRIEND AS COLOR & USER AS BORDER
+        //-ELSE SEND USER AS COLOR AND FRIENDS AS BORDER
+        let query = FRIENDSVISITS_QUERY;
+        let variables = {id: testUserId};
+        let responseHandler = (response) => {
+            return this.handleResponseVisitsFriends(response, visitsUser);
+        };
+        return (
+            <Query query={query} variables={variables}>
+                {responseHandler}
+            </Query>
+        );
     }
 
+    //-- Subcomponent Display ------------------------
+    displayError(error) {
+        return (<div>Error</div>);
+    }
+    displayLoading() {
+        return (<div>Loading</div>);
+    }
+
+    //-- Response handlers ---------------------------
+    handleResponseVisitsUser(response) {
+        // Get data from response
+        let error = response.error;
+        let loading = response.loading;
+        let visitsUser = [];
+        visitsUser.push(response.data.user);
+        visitsUser = fixData(visitsUser);
+        // Handle loading and errors
+        console.log('user', visitsUser);
+        if(loading) {
+            return this.displayLoading();
+        }
+        if(error) {
+            return this.displayError(error);
+        }
+        // Continue Rendering
+        return this.requestVisitsFriends(visitsUser);
+    }
+    handleResponseVisitsFriends(response, visitsUser) {
+        // Get data from response
+        let error = response.error;
+        let loading = response.loading;
+        const visitsFriends = fixData(response.data.friends);
+        console.log('friends', visitsFriends)
+        // Handle loading and errors
+        if(loading) {
+            return this.displayLoading();
+        }
+        if(error) {
+            return this.displayError(error);
+        }
+        // Continue Rendering
+        return this.displayMap(visitsUser, visitsFriends);
+    }
 }

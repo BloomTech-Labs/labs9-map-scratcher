@@ -72,6 +72,10 @@ export default class extends Component {
         );
     }
     requestVisitsFriends(visitsUser) {
+      //END OF THE LINE QUERY
+        //-IF THE STATE SAYS WE'RE VIEWING A FRIEND
+          //THEN SEND JUST THAT FRIEND AS COLOR & USER AS BORDER
+        //-ELSE SEND USER AS COLOR AND FRIENDS AS BORDER
         let query = FRIENDSVISITS_QUERY;
         let variables = {id: testUserId};
         let responseHandler = (response) => {
