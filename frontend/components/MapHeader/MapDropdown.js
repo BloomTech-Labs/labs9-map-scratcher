@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Icon, Dropdown } from 'semantic-ui-react'
+import { Dropdown } from 'semantic-ui-react'
 
 const logout =
   process.env.NODE_ENV === 'production'
