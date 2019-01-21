@@ -2,8 +2,8 @@
 //dummy data for use during testing
 
 //gets the country polygon information from the country code
-export function getFeature(data, code) {
-  return data.features.find(feature => feature.properties.ISO_A3 === code)
+export function getFeature(data, name) {
+  return data.features.find(feature => feature.properties.ADMIN === name)
 };
 
 //massages the data into a form easily used in the map render
@@ -11,10 +11,13 @@ export function fixData(userArray) {
   let finalArray = []
   userArray.map(user => {
     user.visits.map(visit => {
-      finalArray.push(visit);
+      let arrVisit = [visit.id, visit.country.id, visit.country.name, visit.level]
+      finalArray.push(arrVisit);
     })
   })
-  return finalArray;
+  return finalArray.sort(function(a, b) {
+    return a[3] > b[3] ? 1: -1;
+  });
 }
 
 //urls for if we choose to add a tile layer
