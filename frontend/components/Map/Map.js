@@ -1,9 +1,10 @@
 import React from 'react';
 import L from 'leaflet';
-import { Map, TileLayer, GeoJSON, Tooltip } from 'react-leaflet';
+import { Map, TileLayer, GeoJSON } from 'react-leaflet';
+import { Label } from 'semantic-ui-react';
 import geojson from './countries.geo.json';
-import wc from 'which-country'
-import { fixData, getFeature } from './mapHelpers';
+import whichPolygon from 'which-polygon';
+import { getFeature } from './mapHelpers';
 import { colors, defaultStyle, hoverStyle, colorStyle, borderStyle } from './countryStyles'
 import { mapColorVisits, friendVisitData } from './dummyData';
 
@@ -23,26 +24,41 @@ class WorldMap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showBorders: false,
       hovering: null,
-      borders: null,
-      colors: null,
+      mouse: null,
+      borders: [],
+      colors: [],
     }
   }
 
   componentDidMount() {
-    const mapBorderVisits = fixData(this.props.visitsFriends.friends);
     this.setState({
-      borders: mapBorderVisits,
-      colors: this.props.visitsUser.user.visits,
+      borders: this.props.visitsFriends,
+      colors: this.props.visitsUser,
     })
   }
 
+
 //gets the country from the coordinates under the mouse and sets the state if it is a different country from the last.
 handleHover = (e) => {
-  const country = wc([e.latlng.lng, e.latlng.lat]);
+  let query = whichPolygon(geojson);
+  const country = query([e.latlng.lng, e.latlng.lat]);
+  const popupY = e.originalEvent.clientY - 50;
+  const popupX = e.originalEvent.clientX - 30;
+  const mouse = {
+    x: popupX + 'px',
+    y: popupY + 'px'
+  }
 
-  if (this.state.hovering !== country) {
-    this.setState({ hovering: country });
+  if (!country && this.state.hovering){
+    this.setState({
+      hovering: null,
+      mouse: null,
+    })
+  }
+  if (country && this.state.hovering !== country.ADMIN) {
+    this.setState({ hovering: country.ADMIN, mouse: mouse });
   }
 }
 
@@ -71,38 +87,43 @@ handleHover = (e) => {
           style={defaultStyle}
           />
 
-        {geojson.features.map(feature => this.state.hovering === feature.properties.ISO_A3 && (
-          <GeoJSON
-            key={feature.properties.ISO_A3}
-            data={feature}
-            style={hoverStyle}
-            />
+        {geojson.features.map(feature => this.state.hovering === feature.properties.ADMIN && (
+          <Label
+          key={feature.properties.ADMIN}
+          style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 10000}}>
+            <GeoJSON
+              data={feature}
+              style={hoverStyle}
+              />
+              {this.state.hovering}
+            </Label>
         ))}
 
         {this.state.colors.map(visit => {
-          const {country, level } = visit;
+          const { country, level} = visit;
           let style = {
             ...colorStyle,
+            color: colors[level],
             fillColor: colors[level]
           };
 
-          const feature = getFeature(geojson, country.code)
+          const feature = getFeature(geojson, country.name)
 
-          return (<GeoJSON key={country.code} data={feature} style={style}/>)
+          return (<GeoJSON key={country.id} data={feature} style={style}/>)
           }
         )}
 
-        {this.state.borders.map(visit => {
-          const {country, level} = visit;
+        {this.state.showBorders && this.state.borders.map(visit => {
+          const level = visit[3];
 
           let style = {
             ...borderStyle,
             color: colors[level]
           }
 
-          const feature = getFeature(geojson, country.code);
+          const feature = getFeature(geojson, visit[2]);
 
-          return (<GeoJSON key={visit.id} data={feature} style={style}/>)
+          return (<GeoJSON key={visit[0]} data={feature} style={style}/>)
           }
         )}
 
