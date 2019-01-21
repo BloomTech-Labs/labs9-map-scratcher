@@ -20,21 +20,24 @@ export const colors = {
 export const defaultStyle = {
   stroke: true,
   weight: 0.6,
-  color: 'black',
+  color: '#484848',
   fill: true,
   fillColor: colors[0],
   fillOpacity: 1,
 }
 
 export const hoverStyle = {
-  stroke: false,
+  stroke: true,
+  weight: 1,
+  color: 'black',
   fill: true,
   fillColor: colors[5],
   fillOpacity: 1,
 }
 
 export const colorStyle ={
-  stroke: false,
+  stroke: true,
+  weight: 1.5,
   fill: true,
   fillOpacity: 1,
 }
