@@ -10,6 +10,7 @@ import { Query, Mutation, ApolloConsumer } from 'react-apollo';
 import React, { Component } from 'react';
 import MapIndex from '../components/MapHeader/MapIndex.js';
 import Legend from '../components/MapLegend/Legend.js';
+import { fixData } from '../components/Map/mapHelpers';
 
 //-- Constants -----------------------------------
 const testUserId = "cjqt5c95y00s40894zs7m6q4v";
@@ -31,6 +32,7 @@ export default class extends Component {
     constructor(props) {
         super(props);
     }
+
     render() {
         return this.makeQueriesAndRenderMap();
     }
@@ -95,7 +97,7 @@ export default class extends Component {
         // Get data from response
         let error = response.error;
         let loading = response.loading;
-        const visitsUser = response.data;
+        const visitsUser = response.data.user.visits;
         // Handle loading and errors
         if(loading) {
             return this.displayLoading();
@@ -110,7 +112,7 @@ export default class extends Component {
         // Get data from response
         let error = response.error;
         let loading = response.loading;
-        const visitsFriends = response.data;
+        const visitsFriends = fixData(response.data.friends);
         // Handle loading and errors
         if(loading) {
             return this.displayLoading();
