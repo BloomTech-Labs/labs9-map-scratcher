@@ -46,6 +46,7 @@ export const USERVISITS_QUERY = gql`
     query User($id: ID!) {
     user(id: $id) {
         visits {
+            id
             country {
                 id
                 name
