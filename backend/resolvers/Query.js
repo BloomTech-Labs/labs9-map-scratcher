@@ -15,7 +15,7 @@ const Query = {
     return context.prisma.countries();
   },
   country: (parent, args, context) => {
-    return context.prisma.country({ id: args.id });
+    return context.prisma.country({ name: args.name });
   },
   visits: (parent, args, context) => {
     return context.prisma.visits();
