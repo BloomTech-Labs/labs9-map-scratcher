@@ -6,7 +6,11 @@ import geojson from './countries.geo.json';
 import whichPolygon from 'which-polygon';
 import { getFeature } from './mapHelpers';
 import { colors, defaultStyle, hoverStyle, colorStyle, borderStyle } from './countryStyles'
-import { mapColorVisits, friendVisitData } from './dummyData';
+
+//// TODO: Update render logic to accomodate switching the data displayed (logic currently only expects default user view of map; needs to be updated for if a friend's map is being displayed.)
+
+//// TODO: Look at reducing GeoJSON renders either by reducing the number of renders, or be using something like geojson-vt. There are currently four layers of GeoJSON - a base layer of all polygons, a layer that is the hovered polygon and associated label, a layer that is the colors of the countries to reflect user visits, and a layer that is the color of the borders to reflect friend visits.
+
 
 //setting a center of the map
 const center = [0, 0];
@@ -15,9 +19,6 @@ const center = [0, 0];
 const bound1 = L.latLng(85, -170);
 const bound2 = L.latLng(-85, 175);
 const bounds = L.latLngBounds(bound1, bound2);
-
-//making the multi-user visit array easier to use
-
 
 
 class WorldMap extends React.Component {
@@ -33,36 +34,39 @@ class WorldMap extends React.Component {
   }
 
   componentDidMount() {
+    //this logic needs to be updated for if the local store viewingFriend is false.
     this.setState({
       borders: this.props.visitsFriends,
       colors: this.props.visitsUser,
     })
   }
 
-
-//gets the country from the coordinates under the mouse and sets the state if it is a different country from the last.
-handleHover = (e) => {
-  let query = whichPolygon(geojson);
-  const country = query([e.latlng.lng, e.latlng.lat]);
-  const popupY = e.originalEvent.clientY - 50;
-  const popupX = e.originalEvent.clientX - 30;
-  const mouse = {
-    x: popupX + 'px',
-    y: popupY + 'px'
+  handleHover = (e) => {
+    //gets the country for the coordinates under the mouse
+    let query = whichPolygon(geojson);
+    const country = query([e.latlng.lng, e.latlng.lat]);
+    //gets the position of the mouse on the screen and sets it to an object with an offset (to be passed to the country label/popup for positioning. )
+    const popupY = e.originalEvent.clientY - 50;
+    const popupX = e.originalEvent.clientX - 30;
+    const mouse = {
+      x: popupX + 'px',
+      y: popupY + 'px'
+    }
+  //if there is no country under the mouse, set state to null so that no country is highlighted and no label/popup is displayed.
+    if (!country && this.state.hovering){
+      this.setState({
+        hovering: null,
+        mouse: null,
+      })
+    }
+  //if there is a country under the mouse and it is not the same as the previous country being hovered over, set the state to reflect the new country and the new position for the popup/label
+    if (country && this.state.hovering !== country.ADMIN) {
+      this.setState({ hovering: country.ADMIN, mouse: mouse });
+    }
   }
-
-  if (!country && this.state.hovering){
-    this.setState({
-      hovering: null,
-      mouse: null,
-    })
-  }
-  if (country && this.state.hovering !== country.ADMIN) {
-    this.setState({ hovering: country.ADMIN, mouse: mouse });
-  }
-}
 
   render() {
+    //test logic for if either of these is false
     if (!this.state.colors || !this.state.borders) {
       return (
         <h1>I'm trying </h1>
@@ -115,14 +119,11 @@ handleHover = (e) => {
 
         {this.state.showBorders && this.state.borders.map(visit => {
           const level = visit[3];
-
           let style = {
             ...borderStyle,
             color: colors[level]
           }
-
           const feature = getFeature(geojson, visit[2]);
-
           return (<GeoJSON key={visit[0]} data={feature} style={style}/>)
           }
         )}
