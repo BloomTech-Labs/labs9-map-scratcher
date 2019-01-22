@@ -83,10 +83,9 @@ export const MUTATION_DELETEFRIEND_PROFILE = gql`
     deleteFriend(
       userId: $userId,
       friendId: $friendId,
-      ) 
+    ) 
     {
-     userId,
-     friendId
+      id,
     }
   }
 `
