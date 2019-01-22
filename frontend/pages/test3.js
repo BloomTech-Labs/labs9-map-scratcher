@@ -5,7 +5,7 @@
 //-- Dependencies --------------------------------
 import dynamic from 'next/dynamic';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import { QUERY_CLIENT_TRAVELS, QUERY_USERVISITS_TRAVELS, QUERY_FRIENDSVISITS_TRAVELS } from '../services/requests.js';
+import { QUERY_CLIENT_TRAVELS, QUERY_USERVISITS_TRAVELS, QUERY_FRIENDSVISITS_TRAVELS, MUTATION_TOGGLE_SOMETHING } from '../services/requests.js';
 import { Query, Mutation, ApolloConsumer } from 'react-apollo';
 import React, { Component } from 'react';
 import MapIndex from '../components/MapHeader/MapIndex.js';
@@ -34,7 +34,12 @@ export default class extends Component {
     }
 
     render() {
-        return this.makeQueriesAndRenderMap();
+        // return this.makeQueriesAndRenderMap();
+        return (
+          <Mutation mutation ={MUTATION_TOGGLE_SOMETHING}>
+          {mutate => <button onClick={mutate}>Toggle Stuff</button>}
+          </Mutation>
+        )
     }
     displayMap(colors, borders) {
         return (
@@ -60,7 +65,7 @@ export default class extends Component {
         return this.requestLocalState();
     }
     requestLocalState() {
-      console.log('client travels query'); 
+      console.log('client travels query');
       let query = QUERY_CLIENT_TRAVELS
       let responseHandler = (response) => {
         return this.handleResponseLocalState(response);
