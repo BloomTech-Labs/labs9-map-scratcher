@@ -100,11 +100,17 @@ export const QUERY_CLIENT_TRAVELS = gql`
     friendId @client
   }
 `
-
+//smaller client requests
 export const QUERY_CLIENT_VIEWFRIEND = gql`
   {
     viewingFriend @client,
     friendId @client
+  }
+`
+
+export const MUTATION_VIEWINGFRIEND_TRAVELS = gql`
+  mutation($id: ID!) {
+    viewFriend(id: $id) @client
   }
 `
 
@@ -174,11 +180,7 @@ export const QUERY_FRIENDS_HEADER = gql`
     }
   }
 `
-export const MUTATION_VIEWINGFRIEND_TRAVELS = gql`
-  mutation($id: ID!) {
-    viewFriend(id: $id) @client
-  }
-`
+
 
 // >>>MAP (props: userId, viewingFriend, friendId, visitsFriends, visitsUser)
 // no client requests
@@ -277,6 +279,7 @@ export const MUTATION_DELETEVISIT_MODAL = gql`
 //   }
 // `
 
+//Test Mutations and Queries
 export const MUTATION_TOGGLE_SOMETHING = gql`
   mutation toggleLoggedIn {
     toggleLoggedIn @client
