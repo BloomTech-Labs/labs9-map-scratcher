@@ -15,6 +15,17 @@ const defaults = {
   isLoggedIn: false
 }
 
+// const clientMutations = {
+//   Mutation: {
+//     viewingFriend: ({ cache }) => {
+//       const prev = cache.readQuery(QUERY_CLIENT_TRAVELS);
+//       const data = { ...prev, viewingFriend: !prev.viewingFriend };
+//       cache.writeData({ data });
+//       return null;
+//     },
+//   },
+// };
+
 const cache = new InMemoryCache();
 
 export default withApollo(
@@ -24,6 +35,7 @@ export default withApollo(
       clientState: {
         cache,
         defaults,
+        // clientMutations
       }
     })
 );
