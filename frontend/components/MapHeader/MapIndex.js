@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
-import { Query } from 'react-apollo'
+import { Query, Mutation } from 'react-apollo'
 import { Dropdown, Checkbox } from 'semantic-ui-react'
 
-import { QUERY_FRIENDS_HEADER, QUERY_COUNTRIES_HEADER, QUERY_CLIENT_TRAVELS } from '../../services/resolvers'
+import { QUERY_FRIENDS_HEADER, QUERY_COUNTRIES_HEADER, QUERY_CLIENT_TRAVELS, MUTATION_VIEWINGFRIEND_TRAVELS } from '../../services/requests'
 import MapDropdown from './MapDropdown'
 import friendsOptions from './friendsOptions.js'
 
 
 export default class MapIndex extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      friendId: null,
+    }
+  }
   handleError(error) {
     return <div>Error</div>
   }
@@ -15,12 +21,14 @@ export default class MapIndex extends Component {
     return <div>Loading</div>
   }
 
-  handleFriendSelection = (e, data) => {
-    console.log(data.value);
-  }
+  // handleFriendSelection = (e, data) => {
+  //   console.log(data.value);
+  //   return (
+  //
+  //   )
+  // }
 
   render() {
-    const id = 'cjqt5c95y00s40894zs7m6q4v'
     return (
       <div
         className="map-header"
@@ -43,7 +51,7 @@ export default class MapIndex extends Component {
           &nbsp;&nbsp;Show Friends' Travels
         </div>
         {/* <h1>My Travels</h1> */}
-        <Query query={QUERY_FRIENDS_HEADER} variables={{ id }}>
+        <Query query={QUERY_FRIENDS_HEADER} variables={{ id: "cjqt5c95y00s40894zs7m6q4v" }}>
           {response => {
             let error = response.error
             let loading = response.loading
@@ -63,7 +71,12 @@ export default class MapIndex extends Component {
             return (
               <Dropdown
                 placeholder="My Travels"
-                onChange={this.handleFriendSelection}
+                onChange={(e, data) => {
+                  return <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} variables={{id: data.value}}
+                  > {(viewFriend, { loading}) => {
+                    loading
+                  }}</Mutation>
+                }}
                 style={{
                   zIndex: '99999',
                   width: '20%',

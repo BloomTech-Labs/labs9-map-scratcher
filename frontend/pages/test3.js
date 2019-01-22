@@ -5,7 +5,7 @@
 //-- Dependencies --------------------------------
 import dynamic from 'next/dynamic';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import { QUERY_CLIENT_TRAVELS, QUERY_USERVISITS_TRAVELS, FRIENDSVISITS_QUERY } from '../services/resolvers.js';
+import { QUERY_CLIENT_TRAVELS, QUERY_USERVISITS_TRAVELS, QUERY_FRIENDSVISITS_TRAVELS } from '../services/requests.js';
 import { Query, Mutation, ApolloConsumer } from 'react-apollo';
 import React, { Component } from 'react';
 import MapIndex from '../components/MapHeader/MapIndex.js';
@@ -85,7 +85,7 @@ export default class extends Component {
         //-IF THE STATE SAYS WE'RE VIEWING A FRIEND
           //THEN SEND JUST THAT FRIEND AS COLOR & USER AS BORDER
         //-ELSE SEND USER AS COLOR AND FRIENDS AS BORDER
-        let query = FRIENDSVISITS_QUERY;
+        let query = QUERY_FRIENDSVISITS_TRAVELS;
         let variables = { id: localState.userId };
         let responseHandler = (response) => {
             return this.handleResponseVisitsFriends(response, visitsUser, localState);
