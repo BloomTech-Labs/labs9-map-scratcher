@@ -5,6 +5,7 @@ import { Dropdown, Checkbox } from 'semantic-ui-react'
 import { QUERY_FRIENDS_HEADER, QUERY_COUNTRIES_HEADER, QUERY_CLIENT_TRAVELS, MUTATION_VIEWINGFRIEND_TRAVELS } from '../../services/requests'
 import MapDropdown from './MapDropdown'
 import friendsOptions from './friendsOptions.js'
+import './mapIndex.less'
 
 
 export default class MapIndex extends Component {
@@ -33,23 +34,8 @@ export default class MapIndex extends Component {
 
   render() {
     return (
-      <div
-        className="map-header"
-        style={{
-          display: 'flex',
-          justifyContent: 'space-evenly',
-          alignItems: 'center',
-          zIndex: '1000',
-          position: 'absolute',
-          background: 'white',
-          width: '80%',
-          height: '4rem',
-          top: '2.5%',
-          left: '10%',
-          right: '10%'
-        }}
-      >
-        <div className="friend-checkbox" style={{ display: 'flex' }}>
+      <div className="mapIndex_map-header">
+        <div className="mapIndex_friend-checkbox">
           <Checkbox type="checkbox" name="showFriendsTravels" value="" />
           &nbsp;&nbsp;Show Friends' Travels
         </div>
@@ -77,7 +63,7 @@ export default class MapIndex extends Component {
             //   return [{query: QUERY_CLIENT_TRAVELS}]
             // }}
             return (
-              <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} refetchQueries={[{query: QUERY_CLIENT_TRAVELS, variables: { id: "cjqt5c95y00s40894zs7m6q4v" }}]}
+              <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} 
                >
               {(viewFriend, { data }) => (
                 <Dropdown
