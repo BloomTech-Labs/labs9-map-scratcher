@@ -3,7 +3,7 @@ import { Card, Icon, Image, Checkbox, Form, Input } from 'semantic-ui-react'
 
 const UserCard = (props) => (
   <Card style={{ width: '100%', border: '1px solid blue', marginLeft: '15%' }}>
-    <Image src='/static/alpaca.png'
+    <Image src={props.profilePicture}
     style={{width: '50%', display: 'flex', alignSelf: 'center'}}
     />
     <Card.Content>
@@ -12,7 +12,7 @@ const UserCard = (props) => (
             <span className='date'>Joined in {props.joinDate}</span>
         </Card.Meta>
       {/* Form for editing name, email, nickname */}
-        <Form>
+        <Form style={{paddingTop: '3%'}}>
             <Form.Field>
             <label>Name:</label>
             <Input
@@ -47,7 +47,7 @@ const UserCard = (props) => (
             />
             </Form.Field>
         </Form>
-      <div>
+      <div style={{paddingTop: '3%'}}>
         <Checkbox
         type='checkbox'
         name='automateScratchOff'

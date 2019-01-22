@@ -15,6 +15,7 @@ export default class ProfileCard extends React.Component {
             name: 'Aly Paca',
             email: 'alypaca@pacamail.com',
             nickname: 'Aly',
+            defaultPicture: '/static/alpaca.png'
         }
     }
 
@@ -33,11 +34,14 @@ export default class ProfileCard extends React.Component {
                     name={this.state.name}
                     email={this.state.email}
                     nickname={this.state.nickname}
+                    profilePicture={this.state.defaultPicture}
                     />
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
+                <div style={{display: 'flex', flexDirection: 'column', width: '30%'}}>
                 <FindFriends />
-                <FriendsList />
+                <FriendsList
+                profilePicture={this.state.defaultPicture}
+                />
                 </div>
                 
             </div>

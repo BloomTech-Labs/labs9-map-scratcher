@@ -8,7 +8,7 @@ const FindFriends = () => (
     search
     selection
     options={friendOptions}
-    style={{border: '1px solid blue', height: '20px', width: '20%'}}
+    style={{border: '1px solid blue', height: '20px'}}
     />
 )
 
