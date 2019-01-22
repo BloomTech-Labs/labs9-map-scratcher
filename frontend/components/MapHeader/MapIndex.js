@@ -77,7 +77,7 @@ export default class MapIndex extends Component {
             //   return [{query: QUERY_CLIENT_TRAVELS}]
             // }}
             return (
-              <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} refetchQueries={[{query: QUERY_CLIENT_TRAVELS, variables: { id: "cjqt5c95y00s40894zs7m6q4v" }}]}
+              <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} 
                >
               {(viewFriend, { data }) => (
                 <Dropdown
