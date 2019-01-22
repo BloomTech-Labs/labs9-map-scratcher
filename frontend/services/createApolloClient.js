@@ -11,7 +11,7 @@ import { devURL, prodURL } from './config.js';
 const defaults = {
   userId: "cjqt5c95y00s40894zs7m6q4v",
   viewingFriend: false,
-  friendId: null,
+  friendId: "cjqpxk83t000o0829p7mr6qto",
   isLoggedIn: false
 }
 
