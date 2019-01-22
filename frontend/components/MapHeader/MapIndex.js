@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
-import { Query } from 'react-apollo'
+import { Query, Mutation } from 'react-apollo'
 import { Dropdown, Checkbox } from 'semantic-ui-react'
 
-import { FRIENDS_QUERY, COUNTRIES_QUERY } from '../../services/queries'
+import { QUERY_FRIENDS_HEADER, QUERY_COUNTRIES_HEADER, QUERY_CLIENT_TRAVELS, MUTATION_VIEWINGFRIEND_TRAVELS } from '../../services/requests'
 import MapDropdown from './MapDropdown'
 import friendsOptions from './friendsOptions.js'
 
+
 export default class MapIndex extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      friendId: null,
+    }
+  }
   handleError(error) {
     return <div>Error</div>
   }
@@ -14,8 +21,17 @@ export default class MapIndex extends Component {
     return <div>Loading</div>
   }
 
+  handleFriendSelection = (e, data) => {
+    this.setState({
+      friendId: data.value
+    })
+  }
+
+  componendDidUpdate() {
+    console.log('state?',this.state.friendId)
+  }
+
   render() {
-    const id = 'cjqt5c95y00s40894zs7m6q4v'
     return (
       <div
         className="map-header"
@@ -38,7 +54,7 @@ export default class MapIndex extends Component {
           &nbsp;&nbsp;Show Friends' Travels
         </div>
         {/* <h1>My Travels</h1> */}
-        <Query query={FRIENDS_QUERY} variables={{ id }}>
+        <Query query={QUERY_FRIENDS_HEADER} variables={{ id: "cjqt5c95y00s40894zs7m6q4v" }}>
           {response => {
             let error = response.error
             let loading = response.loading
@@ -54,26 +70,40 @@ export default class MapIndex extends Component {
             if (error) {
               return this.handleError(error)
             }
+            //add onchange for the dropdownData
+
+            //refetch: this will console.log: refetchQueries={() => {
+            //   console.log('refetch?')
+            //   return [{query: QUERY_CLIENT_TRAVELS}]
+            // }}
             return (
-              <Dropdown
-                placeholder="My Travels"
-                style={{
-                  zIndex: '99999',
-                  width: '20%',
-                  background: 'transparent'
-                }}
-                button
-                className="icon"
-                floating
-                labeled
-                icon="users"
-                options={dropdownData}
-                search
-              />
+              <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} refetchQueries={[{query: QUERY_CLIENT_TRAVELS, variables: { id: "cjqt5c95y00s40894zs7m6q4v" }}]}
+               >
+              {(viewFriend, { data }) => (
+                <Dropdown
+                  placeholder="My Travels"
+                  onChange={(e, data) => {
+                    viewFriend({ variables: {id: data.value }});
+                  }}
+                  style={{
+                    zIndex: '99999',
+                    width: '20%',
+                    background: 'transparent'
+                  }}
+                  button
+                  className="icon"
+                  floating
+                  labeled
+                  icon="users"
+                  options={dropdownData}
+                  search
+                />
+              )}
+              </Mutation>
             )
           }}
         </Query>
-        <Query query={COUNTRIES_QUERY}>
+        <Query query={QUERY_COUNTRIES_HEADER}>
           {response => {
             let error = response.error
             let loading = response.loading
