@@ -160,7 +160,7 @@ export const QUERY_FRIENDS_HEADER = gql`
   }
 `
 export const MUTATION_VIEWINGFRIEND_TRAVELS = gql`
-  mutation viewFriend($id: ID!) {
+  mutation($id: ID!) {
     viewFriend(id: $id) @client
   }
 `

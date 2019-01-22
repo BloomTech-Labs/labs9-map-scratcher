@@ -60,6 +60,7 @@ export default class extends Component {
         return this.requestLocalState();
     }
     requestLocalState() {
+      console.log('client travels query'); 
       let query = QUERY_CLIENT_TRAVELS
       let responseHandler = (response) => {
         return this.handleResponseLocalState(response);
@@ -81,10 +82,6 @@ export default class extends Component {
         );
     }
     requestVisitsFriends(visitsUser, localState) {
-      //END OF THE LINE QUERY
-        //-IF THE STATE SAYS WE'RE VIEWING A FRIEND
-          //THEN SEND JUST THAT FRIEND AS COLOR & USER AS BORDER
-        //-ELSE SEND USER AS COLOR AND FRIENDS AS BORDER
         let query = QUERY_FRIENDSVISITS_TRAVELS;
         let variables = { id: localState.userId };
         let responseHandler = (response) => {

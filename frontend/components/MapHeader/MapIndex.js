@@ -72,7 +72,8 @@ export default class MapIndex extends Component {
             }
             //add onchange for the dropdownData
             return (
-              <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} >
+              <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} refetchQueries={[{ query: QUERY_CLIENT_TRAVELS }]}
+               >
               {(viewFriend, { data }) => (
                 <Dropdown
                   placeholder="My Travels"
