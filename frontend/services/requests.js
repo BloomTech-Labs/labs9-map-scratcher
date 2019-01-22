@@ -28,6 +28,14 @@ export const QUERY_USERS_PROFILE = gql`
     }
   }
 `
+export const QUERY_FRIENDS_PROFILE = gql`
+  query User($id: ID!) {
+    friends(id: $id) {
+      id
+      name
+    }
+  }
+`
 export const MUTATION_UPDATEUSER_PROFILE = gql`
   mutation UpdateUser(
       $id: ID!
@@ -54,13 +62,21 @@ export const MUTATION_UPDATEUSER_PROFILE = gql`
 `
 export const MUTATION_ADDFRIEND_PROFILE = gql`
   mutation AddFriend(
+<<<<<<< HEAD
       $userId: ID!,
+=======
+      $userId: ID!
+>>>>>>> 657c1583b4dc9e22185d27a0d069ae856a1b1588
       $friendId: ID!)
     {
     addFriend(
       userId: $userId,
       friendId: $friendId,
+<<<<<<< HEAD
       )
+=======
+      ) 
+>>>>>>> 657c1583b4dc9e22185d27a0d069ae856a1b1588
     {
      userId,
      friendId
@@ -69,13 +85,21 @@ export const MUTATION_ADDFRIEND_PROFILE = gql`
 `
 export const MUTATION_DELETEFRIEND_PROFILE = gql`
   mutation DeleteFriend(
+<<<<<<< HEAD
       $userId: ID!,
+=======
+      $userId: ID!
+>>>>>>> 657c1583b4dc9e22185d27a0d069ae856a1b1588
       $friendId: ID!)
     {
     deleteFriend(
       userId: $userId,
       friendId: $friendId,
+<<<<<<< HEAD
       )
+=======
+      ) 
+>>>>>>> 657c1583b4dc9e22185d27a0d069ae856a1b1588
     {
      userId,
      friendId
