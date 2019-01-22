@@ -5,7 +5,7 @@
 //-- Dependencies --------------------------------
 import dynamic from 'next/dynamic';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import { USERVISITS_QUERY, FRIENDSVISITS_QUERY } from '../services/queries.js';
+import { QUERY_CLIENT_TRAVELS, QUERY_USERVISITS_TRAVELS, QUERY_FRIENDSVISITS_TRAVELS } from '../services/requests.js';
 import { Query, Mutation, ApolloConsumer } from 'react-apollo';
 import React, { Component } from 'react';
 import MapIndex from '../components/MapHeader/MapIndex.js';
@@ -36,14 +36,14 @@ export default class extends Component {
     render() {
         return this.makeQueriesAndRenderMap();
     }
-    displayMap(visitsUser, visitsFriends) {
+    displayMap(colors, borders) {
         return (
             <React.Fragment>
                 <MapIndex />
                 <div>
                     <DynamicMap
-                        visitsFriends={visitsFriends}
-                        visitsUser={visitsUser}
+                        colors={colors}
+                        borders={borders}
                     />
                     <Legend />
                 </div>
@@ -57,13 +57,23 @@ export default class extends Component {
     //-- Query Renderers -----------------------------
     makeQueriesAndRenderMap() {
         // Not strictly necessary, but it clarifies intent
-        return this.requestVisitsUser();
+        return this.requestLocalState();
     }
-    requestVisitsUser() {
-        let query = USERVISITS_QUERY;
-        let variables = {id: testUserId};
+    requestLocalState() {
+      console.log('client travels query');
+      let query = QUERY_CLIENT_TRAVELS
+      let responseHandler = (response) => {
+        return this.handleResponseLocalState(response);
+      }
+      return (
+        <Query query={query}>{responseHandler}</Query>
+      )
+    }
+    requestVisitsUser(localState) {
+        let query = QUERY_USERVISITS_TRAVELS;
+        let variables = {id: localState.userId};
         let responseHandler = (response) => {
-            return this.handleResponseVisitsUser(response);
+            return this.handleResponseVisitsUser(response, localState);
         };
         return (
             <Query query={query} variables={variables}>
@@ -71,15 +81,11 @@ export default class extends Component {
             </Query>
         );
     }
-    requestVisitsFriends(visitsUser) {
-      //END OF THE LINE QUERY
-        //-IF THE STATE SAYS WE'RE VIEWING A FRIEND
-          //THEN SEND JUST THAT FRIEND AS COLOR & USER AS BORDER
-        //-ELSE SEND USER AS COLOR AND FRIENDS AS BORDER
-        let query = FRIENDSVISITS_QUERY;
-        let variables = {id: testUserId};
+    requestVisitsFriends(visitsUser, localState) {
+        let query = QUERY_FRIENDSVISITS_TRAVELS;
+        let variables = { id: localState.userId };
         let responseHandler = (response) => {
-            return this.handleResponseVisitsFriends(response, visitsUser);
+            return this.handleResponseVisitsFriends(response, visitsUser, localState);
         };
         return (
             <Query query={query} variables={variables}>
@@ -97,7 +103,19 @@ export default class extends Component {
     }
 
     //-- Response handlers ---------------------------
-    handleResponseVisitsUser(response) {
+    handleResponseLocalState(response) {
+      let error = response.error;
+      let loading = response.loading;
+      let localState = response.data;
+      if(loading) {
+        return this.displayLoading();
+      }
+      if (error) {
+        return this.displayError(error);
+      }
+      return this.requestVisitsUser(localState)
+    }
+    handleResponseVisitsUser(response, localState) {
         // Get data from response
         let error = response.error;
         let loading = response.loading;
@@ -105,7 +123,6 @@ export default class extends Component {
         visitsUser.push(response.data.user);
         visitsUser = fixData(visitsUser);
         // Handle loading and errors
-        console.log('user', visitsUser);
         if(loading) {
             return this.displayLoading();
         }
@@ -113,14 +130,26 @@ export default class extends Component {
             return this.displayError(error);
         }
         // Continue Rendering
-        return this.requestVisitsFriends(visitsUser);
+        return this.requestVisitsFriends(visitsUser, localState);
     }
-    handleResponseVisitsFriends(response, visitsUser) {
+    handleResponseVisitsFriends(response, visitsUser, localState) {
         // Get data from response
         let error = response.error;
         let loading = response.loading;
-        const visitsFriends = fixData(response.data.friends);
-        console.log('friends', visitsFriends)
+
+        let colors, borders;
+
+        if (!localState.viewingFriend) {
+          colors = visitsUser;
+          borders = fixData(response.data.friends);
+        }
+
+        if (localState.viewingFriend && localState.friendId) {
+          let oneFriend = response.data.friends.filter(friend => friend.id === localState.friendId)
+          oneFriend = fixData(oneFriend);
+          colors = oneFriend;
+          borders = visitsUser;
+        }
         // Handle loading and errors
         if(loading) {
             return this.displayLoading();
@@ -129,6 +158,6 @@ export default class extends Component {
             return this.displayError(error);
         }
         // Continue Rendering
-        return this.displayMap(visitsUser, visitsFriends);
+        return this.displayMap(colors, borders);
     }
 }
