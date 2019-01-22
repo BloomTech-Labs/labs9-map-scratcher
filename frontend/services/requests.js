@@ -95,7 +95,7 @@ export const QUERY_CLIENT_TRAVELS = gql`
 
 export const QUERY_CLIENT_VIEWFRIEND = gql`
   {
-    viewingFriend @client, 
+    viewingFriend @client,
     friendId @client
   }
 `
@@ -268,3 +268,15 @@ export const MUTATION_DELETEVISIT_MODAL = gql`
 //     }
 //   }
 // `
+
+export const MUTATION_TOGGLE_SOMETHING = gql`
+  mutation toggleLoggedIn {
+    toggleLoggedIn @client
+  }
+`
+
+export const QUERY_CLIENT_LOGGED = gql`
+  query {
+     isLoggedIn @client
+   }
+`
