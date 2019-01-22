@@ -1,9 +1,0 @@
-endpoint: https://backpaca-ed6c7c4fde.herokuapp.com/backpaca/prod
-datamodel: datamodel.prisma
-
-generate:
-  - generator: javascript-client
-    output: ./generated/prisma-client/
-
-seed:
-  import:  ./seeds/countrySeed.graphql
