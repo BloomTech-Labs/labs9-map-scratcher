@@ -2,8 +2,8 @@ import React from 'react'
 import { Card, Icon, Image, Checkbox, Form, Input } from 'semantic-ui-react'
 
 const UserCard = (props) => (
-  <Card style={{ width: '30%', border: '1px solid blue', marginLeft: '15%' }}>
-    <Image src='https://trello-attachments.s3.amazonaws.com/5c339966c4303f3b109d56f9/5c419cadf85fe45e2a368bee/d0d7f17054aaca45385217dc5ca22f44/alpaca.png'
+  <Card style={{ width: '100%', border: '1px solid blue', marginLeft: '15%' }}>
+    <Image src='/static/alpaca.png'
     style={{width: '50%', display: 'flex', alignSelf: 'center'}}
     />
     <Card.Content>

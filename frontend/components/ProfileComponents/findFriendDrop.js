@@ -4,7 +4,8 @@ import friendOptions from '../MapHeader/friendsOptions.js'
 
 const FindFriends = () => (
     <Dropdown 
-    placeholder='Select Friend' 
+    placeholder='Search for friends' 
+    search
     selection
     options={friendOptions}
     style={{border: '1px solid blue', height: '20px', width: '20%'}}

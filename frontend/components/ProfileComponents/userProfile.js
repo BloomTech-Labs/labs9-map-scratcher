@@ -1,6 +1,7 @@
 import React from 'react'
 import UserCard from './profileCard.js'
-import FindFriends from './friends.js'
+import FindFriends from './findFriendDrop.js'
+import FriendsList from './friendsList.js'
 
 export default class ProfileCard extends React.Component {
     constructor(props) {
@@ -21,18 +22,24 @@ export default class ProfileCard extends React.Component {
 
     render() {
         return(
-            <div style={{display: 'flex', width: '80%', justifyContent: 'space-between'}}>
-                <UserCard 
-                name={this.state.name} 
-                joinDate={this.state.joinDate}
-                numFriends={this.state.numFriends}
-                automateScratch={this.props.automateScratch}
-                handleChange={this.handleChange}
-                name={this.state.name}
-                email={this.state.email}
-                nickname={this.state.nickname}
-                />
+            <div  style={{display: 'flex', width: '80%', justifyContent: 'space-around'}}>
+                <div>
+                    <UserCard 
+                    name={this.state.name} 
+                    joinDate={this.state.joinDate}
+                    numFriends={this.state.numFriends}
+                    automateScratch={this.props.automateScratch}
+                    handleChange={this.handleChange}
+                    name={this.state.name}
+                    email={this.state.email}
+                    nickname={this.state.nickname}
+                    />
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column'}}>
                 <FindFriends />
+                <FriendsList />
+                </div>
+                
             </div>
         )
     }
