@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { Dropdown, Checkbox } from 'semantic-ui-react'
 
-import { FRIENDS_QUERY, COUNTRIES_QUERY } from '../../services/queries'
+import { QUERY_FRIENDS_HEADER, QUERY_COUNTRIES_HEADER, QUERY_CLIENT_TRAVELS } from '../../services/resolvers'
 import MapDropdown from './MapDropdown'
 import friendsOptions from './friendsOptions.js'
+
 
 export default class MapIndex extends Component {
   handleError(error) {
@@ -12,6 +13,10 @@ export default class MapIndex extends Component {
   }
   handleLoading(loading) {
     return <div>Loading</div>
+  }
+
+  handleFriendSelection = (e, data) => {
+    console.log(data.value);
   }
 
   render() {
@@ -38,7 +43,7 @@ export default class MapIndex extends Component {
           &nbsp;&nbsp;Show Friends' Travels
         </div>
         {/* <h1>My Travels</h1> */}
-        <Query query={FRIENDS_QUERY} variables={{ id }}>
+        <Query query={QUERY_FRIENDS_HEADER} variables={{ id }}>
           {response => {
             let error = response.error
             let loading = response.loading
@@ -54,9 +59,11 @@ export default class MapIndex extends Component {
             if (error) {
               return this.handleError(error)
             }
+            //add onchange for the dropdownData
             return (
               <Dropdown
                 placeholder="My Travels"
+                onChange={this.handleFriendSelection}
                 style={{
                   zIndex: '99999',
                   width: '20%',
@@ -73,7 +80,7 @@ export default class MapIndex extends Component {
             )
           }}
         </Query>
-        <Query query={COUNTRIES_QUERY}>
+        <Query query={QUERY_COUNTRIES_HEADER}>
           {response => {
             let error = response.error
             let loading = response.loading
