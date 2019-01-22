@@ -39,18 +39,18 @@ export const QUERY_FRIENDS_PROFILE = gql`
 export const MUTATION_UPDATEUSER_PROFILE = gql`
   mutation UpdateUser(
       $id: ID!
-      $name: String, 
-      $nickname: String, 
+      $name: String,
+      $nickname: String,
       $email: String,
       $scratchingAutomated: Boolean,
       $isPrivate: Boolean)
     {
     updateUser(
-      name: $name, 
-      nickname: $nickname, 
+      name: $name,
+      nickname: $nickname,
       email: $email,
       scratchingAutomated: $scratchingAutomated,
-      isPrivate: $isPrivate) 
+      isPrivate: $isPrivate)
     {
       name,
       nickname,
@@ -96,6 +96,13 @@ export const MUTATION_DELETEFRIEND_PROFILE = gql`
 export const QUERY_CLIENT_TRAVELS = gql`
   {
     userId @client,
+    viewingFriend @client,
+    friendId @client
+  }
+`
+
+export const QUERY_CLIENT_VIEWFRIEND = gql`
+  {
     viewingFriend @client,
     friendId @client
   }
@@ -167,9 +174,14 @@ export const QUERY_FRIENDS_HEADER = gql`
     }
   }
 `
+export const MUTATION_VIEWINGFRIEND_TRAVELS = gql`
+  mutation($id: ID!) {
+    viewFriend(id: $id) @client
+  }
+`
 
 // >>>MAP (props: userId, viewingFriend, friendId, visitsFriends, visitsUser)
-// no client requests 
+// no client requests
 // no yoga requests
 
 // >>>COUNTRY MODAL (props: userId, viewingFriend, friendId, countryName)
@@ -197,7 +209,7 @@ export const MUTATION_CREATEVISIT_MODAL = gql`
       userId: $userId,
       countryId: $countryId,
       level: $level,
-      note: $note) 
+      note: $note)
     {
       level,
       note
@@ -214,7 +226,7 @@ export const MUTATION_UPDATEVISIT_MODAL = gql`
     updateVisit(
       id: $id,
       level: $level,
-      note: $note) 
+      note: $note)
     {
       level,
       note
@@ -236,16 +248,16 @@ export const MUTATION_DELETEVISIT_MODAL = gql`
 
 // export const CREATEUSER_MUTATION = gql`
 //   mutation CreateUser(
-//       $twitterHandle: String, 
-//       $name: String, 
+//       $twitterHandle: String,
+//       $name: String,
 //       $nickname: String,
 //       $email: String)
 //     {
 //     createUser(
 //       twitterHandle: $twitterHandle,
-//       name: $name, 
-//       nickname: $nickname, 
-//       email: $email) 
+//       name: $name,
+//       nickname: $nickname,
+//       email: $email)
 //     {
 //       name
 //     }
@@ -257,11 +269,22 @@ export const MUTATION_DELETEVISIT_MODAL = gql`
 //       $id: ID!)
 //     {
 //     deleteUser(
-//       id: $id, 
-//     ) 
+//       id: $id,
+//     )
 //     {
 //       id
 //     }
 //   }
 // `
 
+export const MUTATION_TOGGLE_SOMETHING = gql`
+  mutation toggleLoggedIn {
+    toggleLoggedIn @client
+  }
+`
+
+export const QUERY_CLIENT_LOGGED = gql`
+  query {
+     isLoggedIn @client
+   }
+`
