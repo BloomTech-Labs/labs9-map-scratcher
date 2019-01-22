@@ -52,36 +52,36 @@ export const MUTATION_UPDATEUSER_PROFILE = gql`
     }
   }
 `
-// export const MUTATION_ADDFRIEND_PROFILE = gql`
-//   mutation AddFriend(
-//       $userId: ID!,
-//       $friendId: ID!)
-//     {
-//     addFriend(
-//       userId: $userId,
-//       friendId: $friendId,
-//       )
-//     {
-//      userId,
-//      friendId
-//     }
-//   }
-// `
-// export const MUTATION_DELETEFRIEND_PROFILE = gql`
-//   mutation DeleteFriend(
-//       $userId: ID!,
-//       $friendId: ID!)
-//     {
-//     deleteFriend(
-//       userId: $userId,
-//       friendId: $friendId,
-//       )
-//     {
-//      userId,
-//      friendId
-//     }
-//   }
-// `
+export const MUTATION_ADDFRIEND_PROFILE = gql`
+  mutation AddFriend(
+      $userId: ID!,
+      $friendId: ID!)
+    {
+    addFriend(
+      userId: $userId,
+      friendId: $friendId,
+      )
+    {
+     userId,
+     friendId
+    }
+  }
+`
+export const MUTATION_DELETEFRIEND_PROFILE = gql`
+  mutation DeleteFriend(
+      $userId: ID!,
+      $friendId: ID!)
+    {
+    deleteFriend(
+      userId: $userId,
+      friendId: $friendId,
+      )
+    {
+     userId,
+     friendId
+    }
+  }
+`
 
 // >>>TRAVELS PAGE
 // client requests
