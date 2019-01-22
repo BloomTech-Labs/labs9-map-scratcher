@@ -36,8 +36,8 @@ class WorldMap extends React.Component {
   componentDidMount() {
     //this logic needs to be updated for if the local store viewingFriend is false.
     this.setState({
-      borders: this.props.visitsFriends,
-      colors: this.props.visitsUser,
+      borders: this.props.borders,
+      colors: this.props.colors,
     })
   }
 
