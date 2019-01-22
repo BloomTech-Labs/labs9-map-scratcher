@@ -41,6 +41,17 @@ class WorldMap extends React.Component {
     })
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.colors != this.props.colors) {
+      console.log('it changed!', prevProps.colors, this.props.colors)
+      // this.setState({
+      //   colors: this.props.colors,
+      //   borders: this.props.borders
+      // })
+      this.forceUpdate();
+    }
+  }
+
   handleHover = (e) => {
     //gets the country for the coordinates under the mouse
     let query = whichPolygon(geojson);
@@ -67,7 +78,7 @@ class WorldMap extends React.Component {
 
   render() {
     //test logic for if either of these is false
-    if (!this.state.colors || !this.state.borders) {
+    if (!this.props.colors || !this.props.borders) {
       return (
         <h1>I'm trying </h1>
       )
@@ -103,7 +114,7 @@ class WorldMap extends React.Component {
             </Label>
         ))}
 
-        {this.state.colors.map(visit => {
+        {this.props.colors.map(visit => {
           const level = visit[3];
           let style = {
             ...colorStyle,
@@ -117,7 +128,7 @@ class WorldMap extends React.Component {
           }
         )}
 
-        {this.state.showBorders && this.state.borders.map(visit => {
+        {this.state.showBorders && this.props.borders.map(visit => {
           const level = visit[3];
           let style = {
             ...borderStyle,
