@@ -93,6 +93,13 @@ export const QUERY_CLIENT_TRAVELS = gql`
   }
 `
 
+export const QUERY_CLIENT_VIEWFRIEND = gql`
+  {
+    viewingFriend @client, 
+    friendId @client
+  }
+`
+
 // yoga requests
 export const QUERY_USERVISITS_TRAVELS = gql`
     query User($id: ID!) {
