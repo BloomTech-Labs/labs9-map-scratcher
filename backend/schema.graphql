@@ -2,11 +2,13 @@ type Query {
   user(id: ID!): User!
   users: [User!]!
   hello: String!
-  country(id: ID!): Country!
+  countryById(id: ID!): Country!
+  countryByName(name: String!): Country!
   countries: [Country!]!
   visits: [Visit!]!
   visit(id: ID!): Visit!
   friends(id: ID): [User!]!
+  # friendsVisitsByCountry(id: ID!, countryId: ID!): [User!]!
 }
 
 type Mutation {
