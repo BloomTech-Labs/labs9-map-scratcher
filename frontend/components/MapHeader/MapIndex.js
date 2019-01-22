@@ -21,12 +21,15 @@ export default class MapIndex extends Component {
     return <div>Loading</div>
   }
 
-  // handleFriendSelection = (e, data) => {
-  //   console.log(data.value);
-  //   return (
-  //
-  //   )
-  // }
+  handleFriendSelection = (e, data) => {
+    this.setState({
+      friendId: data.value
+    })
+  }
+
+  componendDidUpdate() {
+    console.log('state?',this.state.friendId)
+  }
 
   render() {
     return (
@@ -69,27 +72,28 @@ export default class MapIndex extends Component {
             }
             //add onchange for the dropdownData
             return (
-              <Dropdown
-                placeholder="My Travels"
-                onChange={(e, data) => {
-                  return <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} variables={{id: data.value}}
-                  > {(viewFriend, { loading}) => {
-                    loading
-                  }}</Mutation>
-                }}
-                style={{
-                  zIndex: '99999',
-                  width: '20%',
-                  background: 'transparent'
-                }}
-                button
-                className="icon"
-                floating
-                labeled
-                icon="users"
-                options={dropdownData}
-                search
-              />
+              <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} >
+              {(viewFriend, { data }) => (
+                <Dropdown
+                  placeholder="My Travels"
+                  onChange={(e, data) => {
+                    viewFriend({ variables: {id: data.value }});
+                  }}
+                  style={{
+                    zIndex: '99999',
+                    width: '20%',
+                    background: 'transparent'
+                  }}
+                  button
+                  className="icon"
+                  floating
+                  labeled
+                  icon="users"
+                  options={dropdownData}
+                  search
+                />
+              )}
+              </Mutation>
             )
           }}
         </Query>
