@@ -71,8 +71,13 @@ export default class MapIndex extends Component {
               return this.handleError(error)
             }
             //add onchange for the dropdownData
+
+            //refetch: this will console.log: refetchQueries={() => {
+            //   console.log('refetch?')
+            //   return [{query: QUERY_CLIENT_TRAVELS}]
+            // }}
             return (
-              <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} refetchQueries={[{ query: QUERY_CLIENT_TRAVELS }]}
+              <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS} refetchQueries={[{query: QUERY_CLIENT_TRAVELS, variables: { id: "cjqt5c95y00s40894zs7m6q4v" }}]}
                >
               {(viewFriend, { data }) => (
                 <Dropdown
