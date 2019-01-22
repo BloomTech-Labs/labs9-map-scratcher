@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import Settings from '../components/Settings/settings.js'
+import Profile from '../components/Profile/profile.js'
 
 export default () => (
   <div>
@@ -9,10 +9,10 @@ export default () => (
         <a>Home </a>
       </Link>
       >
-      <Link href="/settings">
-        <a> Settings</a>
+      <Link href="/profile">
+        <a> Profile</a>
       </Link>
     </p>
-    <Settings />
+    <Profile />
   </div>
 )

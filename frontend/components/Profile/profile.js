@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Button, Checkbox, Form, Input } from 'semantic-ui-react'
 
-import './settings.less'
+import './profile.less'
 
-export default class Settings extends Component {
+export default class Profile extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -17,7 +17,7 @@ export default class Settings extends Component {
 
   render() {
     return (
-      <Form className="settings_form">
+      <Form className="profile_form">
         <Form.Field>
           <label>Name:</label>
           <Input
@@ -51,11 +51,11 @@ export default class Settings extends Component {
             required
           />
         </Form.Field>
-        <div className="settings_checkbox">
+        <div className="profile_checkbox">
           <Checkbox type="checkbox" name="automateScratchOff" value="" />
           &nbsp;&nbsp;Automate scratch off
         </div>
-        <Button className="settings_button" onClick={e => e.preventDefault()}>
+        <Button className="profile_button" onClick={e => e.preventDefault()}>
           Save
         </Button>
       </Form>
