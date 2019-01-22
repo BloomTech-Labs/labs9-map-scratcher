@@ -62,21 +62,13 @@ export const MUTATION_UPDATEUSER_PROFILE = gql`
 `
 export const MUTATION_ADDFRIEND_PROFILE = gql`
   mutation AddFriend(
-<<<<<<< HEAD
-      $userId: ID!,
-=======
       $userId: ID!
->>>>>>> 657c1583b4dc9e22185d27a0d069ae856a1b1588
       $friendId: ID!)
     {
     addFriend(
       userId: $userId,
       friendId: $friendId,
-<<<<<<< HEAD
-      )
-=======
       ) 
->>>>>>> 657c1583b4dc9e22185d27a0d069ae856a1b1588
     {
      userId,
      friendId
@@ -85,24 +77,15 @@ export const MUTATION_ADDFRIEND_PROFILE = gql`
 `
 export const MUTATION_DELETEFRIEND_PROFILE = gql`
   mutation DeleteFriend(
-<<<<<<< HEAD
-      $userId: ID!,
-=======
       $userId: ID!
->>>>>>> 657c1583b4dc9e22185d27a0d069ae856a1b1588
       $friendId: ID!)
     {
     deleteFriend(
       userId: $userId,
       friendId: $friendId,
-<<<<<<< HEAD
-      )
-=======
-      ) 
->>>>>>> 657c1583b4dc9e22185d27a0d069ae856a1b1588
+    ) 
     {
-     userId,
-     friendId
+      id,
     }
   }
 `
@@ -116,17 +99,11 @@ export const QUERY_CLIENT_TRAVELS = gql`
     friendId @client
   }
 `
-//smaller client requests
+
 export const QUERY_CLIENT_VIEWFRIEND = gql`
   {
     viewingFriend @client,
     friendId @client
-  }
-`
-
-export const MUTATION_VIEWINGFRIEND_TRAVELS = gql`
-  mutation($id: ID!) {
-    viewFriend(id: $id) @client
   }
 `
 
@@ -196,7 +173,11 @@ export const QUERY_FRIENDS_HEADER = gql`
     }
   }
 `
-
+export const MUTATION_VIEWINGFRIEND_TRAVELS = gql`
+  mutation($id: ID!) {
+    viewFriend(id: $id) @client
+  }
+`
 
 // >>>MAP (props: userId, viewingFriend, friendId, visitsFriends, visitsUser)
 // no client requests
@@ -295,7 +276,6 @@ export const MUTATION_DELETEVISIT_MODAL = gql`
 //   }
 // `
 
-//Test Mutations and Queries
 export const MUTATION_TOGGLE_SOMETHING = gql`
   mutation toggleLoggedIn {
     toggleLoggedIn @client

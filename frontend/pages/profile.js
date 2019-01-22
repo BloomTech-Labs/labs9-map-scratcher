@@ -43,8 +43,15 @@ export default () => (
                   return (
                     <div>
                       <span key={friend.id}>{friend.name}</span>
-                      <Mutation mutation={MUTATION_DELETEFRIEND_PROFILE} variables={{userId: userId, friendId: friend.id}}>
-                        {deleteFriend => <button onClick={() => console.log("hi")}>Click plz</button>}
+                      <Mutation
+                        mutation={MUTATION_DELETEFRIEND_PROFILE}
+                        variables={{userId: userId, friendId: friend.id}}
+                      >
+                        {deleteFriend => (
+                            <button onClick={deleteFriend}>
+                                Click plz
+                            </button>
+                        )}
                       </Mutation>
                     </div>
                   )
