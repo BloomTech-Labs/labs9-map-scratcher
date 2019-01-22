@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import Profile from '../components/Profile/profile.js'
+import ProfileCard from '../components/ProfileComponents/userProfile.js'
 
 export default () => (
   <div>
@@ -13,6 +13,6 @@ export default () => (
         <a> Profile</a>
       </Link>
     </p>
-    <Profile />
+    <ProfileCard />
   </div>
 )
