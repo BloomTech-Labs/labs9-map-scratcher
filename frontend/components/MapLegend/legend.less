@@ -1,11 +1,32 @@
 .ui.card.legend_main {
     z-index: 500;
-    position: absolute;
-    bottom: 3%;
-    left: 93%;
-    width: 6%;
+    margin-top: -10%;
+    margin-left: 90%;
+    width: 8%;
     background: grey;
         //individual cards
+
+    @media (max-width: 1290px) {
+      margin-top: -15%;
+      margin-left: 85%;
+      width: 10%;
+    }
+
+    @media (max-width: 1030px) {
+      margin-left: 80%;
+      width: 12%;
+    }
+    @media (max-width: 800px) {
+      margin-top: -20%;
+      margin-left: 80%;
+      width: 15%;
+    }
+
+    @media (max-width: 400px) {
+      margin-top: -35%;
+      margin-left: 60%;
+      width: 30%;
+    }
         .legend_div {
             display: flex;
             align-items: baseline;
@@ -15,30 +36,29 @@
                     border: 1px solid blue;
                     width: 1rem;
                     height: 1rem;
-                    margin-right: 5%; 
+                    margin-right: 5%;
                     background: blue;
                 }
                 .legend_greenBox {
                     border: 1px solid green;
                     width: 1rem;
                     height: 1rem;
-                    margin-right: 5%; 
+                    margin-right: 5%;
                     background: green;
                 }
                 .legend_yellowBox {
                     border: 1px solid yellow;
                     width: 1rem;
                     height: 1rem;
-                    margin-right: 5%; 
+                    margin-right: 5%;
                     background: yellow;
                 }
                 .legend_pinkBox {
                     border: 1px solid pink;
                     width: 1rem;
                     height: 1rem;
-                    margin-right: 5%; 
+                    margin-right: 5%;
                     background: pink;
                 }
     }
 }
-

@@ -11,13 +11,26 @@
     left: 10%;
     right: 10%;
 
+
     .mapIndex_friend-checkbox {
         display: flex;
+
+        @media (max-width: 800px) {
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 10%;
+        }
     }
 
-    .ui.dropdown {
+    .ui.dropdown .search{
         z-index: 99999;
         width: 20%;
         background: transparent;
+        border: 1px solid blue;
+
+        @media (max-width: 800px) {
+          width: 40%;
+        }
     }
 }
