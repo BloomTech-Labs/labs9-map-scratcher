@@ -1,6 +1,6 @@
 
 import gql from 'graphql-tag';
-import { QUERY_CLIENT_VIEWFRIEND, QUERY_CLIENT_LOGGED, QUERY_CLIENT_MODAL, QUERY_CLIENT_PROFILE } from './requests';
+import { QUERY_CLIENT_VIEWFRIEND, QUERY_CLIENT_LOGGED, QUERY_CLIENT_MODAL, QUERY_CLIENT_PROFILE, QUERY_CLIENT_VIEWBORDERS } from './requests';
 
 // export const typeDefs = gql`
 //   extend type Query {
@@ -62,5 +62,17 @@ export const resolvers = {
       console.log('closeModal', currentState)
       return data;
     },
+    toggleBorders: (_obj, args, {cache}) => {
+      const query = QUERY_CLIENT_VIEWBORDERS;
+      const currentState = cache.readQuery({ query });
+      const data = {
+        viewBorders: !currentState.viewBorders
+      }
+      cache.writeData({data});
+      const query2 = QUERY_CLIENT_VIEWBORDERS;
+      const newState = cache.readQuery({ query });
+      console.log('checkbox', newState); 
+      return data;
+    }
   }
 }
