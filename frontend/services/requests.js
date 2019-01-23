@@ -68,7 +68,7 @@ export const MUTATION_ADDFRIEND_PROFILE = gql`
     addFriend(
       userId: $userId,
       friendId: $friendId,
-      ) 
+      )
     {
      userId,
      friendId
@@ -83,7 +83,7 @@ export const MUTATION_DELETEFRIEND_PROFILE = gql`
     deleteFriend(
       userId: $userId,
       friendId: $friendId,
-    ) 
+    )
     {
       id,
     }
@@ -96,15 +96,28 @@ export const QUERY_CLIENT_TRAVELS = gql`
   {
     userId @client,
     viewingFriend @client,
-    friendId @client
+    friendId @client,
+    viewBorders @client
   }
 `
 //smaller client requests
 export const QUERY_CLIENT_VIEWFRIEND = gql`
   {
     viewingFriend @client,
-    friendId @client
+    friendId @client,
   }
+`
+
+export const QUERY_CLIENT_VIEWBORDERS = gql`
+  {
+    viewBorders @client
+  }
+`
+
+export const MUTATION_TOGGLE_BORDERS = gql`
+mutation toggleBorders {
+  toggleBorders @client
+}
 `
 
 export const MUTATION_VIEWINGFRIEND_TRAVELS = gql`
@@ -180,6 +193,16 @@ export const QUERY_FRIENDS_HEADER = gql`
   }
 `
 
+export const MUTATION_OPENMODAL_TRAVELS = gql`
+  mutation OpenModal($id: ID!) {
+    openModal(id: $id) @client
+  }
+`
+export const MUTATION_CLOSEMODAL_TRAVELS = gql`
+  mutation CloseModal($id: ID!) {
+    closeModal(id: $id) @client
+  }
+`
 
 // >>>MAP (props: userId, viewingFriend, friendId, visitsFriends, visitsUser)
 // no client requests
@@ -293,6 +316,7 @@ export const QUERY_CLIENT_LOGGED = gql`
 
 export const QUERY_CLIENT_MODAL = gql`
   query {
-    openModal @client
+    countryId @client
+    modalOpen @client
   }
 `

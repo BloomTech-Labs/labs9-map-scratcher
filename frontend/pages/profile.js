@@ -2,13 +2,14 @@ import Link from 'next/link'
 import Settings from '../components/Settings/settings.js'
 import { Query, Mutation } from 'react-apollo'
 import { Fragment } from 'react'
-import { 
-  QUERY_CLIENT_PROFILE, 
+import {
+  QUERY_CLIENT_PROFILE,
   QUERY_USER_PROFILE,
   QUERY_FRIENDS_PROFILE,
   QUERY_USERS_PROFILE,
   MUTATION_DELETEFRIEND_PROFILE
 } from '../services/requests'
+
 import ProfileCard from '../components/ProfileComponents/userProfile.js'
 
 
@@ -61,7 +62,7 @@ export default () => (
                 }
               </div>
             )
-          }} 
+          }}
           </Query>
         </Fragment>
       )
@@ -78,4 +79,6 @@ export default () => (
     <Settings />
      <ProfileCard />
   </Fragment>
+    <ProfileCard />
+  </div>
 )

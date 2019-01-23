@@ -1,5 +1,6 @@
+
 import gql from 'graphql-tag';
-import { QUERY_CLIENT_VIEWFRIEND, QUERY_CLIENT_LOGGED } from './requests';
+import { QUERY_CLIENT_VIEWFRIEND, QUERY_CLIENT_LOGGED, QUERY_CLIENT_MODAL, QUERY_CLIENT_PROFILE, QUERY_CLIENT_VIEWBORDERS } from './requests';
 
 // export const typeDefs = gql`
 //   extend type Query {
@@ -13,10 +14,20 @@ import { QUERY_CLIENT_VIEWFRIEND, QUERY_CLIENT_LOGGED } from './requests';
 export const resolvers = {
   Mutation: {
     viewFriend: (_obj, { id }, {cache}) => {
-      const data = {
-        viewingFriend: true,
-        friendId: id
-      };
+      const query = QUERY_CLIENT_PROFILE;
+      const currentState = cache.readQuery({ query });
+      let data = {};
+      if (currentState.userId === id) {
+        data = {
+          viewingFriend: false,
+          friendId: null,
+        }
+      } else {
+        data = {
+          viewingFriend: true,
+          friendId: id
+        };
+      }
       cache.writeData({ data });
       return data;
     },
@@ -31,19 +42,36 @@ export const resolvers = {
     },
     openModal: (_obj, { id }, {cache}) => {
       const data = {
-        openModal: true,
+        modalOpen: true,
         countryId: id
       }
       cache.writeData({ data });
+      const query = QUERY_CLIENT_MODAL;
+      const currentState = cache.readQuery({ query });
+      console.log('openModal', currentState)
       return data;
     },
     closeModal: (_obj, args, {cache}) => {
       const data = {
-        openModal: false,
+        modalOpen: false,
         countryId: null
       }
       cache.writeData({ data });
+      const query = QUERY_CLIENT_MODAL;
+      const currentState = cache.readQuery({ query });
+      console.log('closeModal', currentState)
       return data;
     },
+    toggleBorders: (_obj, args, {cache}) => {
+      const query = QUERY_CLIENT_VIEWBORDERS;
+      const currentState = cache.readQuery({ query });
+      const data = {
+        viewBorders: !currentState.viewBorders
+      }
+      cache.writeData({data});
+      const query2 = QUERY_CLIENT_VIEWBORDERS;
+      const newState = cache.readQuery({ query });
+      console.log('checkbox', newState);
+    } 
   }
 }
