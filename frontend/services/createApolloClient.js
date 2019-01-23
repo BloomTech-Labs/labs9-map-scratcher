@@ -11,9 +11,11 @@ import { devURL, prodURL } from './config.js';
 
 const defaults = {
   userId: "cjqt5c95y00s40894zs7m6q4v",
-  viewingFriend: false,
   friendId: "cjqpxk83t000o0829p7mr6qto",
-  isLoggedIn: false
+  countryId: "cjqy9e28d00hu084022xkde4k",
+  viewingFriend: false,
+  isLoggedIn: false,
+  openModal: false
 }
 
 const cache = new InMemoryCache();
