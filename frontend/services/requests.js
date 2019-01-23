@@ -12,6 +12,7 @@ export const QUERY_CLIENT_PROFILE = gql`
 export const QUERY_USER_PROFILE = gql`
   query User($id: ID!) {
     user(id: $id) {
+      id
       name
       nickname
       email
@@ -46,6 +47,7 @@ export const MUTATION_UPDATEUSER_PROFILE = gql`
       $isPrivate: Boolean)
     {
     updateUser(
+      id: $id,
       name: $name,
       nickname: $nickname,
       email: $email,
@@ -70,8 +72,7 @@ export const MUTATION_ADDFRIEND_PROFILE = gql`
       friendId: $friendId,
       )
     {
-     userId,
-     friendId
+     id
     }
   }
 `
