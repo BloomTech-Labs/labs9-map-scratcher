@@ -70,6 +70,7 @@ class WorldMap extends React.Component {
   }
 
   render() {
+    console.log('map props', this.props)
     //test logic for if either of these is false
     if (!this.props.colors || !this.props.borders) {
       return (
