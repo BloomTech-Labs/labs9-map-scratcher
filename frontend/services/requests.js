@@ -68,7 +68,7 @@ export const MUTATION_ADDFRIEND_PROFILE = gql`
     addFriend(
       userId: $userId,
       friendId: $friendId,
-      ) 
+      )
     {
      userId,
      friendId
@@ -83,7 +83,7 @@ export const MUTATION_DELETEFRIEND_PROFILE = gql`
     deleteFriend(
       userId: $userId,
       friendId: $friendId,
-    ) 
+    )
     {
       id,
     }
@@ -99,11 +99,17 @@ export const QUERY_CLIENT_TRAVELS = gql`
     friendId @client
   }
 `
-
+//smaller client requests
 export const QUERY_CLIENT_VIEWFRIEND = gql`
   {
     viewingFriend @client,
     friendId @client
+  }
+`
+
+export const MUTATION_VIEWINGFRIEND_TRAVELS = gql`
+  mutation($id: ID!) {
+    viewFriend(id: $id) @client
   }
 `
 
@@ -173,9 +179,15 @@ export const QUERY_FRIENDS_HEADER = gql`
     }
   }
 `
-export const MUTATION_VIEWINGFRIEND_TRAVELS = gql`
-  mutation($id: ID!) {
-    viewFriend(id: $id) @client
+
+export const MUTATION_OPENMODAL_TRAVELS = gql`
+  mutation OpenModal($id: ID!) {
+    openModal(id: $id) @client
+  }
+`
+export const MUTATION_CLOSEMODAL_TRAVELS = gql`
+  mutation CloseModal($id: ID!) {
+    closeModal(id: $id) @client
   }
 `
 
@@ -276,6 +288,7 @@ export const MUTATION_DELETEVISIT_MODAL = gql`
 //   }
 // `
 
+//Test Mutations and Queries
 export const MUTATION_TOGGLE_SOMETHING = gql`
   mutation toggleLoggedIn {
     toggleLoggedIn @client
@@ -286,4 +299,11 @@ export const QUERY_CLIENT_LOGGED = gql`
   query {
      isLoggedIn @client
    }
+`
+
+export const QUERY_CLIENT_MODAL = gql`
+  query {
+    countryId @client
+    modalOpen @client
+  }
 `
