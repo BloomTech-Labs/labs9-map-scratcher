@@ -5,18 +5,19 @@
 //-- Dependencies --------------------------------
 import dynamic from 'next/dynamic';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import { QUERY_CLIENT_TRAVELS, QUERY_USERVISITS_TRAVELS, QUERY_FRIENDSVISITS_TRAVELS } from '../services/requests.js';
+import { QUERY_CLIENT_TRAVELS, QUERY_USERVISITS_TRAVELS, QUERY_FRIENDSVISITS_TRAVELS, QUERY_CLIENT_MODAL } from '../services/requests.js';
 import { Query, Mutation, ApolloConsumer } from 'react-apollo';
 import React, { Component } from 'react';
 import MapHeader from '../components/MapHeader/MapHeader.js';
 import Legend from '../components/MapLegend/Legend.js';
+import CountryModal from '../components/CountryViewModal/CountryModal'
 import { fixData } from '../components/Map/mapHelpers';
 
 //-- Constants -----------------------------------
 const testUserId = "cjqt5c95y00s40894zs7m6q4v";
 
 //------------------------------------------------
-const DynamicMap = dynamic(() => import('../components/Map/Map'), {
+const DynamicMap = dynamic(() => import('../components/Map/StaticMap'), {
   loading: () => (
     <Dimmer active>
       <Loader size="large" />
@@ -46,6 +47,16 @@ export default class extends Component {
                         borders={borders}
                         viewBorders={viewBorders}
                     />
+                    <Query query={QUERY_CLIENT_MODAL}>
+                    {({ loading: loadingModal, data}) => {
+                      if (data.modalOpen) {
+                        return (
+                          <CountryModal country={data.countryId}/>
+                        )
+                      }
+                      return null;
+                    }}
+                    </Query>
                     <Legend />
                 </div>
             </React.Fragment>
@@ -61,7 +72,6 @@ export default class extends Component {
         return this.requestLocalState();
     }
     requestLocalState() {
-      console.log('client travels query');
       let query = QUERY_CLIENT_TRAVELS
       let responseHandler = (response) => {
         return this.handleResponseLocalState(response);
@@ -141,7 +151,6 @@ export default class extends Component {
         let colors, borders;
 
         let viewBorders = localState.viewBorders ? true : false;
-        console.log('in query', viewBorders)
         //if the viewingFriend boolean on the apollo cache is false, sets the colors to the user's visits and the borders to the friends' visits
         if (!localState.viewingFriend) {
           colors = visitsUser;
