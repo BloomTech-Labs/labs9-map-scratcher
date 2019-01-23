@@ -8,7 +8,7 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 import { QUERY_CLIENT_TRAVELS, QUERY_USERVISITS_TRAVELS, QUERY_FRIENDSVISITS_TRAVELS } from '../services/requests.js';
 import { Query, Mutation, ApolloConsumer } from 'react-apollo';
 import React, { Component } from 'react';
-import MapIndex from '../components/MapHeader/MapIndex.js';
+import MapHeader from '../components/MapHeader/MapHeader.js';
 import Legend from '../components/MapLegend/Legend.js';
 import { fixData } from '../components/Map/mapHelpers';
 
@@ -39,7 +39,7 @@ export default class extends Component {
     displayMap(colors, borders) {
         return (
             <React.Fragment>
-                <MapIndex />
+                <MapHeader />
                 <div>
                     <DynamicMap
                         colors={colors}
