@@ -1,6 +1,6 @@
 import React from 'react'
 import UserCard from './profileCard.js'
-import FindFriends from './findFriendDrop.js'
+import FindFriends from './UsersDropdown.js'
 import FriendsList from './friendsList.js'
 
 export default class ProfileCard extends React.Component {

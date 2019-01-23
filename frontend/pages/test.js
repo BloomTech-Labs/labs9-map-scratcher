@@ -12,7 +12,7 @@ import {
     FRIENDS_QUERY,
     FRIENDSVISITS_QUERY
 } from '../services/queries';
-// import CountryModal from '../components/CountryViewModal/CountryModal.js'
+import CountryModal from '../components/CountryViewModal/CountryModal.js'
 
 class Test extends Component {
     constructor(props) {
@@ -43,6 +43,7 @@ class Test extends Component {
                         <a> Settings</a>
                     </Link>
                 </p>
+                <CountryModal />
                 <div>USER</div>
                 <Query query={USER_QUERY} variables={{id}}>
                 {({ loading, error, data }) => {
