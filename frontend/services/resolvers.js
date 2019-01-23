@@ -1,5 +1,6 @@
+
 import gql from 'graphql-tag';
-import { QUERY_CLIENT_VIEWFRIEND, QUERY_CLIENT_LOGGED } from './requests';
+import { QUERY_CLIENT_VIEWFRIEND, QUERY_CLIENT_LOGGED, QUERY_CLIENT_MODAL, QUERY_CLIENT_PROFILE } from './requests';
 
 // export const typeDefs = gql`
 //   extend type Query {
@@ -13,30 +14,55 @@ import { QUERY_CLIENT_VIEWFRIEND, QUERY_CLIENT_LOGGED } from './requests';
 export const resolvers = {
   Mutation: {
     viewFriend: (_obj, { id }, {cache}) => {
-
-      const data = {
-        viewingFriend: true,
-        friendId: id
-      };
-      cache.writeData({ data });
-
-      const query = QUERY_CLIENT_VIEWFRIEND;
+      const query = QUERY_CLIENT_PROFILE;
       const currentState = cache.readQuery({ query });
-      console.log('the state after', currentState);
-
+      let data = {};
+      if (currentState.userId === id) {
+        console.log('that you')
+        data = {
+          viewingFriend: false,
+          friendId: null,
+        }
+      } else {
+        console.log('that not you')
+        data = {
+          viewingFriend: true,
+          friendId: id
+        };
+      }
+      cache.writeData({ data });
       return data;
     },
     toggleLoggedIn: (_obj, args, {cache}) => {
       const query = QUERY_CLIENT_LOGGED;
       const currentState = cache.readQuery({ query });
-      console.log(currentState);
-
       const data = {
         isLoggedIn: !currentState.isLoggedIn
       }
       cache.writeData({data});
-
       return data;
-    }
+    },
+    openModal: (_obj, { id }, {cache}) => {
+      const data = {
+        modalOpen: true,
+        countryId: id
+      }
+      cache.writeData({ data });
+      const query = QUERY_CLIENT_MODAL;
+      const currentState = cache.readQuery({ query });
+      console.log('openModal', currentState)
+      return data;
+    },
+    closeModal: (_obj, args, {cache}) => {
+      const data = {
+        modalOpen: false,
+        countryId: null
+      }
+      cache.writeData({ data });
+      const query = QUERY_CLIENT_MODAL;
+      const currentState = cache.readQuery({ query });
+      console.log('closeModal', currentState)
+      return data;
+    },
   }
 }
