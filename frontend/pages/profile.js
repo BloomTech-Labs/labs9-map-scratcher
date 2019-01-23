@@ -9,6 +9,8 @@ import {
   QUERY_USERS_PROFILE,
   MUTATION_DELETEFRIEND_PROFILE
 } from '../services/requests'
+import ProfileCard from '../components/ProfileComponents/userProfile.js'
+
 
 export default () => (
   <Fragment>
@@ -74,5 +76,6 @@ export default () => (
     }}
     </Query>
     <Settings />
+     <ProfileCard />
   </Fragment>
 )
