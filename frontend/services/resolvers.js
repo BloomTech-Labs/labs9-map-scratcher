@@ -71,8 +71,7 @@ export const resolvers = {
       cache.writeData({data});
       const query2 = QUERY_CLIENT_VIEWBORDERS;
       const newState = cache.readQuery({ query });
-      console.log('checkbox', newState); 
-      return data;
-    }
+      console.log('checkbox', newState);
+    } 
   }
 }

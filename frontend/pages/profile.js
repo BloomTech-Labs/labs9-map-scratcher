@@ -9,7 +9,6 @@ import {
   QUERY_USERS_PROFILE,
   MUTATION_DELETEFRIEND_PROFILE
 } from '../services/requests'
-=======
 
 import ProfileCard from '../components/ProfileComponents/userProfile.js'
 
@@ -52,9 +51,9 @@ export default () => (
                         variables={{userId: userId, friendId: friend.id}}
                       >
                         {deleteFriend => (
-                            <button onClick={deleteFriend}>
-                                Click plz
-                            </button>
+                          <button onClick={deleteFriend}>
+                            Click plz
+                          </button>
                         )}
                       </Mutation>
                     </div>
@@ -78,6 +77,7 @@ export default () => (
     }}
     </Query>
     <Settings />
+     <ProfileCard />
   </Fragment>
     <ProfileCard />
   </div>
