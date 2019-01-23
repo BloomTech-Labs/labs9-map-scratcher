@@ -25,7 +25,7 @@ const server = new GraphQLServer({
   context: request => {
     return {
       ...request,
-      prisma 
+      prisma
     }
   }
 })
@@ -34,4 +34,12 @@ require('./services/passport/middleware')(server)
 require('./services/passport/routes')(server)
 
 //-- Start Server ---------------------------------------
-server.start(() => console.log(`Server is running on http://localhost:4000`))
+server.start(
+  {
+    cors: {
+      origin: ['http://localhost:1738', 'https://backpaca.now.sh'],
+      credentials: true
+    }
+  },
+  () => console.log(`Server is running on http://localhost:4000`)
+)
