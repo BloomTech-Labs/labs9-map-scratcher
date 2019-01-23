@@ -31,7 +31,7 @@ export default class FriendDropdown extends Component {
                       <Dropdown
                         placeholder="My Travels"
                         onChange={(e, data) => {
-                          viewFriend({ variables: {id: data.value }});
+                          viewFriend({ variables: { id: data.value }});
                         }}
                         style={{
                           zIndex: '10',
