@@ -15,7 +15,8 @@ const defaults = {
   countryId: null,
   viewingFriend: false,
   isLoggedIn: false,
-  modalOpen: false
+  modalOpen: false,
+  viewBorders: false, 
 }
 
 const cache = new InMemoryCache();
