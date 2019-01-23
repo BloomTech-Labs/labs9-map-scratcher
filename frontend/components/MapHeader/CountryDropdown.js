@@ -6,7 +6,7 @@ import { QUERY_COUNTRIES_HEADER, MUTATION_OPENMODAL_TRAVELS } from '../../servic
 
 export default class CountriesDropdown extends Component {
   render() {
-    //query retrieves the list of all countries available to interact with. 
+    //query retrieves the list of all countries available to interact with.
     return (
       <Query query={QUERY_COUNTRIES_HEADER}>
       {({ loading, data: { countries }}) => {
@@ -26,11 +26,6 @@ export default class CountriesDropdown extends Component {
                   openModal({ variables: { id: data.value }})
                 }}
                 button
-                style={{
-                  zIndex: '10',
-                  width: '20%',
-                  background: 'transparent'
-                }}
                 className="icon"
                 floating
                 labeled

@@ -29,7 +29,7 @@ export default class FriendDropdown extends Component {
                   })
                   //adds the user to the top of the dropdown options array.
                   friendsList.unshift({ text: 'My Travels', value: userId })
-                  //query returns a mutation that checks if the id passed is the same as the user id, and if not sets the apollo cache values for the friend being viewed and the related boolean. 
+                  //query returns a mutation that checks if the id passed is the same as the user id, and if not sets the apollo cache values for the friend being viewed and the related boolean.
                   return (
                     <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS}
                     >
@@ -38,11 +38,6 @@ export default class FriendDropdown extends Component {
                         placeholder="My Travels"
                         onChange={(e, data) => {
                           viewFriend({ variables: { id: data.value }});
-                        }}
-                        style={{
-                          zIndex: '10',
-                          width: '20%',
-                          background: 'transparent'
                         }}
                         button
                         className="icon"
