@@ -18,13 +18,11 @@ export const resolvers = {
       const currentState = cache.readQuery({ query });
       let data = {};
       if (currentState.userId === id) {
-        console.log('that you')
         data = {
           viewingFriend: false,
           friendId: null,
         }
       } else {
-        console.log('that not you')
         data = {
           viewingFriend: true,
           friendId: id
