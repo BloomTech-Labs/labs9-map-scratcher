@@ -96,15 +96,28 @@ export const QUERY_CLIENT_TRAVELS = gql`
   {
     userId @client,
     viewingFriend @client,
-    friendId @client
+    friendId @client,
+    viewBorders @client
   }
 `
 //smaller client requests
 export const QUERY_CLIENT_VIEWFRIEND = gql`
   {
     viewingFriend @client,
-    friendId @client
+    friendId @client,
   }
+`
+
+export const QUERY_CLIENT_VIEWBORDERS = gql`
+  {
+    viewBorders @client
+  }
+`
+
+export const MUTATION_TOGGLE_BORDERS = gql`
+mutation toggleBorders {
+  toggleBorders @client
+}
 `
 
 export const MUTATION_VIEWINGFRIEND_TRAVELS = gql`
