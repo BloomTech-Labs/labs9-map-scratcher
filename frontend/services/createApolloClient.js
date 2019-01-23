@@ -5,13 +5,14 @@
 import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory'
-
+import { resolvers } from './resolvers';
 import { devURL, prodURL } from './config.js';
 
+
 const defaults = {
-  userId: null,
+  userId: "cjqt5c95y00s40894zs7m6q4v",
   viewingFriend: false,
-  friendId: null,
+  friendId: "cjqpxk83t000o0829p7mr6qto",
   isLoggedIn: false
 }
 
@@ -24,6 +25,7 @@ export default withApollo(
       clientState: {
         cache,
         defaults,
+        resolvers, 
       }
     })
 );

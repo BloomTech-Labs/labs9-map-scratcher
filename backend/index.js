@@ -25,7 +25,7 @@ const server = new GraphQLServer({
   context: request => {
     return {
       ...request,
-      prisma
+      prisma 
     }
   }
 })

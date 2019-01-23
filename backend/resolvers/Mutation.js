@@ -6,16 +6,20 @@ const Mutation = {
       twitterHandle,
       name,
       nickname,
-      email
+      email,
+      scratchingAutomated: false,
+      isPrivate: false
     })
   },
-  updateUser: async (parent, { name, nickname, email, id }, context) => {
+  updateUser: async (parent, { name, nickname, email, scratchingAutomated, isPrivate, id }, context) => {
     return await context.prisma.updateUser({
       where: { id },
       data: { 
         name, 
         nickname, 
-        email 
+        email,
+        scratchingAutomated,
+        isPrivate 
       }
     })
   },

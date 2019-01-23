@@ -46,6 +46,7 @@ export const USERVISITS_QUERY = gql`
     query User($id: ID!) {
     user(id: $id) {
         visits {
+            id
             country {
                 id
                 name
@@ -66,12 +67,14 @@ query User($id: ID!) {
     }
 }
 `
+
 export const FRIENDSVISITS_QUERY = gql`
 query User($id: ID!) {
     friends(id: $id) {
         id
         name
         visits {
+          id
             country {
                 id
                 name
@@ -86,6 +89,6 @@ query User($id: ID!) {
 
 export const ISLOGGEDIN_QUERY = gql`
   {
-    isLoggedIn @client 
+    isLoggedIn @client
   }
 `
