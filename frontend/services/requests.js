@@ -28,6 +28,14 @@ export const QUERY_USERS_PROFILE = gql`
     }
   }
 `
+export const QUERY_FRIENDS_PROFILE = gql`
+  query User($id: ID!) {
+    friends(id: $id) {
+      id
+      name
+    }
+  }
+`
 export const MUTATION_UPDATEUSER_PROFILE = gql`
   mutation UpdateUser(
       $id: ID!
@@ -280,4 +288,10 @@ export const QUERY_CLIENT_LOGGED = gql`
   query {
      isLoggedIn @client
    }
+`
+
+export const QUERY_CLIENT_MODAL = gql`
+  query {
+    openModal @client
+  }
 `

@@ -28,10 +28,7 @@ const Query = {
   },
   friends: (parent, args, context) => {
     return context.prisma.user({ id: args.id }).friends()
-  },
-  // friendsVisitsByCountry: (parent, args, context) => {
-  //   return context.prisma.user({ id: args.id}).friends().visits().countryById({ id: args.countryId })
-  // }
+  }
 };
 
 //-- Export --------------------------------------
