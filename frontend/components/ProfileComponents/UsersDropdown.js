@@ -2,7 +2,6 @@ import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import { Query, Mutation } from 'react-apollo';
 import { QUERY_USERS_PROFILE } from '../../services/requests';
-import friendOptions from '../MapHeader/friendsOptions.js'
 
 const UsersDropdown = () => (
   <Query query={QUERY_USERS_PROFILE}>

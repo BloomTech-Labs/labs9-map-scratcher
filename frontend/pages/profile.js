@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Settings from '../components/Settings/settings.js'
+// import Settings from '../components/Settings/settings.js'
 import { Query, Mutation } from 'react-apollo'
 import { Fragment } from 'react'
 import {
@@ -76,9 +76,7 @@ export default () => (
       )
     }}
     </Query>
-    <Settings />
+    {/* <Settings /> */}
      <ProfileCard />
   </Fragment>
-    <ProfileCard />
-  </div>
 )
