@@ -86,6 +86,20 @@ export default class extends Component {
               )
             }}
             </Query>
+            <Query query={QUERY_CLIENT_MODAL}>
+            {({ loading, data }) => {
+              if (!data.modalOpen) {
+                return (
+                  null
+                )
+              }
+              if (data.modalOpen) {
+                return (
+                  <CountryModal />
+                )
+              }
+            }}
+            </Query>
             <Legend />
           </React.Fragment>
         )
