@@ -290,3 +290,9 @@ export const QUERY_CLIENT_LOGGED = gql`
      isLoggedIn @client
    }
 `
+
+export const QUERY_CLIENT_MODAL = gql`
+  query {
+    openModal @client
+  }
+`
