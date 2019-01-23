@@ -11,9 +11,11 @@ import { devURL, prodURL } from './config.js';
 
 const defaults = {
   userId: "cjqt5c95y00s40894zs7m6q4v",
+  friendId: null,
+  countryId: null,
   viewingFriend: false,
-  friendId: "cjqpxk83t000o0829p7mr6qto",
-  isLoggedIn: false
+  isLoggedIn: false,
+  modalOpen: false
 }
 
 const cache = new InMemoryCache();
@@ -25,7 +27,7 @@ export default withApollo(
       clientState: {
         cache,
         defaults,
-        resolvers, 
+        resolvers,
       }
     })
 );
