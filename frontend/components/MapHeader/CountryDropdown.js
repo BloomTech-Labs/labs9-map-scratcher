@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import { Dropdown } from 'semantic-ui-react';
 
-import { QUERY_COUNTRIES_HEADER } from '../../services/requests';
+import { QUERY_COUNTRIES_HEADER, MUTATION_OPENMODAL_TRAVELS } from '../../services/requests';
 
 export default class CountriesDropdown extends Component {
   render() {
@@ -16,21 +16,28 @@ export default class CountriesDropdown extends Component {
           }
         })
         return (
-          <Dropdown
-            button
-            style={{
-              zIndex: '10',
-              width: '20%',
-              background: 'transparent'
-            }}
-            className="icon"
-            floating
-            labeled
-            icon="world"
-            options={countriesList}
-            search
-            text="Search Countries"
-          />
+          <Mutation mutation={MUTATION_OPENMODAL_TRAVELS}>
+            {(openModal, { data }) => (
+              <Dropdown
+                onChange={(e, data) => {
+                  openModal({ variables: { id: data.value }})
+                }}
+                button
+                style={{
+                  zIndex: '10',
+                  width: '20%',
+                  background: 'transparent'
+                }}
+                className="icon"
+                floating
+                labeled
+                icon="world"
+                options={countriesList}
+                search
+                text="Search Countries"
+              />
+            )}
+          </Mutation>
         )
       }}
       </Query>
