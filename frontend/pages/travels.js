@@ -47,16 +47,6 @@ export default class extends Component {
                         borders={borders}
                         viewBorders={viewBorders}
                     />
-                    <Query query={QUERY_CLIENT_MODAL}>
-                    {({ loading: loadingModal, data}) => {
-                      if (data.modalOpen) {
-                        return (
-                          <CountryModal country={data.countryId}/>
-                        )
-                      }
-                      return null;
-                    }}
-                    </Query>
                     <Legend />
                 </div>
             </React.Fragment>
