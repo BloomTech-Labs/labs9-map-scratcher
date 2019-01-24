@@ -5,13 +5,14 @@ import CountryModalComment from './CMnote.js'
 import LevelOfVisitButtons from './CMlevelOfVisit.js'
 import CMheader from './CMheader.js'
 import CMscratcher from './CMscratcher.js'
+import './countryModal.less'
 
-class countryModal extends Component {
+export default class CountryModal extends Component {
 
   render() {
     return (
-      <Card style={{marginLeft: '30%'}}>
-        <Card.Content style={{textAlign: 'center'}}>
+      <Card>
+        <Card.Content>
           <CMheader />
           <CMscratcher />
           <LevelOfVisitButtons />
@@ -23,5 +24,3 @@ class countryModal extends Component {
     )
   }
 }
-
-export default countryModal
