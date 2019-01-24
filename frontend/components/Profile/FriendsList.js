@@ -7,7 +7,7 @@ const FriendsList = ({ friends, userId }) => (
   <List style={{border: '1px solid blue', width: '40%', margin: '30px auto'}}>
   {friends.map(friend => {
     return (
-      <List.Item>
+      <List.Item key={friend.id}>
         <Image avatar src='/static/alpaca.png' />
         <List.Content>
           <List.Header as='a'>{friend.name}</List.Header>
