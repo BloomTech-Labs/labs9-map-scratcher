@@ -12,6 +12,7 @@ import MapHeader from '../components/MapHeader/MapHeader';
 import Legend from '../components/MapLegend/Legend';
 import CountryModal from '../components/CountryViewModal/CountryModal'
 import { fixData } from '../components/Map/mapHelpers';
+import '../components/Map/map.less';
 
 
 //------------------------------------------------
@@ -34,7 +35,7 @@ export default class extends Component {
 
     render() {
         return (
-          <React.Fragment>
+          <div className='travels_map-container'>
           <MapHeader />
             <Query query={QUERY_CLIENT_TRAVELS}>
             {({ loading: loadinguser, data }) => {
@@ -90,7 +91,7 @@ export default class extends Component {
             }}
             </Query>
             <Legend />
-          </React.Fragment>
+          </div>
         )
     }
 }
