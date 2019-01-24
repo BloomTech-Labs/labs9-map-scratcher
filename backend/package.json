@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Lambda-School-Labs/labs9-map-scratcher#readme",
   "dependencies": {
     "cookie-session": "^2.0.0-beta.3",
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "graphql-yoga": "^1.16.9",
     "passport": "^0.4.0",
