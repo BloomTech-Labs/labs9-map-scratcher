@@ -1,5 +1,41 @@
 .ui.card {
-  margin-left: 5%;
-  margin-top: -68%;
+  bottom: 10%;
+  display: flex;
+  flex-direction: column;
+  left: 5%;
+  max-height: 80%;
+  min-height: 60%;
+  overflow-y: hidden;
+  position: absolute;
   z-index: 1000;
+
+  .content.modal_header {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    .button {
+      align-self: flex-end;
+      width: 30%;
+    }
+    p {
+      width: 30%;
+    }
+    i {
+      width: 30%;
+    }
+  }
+
+
+  form {
+    width: 90%;
+    margin: 0 auto;
+
+    input {
+      width: 100%;
+      heigth: 15%;
+    }
+  }
 }
