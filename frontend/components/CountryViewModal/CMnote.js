@@ -47,7 +47,7 @@ export default class CountryModalNote extends Component {
                     <UpdateNote visitId={existing[0].id} />
                   )
                 }
-                if ((existing.length > 0) && (!this.props.disabled) &&(existing[0].note)) {
+                if ((existing[0]) && (!this.props.disabled) &&(existing[0].note)) {
                   console.log(existing[0].note)
                   return (
                     <UpdateNote visitId={existing[0].id} note={existing[0].note}/>
