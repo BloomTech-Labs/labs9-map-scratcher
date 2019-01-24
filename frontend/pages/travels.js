@@ -10,7 +10,8 @@ import { Query, Mutation, ApolloConsumer } from 'react-apollo';
 import React, { Component } from 'react';
 import MapHeader from '../components/MapHeader/MapHeader';
 import Legend from '../components/MapLegend/Legend';
-import CountryModal from '../components/CountryViewModal/CountryModal'
+import CountryModal from '../components/CountryViewModal/CountryModal';
+import ViewBordersCheckbox from '../components/MapHeader/ViewBordersCheckbox';
 import { fixData } from '../components/Map/mapHelpers';
 import '../components/Map/map.less';
 
@@ -90,6 +91,9 @@ export default class extends Component {
               }
             }}
             </Query>
+            <div className='travels_checkboxMobile'>
+            <ViewBordersCheckbox />
+            </div>
             <Legend />
           </div>
         )
