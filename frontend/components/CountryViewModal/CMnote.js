@@ -37,6 +37,10 @@ export default class CountryModalNote extends Component {
                   )
                 }
                 console.log('does user have visit matching id', existing);
+                if (existing[0]) {
+                  console.log('do they have a note', existing[0].note)
+                }
+
                 if ((existing[0]) && (this.props.disabled) && (existing[0].note)) {
                   return (
                     <DisabledNote note={existing[0].note} disabled={true} />
@@ -53,9 +57,9 @@ export default class CountryModalNote extends Component {
                     <UpdateNote visitId={existing[0].id} note={existing[0].note}/>
                   )
                 }
-                if (!existing[0]) {
+                if (!existing[0].note && this.props.disabled) {
                   return (
-                    <DisabledNote />
+                    <DisabledNote disabled={true}/>
                   )
                 }
                 console.log('i failed', existing, this.props, this.props.displayId);
