@@ -6,7 +6,7 @@ import Note from './Note';
 import LevelOfVisit from './LevelOfVisit';
 import Header from './Header';
 import Scratcher from './Scratcher';
-import {QUERY_VIEWING_MODAL} from '../../services/requests';
+import { QUERY_VIEWING_MODAL } from '../../services/requests';
 import './countryModal.less'
 
 export default class CountryModal extends Component {
@@ -28,7 +28,7 @@ export default class CountryModal extends Component {
           <Card>
             <Card.Content>
               <Header id={this.props.countryId} />
-              <Scratcher countryId={this.props.countryId} disabled={disabled} />
+              <Scratcher countryId={this.props.countryId} displayId={displayId} disabled={disabled} />
               <LevelOfVisit countryId={this.props.countryId} displayId={displayId} disabled={disabled} />
               <Note countryId={this.props.countryId} displayId={displayId} disabled={disabled} />
               <FriendsVisits id={this.props.countryId} displayId={displayId} />
