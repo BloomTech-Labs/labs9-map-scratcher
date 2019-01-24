@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
-import { Button, Segment, Confirm } from 'semantic-ui-react';
+import React, { Component, Fragment } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import DisabledButtons from './DisabledButtons';
 import UpdateButtons from './UpdateButtons';
 import CreateButtons from './CreateButtons';
-import { QUERY_CLIENT_PROFILE, QUERY_USERVISITS_TRAVELS, MUTATION_UPDATEVISIT_MODAL, MUTATION_CREATEVISIT_MODAL } from '../../services/requests';
+import { QUERY_USERVISITS_TRAVELS } from '../../services/requests';
 
-//constants
-const buttons = [{level: 1, color: 'pink', content: 'Wishlist'}, {level: 2, color: 'yellow', content: 'Transited'}, {level: 3, color: 'green', content: 'Visited'}, {level: 4, color: 'blue', content: 'Lived'},]
 export default class LevelOfVisitButtons extends Component {
   constructor(props){
     super(props);
@@ -19,32 +16,27 @@ export default class LevelOfVisitButtons extends Component {
         )
       }
       return (
-        <React.Fragment>
+        <Fragment>
           <Query query={QUERY_USERVISITS_TRAVELS} variables={{ id: this.props.displayId }}>
-
             {({ loading, data: { user }}) => {
-              console.log('in the buttons',user);
               let existing;
               if (user) {
                 existing = user.visits.filter(visit =>{
                   return visit.country.id === this.props.countryId
-                }
-
-                )
+                })
               }
-              console.log(existing);
               if (existing.length > 0) {
                 return (
-                  <UpdateButtons countryId={this.props.countryId} visitId={existing.id}/>
+                  <UpdateButtons countryId={this.props.countryId} visitId={existing[0].id} displayId={this.props.displayId} />
                 )
               }
               return (
-                <CreateButtons countryId={this.props.countryId} displayId={this.props.displayId}/>
+                <CreateButtons countryId={this.props.countryId} displayId={this.props.displayId} />
               )
             }}
           </Query>
 
-        </React.Fragment>
+        </Fragment>
       )
     }
 }
