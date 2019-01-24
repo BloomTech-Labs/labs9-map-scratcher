@@ -28,7 +28,7 @@ export default class CountryModal extends Component {
           <Card>
             <Card.Content>
               <Header id={this.props.countryId} />
-              <Scratcher disabled={disabled} />
+              <Scratcher countryId={this.props.countryId} disabled={disabled} />
               <LevelOfVisit countryId={this.props.countryId} displayId={displayId} disabled={disabled} />
               <Note countryId={this.props.countryId} displayId={displayId} disabled={disabled} />
               <FriendsVisits id={this.props.countryId} displayId={displayId} />
