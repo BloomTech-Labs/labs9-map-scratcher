@@ -95,7 +95,7 @@ export default class extends Component {
               }
               if (data.modalOpen) {
                 return (
-                  <CountryModal />
+                  <CountryModal countryId={data.countryId}/>
                 )
               }
             }}
