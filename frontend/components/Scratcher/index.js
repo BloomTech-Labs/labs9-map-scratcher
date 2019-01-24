@@ -9,8 +9,7 @@ scratch off to initiate an event. It accepts the following props:
     scratchable(boolean) - What kind of map to display. Options are:
         True - Display a scratchable map with flag overlay
         False - Display a simple colored map.
-    urlMap(string/URL) - An image specifying the shape of the component.
-    urlFlag(string/URL) - An image to be overlaid on the map shape.
+    destination(string) - An id, usually an ISO 3166-1 Alpha-3 code.
     colorOutline(string/color) - The map shape is outlined in this color.
     colorScratch(string/color) - Scratching the image reveals this color.
     handleScratchAll(function) - A callback to invoke once fully scratched.
@@ -27,6 +26,7 @@ of urls.
 import React from 'react';
 import * as utilities from './utilities.js';
 import './scratcher.less';
+
 
 //== React Life Cycle Methods ==================================================
 
@@ -76,9 +76,8 @@ export default class Scratcher extends React.Component {
             this.drawingState.colorOutline = this.props.colorOutline;
             this.drawingState.itchy = this.props.scratchable;
             try {
-                const urlMap  = this.props.urlMap ;
-                const urlFlag = this.props.urlFlag;
-                await this.configureCountry(urlMap, urlFlag);
+                const destination = this.props.destination;
+                await this.configureCountry(destination);
             } catch(error) {
                 this.props.handleLoadingError(error);
                 return;
@@ -105,9 +104,7 @@ export default class Scratcher extends React.Component {
         // Setup Drawing Contexts
         this.generateDrawingContexts();
         // Configure for current Country
-        const urlMap  = this.props.urlMap ;
-        const urlFlag = this.props.urlFlag;
-        await this.configureCountry(urlMap, urlFlag);
+        await this.configureCountry(this.props.destination);
     }
     
     //-- Generate Drawing Contexts -------------------
@@ -120,7 +117,11 @@ export default class Scratcher extends React.Component {
     }
     
     //-- Configure Country ---------------------------
-    async configureCountry(urlMap, urlFlag) {
+    async configureCountry(destination) {
+        // Convert to lowercase (if provided as a string)
+        if(destination && destination.toLowerCase) {
+            destination = destination.toLowerCase();
+        }
         // Clear old data
         this.drawingState.imageMap     = undefined;
         this.drawingState.imageFlag    = undefined;
@@ -128,7 +129,7 @@ export default class Scratcher extends React.Component {
         // Load Image from Urls
         await utilities.configureCountry(
             this.drawingState,
-            urlMap, urlFlag,
+            destination,
         );
         // Setup scratch overlay
         this.drawingState.itchy = this.props.scratchable;
