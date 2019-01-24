@@ -4,7 +4,7 @@ import { QUERY_USERVISITS_TRAVELS } from '../../services/requests';
 import UpdateNote from './UpdateNote';
 import DisabledNote from './DisabledNote'
 
-export default class CountryModalNote extends Component {
+export default class Note extends Component {
   constructor(props) {
     super(props);
   }

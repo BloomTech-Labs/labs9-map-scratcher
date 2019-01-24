@@ -5,7 +5,7 @@ import UpdateButtons from './UpdateButtons';
 import CreateButtons from './CreateButtons';
 import { QUERY_USERVISITS_TRAVELS } from '../../services/requests';
 
-export default class LevelOfVisitButtons extends Component {
+export default class LevelOfVisit extends Component {
   constructor(props){
     super(props);
   }

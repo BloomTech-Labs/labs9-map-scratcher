@@ -1,25 +1,23 @@
-import React from 'react'
+import React, { Component, Fragment } from 'react'
 import Scatcher from '../Scratcher/index.js'
 
-export default class CMscratcher extends React.Component {
-
-
-    render() {
-        return (
-        <div style={{height: '200px'}}>
-          {/* scratchable: nested ternary if user prop === self, then check automated settings */}
-            <Scatcher 
-              scratchable={true}
-              urlMap={`/static/country-alpha/usa.svg`} 
-              urlFlag={`/static/country-flag/usa.svg`} 
-              colorOutline={'cyan'} 
-              colorScratch={'silver'} 
-              handleScratchAll={() => console.log('working')} 
-              handleLoadingError={() => console.log('cannot load image')} 
-              style={{ height: '200px' }} />
-        </div>
-        )
-    }
+export default class Scratcher extends Component {
+  render() {
+    return (
+      <Fragment style={{height: '200px'}}>
+        {/* scratchable: nested ternary if user prop === self, then check automated settings */}
+        <Scatcher 
+          scratchable={true}
+          urlMap={`/static/country-alpha/usa.svg`} 
+          urlFlag={`/static/country-flag/usa.svg`} 
+          colorOutline={'cyan'} 
+          colorScratch={'silver'} 
+          handleScratchAll={() => console.log('working')} 
+          handleLoadingError={() => console.log('cannot load image')} 
+          style={{ height: '200px' }} />
+      </Fragment>
+    )
+  }
 }
 
 
