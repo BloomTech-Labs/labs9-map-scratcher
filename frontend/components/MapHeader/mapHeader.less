@@ -1,0 +1,57 @@
+.mapHeader_mapHeader {
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    padding: 2% 5%;
+    position: absolute;
+    background: white;
+    width: 80%;
+    height: 4rem;
+    top: 2.5%;
+    left: 10%;
+    right: 10%;
+
+    @media (max-width: 500px) {
+      height: 10rem;
+      flex-direction: column-reverse;
+      top: 1%;
+      padding: 2%;
+    }
+
+
+    .mapHeader_checkboxDesktop {
+      width: 20%;
+
+
+        @media (max-width: 900px) {
+          display: none;
+        }
+    }
+     .ui.dropdown {
+       @media (max-width: 500px) {
+         width: 90%;
+         border: 1px solid black;
+         border-radius: 5px;
+         top: 5%;
+       }
+     }
+    .ui.button.floating.labeled.search.dropdown.icon{
+        width: 40%;
+        background: transparent;
+
+        @media (max-width: 800px) {
+          width: 40%;
+        }
+
+        @media (max-width: 500px) {
+          width: 90%;
+          border: none; 
+          align-self: flex-start;
+          margin: 1% auto;
+          padding: 2%;
+          height: 30%;
+        }
+    }
+}
