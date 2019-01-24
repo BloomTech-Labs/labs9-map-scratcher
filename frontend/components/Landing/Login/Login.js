@@ -12,12 +12,12 @@ export default class Login extends Component {
     return (
       <div className='loginButton'>
         <a href={`${login}/twitter`}>
-          <Button color="twitter">
+          <Button color="twitter" className='landing_twitterButton'>
             <Icon name="twitter" /> Login with Twitter
           </Button>
         </a>
         <a>
-          <Button>
+          <Button className='landing_registerButton'>
             Register
           </Button>
         </a>
