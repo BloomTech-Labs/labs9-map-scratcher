@@ -6,29 +6,24 @@ import CountryModalNote from './CMnote';
 import LevelOfVisitButtons from './CMlevelOfVisit';
 import CMheader from './CMheader';
 import CMscratcher from './CMscratcher';
-import {QUERY_CLIENT_TRAVELS} from '../../services/requests';
+import {QUERY_VIEWING_MODAL} from '../../services/requests';
 import './countryModal.less'
 
 export default class CountryModal extends Component {
 
   render() {
     return (
-      <Query query={QUERY_CLIENT_TRAVELS}>
+      <Query query={QUERY_VIEWING_MODAL}>
       {({ loading, data }) => {
-        console.log(data);
         let displayId, disabled;
         if (data.viewingFriend) {
           displayId = data.friendId;
           disabled = true;
-          console.log('friend in play', displayId)
         }
         if (!data.viewingFriend) {
-          console.log('viewing me')
           displayId = data.userId;
           disabled = false
         }
-        //console log to make sure the id is going somewhere and is correct. I'm using Albert Paca for this because that's the person who has the most visits. 
-        console.log('id just before return', displayId)
         return (
           <Card>
             <Card.Content>
