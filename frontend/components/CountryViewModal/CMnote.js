@@ -11,7 +11,7 @@ export default class CountryModalNote extends Component {
     }
 
     render() {
-      console.log('props', this.props)
+      console.log('props in note', this.props)
       //should query for the user visits by passed id (the user or the friend) and then filter by country and act according to the available information.
 
       //currently works with a passed in UserId, but not the friend.
@@ -36,7 +36,7 @@ export default class CountryModalNote extends Component {
 
                   )
                 }
-                console.log('does user have visit matching id', existing);
+                console.log('does user have visit matching id', existing[0]);
                 if (existing[0]) {
                   console.log('do they have a note', existing[0].note)
                 }
@@ -57,9 +57,14 @@ export default class CountryModalNote extends Component {
                     <UpdateNote visitId={existing[0].id} note={existing[0].note}/>
                   )
                 }
-                if (!existing[0].note && this.props.disabled) {
+                if ((existing[0]) && !existing[0].note && this.props.disabled) {
                   return (
                     <DisabledNote disabled={true}/>
+                  )
+                }
+                if (!existing[0]) {
+                  return (
+                    <DisabledNote disabled={true} />
                   )
                 }
                 console.log('i failed', existing, this.props, this.props.displayId);
