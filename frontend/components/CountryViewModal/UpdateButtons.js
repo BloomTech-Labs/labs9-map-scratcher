@@ -13,10 +13,10 @@ export default class UpdateButtons extends Component {
   render(){
     return (
       <Fragment>
-        <Mutation 
+        <Mutation
           mutation={MUTATION_UPDATEVISIT_MODAL}
           refetchQueries={[
-            {query: QUERY_VIEWING_MODAL}, 
+            {query: QUERY_VIEWING_MODAL},
             {query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId}}
           ]}
         >
@@ -29,7 +29,6 @@ export default class UpdateButtons extends Component {
               inverted
               color={button.color}
               value={button.level}
-              style={{width: '23%', fontSize: '.55rem'}}
               onClick={(e, data) => {
                 updateVisit({ variables: {
                   id: this.props.visitId,
