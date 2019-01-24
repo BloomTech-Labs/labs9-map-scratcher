@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Card } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
-import CountryModalFriends from './CMfriends';
-import CountryModalNote from './CMnote';
-import LevelOfVisitButtons from './CMlevelOfVisit';
-import CMheader from './CMheader';
-import CMscratcher from './CMscratcher';
+import FriendsVisits from './FriendsVisits';
+import Note from './Note';
+import LevelOfVisit from './LevelOfVisit';
+import Header from './Header';
+import Scratcher from './Scratcher';
 import {QUERY_VIEWING_MODAL} from '../../services/requests';
 import './countryModal.less'
 
@@ -27,11 +27,11 @@ export default class CountryModal extends Component {
         return (
           <Card>
             <Card.Content>
-              <CMheader id={this.props.countryId} />
-              <CMscratcher />
-              <LevelOfVisitButtons countryId={this.props.countryId} displayId={displayId} disabled={disabled}/>
-              <CountryModalNote countryId={this.props.countryId} displayId={displayId} disabled={disabled}/>
-              <CountryModalFriends id={this.props.countryId} displayId={displayId}/>
+              <Header id={this.props.countryId} />
+              <Scratcher />
+              <LevelOfVisit countryId={this.props.countryId} displayId={displayId} disabled={disabled}/>
+              <Note countryId={this.props.countryId} displayId={displayId} disabled={disabled}/>
+              <FriendsVisits id={this.props.countryId} displayId={displayId}/>
             </Card.Content>
           </Card>
         )
