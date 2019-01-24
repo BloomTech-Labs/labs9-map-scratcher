@@ -13,7 +13,7 @@ export default class NavigationDropdown extends Component {
   }
   render() {
     return (
-      <Dropdown icon="large user">
+      <Dropdown icon="user" size="large">
         <Dropdown.Menu>
           <Link href="/">
             <Dropdown.Item text="Home" icon="home" />
