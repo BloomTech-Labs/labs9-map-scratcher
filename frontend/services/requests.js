@@ -210,8 +210,15 @@ export const MUTATION_CLOSEMODAL_TRAVELS = gql`
 // no yoga requests
 
 // >>>COUNTRY MODAL (props: userId, viewingFriend, friendId, countryName)
-// no client requests
-
+// client requests
+export const QUERY_VIEWING_MODAL = gql`
+  {
+    userId @client,
+    viewingFriend @client,
+    friendId @client,
+    viewBorders @client
+  }
+`
 // yoga requests
 export const QUERY_COUNTRY_MODAL = gql`
   query CountryByName($name: String!) {
@@ -226,6 +233,22 @@ export const QUERY_COUNTRYID_MODAL = gql`
   query CountryById($id: ID!) {
     countryById(id: $id) {
       name
+    }
+  }
+`
+export const QUERY_USERVISITS_MODAL = gql`
+    query User($id: ID!) {
+    user(id: $id) {
+      visits {
+        id
+        level
+        note
+        country {
+          id
+          name
+          code
+        }
+      }
     }
   }
 `
