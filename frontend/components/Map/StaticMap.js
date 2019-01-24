@@ -6,6 +6,8 @@ import geojson from './countries.geo.json';
 import whichPolygon from 'which-polygon';
 import { getFeature } from './mapHelpers';
 import { colors, defaultStyle, hoverStyle, colorStyle, borderStyle } from './countryStyles'
+import { Query, Mutation } from 'react-apollo';
+import { QUERY_COUNTRY_MODAL, MUTATION_OPENMODAL_TRAVELS } from '../../services/requests';
 
 //// TODO: Update render logic to accomodate switching the data displayed (logic currently only expects default user view of map; needs to be updated for if a friend's map is being displayed.)
 
@@ -36,7 +38,6 @@ class WorldMap extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.viewBorders != this.props.viewBorders) {
-      console.log('it changed!', this.props.viewBorders)
       // this.setState({
       //   colors: this.props.colors,
       //   borders: this.props.borders
@@ -70,7 +71,6 @@ class WorldMap extends React.Component {
   }
 
   render() {
-    console.log('map props', this.props)
     //test logic for if either of these is false
     if (!this.props.colors || !this.props.borders) {
       return (
@@ -97,15 +97,31 @@ class WorldMap extends React.Component {
           />
 
         {geojson.features.map(feature => this.state.hovering === feature.properties.ADMIN && (
-          <Label
-          key={feature.properties.ADMIN}
-          style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 10000}}>
-            <GeoJSON
-              data={feature}
-              style={hoverStyle}
-              />
-              {this.state.hovering}
-            </Label>
+          <Query query={QUERY_COUNTRY_MODAL} variables={{name: feature.properties.ADMIN}}>
+          {({ loading, data: { countryByName }}) => {
+            console.log('svg query', countryByName)
+
+            return (
+              <Mutation mutation={MUTATION_OPENMODAL_TRAVELS} >
+              {(openModal, { data }) => (
+                  <Label
+                  key={feature.properties.ADMIN}
+                  style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 10000}}>
+                    <GeoJSON
+                      onClick={(e) => {
+                        openModal({ variables: {id: countryByName.id}})
+                      }}
+
+                      data={feature}
+                      style={hoverStyle}
+                      />
+                      {this.state.hovering}
+                    </Label>
+              )}
+              </Mutation>
+            )
+          }}
+            </Query>
         ))}
 
         {this.props.colors && this.props.colors.map(visit => {
