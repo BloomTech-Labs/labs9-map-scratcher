@@ -3,7 +3,7 @@
 	height: 100%;
 
 	.profile_pageContainer {
-			height: 100%;
+			min-height: 100%;
 			background: lightblue;
 
 		//breadcrumbs container
@@ -22,15 +22,27 @@
 			justify-content: space-evenly;
 			align-items: center;
 			height: 97%;
+
+				@media(max-width: 800px) {
+					flex-direction: column;
+					justify-content: none;
+					height: 79rem;
+				}
 			
 			//contains the userCard component
 			.profile_userCardContainer {
 				width: 30rem;
-
+	
 				//Usercard component
 				.profile_userCardMain {
 					width: 100%;
 					background: lightcyan;
+
+					@media(max-width: 800px) {
+						width: 60%;
+						height: 80%;
+						margin: 5% 20%;
+					}
 
 						.profile_userCardForm {
 							padding-top: 5%;
@@ -50,6 +62,9 @@
 			.profile_friendsContainer {
 				width: 10rem;
 				height: 85%;
+					@media(max-width: 1100px) {
+						width: 19rem;
+					}
 
 				//FriendsList component
 				.profile_friendsListMain {
@@ -64,6 +79,10 @@
 				.profile_userDropDown {
 					height: 3rem; 
 					margin: 20px 28%;
+
+						@media(max-width: 1100px) {
+							margin: 20px 16%;
+						}
 				}
 
 			}
