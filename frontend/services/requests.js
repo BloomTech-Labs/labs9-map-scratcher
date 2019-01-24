@@ -200,8 +200,8 @@ export const MUTATION_OPENMODAL_TRAVELS = gql`
   }
 `
 export const MUTATION_CLOSEMODAL_TRAVELS = gql`
-  mutation CloseModal($id: ID!) {
-    closeModal(id: $id) @client
+  mutation CloseModal {
+    closeModal @client
   }
 `
 
@@ -222,7 +222,13 @@ export const QUERY_COUNTRY_MODAL = gql`
     }
   }
 `
-
+export const QUERY_COUNTRYID_MODAL = gql`
+  query CountryById($id: ID!) {
+    countryById(id: $id) {
+      name
+    }
+  }
+`
 export const MUTATION_CREATEVISIT_MODAL = gql`
   mutation CreateVisit(
       $userId: ID!
