@@ -35,133 +35,64 @@ export default class extends Component {
     }
 
     render() {
-        return this.makeQueriesAndRenderMap();
-    }
-    displayMap(colors, borders, viewBorders) {
         return (
-            <React.Fragment>
-                <MapHeader />
-                <div>
-                    <DynamicMap
-                        colors={colors}
-                        borders={borders}
-                        viewBorders={viewBorders}
-                    />
-                    <Legend />
-                </div>
-            </React.Fragment>
-        );
-    }
-
-
-//== Query response handlers ===================================================
-
-    //-- Query Renderers -----------------------------
-    makeQueriesAndRenderMap() {
-        // Not strictly necessary, but it clarifies intent
-        return this.requestLocalState();
-    }
-    requestLocalState() {
-      let query = QUERY_CLIENT_TRAVELS
-      let responseHandler = (response) => {
-        return this.handleResponseLocalState(response);
-      }
-      return (
-        <Query query={query}>{responseHandler}</Query>
-      )
-    }
-    requestVisitsUser(localState) {
-        let query = QUERY_USERVISITS_TRAVELS;
-        let variables = {id: localState.userId};
-        let responseHandler = (response) => {
-            return this.handleResponseVisitsUser(response, localState);
-        };
-        return (
-            <Query query={query} variables={variables}>
-                {responseHandler}
+          <React.Fragment>
+          <MapHeader />
+            <Query query={QUERY_CLIENT_TRAVELS}>
+            {({ loading: loadinguser, data }) => {
+              const localState = data;
+              const id = localState.userId;
+              return (
+                <Query query={QUERY_USERVISITS_TRAVELS} variables={{id}}>
+                {({ loading: loadingVisits, data} ) => {
+                  let visitsUser = [];
+                  visitsUser.push(data.user);
+                  visitsUser = (fixData(visitsUser))
+                  return (
+                    <Query query={QUERY_FRIENDSVISITS_TRAVELS}variables={{id}}>
+                      {({ loading: loadingFriendVisits, data: { friends }}) => {
+                        let colors, borders;
+                        let viewBorders = localState.viewBorders ? true: false;
+                        if (!localState.viewingFriend) {
+                          colors = visitsUser;
+                          borders = fixData(friends)
+                        }
+                        if (localState.viewingFriend && localState.friendId) {
+                          let oneFriend = friends.filter(friend => friend.id === localState.friendId)
+                          oneFriend = fixData(oneFriend);
+                          colors = oneFriend;
+                          borders = visitsUser;
+                        }
+                        if (loadinguser || loadingVisits || loadingFriendVisits) {
+                          return <div>loading</div>
+                        }
+                        return (
+                          <DynamicMap colors={colors} borders={borders} viewBorders={viewBorders} />
+                        )
+                      }}
+                    </Query>
+                  )
+                }}
+                </Query>
+              )
+            }}
             </Query>
-        );
-    }
-    requestVisitsFriends(visitsUser, localState) {
-        let query = QUERY_FRIENDSVISITS_TRAVELS;
-        let variables = { id: localState.userId };
-        let responseHandler = (response) => {
-            return this.handleResponseVisitsFriends(response, visitsUser, localState);
-        };
-        return (
-            <Query query={query} variables={variables}>
-                {responseHandler}
+            <Query query={QUERY_CLIENT_MODAL}>
+            {({ loading, data }) => {
+              if (!data.modalOpen) {
+                return (
+                  null
+                )
+              }
+              if (data.modalOpen) {
+                return (
+                  <CountryModal countryId={data.countryId}/>
+                )
+              }
+            }}
             </Query>
-        );
-    }
-
-    //-- Subcomponent Display ------------------------
-    displayError(error) {
-        return (<div>Error</div>);
-    }
-    displayLoading() {
-        return (<div>Loading</div>);
-    }
-
-    //-- Response handlers ---------------------------
-    handleResponseLocalState(response) {
-      let error = response.error;
-      let loading = response.loading;
-      let localState = response.data;
-      if(loading) {
-        return this.displayLoading();
-      }
-      if (error) {
-        return this.displayError(error);
-      }
-      return this.requestVisitsUser(localState)
-    }
-    handleResponseVisitsUser(response, localState) {
-        // Get data from response
-        let error = response.error;
-        let loading = response.loading;
-        let visitsUser = [];
-        visitsUser.push(response.data.user);
-        visitsUser = fixData(visitsUser);
-        // Handle loading and errors
-        if(loading) {
-            return this.displayLoading();
-        }
-        if(error) {
-            return this.displayError(error);
-        }
-        // Continue Rendering
-        return this.requestVisitsFriends(visitsUser, localState);
-    }
-    handleResponseVisitsFriends(response, visitsUser, localState) {
-        // Get data from response
-        let error = response.error;
-        let loading = response.loading;
-        //variables for the colors and borders and viewBorder boolean to be passed to the map
-        let colors, borders;
-
-        let viewBorders = localState.viewBorders ? true : false;
-        //if the viewingFriend boolean on the apollo cache is false, sets the colors to the user's visits and the borders to the friends' visits
-        if (!localState.viewingFriend) {
-          colors = visitsUser;
-          borders = fixData(response.data.friends);
-        }
-        //if the viewingFriend boolean on the apollo cache is true, uses the friendId on the apollo cache to set the colors for the map to that single friend's visits and sets the borders to the user's visits.
-        if (localState.viewingFriend && localState.friendId) {
-          //filters the friends response to return the single friend whose id matches the friend being viewed
-          let oneFriend = response.data.friends.filter(friend => friend.id === localState.friendId)
-          oneFriend = fixData(oneFriend);
-          colors = oneFriend;
-          borders = visitsUser;
-        }
-        // Handle loading and errors
-        if(loading) {
-            return this.displayLoading();
-        }
-        if(error) {
-            return this.displayError(error);
-        }
-        // Continue Rendering
-        return this.displayMap(colors, borders, viewBorders);
+            <Legend />
+          </React.Fragment>
+        )
     }
 }
