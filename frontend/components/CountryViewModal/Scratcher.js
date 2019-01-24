@@ -19,8 +19,8 @@ export default class Scratcher extends Component {
                 query={QUERY_USER_SCRATCHER} 
                 variables={{ id: displayId }}>
               {({ loading: loadingUserSetting, data: {user} }) => {
-                if (!disabled && !user.scratchingAutomated) scratchable = true
                 if (loadingCountryCode || loadingUserSetting) return <div>Loading</div>
+                if (!disabled && !user.scratchingAutomated) scratchable = true
                 return (
                   <Scatcher 
                   scratchable={scratchable}
