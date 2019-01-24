@@ -97,15 +97,13 @@ class WorldMap extends React.Component {
           />
 
         {geojson.features.map(feature => this.state.hovering === feature.properties.ADMIN && (
-          <Query query={QUERY_COUNTRY_MODAL} variables={{name: feature.properties.ADMIN}}>
+          <Query key={feature.properties.ADMIN} query={QUERY_COUNTRY_MODAL} variables={{name: feature.properties.ADMIN}}>
           {({ loading, data: { countryByName }}) => {
-            console.log('svg query', countryByName)
 
             return (
               <Mutation mutation={MUTATION_OPENMODAL_TRAVELS} >
               {(openModal, { data }) => (
                   <Label
-                  key={feature.properties.ADMIN}
                   style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 10000}}>
                     <GeoJSON
                       onClick={(e) => {
