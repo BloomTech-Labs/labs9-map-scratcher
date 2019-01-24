@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Label } from 'semantic-ui-react';
 
 
@@ -18,22 +18,21 @@ export default class UpdateNote extends Component {
     }
   }
 
-
   render() {
     return (
-      <React.Fragment>
-          <form>
-            <input
-            disabled
-            type='textarea'
-            name='note'
-            value={this.state.note}
-            />
-            {!this.props.disabled &&
-              <Label disabled>You must select a visit level above to create a note</Label>
-            }
-          </form>
-      </React.Fragment>
+      <Fragment>
+        <form>
+          <input
+          disabled
+          type='textarea'
+          name='note'
+          value={this.state.note}
+          />
+          {!this.props.disabled &&
+            <Label disabled>You must select a visit level above to create a note</Label>
+          }
+        </form>
+      </Fragment>
     )
   }
 
