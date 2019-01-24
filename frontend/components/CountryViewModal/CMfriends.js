@@ -1,5 +1,5 @@
-import React from 'react'
-import { Table } from 'semantic-ui-react'
+import React from 'react';
+import { List } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import { QUERY_CLIENT_PROFILE, QUERY_FRIENDSVISITS_TRAVELS } from '../../services/requests';
 
@@ -8,50 +8,56 @@ export default class CountryModalFriends extends React.Component {
     //map over the query, display friends and level of visit
     render() {
     return (
-    <Table basic='very' celled >
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell style={{width: '40%'}}>Friends</Table.HeaderCell>
-            <Table.HeaderCell style={{width: '40%'}}>Level of Visit</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-      <Table.Body>
-        <Query query={QUERY_CLIENT_PROFILE}>
-        {({ loading, error, data: {userId} }) => {
-          return (
-            <Query query={QUERY_FRIENDSVISITS_TRAVELS} variables={{ id: userId }}>
-            {({ loading, error, data: {friends} }) => {
-              console.log(friends)
-              return friends.map(item => {
-                return(
-                <Table.Row>
-                  <Table.Cell>
-                        {item.name}
-                  </Table.Cell>
-                  <Table.Cell>{item.visits.map(item => {
-                    if(item.level === 1) {
-                      return 'Wishlist'
-                    }
-                    if(item.level === 2) {
-                      return 'Transited'
-                    }
-                    if(item.level === 3) {
-                      return 'Visited'
-                    }
-                    if(item.level === 4) {
-                      return 'Lived'
-                    }
-                  })}</Table.Cell>
-                </Table.Row>
-                )
-              })
+            <Query query={QUERY_FRIENDSVISITS_TRAVELS} variables={{ id: this.props.displayId }}>
+            {({ loading: loadingFriends, error , data: { friends }}) => {
+              if (loadingFriends) {
+                return (<div>loading</div>)
               }
-            }
+              if (error) {
+                return (<div>error</div>)
+              }
+              let friendsList;
+              if (friends) {
+                let friendArray = [];
+                friends.map(friend => {
+                  friend.visits.map(visit => {
+                    if (visit.country.id === this.props.id) {
+                      friendArray.push([friend.name, visit.level])
+                    }
+                  })
+                })
+                friendArray = friendArray.sort((a,b) => {
+                  return a[1] < b[1] ? 1 : -1
+                })
+                const icons = {
+                  1: 'paper plane',
+                  2: 'plane',
+                  3: 'marker',
+                  4: 'home'
+                }
+                friendsList = friendArray.map(friend => {
+                    friend[1] = icons[friend[1]];
+                    return friend;
+                })
+                return friendsList;
+              }
+              console.log('list', friendsList);
+              return (
+                <React.Fragment>
+                <List>
+                  <List.Header>
+                    Friends
+                  </List.Header>
+                  {friendsList && friendsList.map(person => {
+                    console.log('name', person[0])
+                    return (
+                      <List.Item key={person[0]} icon={person[1]} content={person[0]}/>
+                    )
+                  })}
+                </List>
+                </React.Fragment>
+              )
+            }}
             </Query>
-          )
-        }}
-        </Query>
-      </Table.Body>
-    </Table>
     )}
 }
