@@ -14,7 +14,6 @@ export default class CMheader extends Component {
           if (loading) return <div>Loading</div>
           return (
             <Card.Header className='modal_header'>
-            <i className='pe flag'/>
             <p>{countryById.name}</p>
               <Mutation mutation={MUTATION_CLOSEMODAL_TRAVELS}>
                 {closeModal => (
