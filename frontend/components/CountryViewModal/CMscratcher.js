@@ -9,9 +9,9 @@ export default class CMscratcher extends React.Component {
         <div style={{height: '200px'}}>
           {/* scratchable: nested ternary if user prop === self, then check automated settings */}
             <Scatcher 
-              scratchable={true} 
-              urlMap={`/static/peru.png`} 
-              urlFlag={`/static/pe-flag-min.jpg`} 
+              scratchable={true}
+              urlMap={`/static/country-alpha/usa.svg`} 
+              urlFlag={`/static/country-flag/usa.svg`} 
               colorOutline={'cyan'} 
               colorScratch={'silver'} 
               handleScratchAll={() => console.log('working')} 
