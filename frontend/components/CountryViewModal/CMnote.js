@@ -20,7 +20,13 @@ export default class CountryModalNote extends Component {
         return (
           <React.Fragment>
             <Query query={QUERY_USERVISITS_TRAVELS} variables={{ id: this.props.displayId }}>
-              {({ loading, data: { user }}) => {
+              {({ loading, error,  data: { user }}) => {
+                if (loading) {
+                  return <div>loading</div>
+                }
+                if (error) {
+                  return <div>error</div>
+                }
                 console.log('user', user);
                 let existing;
                 if (user) {
@@ -30,13 +36,13 @@ export default class CountryModalNote extends Component {
 
                   )
                 }
-                console.log(existing);
-                if ((existing.length > 0) && (this.props.disabled) && (existing[0].note)) {
+                console.log('does user have visit matching id', existing);
+                if ((existing[0]) && (this.props.disabled) && (existing[0].note)) {
                   return (
                     <DisabledNote note={existing[0].note} disabled={true} />
                   )
                 }
-                if((existing.length > 0) && (!this.props.disabled) && (!existing[0].note)) {
+                if((existing[0]) && (!this.props.disabled) && (!existing[0].note)) {
                   return (
                     <UpdateNote visitId={existing[0].id} />
                   )
@@ -47,11 +53,13 @@ export default class CountryModalNote extends Component {
                     <UpdateNote visitId={existing[0].id} note={existing[0].note}/>
                   )
                 }
-                if (!existing) {
+                if (!existing[0]) {
                   return (
                     <DisabledNote />
                   )
                 }
+                console.log('i failed', existing, this.props, this.props.displayId);
+                return null;
               }}
             </Query>
 
