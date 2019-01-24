@@ -382,7 +382,7 @@ export function coordinatesOfTouch(touchEvent, canvas) {
     // Only consider the first instance of a moving touch as a scratch
     touchEvent = touchEvent.changedTouches[0];
     // Handle touchEvent same as mouseEvent
-    return this.coordinatesOfMouse(touchEvent, canvas);
+    return coordinatesOfMouse(touchEvent, canvas);
 }
 
 //-- Respond to user mouse movements -------------
