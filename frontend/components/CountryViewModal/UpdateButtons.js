@@ -24,7 +24,7 @@ export default class UpdateButtons extends Component {
             inverted
             color={button.color}
             value={button.level}
-            style={{width: '23%', fontSize: '.55rem'}}
+
             onClick={(e, data) => {
               updateVisit({ variables: {
                 id: this.props.visitId,

@@ -24,7 +24,7 @@ export default class CreateButtons extends Component {
                 inverted
                 color={button.color}
                 value={button.level}
-                style={{width: '23%', fontSize: '.55rem'}}
+
                 onClick={(e,data) => {
                   console.log(data.value)
                   createVisit({ variables: {
