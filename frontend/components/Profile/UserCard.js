@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo'
 import { MUTATION_UPDATEUSER_PROFILE } from '../../services/requests'
+import './profile.less'
 
 export default class UserCard extends Component {
   constructor(props) {
@@ -27,10 +28,8 @@ export default class UserCard extends Component {
   render() {
     const { joinDate, name, email, nickname, scratchingAutomated, isPrivate } = this.state
     return (
-      <Card style={{ width: '50%', border: '1px solid blue', margin: '20px auto' }}>
-        <Image src='/static/alpaca.png'
-        style={{width: '50%', display: 'flex', alignSelf: 'center'}}
-        />
+      <Card className='profile_userCardMain'>
+        <Image src='/static/alpaca.png' className='profile_userCardProfilePic' />
         <Card.Content>
           <Card.Header>{name}</Card.Header>
             <Card.Meta>
@@ -41,7 +40,7 @@ export default class UserCard extends Component {
               variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate }}
             >
               {updateUser => (
-              <Form style={{paddingTop: '3%'}} onSubmit={updateUser}>
+              <Form className='profile_userCardForm' onSubmit={updateUser}>
                 <Form.Field>
                 <label>Name</label>
                 <Input
@@ -51,6 +50,7 @@ export default class UserCard extends Component {
                   type="text"
                   value={name}
                   required
+                  className='profile_userCardInput'
                 />
                 </Form.Field>
                 <Form.Field>
@@ -62,6 +62,7 @@ export default class UserCard extends Component {
                   type="text"
                   value={email}
                   required
+                  className='profile_userCardInput'
                 />
                 </Form.Field>
                 <Form.Field>
@@ -73,12 +74,14 @@ export default class UserCard extends Component {
                   type="text"
                   value={nickname}
                   required
+                  className='profile_userCardInput'
                 />
                 </Form.Field>
                 <Form.Field>
                     <Checkbox
                     type='checkbox'
                     name='automateScratchOff'
+                    toggle
                     onChange={() => this.setState({scratchingAutomated: !scratchingAutomated})}
                     checked={!!scratchingAutomated}
                     label="Automate Scratch-off"
@@ -88,13 +91,14 @@ export default class UserCard extends Component {
                     <Checkbox
                     type='checkbox'
                     name='isPrivate'
+                    toggle
                     onChange={() => this.setState({isPrivate: !isPrivate})}
                     checked={!!isPrivate}
                     label="Private User"
                     />
                 </Form.Field>  
                 <Form.Field>
-                  <Button onClick={updateUser}>Submit</Button>
+                  <Button onClick={updateUser} primary>Submit</Button>
                 </Form.Field>
               </Form>)}
             </Mutation>

@@ -1,19 +1,64 @@
-.profile_form {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	background-color: #add8e6;
-	border-radius: 10px;
-	box-shadow: 7px 3.5px #d6ebf2;
-	margin: 0 auto;
-	padding: 20px;
-	width: 400px;
+//Main page
+#__next {
+	height: 100%;
+
+	.profile_pageContainer {
+			height: 100%;
+			background: lightblue;
+
+		.profile_breadCrumbs {
+			min-height: 3%;
+			margin-bottom: 0;
+				.profile_breadCrumbsLink {
+					text-decoration: underline;
+					color: black;
+				}
+		}
+
+		.profile_mainContainer {
+			border: 1px solid red;
+			display: flex;
+			justify-content: space-evenly;
+			align-items: center;
+			height: 97%;
+			
+			.profile_userCardContainer {
+				width: 30rem;
+
+				//Usercard component
+				.profile_userCardMain {
+					width: 100%;
+					border: 1px solid red;
+					margin: 20px auto;
+
+						.profile_userCardForm {
+							padding-top: 5%;
+						}
+						.profile_userCardInput {
+							background: blue;
+						}
+						.profile_userCardProfilePic {
+							width: 80%;
+							align-self: center;
+						}
+				}
+			}
+			
+			.profile_friendsContainer {
+				width: 10rem;
+
+				//FriendsList component
+				.profile_friendsListMain {
+					border: 1px solid red;
+					width: 100%;
+					margin: 30px auto;
+				}
+
+			}
+			
+		}
+
+	}
 }
 
-.profile_checkbox {
-	margin-bottom: 10px;
-}
 
-.profile_button {
-	width: 100px;
-}
