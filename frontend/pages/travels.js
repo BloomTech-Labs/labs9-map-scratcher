@@ -13,8 +13,6 @@ import Legend from '../components/MapLegend/Legend.js';
 import CountryModal from '../components/CountryViewModal/CountryModal'
 import { fixData } from '../components/Map/mapHelpers';
 
-//-- Constants -----------------------------------
-const testUserId = "cjqt5c95y00s40894zs7m6q4v";
 
 //------------------------------------------------
 const DynamicMap = dynamic(() => import('../components/Map/StaticMap'), {
