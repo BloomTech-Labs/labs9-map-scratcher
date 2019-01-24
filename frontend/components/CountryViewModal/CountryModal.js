@@ -1,42 +1,37 @@
 import React, { Component } from 'react';
 import { Card } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
-import CountryModalFriends from './CMfriends';
-import CountryModalNote from './CMnote';
-import LevelOfVisitButtons from './CMlevelOfVisit';
-import CMheader from './CMheader';
-import CMscratcher from './CMscratcher';
-import {QUERY_CLIENT_TRAVELS} from '../../services/requests';
+import FriendsVisits from './FriendsVisits';
+import Note from './Note';
+import LevelOfVisit from './LevelOfVisit';
+import Header from './Header';
+import Scratcher from './Scratcher';
+import { QUERY_VIEWING_MODAL } from '../../services/requests';
 import './countryModal.less'
 
 export default class CountryModal extends Component {
 
   render() {
     return (
-      <Query query={QUERY_CLIENT_TRAVELS}>
+      <Query query={QUERY_VIEWING_MODAL}>
       {({ loading, data }) => {
-        console.log(data);
         let displayId, disabled;
         if (data.viewingFriend) {
           displayId = data.friendId;
           disabled = true;
-          console.log('friend in play', displayId)
         }
         if (!data.viewingFriend) {
-          console.log('viewing me')
           displayId = data.userId;
           disabled = false
         }
-        //console log to make sure the id is going somewhere and is correct. I'm using Albert Paca for this because that's the person who has the most visits. 
-        console.log('id just before return', displayId)
         return (
           <Card>
             <Card.Content>
-              <CMheader id={this.props.countryId} />
-              <CMscratcher />
-              <LevelOfVisitButtons countryId={this.props.countryId} displayId={displayId} disabled={disabled}/>
-              <CountryModalNote countryId={this.props.countryId} displayId={displayId} disabled={disabled}/>
-              <CountryModalFriends id={this.props.countryId} displayId={displayId}/>
+              <Header id={this.props.countryId} />
+              <Scratcher countryId={this.props.countryId} displayId={displayId} disabled={disabled} />
+              <LevelOfVisit countryId={this.props.countryId} displayId={displayId} disabled={disabled} />
+              <Note countryId={this.props.countryId} displayId={displayId} disabled={disabled} />
+              <FriendsVisits id={this.props.countryId} displayId={displayId} />
             </Card.Content>
           </Card>
         )

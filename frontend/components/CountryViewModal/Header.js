@@ -3,7 +3,7 @@ import { Card, Button, Icon } from 'semantic-ui-react'
 import { Query, Mutation } from 'react-apollo'
 import { QUERY_COUNTRYID_MODAL, MUTATION_CLOSEMODAL_TRAVELS } from '../../services/requests'
 
-export default class CMheader extends Component {
+export default class Header extends Component {
   constructor(props) {
     super(props)
   }
@@ -14,7 +14,6 @@ export default class CMheader extends Component {
           if (loading) return <div>Loading</div>
           return (
             <Card.Header className='modal_header'>
-            <i className='pe flag'/>
             <p>{countryById.name}</p>
               <Mutation mutation={MUTATION_CLOSEMODAL_TRAVELS}>
                 {closeModal => (

@@ -20,7 +20,7 @@ const UsersDropdown = ({ userId, users }) => {
       search
       selection
       options={userList}
-      style={{border: '1px solid blue', height: '20px', margin: '20px 40%'}}
+      className='profile_userDropDown'
       onChange={(e, data) => {
         addFriend({ variables: { userId: userId, friendId: data.value }});
       }}

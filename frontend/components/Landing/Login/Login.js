@@ -10,14 +10,14 @@ const login =
 export default class Login extends Component {
   render() {
     return (
-      <div className='loginButton'>
+      <div className='login_loginButton'>
         <a href={`${login}/twitter`}>
-          <Button color="twitter">
+          <Button color="twitter" className='login_twitterButton'>
             <Icon name="twitter" /> Login with Twitter
           </Button>
         </a>
         <a>
-          <Button>
+          <Button className='login_registerButton'>
             Register
           </Button>
         </a>

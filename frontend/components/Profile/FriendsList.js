@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo';
 import { MUTATION_DELETEFRIEND_PROFILE } from '../../services/requests';
 
 const FriendsList = ({ friends, userId }) => (
-  <List style={{border: '1px solid blue', width: '40%', margin: '30px auto'}}>
+  <List className='profile_friendsListMain'>
   {friends.map(friend => {
     return (
       <List.Item key={friend.id}>
