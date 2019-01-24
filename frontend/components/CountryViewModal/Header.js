@@ -3,7 +3,7 @@ import { Card, Button, Icon } from 'semantic-ui-react'
 import { Query, Mutation } from 'react-apollo'
 import { QUERY_COUNTRYID_MODAL, MUTATION_CLOSEMODAL_TRAVELS } from '../../services/requests'
 
-export default class CMheader extends Component {
+export default class Header extends Component {
   constructor(props) {
     super(props)
   }
