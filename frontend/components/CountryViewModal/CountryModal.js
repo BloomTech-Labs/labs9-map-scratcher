@@ -6,13 +6,15 @@ import LevelOfVisitButtons from './CMlevelOfVisit.js'
 import CMheader from './CMheader.js'
 import CMscratcher from './CMscratcher.js'
 
-class countryModal extends Component {
-
+export default class countryModal extends Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
     return (
       <Card style={{marginLeft: '30%'}}>
         <Card.Content style={{textAlign: 'center'}}>
-          <CMheader />
+          <CMheader id={this.props.countryId} />
           <CMscratcher />
           <LevelOfVisitButtons />
           {/* have both a textarea note and paragraph note; ternary for classname to show only the relevant one depending on userType */}
@@ -23,5 +25,3 @@ class countryModal extends Component {
     )
   }
 }
-
-export default countryModal
