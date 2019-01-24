@@ -296,7 +296,20 @@ export const MUTATION_DELETEVISIT_MODAL = gql`
     }
   }
 `
-
+export const QUERY_USER_SCRATCHER = gql`
+  query User($id: ID!) {
+    user(id: $id) {
+      scratchingAutomated
+    }
+  }
+`
+export const QUERY_COUNTRYID_SCRATCHER = gql`
+  query CountryById($id: ID!) {
+    countryById(id: $id) {
+      code
+    }
+  }
+`
 // UNASSIGNED QUERIES & MUTATIONS - DO NOT DELETE
 
 
