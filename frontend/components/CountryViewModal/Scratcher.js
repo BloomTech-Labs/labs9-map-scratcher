@@ -8,8 +8,7 @@ export default class Scratcher extends Component {
         {/* scratchable: nested ternary if user prop === self, then check automated settings */}
         <Scatcher 
           scratchable={this.props.disabled}
-          urlMap={`/static/country-alpha/usa.svg`} 
-          urlFlag={`/static/country-flag/usa.svg`} 
+          destination={`/static/country-alpha/usa.svg`} 
           colorOutline={'cyan'} 
           colorScratch={'silver'} 
           handleScratchAll={() => console.log('working')} 
@@ -30,9 +29,12 @@ export default class Scratcher extends Component {
 //  scratchable(boolean) - What kind of map to display. Options are:
 //     True - Display a scratchable map with flag overlay
 //     False - Display a simple colored map.
-//  urlMap(string/URL) - An image specifying the shape of the component.
-//  urlFlag(string/URL) - An image to be overlaid on the map shape.
+//  destination(string) - An id, usually an ISO 3166-1 Alpha-3 code.
 //  colorOutline(string/color) - The map shape is outlined in this color.
 //  colorScratch(string/color) - Scratching the image reveals this color.
 //  handleScratchAll(function) - A callback to invoke once fully scratched.
 //  handleLoadingError(function) - A callback invoked if images can't load.
+
+/* PLEASE NOTE: do not rely on the above when using the Scratcher component.
+    Documentation for the Scratcher is in its own index.js file, and the above
+    may become out of date as that file changes. */
