@@ -214,8 +214,8 @@ export const MUTATION_CLOSEMODAL_TRAVELS = gql`
 
 // yoga requests
 export const QUERY_COUNTRY_MODAL = gql`
-  query Country($name: String!) {
-    country(name: $name) {
+  query CountryByName($name: String!) {
+    countryByName(name: $name) {
       id
       name
       code
