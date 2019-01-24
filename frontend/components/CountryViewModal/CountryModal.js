@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card } from 'semantic-ui-react'
 import CountryModalFriends from './CMfriends.js'
-import CountryModalComment from './CMcomments.js'
+import CountryModalComment from './CMnote.js'
 import LevelOfVisitButtons from './CMlevelOfVisit.js'
 import CMheader from './CMheader.js'
 import CMscratcher from './CMscratcher.js'

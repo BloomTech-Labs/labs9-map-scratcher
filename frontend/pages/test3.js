@@ -27,13 +27,29 @@ export default class extends Component {
 
     render() {
         return (
-          <React.Fragment>
-            <form>
-            <input type='text' />
-            <input type='text' />
-            </form>
-          </React.Fragment>
+          <div>use me for testing!</div>
         )
     }
 
 }
+//
+// <React.Fragment>
+//   <Query query={visit? }>
+//   if visit {
+//     mutation = MUTATION_UPDATE
+//     visit = visit.id
+//     action = updateVisit
+//   }
+//   if !visit {
+//     mutation = MUTATION_ADD
+//     action = addVisit
+//     visit = null;
+//   }
+//   return (
+//     <Mutation mutation={mutation}>
+//     if visit
+//     onClick=mutation(variables, level: whatever i just clicked)
+//     </Mutation>
+//   )
+//   </Query>
+// </React.Fragment>
