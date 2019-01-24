@@ -9,7 +9,13 @@ export default class CountryModalFriends extends React.Component {
     render() {
     return (
             <Query query={QUERY_FRIENDSVISITS_TRAVELS} variables={{ id: this.props.displayId }}>
-            {({ loading: loadingFriends , data: { friends }}) => {
+            {({ loading: loadingFriends, error , data: { friends }}) => {
+              if (loadingFriends) {
+                return (<div>loading</div>)
+              }
+              if (error) {
+                return (<div>error</div>)
+              }
               let friendsList;
               if (friends) {
                 let friendArray = [];
