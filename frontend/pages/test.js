@@ -43,7 +43,6 @@ class Test extends Component {
                         <a> Settings</a>
                     </Link>
                 </p>
-                <CountryModal />
                 <div>USER</div>
                 <Query query={USER_QUERY} variables={{id}}>
                 {({ loading, error, data }) => {
