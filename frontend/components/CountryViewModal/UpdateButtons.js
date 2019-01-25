@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import { Query, Mutation } from 'react-apollo';
-import { 
-  QUERY_VIEWING_MODAL, 
-  QUERY_USERVISITS_MODAL, 
+import {
+  QUERY_VIEWING_MODAL,
+  QUERY_USERVISITS_MODAL,
   QUERY_SCRATCHING_MODAL,
   MUTATION_SCRATCHING_MODAL,
   MUTATION_UPDATEVISIT_MODAL } from '../../services/requests';
@@ -28,7 +28,7 @@ export default class UpdateButtons extends Component {
         >
         {(updateVisit, {data}) => (
           <Segment>
-            
+
             <Query query={QUERY_SCRATCHING_MODAL}>
               {({ loading, data: {scratchingComplete} }) => {
                 if (loading) return <div>Loading</div>
