@@ -1,11 +1,23 @@
 .ui.card.legend_main {
-    background: lightgray;
-    bottom: 15%;
+    background: #F3F3F3;
+    border: 1px solid darkgray;
+    bottom: 10%;
     left: 85%;
-    min-height: 15vh;
+    max-height: 15vh;
+    min-height: 10vh;
     position: absolute;
-    width: 10%;
-    z-index: 500;
+    width: 9rem;
+    z-index: 400;
+
+    @media (max-width: 900px) {
+      left: 75%;
+    }
+
+    @media (max-width: 600px) {
+      left: 65%;
+      bottom: 2%;
+      max-height: 17vh;  
+    }
         //individual cards
         .legend_div {
             display: flex;
@@ -13,32 +25,36 @@
             padding-top: 3%;
             align-content: center;
                 .legend_blueBox {
-                    border: 1px solid blue;
+                    border: 1px solid darkgray;
+                    border-radius: 3px;
                     width: 1rem;
                     height: 1rem;
                     margin-right: 5%;
-                    background: blue;
+                    background: #8CDAFC;
                 }
                 .legend_greenBox {
-                    border: 1px solid green;
+                    border: 1px solid darkgray;
+                    border-radius: 3px;
                     width: 1rem;
                     height: 1rem;
                     margin-right: 5%;
-                    background: green;
+                    background: #B2DD83;
                 }
                 .legend_yellowBox {
-                    border: 1px solid yellow;
+                    border: 1px solid darkgray;
+                    border-radius: 3px;
                     width: 1rem;
                     height: 1rem;
                     margin-right: 5%;
-                    background: yellow;
+                    background: #FDD57B;
                 }
                 .legend_pinkBox {
-                    border: 1px solid pink;
+                    border: 1px solid darkgray;
+                    border-radius: 3px;
                     width: 1rem;
                     height: 1rem;
                     margin-right: 5%;
-                    background: pink;
+                    background: #FD9B9F;
                 }
     }
 }

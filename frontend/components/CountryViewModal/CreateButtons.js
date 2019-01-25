@@ -14,10 +14,10 @@ export default class CreateButtons extends Component {
     console.log('create buttons')
     return (
       <Fragment>
-        <Mutation 
+        <Mutation
           mutation={MUTATION_CREATEVISIT_MODAL}
           refetchQueries={[
-            {query: QUERY_VIEWING_MODAL}, 
+            {query: QUERY_VIEWING_MODAL},
             {query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId}}
           ]}
         >
@@ -30,7 +30,6 @@ export default class CreateButtons extends Component {
                   inverted
                   color={button.color}
                   value={button.level}
-                  style={{width: '23%', fontSize: '.55rem'}}
                   onClick={(e,data) => {
                     createVisit({ variables: {
                       userId: this.props.displayId,

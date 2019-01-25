@@ -14,7 +14,7 @@ export default class DisabledButtons extends Component {
               inverted
               disabled
               color={button.color}
-              style={{width: '23%', fontSize: '.55rem'}}
+
             >
               {button.content}
             </Button>
