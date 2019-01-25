@@ -18,8 +18,8 @@ export default class NavigationDropdown extends Component {
           <Link href="/">
             <Dropdown.Item text="Home" icon="home" />
           </Link>
-          <Link href="/settings">
-            <Dropdown.Item text="Settings" icon="setting" href="/settings" />
+          <Link href="/profile">
+            <Dropdown.Item text="Profile" icon="user" href="/profile" />
           </Link>
           <Dropdown.Item text="Logout" icon="sign out" href={`${logout}/logout`} />
         </Dropdown.Menu>

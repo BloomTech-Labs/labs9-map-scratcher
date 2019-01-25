@@ -49,13 +49,13 @@ export default class FriendsVisits extends Component {
               Friends
             </List.Header>
             {friendsList && friendsList.map(person => {
-              console.log('name', person[0])
+              const icon = person[1]
               return (
-                <List.Item key={person[0]} icon={person[1]} content={person[0]}/>
+                <List.Item key={person[0]} icon={`${icon}`} content={person[0]}/>
               )
             })}
           </List>
-          </Fragment>
+        </Fragment>
         )
       }}
       </Query>
