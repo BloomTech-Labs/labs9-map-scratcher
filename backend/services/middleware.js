@@ -1,11 +1,17 @@
-// NODE MODULES, DEPENDENCIES
+// NODE MODULES, DEPENDENCIES &
 // ==============================================
 const passport = require('passport')
 const cookieSession = require('cookie-session')
+const cors = require('cors')
 
-const keys = require('../../config/keys')
+const keys = require('../config/keys')
 
-// PASSPORT MIDDLEWARE
+const corsOptions = {
+  credentials: true,
+  origin: ['http://localhost:1738', 'http://backpaca.now.sh']
+}
+
+// GLOBAL MIDDLEWARE
 // ==============================================
 // server.express is destructured into
 // ({ express }) using es6 destructuring syntax
@@ -15,9 +21,10 @@ module.exports = ({ express }) => {
     cookieSession({
       name: 'Backpaca',
       keys: [keys.cookieKey],
-      maxAge: 5 * 60 * 1000 // 5 minutes
+      maxAge: 60 * 60 * 1000 // 1 hour
     })
   )
   express.use(passport.initialize())
   express.use(passport.session())
+  express.use(cors(corsOptions))
 }

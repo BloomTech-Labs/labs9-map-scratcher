@@ -25,12 +25,12 @@ const server = new GraphQLServer({
   context: request => {
     return {
       ...request,
-      prisma 
+      prisma
     }
   }
 })
 
-require('./services/passport/middleware')(server)
+require('./services/middleware')(server)
 require('./services/passport/routes')(server)
 
 //-- Start Server ---------------------------------------
