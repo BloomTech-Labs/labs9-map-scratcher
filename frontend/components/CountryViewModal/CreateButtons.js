@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
-import { QUERY_VIEWING_MODAL, QUERY_USERVISITS_MODAL, MUTATION_CREATEVISIT_MODAL } from '../../services/requests';
+import { 
+  QUERY_VIEWING_MODAL, 
+  QUERY_USERVISITS_MODAL, 
+  MUTATION_CREATEVISIT_MODAL } from '../../services/requests';
 
 const buttons = [{level: 1, color: 'pink', content: 'Wishlist'}, {level: 2, color: 'yellow', content: 'Transited'}, {level: 3, color: 'green', content: 'Visited'}, {level: 4, color: 'blue', content: 'Lived'},]
 
@@ -11,7 +14,6 @@ export default class CreateButtons extends Component {
   }
 
   render() {
-    console.log('create buttons')
     return (
       <Fragment>
         <Mutation
