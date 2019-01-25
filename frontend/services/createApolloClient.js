@@ -17,6 +17,7 @@ const defaults = {
   isLoggedIn: false,
   modalOpen: false,
   viewBorders: false,
+  scratchingComplete: false
 }
 
 const cache = new InMemoryCache();

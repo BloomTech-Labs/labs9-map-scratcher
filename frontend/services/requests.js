@@ -296,6 +296,17 @@ export const MUTATION_DELETEVISIT_MODAL = gql`
     }
   }
 `
+export const QUERY_SCRATCHING_MODAL = gql`
+  query {
+    scratchingComplete @client
+  }
+`
+export const MUTATION_SCRATCHING_MODAL = gql`
+  mutation ScratchingReset {
+    scratchingReset @client
+  }
+`
+// >>> SCRATCHER
 export const QUERY_USER_SCRATCHER = gql`
   query User($id: ID!) {
     user(id: $id) {
@@ -310,6 +321,13 @@ export const QUERY_COUNTRYID_SCRATCHER = gql`
     }
   }
 `
+export const MUTATION_COMPLETE_SCRATCHER = gql`
+  mutation ScratchingComplete {
+    scratchingComplete @client
+  }
+`
+
+
 // UNASSIGNED QUERIES & MUTATIONS - DO NOT DELETE
 
 
