@@ -72,6 +72,20 @@ export const resolvers = {
       const query2 = QUERY_CLIENT_VIEWBORDERS;
       const newState = cache.readQuery({ query });
       console.log('checkbox', newState);
-    } 
+    },
+    scratchingComplete: (_obj, args, {cache}) => {
+      const data = {
+        scratchingComplete: true
+      }
+      cache.writeData({ data });
+      return data;
+    },
+    scratchingReset: (_obj, args, {cache}) => {
+      const data = {
+        scratchingComplete: false
+      }
+      cache.writeData({ data });
+      return data;
+    }
   }
 }
