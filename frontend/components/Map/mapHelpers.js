@@ -15,7 +15,7 @@ export function fixData(userArray) {
       finalArray.push(arrVisit);
     })
   })
-  return finalArray.sort(function(a, b) {
+  return finalArray.sort((a, b) => {
     return a[3] > b[3] ? 1: -1;
   });
 }

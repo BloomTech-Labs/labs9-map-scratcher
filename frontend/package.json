@@ -18,7 +18,7 @@
   "dependencies": {
     "@zeit/next-less": "^1.0.1",
     "apollo-boost": "^0.1.23",
-    "apollo-client": "^2.4.8",
+    "axios": "^0.18.0",
     "graphql": "^14.0.2",
     "leaflet": "^1.4.0",
     "less": "^3.9.0",

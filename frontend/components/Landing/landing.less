@@ -1,16 +1,46 @@
-.mainDiv {
+.landing_mainDiv {
     background: lightblue;
     position: fixed;
     top: 0;
     left: 0;
     min-width: 100%;
     min-height: 100%;
-        .header {
+        .landing_header {
             display: flex;
             margin: 2rem 3rem 0rem 3rem;
             justify-content: space-between;
-        }
-        .mainContent {
+
+            @media(max-width: 500px) {
+                display: flex;
+                flex-direction: column;
+            }
+                .landing_title {
+                    @media(max-width: 500px) {
+                        align-self: center;
+                        font-size: 2.4rem;
+                    }
+                }
+                .login_loginButton {
+                    @media(max-width: 500px) {
+                        text-align: center;
+                    }
+                        .login_twitterButton {
+                            @media(max-width: 500px) {
+                                align: center;
+                                width: 70%;
+                                margin: 1rem 0rem;
+                            }
+                        }
+                        .login_registerButton {
+                            @media(max-width: 500px) {
+                                align-self: center;
+                                width: 70%
+                            }
+                        }
+                }
+
+         }
+        .landing_mainContent {
            position: fixed;
            top: 40%;
            left: 30%;
@@ -19,5 +49,22 @@
            font-size: 3.4rem;
            line-height: 3.5rem;
            text-align: center;
+            @media(max-width: 1300px) {
+                font-size: 2rem;
+                line-height: 2.3rem;
+            }
+            @media(max-width: 950px) {
+                font-size: 1.7rem;
+                line-height: 2rem;
+            }
+            @media(max-width: 640px) {
+                font-size: 1.3rem;
+                line-height: 1.8rem;
+                top: 55%;
+            }
+            @media(max-width: 500px) {
+                font-size: 1.2rem;
+                line-height: 1.4rem;
+            }
         }
 }

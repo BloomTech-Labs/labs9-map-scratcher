@@ -1,115 +1,62 @@
-import React, { Component } from 'react'
-import { Card, Table, Segment, Button, Header, Image } from 'semantic-ui-react'
-import Scatcher from '../Scratcher/index.js'
+import React, { Component } from 'react';
+import { Card } from 'semantic-ui-react';
+import { Query } from 'react-apollo';
+import FriendsVisits from './FriendsVisits';
+import Note from './Note';
+import LevelOfVisit from './LevelOfVisit';
+import Header from './Header';
+import Scratcher from './Scratcher';
+import { QUERY_VIEWING_MODAL } from '../../services/requests';
+import './countryModal.less'
 
-// props to receive:
-//   userType(string) - self or friend, determines if scratcher is scratchable and if visit level and note can be edited
-//   countryId(string) - country that was clicked, needed for visit queries
-//   userId(string) - user (not necessarily the loggedin user) whose map & country data is being viewed
-//   
-// props to give:  
-//  scratchable(boolean) - What kind of map to display. Options are:
-//     True - Display a scratchable map with flag overlay
-//     False - Display a simple colored map.
-//  urlMap(string/URL) - An image specifying the shape of the component.
-//  urlFlag(string/URL) - An image to be overlaid on the map shape.
-//  colorOutline(string/color) - The map shape is outlined in this color.
-//  colorScratch(string/color) - Scratching the image reveals this color.
-//  handleScratchAll(function) - A callback to invoke once fully scratched.
-//  handleLoadingError(function) - A callback invoked if images can't load.
-
-class countryModal extends Component {
-  constructor(props) {
-      super(props)
-    
-      this.state = {
-        note: ""
-      }
-
-
-      this.handleChange = this.handleChange.bind(this)
-  }
-
-  handleChange(event) {
-      this.setState({[event.target.name]: event.target.value});
-    }
+export default class CountryModal extends Component {
 
   render() {
     return (
-      <Card style={{marginLeft: '30%'}}>
-        <Card.Content style={{textAlign: 'center'}}>
-          <Card.Header style={{paddingBottom: '5%'}}><i class='pe flag'/>Peru</Card.Header>
-          <div style={{height: '200px'}}>
-          {/* scratchable: nested ternary if user prop === self, then check automated settings */}
-            <Scatcher 
-              scratchable={true} 
-              urlMap={`/static/peru.png`} 
-              urlFlag={`/static/pe-flag-min.jpg`} 
-              colorOutline={'cyan'} 
-              colorScratch={'silver'} 
-              handleScratchAll={() => console.log('working')} 
-              handleLoadingError={() => console.log('cannot load image')} 
-              style={{ height: '200px' }} />
-          </div>
-          <Segment>
-            <Button inverted color='pink' style={{width: '23%', fontSize: '.55rem'}}>
-              Wishlist
-            </Button>
-            <Button inverted color='yellow'  style={{width: '23%', fontSize: '.55rem'}}>
-              Transited
-            </Button>
-            <Button inverted color='green'  style={{width: '23%', fontSize: '.55rem'}}>
-              Visited
-            </Button>
-            <Button inverted color='blue'  style={{width: '23%', fontSize: '.55rem'}}>
-              Lived
-            </Button>
-          </Segment>
-          {/* have both a textarea note and paragraph note; ternary for classname to show only the relevant one depending on userType */}
-          <textarea 
-            style={{width: '100%'}} 
-            name='note' 
-            onChange={this.handleChange}
-            placeholder='Note'>
-          </textarea>
-          <Table basic='very' celled >
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell style={{width: '40%'}}>Friends</Table.HeaderCell>
-            <Table.HeaderCell style={{width: '40%'}}>Level of Visit</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell>
-                  Lena
-            </Table.Cell>
-            <Table.Cell>Wishlist</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-                  Matthew
-            </Table.Cell>
-            <Table.Cell>Lived</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-                  Lindsay
-            </Table.Cell>
-            <Table.Cell>Visited</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-                  Mark
-            </Table.Cell>
-            <Table.Cell>Transited</Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      </Table>
-        </Card.Content>
-      </Card>
+      <Query query={QUERY_VIEWING_MODAL}>
+      {({ loading, data }) => {
+        let displayId, disabled;
+        if (data.viewingFriend) {
+          displayId = data.friendId;
+          disabled = true;
+        }
+        if (!data.viewingFriend) {
+          displayId = data.userId;
+          disabled = false
+        }
+        return (
+          <Card>
+            <Card.Content>
+              <Header id={this.props.countryId} />
+              <Scratcher countryId={this.props.countryId} displayId={displayId} disabled={disabled} />
+              <LevelOfVisit countryId={this.props.countryId} displayId={displayId} disabled={disabled} />
+              <Note countryId={this.props.countryId} displayId={displayId} disabled={disabled} />
+              <FriendsVisits id={this.props.countryId} displayId={displayId} />
+            </Card.Content>
+          </Card>
+        )
+      }}
+      </Query>
     )
   }
 }
 
-export default countryModal
+//example set of console.logs for displayId is a friendId:
+// {userId: "cjqt5c95y00s40894zs7m6q4v", viewingFriend: true, friendId: "cjqt5d9ox00sl0894ur6k9qza", viewBorders: false}
+// CountryModal.js:23 friend in play cjqt5d9ox00sl0894ur6k9qza
+// CountryModal.js:30 id just before return cjqt5d9ox00sl0894ur6k9qza
+// CMnote.js:14 props {countryId: "cjqy9e28y00i20840rwy5l1ti", displayId: "cjqt5d9ox00sl0894ur6k9qza", disabled: true}
+// CMnote.js:24 user undefined
+// CMnote.js:33 undefined
+
+//same console.logs when it is a userid:
+// {userId: "cjqt5c95y00s40894zs7m6q4v", viewingFriend: false, friendId: null, viewBorders: false}
+// CountryModal.js:26 viewing me
+// CountryModal.js:30 id just before return cjqt5c95y00s40894zs7m6q4v
+// CMlevelOfVisit.js:26 in the buttons {visits: Array(5), __typename: "User"}
+// CMlevelOfVisit.js:35 [{…}]
+// UpdateButtons.js:14 update buttons
+// CMnote.js:14 props {countryId: "cjqy9e28y00i20840rwy5l1ti", displayId: "cjqt5c95y00s40894zs7m6q4v", disabled: false}
+// CMnote.js:24 user {visits: Array(5), __typename: "User"}
+// CMnote.js:33 [{…}]
+// CMnote.js:45 Excellend christmas markets and do NOT miss the paprika sausage.

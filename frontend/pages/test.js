@@ -12,7 +12,7 @@ import {
     FRIENDS_QUERY,
     FRIENDSVISITS_QUERY
 } from '../services/queries';
-// import CountryModal from '../components/CountryViewModal/CountryModal.js'
+import CountryModal from '../components/CountryViewModal/CountryModal.js'
 
 class Test extends Component {
     constructor(props) {

@@ -12,6 +12,7 @@ export const QUERY_CLIENT_PROFILE = gql`
 export const QUERY_USER_PROFILE = gql`
   query User($id: ID!) {
     user(id: $id) {
+      id
       name
       nickname
       email
@@ -46,6 +47,7 @@ export const MUTATION_UPDATEUSER_PROFILE = gql`
       $isPrivate: Boolean)
     {
     updateUser(
+      id: $id,
       name: $name,
       nickname: $nickname,
       email: $email,
@@ -70,8 +72,7 @@ export const MUTATION_ADDFRIEND_PROFILE = gql`
       friendId: $friendId,
       )
     {
-     userId,
-     friendId
+     id
     }
   }
 `
@@ -96,15 +97,28 @@ export const QUERY_CLIENT_TRAVELS = gql`
   {
     userId @client,
     viewingFriend @client,
-    friendId @client
+    friendId @client,
+    viewBorders @client
   }
 `
 //smaller client requests
 export const QUERY_CLIENT_VIEWFRIEND = gql`
   {
     viewingFriend @client,
-    friendId @client
+    friendId @client,
   }
+`
+
+export const QUERY_CLIENT_VIEWBORDERS = gql`
+  {
+    viewBorders @client
+  }
+`
+
+export const MUTATION_TOGGLE_BORDERS = gql`
+mutation toggleBorders {
+  toggleBorders @client
+}
 `
 
 export const MUTATION_VIEWINGFRIEND_TRAVELS = gql`
@@ -180,24 +194,64 @@ export const QUERY_FRIENDS_HEADER = gql`
   }
 `
 
+export const MUTATION_OPENMODAL_TRAVELS = gql`
+  mutation OpenModal($id: ID!) {
+    openModal(id: $id) @client
+  }
+`
+export const MUTATION_CLOSEMODAL_TRAVELS = gql`
+  mutation CloseModal {
+    closeModal @client
+  }
+`
+
 // >>>MAP (props: userId, viewingFriend, friendId, visitsFriends, visitsUser)
 // no client requests
 // no yoga requests
 
 // >>>COUNTRY MODAL (props: userId, viewingFriend, friendId, countryName)
-// no client requests
-
+// client requests
+export const QUERY_VIEWING_MODAL = gql`
+  {
+    userId @client,
+    viewingFriend @client,
+    friendId @client,
+    viewBorders @client
+  }
+`
 // yoga requests
 export const QUERY_COUNTRY_MODAL = gql`
-  query Country($name: String!) {
-    country(name: $name) {
+  query CountryByName($name: String!) {
+    countryByName(name: $name) {
       id
       name
       code
     }
   }
 `
-
+export const QUERY_COUNTRYID_MODAL = gql`
+  query CountryById($id: ID!) {
+    countryById(id: $id) {
+      name
+    }
+  }
+`
+export const QUERY_USERVISITS_MODAL = gql`
+    query User($id: ID!) {
+    user(id: $id) {
+      visits {
+        id
+        level
+        note
+        country {
+          id
+          name
+          code
+        }
+      }
+    }
+  }
+`
 export const MUTATION_CREATEVISIT_MODAL = gql`
   mutation CreateVisit(
       $userId: ID!
@@ -242,6 +296,37 @@ export const MUTATION_DELETEVISIT_MODAL = gql`
     }
   }
 `
+export const QUERY_SCRATCHING_MODAL = gql`
+  query {
+    scratchingComplete @client
+  }
+`
+export const MUTATION_SCRATCHING_MODAL = gql`
+  mutation ScratchingReset {
+    scratchingReset @client
+  }
+`
+// >>> SCRATCHER
+export const QUERY_USER_SCRATCHER = gql`
+  query User($id: ID!) {
+    user(id: $id) {
+      scratchingAutomated
+    }
+  }
+`
+export const QUERY_COUNTRYID_SCRATCHER = gql`
+  query CountryById($id: ID!) {
+    countryById(id: $id) {
+      code
+    }
+  }
+`
+export const MUTATION_COMPLETE_SCRATCHER = gql`
+  mutation ScratchingComplete {
+    scratchingComplete @client
+  }
+`
+
 
 // UNASSIGNED QUERIES & MUTATIONS - DO NOT DELETE
 
@@ -292,6 +377,7 @@ export const QUERY_CLIENT_LOGGED = gql`
 
 export const QUERY_CLIENT_MODAL = gql`
   query {
-    openModal @client
+    countryId @client
+    modalOpen @client
   }
 `
