@@ -1,6 +1,12 @@
 
 import gql from 'graphql-tag';
-import { QUERY_CLIENT_VIEWFRIEND, QUERY_CLIENT_LOGGED, QUERY_CLIENT_MODAL, QUERY_CLIENT_PROFILE, QUERY_CLIENT_VIEWBORDERS } from './requests';
+import { 
+  QUERY_CLIENT_VIEWFRIEND, 
+  QUERY_CLIENT_LOGGED, 
+  QUERY_CLIENT_MODAL, 
+  QUERY_CLIENT_PROFILE, 
+  QUERY_CLIENT_VIEWBORDERS, 
+  QUERY_SCRATCHING_MODAL } from './requests';
 
 // export const typeDefs = gql`
 //   extend type Query {
@@ -54,7 +60,7 @@ export const resolvers = {
     closeModal: (_obj, args, {cache}) => {
       const data = {
         modalOpen: false,
-        countryId: null
+        countryId: null,
       }
       cache.writeData({ data });
       const query = QUERY_CLIENT_MODAL;
