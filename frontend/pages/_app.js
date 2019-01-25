@@ -8,7 +8,7 @@ import { ApolloProvider } from 'react-apollo'
 
 import createApolloClient from '../services/createApolloClient.js'
 import Meta from '../components/Meta.js'
-import CurrentUser from '../components/CurrentUser.js'
+import CurrentUser from '../services/Authentication/CurrentUser.js'
 import '../less/index.less'
 
 class MyApp extends App {
@@ -30,8 +30,9 @@ class MyApp extends App {
       <Container>
         <ApolloProvider client={apollo}>
           <Meta />
-          <CurrentUser />
-          <Component {...pageProps} />
+          <CurrentUser>
+            <Component {...pageProps} />
+          </CurrentUser>
         </ApolloProvider>
       </Container>
     )
