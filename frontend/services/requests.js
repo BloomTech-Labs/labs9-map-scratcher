@@ -296,6 +296,7 @@ export const MUTATION_DELETEVISIT_MODAL = gql`
     }
   }
 `
+// >>> SCRATCHER
 export const QUERY_USER_SCRATCHER = gql`
   query User($id: ID!) {
     user(id: $id) {
@@ -308,6 +309,16 @@ export const QUERY_COUNTRYID_SCRATCHER = gql`
     countryById(id: $id) {
       code
     }
+  }
+`
+export const MUTATION_COMPLETE_SCRATCHER = gql`
+  mutation ScratchingComplete {
+    scratchingComplete @client
+  }
+`
+export const MUTATION_RESET_SCRATCHER = gql`
+  mutation ScratchingReset {
+    scratchingReset @client
   }
 `
 // UNASSIGNED QUERIES & MUTATIONS - DO NOT DELETE
