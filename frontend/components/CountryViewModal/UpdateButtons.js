@@ -11,6 +11,7 @@ export default class UpdateButtons extends Component {
   }
 
   render(){
+    const scratchingComplete = false
     return (
       <Fragment>
         <Mutation 
@@ -31,10 +32,9 @@ export default class UpdateButtons extends Component {
               value={button.level}
               style={{width: '23%', fontSize: '.55rem'}}
               onClick={(e, data) => {
-                updateVisit({ variables: {
-                  id: this.props.visitId,
-                  level: data.value,
-                }})
+                return scratchingComplete ?
+                updateVisit({ variables: {id: this.props.visitId, level: data.value} }) :
+                alert("Please scratch off the country :)")
               }}
               >
               {button.content}
