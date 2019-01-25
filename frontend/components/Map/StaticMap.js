@@ -127,7 +127,7 @@ class WorldMap extends React.Component {
           const level = visit[3];
           let style = {
             ...colorStyle,
-            color: colors[level],
+            color: '#484848',
             fillColor: colors[level]
           };
           const feature = getFeature(geojson, visit[2])
