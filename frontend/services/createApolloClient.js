@@ -16,7 +16,8 @@ const defaults = {
   viewingFriend: false,
   isLoggedIn: false,
   modalOpen: false,
-  viewBorders: false
+  viewBorders: false,
+  scratchingComplete: false
 }
 
 const cache = new InMemoryCache()

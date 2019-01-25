@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { Mutation } from 'react-apollo';
-import { QUERY_VIEWING_MODAL, QUERY_USERVISITS_MODAL, MUTATION_UPDATEVISIT_MODAL } from '../../services/requests';
 import { Button, Form, Input } from 'semantic-ui-react';
+import { 
+  QUERY_VIEWING_MODAL, 
+  QUERY_USERVISITS_MODAL, 
+  MUTATION_UPDATEVISIT_MODAL } from '../../services/requests';
 
 export default class UpdateNote extends Component {
   constructor(props) {

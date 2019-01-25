@@ -1,6 +1,12 @@
 
 import gql from 'graphql-tag';
-import { QUERY_CLIENT_VIEWFRIEND, QUERY_CLIENT_LOGGED, QUERY_CLIENT_MODAL, QUERY_CLIENT_PROFILE, QUERY_CLIENT_VIEWBORDERS } from './requests';
+import { 
+  QUERY_CLIENT_VIEWFRIEND, 
+  QUERY_CLIENT_LOGGED, 
+  QUERY_CLIENT_MODAL, 
+  QUERY_CLIENT_PROFILE, 
+  QUERY_CLIENT_VIEWBORDERS, 
+  QUERY_SCRATCHING_MODAL } from './requests';
 
 // export const typeDefs = gql`
 //   extend type Query {
@@ -54,7 +60,7 @@ export const resolvers = {
     closeModal: (_obj, args, {cache}) => {
       const data = {
         modalOpen: false,
-        countryId: null
+        countryId: null,
       }
       cache.writeData({ data });
       const query = QUERY_CLIENT_MODAL;
@@ -72,6 +78,20 @@ export const resolvers = {
       const query2 = QUERY_CLIENT_VIEWBORDERS;
       const newState = cache.readQuery({ query });
       console.log('checkbox', newState);
-    } 
+    },
+    scratchingComplete: (_obj, args, {cache}) => {
+      const data = {
+        scratchingComplete: true
+      }
+      cache.writeData({ data });
+      return data;
+    },
+    scratchingReset: (_obj, args, {cache}) => {
+      const data = {
+        scratchingComplete: false
+      }
+      cache.writeData({ data });
+      return data;
+    }
   }
 }

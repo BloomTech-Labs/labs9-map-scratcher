@@ -88,7 +88,7 @@ class WorldMap extends React.Component {
         center={center}
         maxBounds={bounds}
         zoomControl={true}
-        style={{height:'100vh', background: '#38B1BF'}}
+        style={{height:'100vh', background: '#243352'}}
         maxBoundsViscosity='1'
       >
         <GeoJSON
@@ -127,7 +127,7 @@ class WorldMap extends React.Component {
           const level = visit[3];
           let style = {
             ...colorStyle,
-            color: colors[level],
+            color: '#232323',
             fillColor: colors[level]
           };
           const feature = getFeature(geojson, visit[2])

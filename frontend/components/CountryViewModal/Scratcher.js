@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import Scatcher from '../Scratcher/index.js'
-import { Query } from 'react-apollo'
-import { QUERY_COUNTRYID_SCRATCHER, QUERY_USER_SCRATCHER } from '../../services/requests'
+import { Query, Mutation } from 'react-apollo'
+import { 
+  QUERY_COUNTRYID_SCRATCHER, 
+  QUERY_USER_SCRATCHER,
+  MUTATION_COMPLETE_SCRATCHER } from '../../services/requests'
 
 export default class Scratcher extends Component {
   
@@ -22,14 +25,20 @@ export default class Scratcher extends Component {
                 if (loadingCountryCode || loadingUserSetting) return <div>Loading</div>
                 if (!disabled && !user.scratchingAutomated) scratchable = true
                 return (
-                  <Scatcher 
-                  scratchable={scratchable}
-                  destination={countryById.code} 
-                  colorOutline={'cyan'} 
-                  colorScratch={'silver'} 
-                  handleScratchAll={() => console.log('working')} 
-                  handleLoadingError={() => console.log('cannot load image')} 
-                  style={{ height: '200px' }} />
+                  <Mutation mutation={MUTATION_COMPLETE_SCRATCHER}>
+                    {(scratchingComplete) => (
+                      <Scatcher 
+                      scratchable={scratchable}
+                      destination={countryById.code} 
+                      colorOutline={'lightsteelblue'} 
+                      colorScratch={'lightsteelblue'} 
+                      handleScratchAll={() => {
+                        scratchingComplete()
+                      }}
+                      handleLoadingError={() => console.log('cannot load image')} 
+                      style={{ height: '200px' }} />
+                    )}
+                  </Mutation>
                 )
               }}
               </Query>
