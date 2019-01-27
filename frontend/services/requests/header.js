@@ -11,6 +11,11 @@ export const QUERY_VIEWFRIEND_HEADER = gql`
     viewingFriend @client
   }
 `
+export const QUERY_VIEWBORDERS_HEADER = gql`
+  {
+    viewBorders @client
+  }
+`
 
 // client mutations
 export const MUTATION_VIEWFRIEND_HEADER = gql`
