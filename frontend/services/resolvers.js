@@ -1,12 +1,10 @@
 
 import gql from 'graphql-tag';
-import { 
-  QUERY_CLIENT_VIEWFRIEND, 
+import {  
   QUERY_CLIENT_LOGGED, 
   QUERY_CLIENT_MODAL, 
   QUERY_CLIENT_PROFILE, 
-  QUERY_CLIENT_VIEWBORDERS, 
-  QUERY_SCRATCHING_MODAL } from './requests';
+  QUERY_CLIENT_VIEWBORDERS } from './requests';
 
 // export const typeDefs = gql`
 //   extend type Query {
