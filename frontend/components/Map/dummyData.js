@@ -1,42 +1,53 @@
-export const mapColorVisits = [
-        {
-          "level": 3,
-          "country": {
-            "name": "Hungary",
-            "code": "HUN"
-          }
-        },
-        {
-          "level": 1,
-          "country": {
-            "name": "China",
-            "code": "CHN"
-          }
-        },
-        {
-          "level": 4,
-          "country": {
-            "name": "Belize",
-            "code": "BLZ"
-          }
-        },
-        {
-          "level": 3,
-          "country": {
-            "name": "Sweden",
-            "code": "SWE"
-          }
-        },
-        {
-          "level": 1,
-          "country": {
-            "name": "Costa Rica",
-            "code": "CRI"
-          }
-        }
-      ];
 
-//dummy data for use during testing
+
+//== Dummy Data ================================================================
+/*
+  Dummy data for use during testing.
+  
+  Consider detailing whether this code should remain forever to facilitate
+  future development, of if it can be deleted once a certain milestone is met.
+*/
+
+//------------------------------------------------
+export const mapColorVisits = [
+  {
+    "level": 3,
+    "country": {
+      "name": "Hungary",
+      "code": "HUN"
+    }
+  },
+  {
+    "level": 1,
+    "country": {
+      "name": "China",
+      "code": "CHN"
+    }
+  },
+  {
+    "level": 4,
+    "country": {
+      "name": "Belize",
+      "code": "BLZ"
+    }
+  },
+  {
+    "level": 3,
+    "country": {
+      "name": "Sweden",
+      "code": "SWE"
+    }
+  },
+  {
+    "level": 1,
+    "country": {
+      "name": "Costa Rica",
+      "code": "CRI"
+    }
+  }
+];
+
+//-- Dummy data for use during testing -----------
 export const friendVisitData = [
   {
     "id": "cjqpxk83t000o0829p7mr6qto",

@@ -1,77 +1,101 @@
+
+
+//== Static Map Component ======================================================
+/*
+    This is the static map that displays the background map onto which the other
+    countries are drawn from GeoJSON data. It accept the following props:
+        asdf(string) - sdfal;kjasdfjlk
+        JKL:(boolean) - asdflsadfj;
+        
+    TODO:
+        Look at reducing GeoJSON renders either by reducing the number of
+        renders, or be using something like geojson-vt. There are currently four
+        layers of GeoJSON - a base layer of all polygons, a layer that is the
+        hovered polygon and associated label, a layer that is the colors of the
+        countries to reflect user visits, and a layer that is the color of the
+        borders to reflect friend visits.
+*/
+
+//-- Dependencies --------------------------------
+// Libraries
 import React from 'react';
 import L from 'leaflet';
+import { Query, Mutation } from 'react-apollo';
 import { Map, TileLayer, GeoJSON } from 'react-leaflet';
 import { Label } from 'semantic-ui-react';
-import geojson from './countries.geo.json';
 import whichPolygon from 'which-polygon';
+// Modules I've defined
+import geojson from './countries.geo.json';
 import { getFeature } from './mapHelpers';
-import { colors, defaultStyle, hoverStyle, colorStyle, borderStyle } from './countryStyles'
-import { Query, Mutation } from 'react-apollo';
-import { 
-  QUERY_COUNTRY_TRAVELS, 
-  MUTATION_OPENMODAL_TRAVELS } from '../../services/requests/travels';
+import {
+  colors, defaultStyle, hoverStyle, colorStyle, borderStyle,
+} from './countryStyles';
+import {
+  QUERY_COUNTRY_MODAL, 
+  MUTATION_OPENMODAL_TRAVELS,
+} from '../../services/requests/travels';
 
-//// TODO: Update render logic to accomodate switching the data displayed (logic currently only expects default user view of map; needs to be updated for if a friend's map is being displayed.)
-
-//// TODO: Look at reducing GeoJSON renders either by reducing the number of renders, or be using something like geojson-vt. There are currently four layers of GeoJSON - a base layer of all polygons, a layer that is the hovered polygon and associated label, a layer that is the colors of the countries to reflect user visits, and a layer that is the color of the borders to reflect friend visits.
-
-
-//setting a center of the map
+//-- Project Constants ---------------------------
+// setting a center of the map. Configurable.
 const center = [0, 0];
-
-//sets the bounds for the map - where it stops.
+// sets the bounds for the map - where it stops.
 const bound1 = L.latLng(85, -170);
 const bound2 = L.latLng(-85, 175);
 const bounds = L.latLngBounds(bound1, bound2);
 
 
-class WorldMap extends React.Component {
+//== React Specific ============================================================
+
+//-- Initialization and Definition -----------------
+
+export default class WorldMap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       hovering: null,
       mouse: null,
-      borders: [],
-      colors: [],
     }
   }
 
-
-
+  //-- When Receiving Props ------------------------
   componentDidUpdate(prevProps) {
     if (prevProps.viewBorders != this.props.viewBorders) {
-      // this.setState({
-      //   colors: this.props.colors,
-      //   borders: this.props.borders
-      // })
       this.forceUpdate();
     }
   }
 
-  handleHover = (e) => {
+
+//== Interaction ===============================================================
+
+  //-- Handle Hover ---------------------------------
+  handleHover = (eventHover) => {
     //gets the country for the coordinates under the mouse
     let query = whichPolygon(geojson);
-    const country = query([e.latlng.lng, e.latlng.lat]);
-    //gets the position of the mouse on the screen and sets it to an object with an offset (to be passed to the country label/popup for positioning. )
-    const popupY = e.originalEvent.clientY - 50;
-    const popupX = e.originalEvent.clientX - 30;
+    const country = query([eventHover.latlng.lng, eventHover.latlng.lat]);
+    // gets the position of the mouse on the screen and sets it to an object with an offset (to be passed to the country label/popup for positioning. )
+    const popupY = eventHover.originalEvent.clientY - 50;
+    const popupX = eventHover.originalEvent.clientX - 30;
     const mouse = {
       x: popupX + 'px',
       y: popupY + 'px'
     }
-  //if there is no country under the mouse, set state to null so that no country is highlighted and no label/popup is displayed.
+    // if there is no country under the mouse, set state to null so that no country is highlighted and no label/popup is displayed.
     if (!country && this.state.hovering){
       this.setState({
         hovering: null,
         mouse: null,
       })
     }
-  //if there is a country under the mouse and it is not the same as the previous country being hovered over, set the state to reflect the new country and the new position for the popup/label
+    //if there is a country under the mouse and it is not the same as the previous country being hovered over, set the state to reflect the new country and the new position for the popup/label
     if (country && this.state.hovering !== country.ADMIN) {
       this.setState({ hovering: country.ADMIN, mouse: mouse });
     }
   }
 
+
+//== Rendering =================================================================
+
+  //-- Final React Render --------------------------
   render() {
     //test logic for if either of these is false
     if (!this.props.colors || !this.props.borders) {
@@ -90,7 +114,7 @@ class WorldMap extends React.Component {
         center={center}
         maxBounds={bounds}
         zoomControl={true}
-        style={{height:'100vh', background: '#243352'}}
+        style={{height:'100vh', background: '#38B1BF'}}
         maxBoundsViscosity='1'
       >
         <GeoJSON
@@ -106,7 +130,7 @@ class WorldMap extends React.Component {
               <Mutation mutation={MUTATION_OPENMODAL_TRAVELS} >
               {(openModal, { data }) => (
                   <Label
-                  style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 400}}>
+                  style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 10000}}>
                     <GeoJSON
                       onClick={(e) => {
                         openModal({ variables: {id: countryByName.id}})
@@ -129,7 +153,7 @@ class WorldMap extends React.Component {
           const level = visit[3];
           let style = {
             ...colorStyle,
-            color: '#232323',
+            color: colors[level],
             fillColor: colors[level]
           };
           const feature = getFeature(geojson, visit[2])
@@ -157,5 +181,3 @@ class WorldMap extends React.Component {
     )
   }
 }
-
-export default WorldMap;
