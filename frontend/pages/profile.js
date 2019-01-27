@@ -6,7 +6,7 @@ import {
   QUERY_USER_PROFILE,
   QUERY_FRIENDS_PROFILE,
   QUERY_USERS_PROFILE
-} from '../services/requests'
+} from '../services/requests/profile'
 import UserCard from '../components/Profile/UserCard'
 import FriendsList from '../components/Profile/FriendsList'
 import UsersDropdown from '../components/Profile/UsersDropdown'
