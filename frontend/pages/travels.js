@@ -1,12 +1,9 @@
-
-
 //==============================================================================
 
 //-- Dependencies --------------------------------
 import dynamic from 'next/dynamic';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import { QUERY_CLIENT_TRAVELS, QUERY_USERVISITS_TRAVELS, QUERY_FRIENDSVISITS_TRAVELS, QUERY_CLIENT_MODAL } from '../services/requests.js';
-import { Query, Mutation, ApolloConsumer } from 'react-apollo';
+import { Query } from 'react-apollo';
 import React, { Component } from 'react';
 import MapHeader from '../components/MapHeader/MapHeader';
 import Legend from '../components/MapLegend/Legend';
@@ -14,6 +11,11 @@ import CountryModal from '../components/CountryViewModal/CountryModal';
 import ViewBordersCheckbox from '../components/MapHeader/ViewBordersCheckbox';
 import { fixData } from '../components/Map/mapHelpers';
 import '../components/Map/map.less';
+import { 
+  QUERY_CLIENT_TRAVELS, 
+  QUERY_USERVISITS_TRAVELS, 
+  QUERY_FRIENDSVISITS_TRAVELS, 
+  QUERY_MODAL_TRAVELS } from '../services/requests/travels';
 
 
 //------------------------------------------------
@@ -49,7 +51,7 @@ export default class extends Component {
                   visitsUser.push(data.user);
                   visitsUser = (fixData(visitsUser))
                   return (
-                    <Query query={QUERY_FRIENDSVISITS_TRAVELS}variables={{id}}>
+                    <Query query={QUERY_FRIENDSVISITS_TRAVELS} variables={{id}}>
                       {({ loading: loadingFriendVisits, data: { friends }}) => {
                         let colors, borders;
                         let viewBorders = localState.viewBorders ? true: false;
@@ -77,7 +79,7 @@ export default class extends Component {
               )
             }}
             </Query>
-            <Query query={QUERY_CLIENT_MODAL}>
+            <Query query={QUERY_MODAL_TRAVELS}>
             {({ loading, data }) => {
               if (!data.modalOpen) {
                 return (
