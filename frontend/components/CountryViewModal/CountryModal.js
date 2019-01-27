@@ -1,3 +1,11 @@
+
+
+//== Country Modal =============================================================
+/*
+  Please add documentation detailing the purpose and use of this component.
+*/
+
+//-- Dependencies --------------------------------
 import React, { Component } from 'react';
 import { Card } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
@@ -7,10 +15,10 @@ import LevelOfVisit from './LevelOfVisit';
 import Header from './Header';
 import Scratcher from './Scratcher';
 import { QUERY_VIEWING_MODAL } from '../../services/requests';
-import './countryModal.less'
+import './countryModal.less';
 
+//-- React Implementation ------------------------
 export default class CountryModal extends Component {
-
   render() {
     return (
       <Query query={QUERY_VIEWING_MODAL}>
@@ -37,9 +45,12 @@ export default class CountryModal extends Component {
         )
       }}
       </Query>
-    )
+    );
   }
 }
+
+
+//== Diagnostic Info ===========================================================
 
 //example set of console.logs for displayId is a friendId:
 // {userId: "cjqt5c95y00s40894zs7m6q4v", viewingFriend: true, friendId: "cjqt5d9ox00sl0894ur6k9qza", viewBorders: false}

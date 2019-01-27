@@ -1,12 +1,24 @@
-import React, { Component } from 'react'
-import { Button, Icon, Input } from 'semantic-ui-react'
-import '.././landing.less'
 
+
+//== Login =====================================================================
+/*
+  Please add documentation detailing the purpose and use of this component.
+*/
+
+//-- Dependencies --------------------------------
+import React, { Component } from 'react';
+import { Button, Icon, Input } from 'semantic-ui-react';
+import '../landing.less';
+
+//-- Project Constants ---------------------------
+// Consider importing this from another file that manages environment logic.
+// Dev URL is broken, as port isn't always 4000
 const login =
-  process.env.NODE_ENV === 'production'
+  (process.env.NODE_ENV === 'production')
     ? 'https://backpaca-yoga.herokuapp.com/auth'
-    : 'http://localhost:4000/auth'
+    : 'http://localhost:4000/auth';
 
+//-- React Implementation ------------------------
 export default class Login extends Component {
   render() {
     return (
@@ -21,7 +33,7 @@ export default class Login extends Component {
             Register
           </Button>
         </a>
-        </div>
-    )
+      </div>
+    );
   }
 }
