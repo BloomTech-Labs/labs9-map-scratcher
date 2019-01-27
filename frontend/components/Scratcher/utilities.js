@@ -2,6 +2,16 @@
 
 //== Scratchable Canvas ========================================================
 
+/*-- Documentation -------------------------------
+
+    This document consists of two parts. The first is a set of configurable
+    constants. These constants are fully documented, and can be tweaked to
+    improve the look and feel of the Scratcher. The second section is a set of
+    functions, which are exported for use by the Scratcher Component. Knowledge
+    of these functions is not necessary to use the Scratcher.
+
+*/
+
 //-- Project Constants ---------------------------
 const URI_COUNTRY_ALPHA = '/static/country-alpha';
 /* URI_COUNTRY_ALPHA: The uri from which alpha masks can be loaded. This is
