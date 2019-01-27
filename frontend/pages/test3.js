@@ -1,4 +1,11 @@
-//==============================================================================
+
+
+//== Test Page 3 ===============================================================
+/*
+  This page contains experiments used during development of Backpaca.
+  Consider leaving a note here to briefly explain the purpose of the test, and
+  under what circumstances the test can be deleted, such as meeting a milestone.
+*/
 
 //-- Dependencies --------------------------------
 import dynamic from 'next/dynamic';
@@ -13,9 +20,6 @@ import { fixData } from '../components/Map/mapHelpers';
 
 //-- Constants -----------------------------------
 const testUserId = "cjqt5c95y00s40894zs7m6q4v";
-
-//------------------------------------------------
-
 
 
 //== React lifecycle methods ===================================================
