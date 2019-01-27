@@ -1,15 +1,24 @@
+
+
+//== Users Drop Down ===========================================================
+/*
+  Please add documentation detailing the purpose and use of this component.
+*/
+
+//-- Dependencies --------------------------------
 import React, { Fragment } from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo';
 import { MUTATION_ADDFRIEND_PROFILE } from '../../services/requests';
 
+//-- React Implementation ------------------------
 const UsersDropdown = ({ userId, users }) => {
   const userList = users.map(user => {
     return {
       text: user.name,
       value: user.id,
-    }
-  })
+    };
+  });
   return(
     <Mutation 
       mutation={MUTATION_ADDFRIEND_PROFILE}
@@ -27,8 +36,6 @@ const UsersDropdown = ({ userId, users }) => {
       />
     )}
     </Mutation>
-  )
+  );
 }
-
 export default UsersDropdown;
-
