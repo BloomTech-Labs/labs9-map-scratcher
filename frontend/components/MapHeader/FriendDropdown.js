@@ -1,15 +1,22 @@
+
+
+//== Friend Drop Down ==========================================================
+/*
+  Please add documentation detailing the purpose and use of this component.
+*/
+
+//-- Dependencies --------------------------------
 import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import { Dropdown } from 'semantic-ui-react';
+import {
+  QUERY_FRIENDS_HEADER,
+  MUTATION_VIEWINGFRIEND_TRAVELS,
+  QUERY_CLIENT_PROFILE,
+} from '../../services/requests';
 
-import { QUERY_FRIENDS_HEADER, MUTATION_VIEWINGFRIEND_TRAVELS, QUERY_CLIENT_PROFILE } from '../../services/requests';
-
-
+//-- React Implementation ------------------------
 export default class FriendDropdown extends Component {
-  constructor(props){
-    super(props);
-  }
-
   render() {
     //query retrieves the userId from the apollo cache
     return (
@@ -25,10 +32,10 @@ export default class FriendDropdown extends Component {
                     return {
                       text: friend.name,
                       value: friend.id
-                    }
-                  })
+                    };
+                  });
                   //adds the user to the top of the dropdown options array.
-                  friendsList.unshift({ text: 'My Travels', value: userId })
+                  friendsList.unshift({ text: 'My Travels', value: userId });
                   //query returns a mutation that checks if the id passed is the same as the user id, and if not sets the apollo cache values for the friend being viewed and the related boolean.
                   return (
                     <Mutation mutation={MUTATION_VIEWINGFRIEND_TRAVELS}
@@ -49,13 +56,13 @@ export default class FriendDropdown extends Component {
                       />
                     )}
                     </Mutation>
-                  )
+                  );
                 }}
               </Query>
             </React.Fragment>
-          )
+          );
         }}
       </Query>
-    )
+    );
   }
 }
