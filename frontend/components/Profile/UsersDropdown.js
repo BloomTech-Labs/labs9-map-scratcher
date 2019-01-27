@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo';
-import { MUTATION_ADDFRIEND_PROFILE } from '../../services/requests';
+import { MUTATION_ADDFRIEND_PROFILE } from '../../services/requests/profile';
 
 const UsersDropdown = ({ userId, users }) => {
   const userList = users.map(user => {
@@ -14,7 +14,7 @@ const UsersDropdown = ({ userId, users }) => {
     <Mutation 
       mutation={MUTATION_ADDFRIEND_PROFILE}
     >
-    {(addFriend, { data }) => (
+    {(addFriend, {data}) => (
       <Dropdown
       text='Search for friends'
       search
