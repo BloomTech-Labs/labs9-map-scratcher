@@ -7,7 +7,9 @@ import whichPolygon from 'which-polygon';
 import { getFeature } from './mapHelpers';
 import { colors, defaultStyle, hoverStyle, colorStyle, borderStyle } from './countryStyles'
 import { Query, Mutation } from 'react-apollo';
-import { QUERY_COUNTRY_MODAL, MUTATION_OPENMODAL_TRAVELS } from '../../services/requests';
+import { 
+  QUERY_COUNTRY_TRAVELS, 
+  MUTATION_OPENMODAL_TRAVELS } from '../../services/requests/travels';
 
 //// TODO: Update render logic to accomodate switching the data displayed (logic currently only expects default user view of map; needs to be updated for if a friend's map is being displayed.)
 
@@ -97,7 +99,7 @@ class WorldMap extends React.Component {
           />
 
         {geojson.features.map(feature => this.state.hovering === feature.properties.ADMIN && (
-          <Query key={feature.properties.ADMIN} query={QUERY_COUNTRY_MODAL} variables={{name: feature.properties.ADMIN}}>
+          <Query key={feature.properties.ADMIN} query={QUERY_COUNTRY_TRAVELS} variables={{name: feature.properties.ADMIN}}>
           {({ loading, data: { countryByName }}) => {
 
             return (
