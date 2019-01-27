@@ -1,22 +1,29 @@
 
-//dummy data for use during testing
+
+//== Map Helpers ===============================================================
+/*
+  Dummy data for use during testing.
+  
+  Consider detailing whether this code should remain forever to facilitate
+  future development, of if it can be deleted once a certain milestone is met.
+*/
 
 //gets the country polygon information from the country code
 export function getFeature(data, name) {
-  return data.features.find(feature => feature.properties.ADMIN === name)
-};
+  return data.features.find(feature => feature.properties.ADMIN === name);
+}
 
 //massages the data into a form easily used in the map render
 export function fixData(userArray) {
-  let finalArray = []
+  let finalArray = [];
   userArray.map(user => {
     user.visits.map(visit => {
-      let arrVisit = [visit.id, visit.country.id, visit.country.name, visit.level]
+      let arrVisit = [visit.id, visit.country.id, visit.country.name, visit.level];
       finalArray.push(arrVisit);
-    })
-  })
+    });
+  });
   return finalArray.sort((a, b) => {
-    return a[3] > b[3] ? 1: -1;
+    return (a[3] > b[3]) ? 1: -1;
   });
 }
 
