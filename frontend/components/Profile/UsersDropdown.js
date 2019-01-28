@@ -13,7 +13,9 @@ import { MUTATION_ADDFRIEND_PROFILE } from '../../services/requests/profile';
 
 //-- React Implementation ------------------------
 
-  //userId and users is passed from profile.js in pages as a result of queries for the current user that is logged in && users in the database
+  //PROPS - passed from profile.js in pages:
+  //userId - the current user that is logged in
+  //users - users in the database which can be added as a friend
 const UsersDropdown = ({ userId, users }) => {
 
   //Takes users from props and maps over each user 
