@@ -114,7 +114,7 @@ export default class WorldMap extends React.Component {
         center={center}
         maxBounds={bounds}
         zoomControl={true}
-        style={{height:'100vh', background: '#243352'}}
+        style={{height:'100vh', background: '#38B1BF'}}
         maxBoundsViscosity='1'
       >
         <GeoJSON
@@ -129,7 +129,7 @@ export default class WorldMap extends React.Component {
               <Mutation mutation={MUTATION_OPENMODAL_TRAVELS} >
               {(openModal, { data }) => (
                   <Label
-                  style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 400}}>
+                  style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 10000}}>
                     <GeoJSON
                       onClick={(e) => {
                         openModal({ variables: {id: countryByName.id}})
