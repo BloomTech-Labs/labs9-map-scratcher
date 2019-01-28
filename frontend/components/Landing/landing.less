@@ -39,10 +39,12 @@
                 }
 
          }
-         img {
-           width: 30%;
-           display: block;
-           margin: 5% auto;
+        svg {
+          margin: 0 auto;
+        }
+         #prefix__tail {
+           animation: shake-it 2s infinite;
+           transform-origin: center;
          }
         .landing_mainContent {
            width: 40%;
@@ -69,4 +71,10 @@
                 line-height: 1.4rem;
             }
         }
+}
+
+@keyframes shake-it {
+  0% {transform: skew(0deg); transform: rotate(0deg); }
+  50% {transform: skew(2deg); transform: rotate(-2deg);}
+  100% {transform: skew(0deg); transform: rotate(0deg); }
 }
