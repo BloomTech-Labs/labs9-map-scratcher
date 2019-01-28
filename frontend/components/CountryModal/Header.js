@@ -9,9 +9,9 @@
 import React, { Component } from 'react'
 import { Card, Button, Icon } from 'semantic-ui-react'
 import { Query, Mutation } from 'react-apollo'
-import {
-  QUERY_COUNTRYID_MODAL, MUTATION_CLOSEMODAL_TRAVELS,
-} from '../../services/requests';
+import { 
+  QUERY_COUNTRYID_MODAL, 
+  MUTATION_CLOSEMODAL_MODAL } from '../../services/requests/modal'
 
 //-- React Implementation ------------------------
 export default class Header extends Component {
@@ -25,7 +25,7 @@ export default class Header extends Component {
           return (
             <Card.Header className='modal_header'>
             <p>{countryById.name}</p>
-              <Mutation mutation={MUTATION_CLOSEMODAL_TRAVELS}>
+              <Mutation mutation={MUTATION_CLOSEMODAL_MODAL}>
                 {closeModal => (
                   <Button
                   size='tiny' onClick={closeModal}>

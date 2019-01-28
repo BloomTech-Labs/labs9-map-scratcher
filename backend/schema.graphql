@@ -24,9 +24,9 @@ type Mutation {
 
 type User {
   id: ID!
-  name: String!
-  nickname: String!
-  email: String!
+  name: String
+  nickname: String
+  email: String
   visits: [Visit]
   twitterHandle: String
   scratchingAutomated: Boolean

@@ -19,7 +19,7 @@ import { Query, Mutation } from 'react-apollo';
 import DisabledButtons from './DisabledButtons';
 import UpdateButtons from './UpdateButtons';
 import CreateButtons from './CreateButtons';
-import { QUERY_USERVISITS_TRAVELS } from '../../services/requests';
+import { QUERY_USERVISITS_MODAL } from '../../services/requests/modal';
 
 //-- React Implementation ------------------------
 export default class LevelOfVisit extends Component {
@@ -31,23 +31,23 @@ export default class LevelOfVisit extends Component {
     }
     return (
       <Fragment>
-        <Query query={QUERY_USERVISITS_TRAVELS} variables={{ id: this.props.displayId }}>
-          {({ loading, data: { user }}) => {
-            let existing;
-            if (user) {
-              existing = user.visits.filter(visit =>{
-                return (visit.country.id === this.props.countryId);
-              });
-            }
-            if (existing.length > 0) {
-              return (
-                <UpdateButtons countryId={this.props.countryId} visitId={existing[0].id} displayId={this.props.displayId} />
-              );
-            }
+        <Query query={QUERY_USERVISITS_MODAL} variables={{ id: this.props.displayId }}>
+        {({ loading, data: { user }}) => {
+          let existing;
+          if (user) {
+            existing = user.visits.filter(visit => {
+              return visit.country.id === this.props.countryId;
+            });
+          }
+          if (existing.length > 0) {
             return (
-              <CreateButtons countryId={this.props.countryId} displayId={this.props.displayId} />
+              <UpdateButtons countryId={this.props.countryId} visitId={existing[0].id} displayId={this.props.displayId}/>
             );
-          }}
+          }
+          return (
+            <CreateButtons countryId={this.props.countryId} displayId={this.props.displayId} />
+          );
+        }}
         </Query>
       </Fragment>
     );

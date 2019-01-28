@@ -6,18 +6,16 @@
 */
 
 //-- Dependencies --------------------------------
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 // import dynamic from 'next/dynamic';
-// import { Dimmer, Loader } from 'semantic-ui-react';
-import { Query, Mutation, ApolloConsumer } from 'react-apollo';
-import {
-  QUERY_CLIENT_TRAVELS,
-  QUERY_USERVISITS_TRAVELS,
-  QUERY_FRIENDSVISITS_TRAVELS,
-  QUERY_CLIENT_MODAL,
-} from '../../services/requests.js';
+import { Dimmer, Loader } from 'semantic-ui-react';
+import { Query } from 'react-apollo';
 import { fixData } from './mapHelpers';
 import StaticMap from './StaticMap';
+import { 
+  QUERY_CLIENT_TRAVELS, 
+  QUERY_USERVISITS_TRAVELS, 
+  QUERY_FRIENDSVISITS_TRAVELS } from '../../services/requests/travels';
 
 //-- Legacy Code ---------------------------------
 // Please indicate the conditions under which this code can be deleted:
@@ -31,10 +29,10 @@ import StaticMap from './StaticMap';
 });*/
 
 //-- React Implementation ------------------------
-export default class QueryMap extends React.Component {
+export default class QueryMap extends Component {
   render() {
     return (
-      <React.Fragment>
+      <Fragment>
         <Query query={QUERY_CLIENT_TRAVELS}>
         {({ loading: loadinguser, data }) => {
           const localState = data;
@@ -85,7 +83,7 @@ export default class QueryMap extends React.Component {
           );
         }}
         </Query>
-      </React.Fragment>
+      </Fragment>
     );
   }
 }

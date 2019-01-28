@@ -8,7 +8,7 @@
 
 //-- Dependencies --------------------------------
 import React, {Component} from 'react';
-import { Button, Segment, Confirm } from 'semantic-ui-react';
+import { Button, Segment } from 'semantic-ui-react';
 
 //-- Types of buttons to display -----------------
 /* buttonTypes: An array of objects used to configure buttons. There is one

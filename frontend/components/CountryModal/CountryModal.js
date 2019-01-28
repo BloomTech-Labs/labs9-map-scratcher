@@ -14,14 +14,14 @@ import Note from './Note';
 import LevelOfVisit from './LevelOfVisit';
 import Header from './Header';
 import Scratcher from './Scratcher';
-import { QUERY_VIEWING_MODAL } from '../../services/requests';
-import './countryModal.less';
+import { QUERY_CLIENT_MODAL } from '../../services/requests/modal';
+import './countryModal.less'
 
 //-- React Implementation ------------------------
 export default class CountryModal extends Component {
   render() {
     return (
-      <Query query={QUERY_VIEWING_MODAL}>
+      <Query query={QUERY_CLIENT_MODAL}>
       {({ loading, data }) => {
         let displayId, disabled;
         if (data.viewingFriend) {

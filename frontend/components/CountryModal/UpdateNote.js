@@ -10,10 +10,8 @@ import React, { Component, Fragment } from 'react'
 import { Mutation } from 'react-apollo';
 import { Button, Form, Input } from 'semantic-ui-react';
 import { 
-  QUERY_VIEWING_MODAL, 
-  QUERY_USERVISITS_MODAL, 
-  MUTATION_UPDATEVISIT_MODAL,
-} from '../../services/requests';
+ 
+  MUTATION_UPDATEVISIT_MODAL } from '../../services/requests/modal';
 
 //-- React Implementation ------------------------
 export default class UpdateNote extends Component {
@@ -44,10 +42,6 @@ export default class UpdateNote extends Component {
         <Mutation 
           mutation={MUTATION_UPDATEVISIT_MODAL}
           variables={{id: this.props.visitId, note: this.state.note }}
-          refetchQueries={[
-            {query: QUERY_VIEWING_MODAL}, 
-            {query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId}}
-          ]}
         >
           {updateVisit => (
             <Form onSubmit={updateVisit}>

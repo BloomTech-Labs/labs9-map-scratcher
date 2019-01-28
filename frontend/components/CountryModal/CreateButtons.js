@@ -9,11 +9,9 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
-import { 
-  QUERY_VIEWING_MODAL, 
-  QUERY_USERVISITS_MODAL, 
-  MUTATION_CREATEVISIT_MODAL,
-} from '../../services/requests';
+import {
+
+  MUTATION_CREATEVISIT_MODAL } from '../../services/requests/modal';
 
 //-- Types of buttons to display -----------------
 /* buttonTypes: An array of objects used to configure buttons. There is one
@@ -34,13 +32,7 @@ export default class CreateButtons extends Component {
   render() {
     return (
       <Fragment>
-        <Mutation
-          mutation={MUTATION_CREATEVISIT_MODAL}
-          refetchQueries={[
-            {query: QUERY_VIEWING_MODAL},
-            {query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId}}
-          ]}
-        >
+        <Mutation mutation={MUTATION_CREATEVISIT_MODAL}>
         {(createVisit, { data }) => (
             <Segment>
             {buttonTypes.map(button => {

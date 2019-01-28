@@ -9,7 +9,7 @@
 import React from 'react';
 import { List, Image } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
-import { MUTATION_DELETEFRIEND_PROFILE } from '../../services/requests';
+import { MUTATION_DELETEFRIEND_PROFILE } from '../../services/requests/profile';
 
 //-- React Implementation ------------------------
 const FriendsList = ({ friends, userId }) => (

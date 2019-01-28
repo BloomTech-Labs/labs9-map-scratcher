@@ -9,10 +9,9 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import { Dropdown } from 'semantic-ui-react';
-import {
-  QUERY_COUNTRIES_HEADER,
-  MUTATION_OPENMODAL_TRAVELS,
-} from '../../services/requests';
+import { 
+  QUERY_COUNTRIES_HEADER, 
+  MUTATION_OPENMODAL_HEADER } from '../../services/requests/header';
 
 //-- React Implementation ------------------------
 export default class CountriesDropdown extends Component {
@@ -30,7 +29,7 @@ export default class CountriesDropdown extends Component {
         });
         //query returns a mutation that provides the onChange handler for dropdown selection: it writes the value of the selection to the apollo cache and also sets the modalOpen value to true to display the modal.
         return (
-          <Mutation mutation={MUTATION_OPENMODAL_TRAVELS}>
+          <Mutation mutation={MUTATION_OPENMODAL_HEADER}>
             {(openModal, { data }) => (
               <Dropdown
                 onChange={(e, data) => {

@@ -1,12 +1,8 @@
 
 import gql from 'graphql-tag';
-import { 
-  QUERY_CLIENT_VIEWFRIEND, 
-  QUERY_CLIENT_LOGGED, 
-  QUERY_CLIENT_MODAL, 
-  QUERY_CLIENT_PROFILE, 
-  QUERY_CLIENT_VIEWBORDERS, 
-  QUERY_SCRATCHING_MODAL } from './requests';
+import {  QUERY_CLIENT_MODAL } from './requests/modal'
+import {  QUERY_CLIENT_PROFILE } from './requests/profile'
+import {  QUERY_VIEWBORDERS_HEADER } from './requests/header'
 
 // export const typeDefs = gql`
 //   extend type Query {
@@ -37,15 +33,6 @@ export const resolvers = {
       cache.writeData({ data });
       return data;
     },
-    toggleLoggedIn: (_obj, args, {cache}) => {
-      const query = QUERY_CLIENT_LOGGED;
-      const currentState = cache.readQuery({ query });
-      const data = {
-        isLoggedIn: !currentState.isLoggedIn
-      }
-      cache.writeData({data});
-      return data;
-    },
     openModal: (_obj, { id }, {cache}) => {
       const data = {
         modalOpen: true,
@@ -69,13 +56,13 @@ export const resolvers = {
       return data;
     },
     toggleBorders: (_obj, args, {cache}) => {
-      const query = QUERY_CLIENT_VIEWBORDERS;
+      const query = QUERY_VIEWBORDERS_HEADER;
       const currentState = cache.readQuery({ query });
       const data = {
         viewBorders: !currentState.viewBorders
       }
       cache.writeData({data});
-      const query2 = QUERY_CLIENT_VIEWBORDERS;
+      const query2 = QUERY_VIEWBORDERS_HEADER;
       const newState = cache.readQuery({ query });
       console.log('checkbox', newState);
     },

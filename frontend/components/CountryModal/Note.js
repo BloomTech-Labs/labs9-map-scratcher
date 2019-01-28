@@ -7,8 +7,8 @@
 
 //-- Dependencies --------------------------------
 import React, { Component, Fragment } from 'react'
-import { Query, Mutation } from 'react-apollo';
-import { QUERY_USERVISITS_TRAVELS } from '../../services/requests';
+import { Query } from 'react-apollo';
+import { QUERY_USERVISITS_MODAL } from '../../services/requests/modal';
 import UpdateNote from './UpdateNote';
 import DisabledNote from './DisabledNote'
 
@@ -17,7 +17,7 @@ export default class Note extends Component {
   render() {      
     return (
       <Fragment>
-        <Query query={QUERY_USERVISITS_TRAVELS} variables={{ id: this.props.displayId }}>
+        <Query query={QUERY_USERVISITS_MODAL} variables={{ id: this.props.displayId }}>
           {({ loading, error,  data: { user }}) => {
             if (loading) {
               return <div>loading</div>

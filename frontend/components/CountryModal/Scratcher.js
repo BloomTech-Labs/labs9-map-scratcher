@@ -37,7 +37,7 @@ import ScratchCanvas from '../Scratcher/index.js'
 import { 
   QUERY_COUNTRYID_SCRATCHER, 
   QUERY_USER_SCRATCHER,
-  MUTATION_COMPLETE_SCRATCHER } from '../../services/requests'
+  MUTATION_COMPLETE_SCRATCHER } from '../../services/requests/scratcher'
 
 //-- React Implementation ------------------------
 export default class Scratcher extends Component {

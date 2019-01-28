@@ -9,16 +9,15 @@
 import React, { Fragment, Component } from 'react';
 import { List } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
-import {
-  QUERY_CLIENT_PROFILE, QUERY_FRIENDSVISITS_TRAVELS,
-} from '../../services/requests';
+import { QUERY_FRIENDSVISITS_MODAL } from '../../services/requests/modal';
+
 
 //-- React Implementation ------------------------
 export default class FriendsVisits extends Component {
   //map over the query, display friends and level of visit
   render() {
     return (
-      <Query query={QUERY_FRIENDSVISITS_TRAVELS} variables={{ id: this.props.displayId }}>
+      <Query query={QUERY_FRIENDSVISITS_MODAL} variables={{ id: this.props.displayId }}>
       {({ loading: loadingFriends, error , data: { friends }}) => {
         if (loadingFriends) {
           return (<div>loading</div>);
