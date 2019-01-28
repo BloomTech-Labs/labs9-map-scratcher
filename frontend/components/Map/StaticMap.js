@@ -6,7 +6,7 @@
     countries are drawn from GeoJSON data. It accept the following props:
         asdf(string) - sdfal;kjasdfjlk
         JKL:(boolean) - asdflsadfj;
-        
+
     TODO:
         Look at reducing GeoJSON renders either by reducing the number of
         renders, or be using something like geojson-vt. There are currently four
@@ -31,7 +31,7 @@ import {
   colors, defaultStyle, hoverStyle, colorStyle, borderStyle,
 } from './countryStyles';
 import {
-  QUERY_COUNTRY_MODAL, 
+  QUERY_COUNTRY_TRAVELS,
   MUTATION_OPENMODAL_TRAVELS,
 } from '../../services/requests/travels';
 
@@ -114,7 +114,7 @@ export default class WorldMap extends React.Component {
         center={center}
         maxBounds={bounds}
         zoomControl={true}
-        style={{height:'100vh', background: '#38B1BF'}}
+        style={{height:'100vh', background: '#243352'}}
         maxBoundsViscosity='1'
       >
         <GeoJSON
@@ -125,17 +125,15 @@ export default class WorldMap extends React.Component {
         {geojson.features.map(feature => this.state.hovering === feature.properties.ADMIN && (
           <Query key={feature.properties.ADMIN} query={QUERY_COUNTRY_TRAVELS} variables={{name: feature.properties.ADMIN}}>
           {({ loading, data: { countryByName }}) => {
-
             return (
               <Mutation mutation={MUTATION_OPENMODAL_TRAVELS} >
               {(openModal, { data }) => (
                   <Label
-                  style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 10000}}>
+                  style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 400}}>
                     <GeoJSON
                       onClick={(e) => {
                         openModal({ variables: {id: countryByName.id}})
                       }}
-
                       data={feature}
                       style={hoverStyle}
                       />
@@ -143,7 +141,7 @@ export default class WorldMap extends React.Component {
                     </Label>
               )}
               </Mutation>
-            )
+            );
           }}
             </Query>
         ))}
@@ -153,7 +151,6 @@ export default class WorldMap extends React.Component {
           const level = visit[3];
           let style = {
             ...colorStyle,
-            color: colors[level],
             fillColor: colors[level]
           };
           const feature = getFeature(geojson, visit[2])

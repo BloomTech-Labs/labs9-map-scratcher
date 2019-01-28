@@ -54,6 +54,7 @@ export const QUERY_USERVISITS_TRAVELS = gql`
     }
   }
 `
+
 export const QUERY_FRIENDSVISITS_TRAVELS = gql`
 query User($id: ID!) {
   friends(id: $id) {

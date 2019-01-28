@@ -8,6 +8,7 @@
 //-- Dependencies --------------------------------
 import React, { Component } from 'react';
 import Login from './Login/Login.js';
+import Backpaca from './Backpaca';
 import './landing.less';
 
 //-- React Implementation ------------------------
@@ -19,6 +20,7 @@ export default class LandingPage extends Component {
           <h1 className='landing_title'>Backpaca</h1>
           <Login />
         </div>
+        <Backpaca />
         <div className='landing_mainContent'>
           Backpaca is a web application that allows users to brag about their travel experiences and plan future adventures with their friends.
         </div>

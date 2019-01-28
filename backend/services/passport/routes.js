@@ -2,8 +2,8 @@
 GET -> /auth/twitter
 	Initiate the oauth process.
 
-GET 
-	
+GET
+
 */
 
 // NODE MODULES

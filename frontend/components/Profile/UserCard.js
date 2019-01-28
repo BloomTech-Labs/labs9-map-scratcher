@@ -5,12 +5,11 @@
 */
 
 //-- Dependencies --------------------------------
-import React, { Component } from 'react';
-import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react';
-import { Mutation } from 'react-apollo';
-import { MUTATION_UPDATEUSER_PROFILE } from '../../services/requests/profile';
-import './profile.less';
-
+import React, { Component } from 'react'
+import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react'
+import { Mutation } from 'react-apollo'
+import { MUTATION_UPDATEUSER_PROFILE } from '../../services/requests/profile'
+import './profile.less'
 
 //== React Implementation ======================================================
 
@@ -34,14 +33,14 @@ export default class UserCard extends Component {
     this.setState({ name, email, nickname, scratchingAutomated, isPrivate });
     // Is there a reason not to pass user instead of deconstruct/reconstruct it?
   }
-  
+
   //-- Interaction ---------------------------------
   handleChange = changeEvent => {
     return this.setState({
       [changeEvent.target.name]: changeEvent.target.value,
     });
   }
-  
+
   //-- Rendering -----------------------------------
   render() {
     const { joinDate, name, email, nickname, scratchingAutomated, isPrivate } = this.state;
@@ -114,7 +113,7 @@ export default class UserCard extends Component {
                     checked={!!isPrivate}
                     label="Private User"
                     />
-                </Form.Field>  
+                </Form.Field>
                 <Form.Field>
                   <Button onClick={updateUser} primary>Submit</Button>
                 </Form.Field>
@@ -124,4 +123,4 @@ export default class UserCard extends Component {
       </Card>
     );
   }
-} 
+}

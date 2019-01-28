@@ -9,8 +9,8 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
-import { 
-  
+import {
+
   MUTATION_CREATEVISIT_MODAL } from '../../services/requests/modal';
 
 //-- Types of buttons to display -----------------

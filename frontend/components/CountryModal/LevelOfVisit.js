@@ -26,48 +26,28 @@ export default class LevelOfVisit extends Component {
   render() {
     if (this.props.disabled) {
       return (
-        <Fragment>
-          <Query query={QUERY_USERVISITS_MODAL} variables={{ id: this.props.displayId }}>
-            {({ loading, data: { user }}) => {
-              let existing;
-              if (user) {
-                existing = user.visits.filter(visit =>{
-                  return visit.country.id === this.props.countryId
-                })
-              }
-              if (existing.length > 0) {
-                return (
-                  <UpdateButtons countryId={this.props.countryId} visitId={existing[0].id} displayId={this.props.displayId} />
-                )
-              }
-              return (
-                <CreateButtons countryId={this.props.countryId} displayId={this.props.displayId} />
-              )
-            }}
-          </Query>
-
-        </Fragment>
-      )
+        <DisabledButtons />
+      );
     }
     return (
       <Fragment>
-        <Query query={QUERY_USERVISITS_TRAVELS} variables={{ id: this.props.displayId }}>
-          {({ loading, data: { user }}) => {
-            let existing;
-            if (user) {
-              existing = user.visits.filter(visit =>{
-                return (visit.country.id === this.props.countryId);
-              });
-            }
-            if (existing.length > 0) {
-              return (
-                <UpdateButtons countryId={this.props.countryId} visitId={existing[0].id} displayId={this.props.displayId} />
-              );
-            }
+        <Query query={QUERY_USERVISITS_MODAL} variables={{ id: this.props.displayId }}>
+        {({ loading, data: { user }}) => {
+          let existing;
+          if (user) {
+            existing = user.visits.filter(visit => {
+              return visit.country.id === this.props.countryId;
+            });
+          }
+          if (existing.length > 0) {
             return (
-              <CreateButtons countryId={this.props.countryId} displayId={this.props.displayId} />
+              <UpdateButtons countryId={this.props.countryId} visitId={existing[0].id} displayId={this.props.displayId}/>
             );
-          }}
+          }
+          return (
+            <CreateButtons countryId={this.props.countryId} displayId={this.props.displayId} />
+          );
+        }}
         </Query>
       </Fragment>
     );
