@@ -1,13 +1,24 @@
+
+
+//== View Borders Checkbox =====================================================
+/*
+  Please add documentation detailing the purpose and use of this component.
+*/
+
+//-- Dependencies --------------------------------
 import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import { Checkbox } from 'semantic-ui-react';
-import { QUERY_CLIENT_VIEWFRIEND, MUTATION_TOGGLE_BORDERS } from '../../services/requests';
+import { 
+  QUERY_VIEWFRIEND_HEADER, 
+  MUTATION_BORDERS_HEADER } from '../../services/requests/header';
 
+//-- React Implementation ------------------------
 export default class ViewBordersCheckbox extends Component {
   render() {
     //returns a query to check the apollo cache for the viewingFriend boolean in order to set the proper label
     return (
-      <Query query={QUERY_CLIENT_VIEWFRIEND}>
+      <Query query={QUERY_VIEWFRIEND_HEADER}>
       {({ loading, data}) => {
         let label = "";
         if (data.viewingFriend) {
@@ -16,11 +27,11 @@ export default class ViewBordersCheckbox extends Component {
         }
         if (!data.viewingFriend) {
           //label for when the user's map is being viewed.
-          label="Show Friend's Travels"
+          label="Show Friend's Travels";
         }
         //query returns a mutation that will toggle the viewBorders boolean in the apollo cache. 
         return (
-          <Mutation mutation={MUTATION_TOGGLE_BORDERS}>
+          <Mutation mutation={MUTATION_BORDERS_HEADER}>
           {(toggleBorders, { data }) => (
             <div className="mapIndex_friend-checkbox">
               <Checkbox
@@ -32,9 +43,9 @@ export default class ViewBordersCheckbox extends Component {
             </div>
           )}
           </Mutation>
-        )
+        );
       }}
       </Query>
-    )
+    );
   }
 }

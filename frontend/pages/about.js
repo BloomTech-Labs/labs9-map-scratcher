@@ -1,5 +1,14 @@
+
+
+//== About Page ================================================================
+/*
+  [Insert Documentation here]
+*/
+
+//-- Dependencies --------------------------------
 import Link from 'next/link';
 
+//-- React Implementation ------------------------
 export default () => (
   <div>
       <Link href="/">
