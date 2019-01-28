@@ -18,15 +18,15 @@ import { MUTATION_ADDFRIEND_PROFILE } from '../../services/requests/profile';
   //users - users in the database which can be added as a friend
 const UsersDropdown = ({ userId, users }) => {
 
-  //filter users that are private
-  let filtered = users.filter(user => user.isPrivate === false)
+  //filter users that are private and have names
+  let filtered = users.filter(user => user.isPrivate === false && user.name !== null)
 
   //Takes users from props and maps over each user 
   const userList = filtered.map(user => {
     return {
       text: user.name,
       value: user.id,
-      icon: 'add user',
+      icon: 'user',
     };
   });
 
