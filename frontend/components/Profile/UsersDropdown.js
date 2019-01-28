@@ -17,6 +17,7 @@ const UsersDropdown = ({ userId, users }) => {
     return {
       text: user.name,
       value: user.id,
+      icon: 'add user',
     };
   });
   return(
@@ -26,6 +27,7 @@ const UsersDropdown = ({ userId, users }) => {
     {(addFriend, {data}) => (
       <Dropdown
       text='Search for friends'
+      icon='search'
       search
       selection
       options={userList}
