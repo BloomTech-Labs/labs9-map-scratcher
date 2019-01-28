@@ -25,14 +25,14 @@ const FriendsList = ({ friends, userId }) => (
           <Mutation
             mutation={MUTATION_DELETEFRIEND_PROFILE}
             variables={{userId: userId, friendId: friend.id}}
-            update={(cache, { data: { deleteFriend } }) => {
+            update={(cache, {data}) => {
               const { friends } = cache.readQuery({ query: QUERY_FRIENDS_PROFILE, variables: {id: userId} });
+              const deletedFriend = friend.id
               cache.writeQuery({
                 query: QUERY_FRIENDS_PROFILE,
                 variables: {id: userId},
-                data: { friends: friends.filter(friend => friend.id !== deleteFriend.id) },
+                data: { friends: friends.filter(friend => friend.id !== deletedFriend) },
               });
-              console.log(friends)
             }}
           >
           {deleteFriend => (
