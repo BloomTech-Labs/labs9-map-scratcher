@@ -114,7 +114,7 @@ export default class WorldMap extends React.Component {
         center={center}
         maxBounds={bounds}
         zoomControl={true}
-        style={{height:'100vh', background: '#38B1BF'}}
+        style={{height:'100vh', background: '#243352'}}
         maxBoundsViscosity='1'
       >
         <GeoJSON
