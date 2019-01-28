@@ -1,9 +1,3 @@
-import React, { Component } from 'react'
-import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react'
-import { Mutation } from 'react-apollo'
-import { MUTATION_UPDATEUSER_PROFILE } from '../../services/requests/profile'
-import './profile.less'
-
 
 //== User Card =================================================================
 /*
@@ -14,7 +8,7 @@ import './profile.less'
 import React, { Component } from 'react';
 import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
-import { MUTATION_UPDATEUSER_PROFILE } from '../../services/requests';
+import { MUTATION_UPDATEUSER_PROFILE } from '../../services/requests/profile';
 import './profile.less';
 
 
