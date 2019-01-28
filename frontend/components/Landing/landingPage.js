@@ -19,6 +19,7 @@ export default class LandingPage extends Component {
           <h1 className='landing_title'>Backpaca</h1>
           <Login />
         </div>
+        <img src='../static/backpacaLogo.svg' />
         <div className='landing_mainContent'>
           Backpaca is a web application that allows users to brag about their travel experiences and plan future adventures with their friends.
         </div>

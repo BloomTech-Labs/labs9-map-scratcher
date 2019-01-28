@@ -1,10 +1,9 @@
 .landing_mainDiv {
     background: lightblue;
-    position: fixed;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    min-height: 100%;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
         .landing_header {
             display: flex;
             margin: 2rem 3rem 0rem 3rem;
@@ -40,11 +39,14 @@
                 }
 
          }
+         img {
+           width: 30%;
+           display: block;
+           margin: 5% auto;
+         }
         .landing_mainContent {
-           position: fixed;
-           top: 40%;
-           left: 30%;
-           right: 30%;
+           width: 40%;
+           margin: 0 auto;
            font-weight: bold;
            font-size: 3.4rem;
            line-height: 3.5rem;
