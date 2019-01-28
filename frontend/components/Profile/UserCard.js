@@ -1,12 +1,24 @@
-import React, { Component } from 'react'
-import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react'
-import { Mutation } from 'react-apollo'
-import { MUTATION_UPDATEUSER_PROFILE } from '../../services/requests'
-import './profile.less'
 
+
+//== User Card =================================================================
+/*
+  Please add documentation detailing the purpose and use of this component.
+*/
+
+//-- Dependencies --------------------------------
+import React, { Component } from 'react';
+import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react';
+import { Mutation } from 'react-apollo';
+import { MUTATION_UPDATEUSER_PROFILE } from '../../services/requests';
+import './profile.less';
+
+
+//== React Implementation ======================================================
+
+//-- React Life-cycle ----------------------------
 export default class UserCard extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       joinDate: '2019',
       numFriends: 0,
@@ -14,19 +26,26 @@ export default class UserCard extends Component {
       email: '',
       nickname: '',
       scratchingAutomated: null,
-      isPrivate: null
-    }
+      isPrivate: null,
+    };
   }
   componentDidMount() {
-    const user = this.props.user
-    const { name, email, nickname, scratchingAutomated, isPrivate } = user
-    this.setState({ name, email, nickname, scratchingAutomated, isPrivate })
+    const user = this.props.user;
+    const { name, email, nickname, scratchingAutomated, isPrivate } = user;
+    this.setState({ name, email, nickname, scratchingAutomated, isPrivate });
+    // Is there a reason not to pass user instead of deconstruct/reconstruct it?
   }
-
-  handleChange = e => this.setState({ [e.target.name]: e.target.value })
-
+  
+  //-- Interaction ---------------------------------
+  handleChange = changeEvent => {
+    return this.setState({
+      [changeEvent.target.name]: changeEvent.target.value,
+    });
+  }
+  
+  //-- Rendering -----------------------------------
   render() {
-    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate } = this.state
+    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate } = this.state;
     return (
       <Card className='profile_userCardMain'>
         <Image src='/static/alpaca.png' className='profile_userCardProfilePic' />
@@ -104,6 +123,6 @@ export default class UserCard extends Component {
             </Mutation>
         </Card.Content>
       </Card>
-    )  
+    );
   }
 } 

@@ -1,3 +1,12 @@
+
+
+//== Test Page 2 ===============================================================
+/*
+  This page contains experiments used during development of Backpaca.
+  Consider leaving a note here to briefly explain the purpose of the test, and
+  under what circumstances the test can be deleted, such as meeting a milestone.
+*/
+
 // import geojson from '../components/Map/countries.geo.json'
 
 // let count = 0
