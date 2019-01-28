@@ -125,6 +125,9 @@ export default class WorldMap extends React.Component {
         {geojson.features.map(feature => this.state.hovering === feature.properties.ADMIN && (
           <Query key={feature.properties.ADMIN} query={QUERY_COUNTRY_TRAVELS} variables={{name: feature.properties.ADMIN}}>
           {({ loading, data: { countryByName }}) => {
+            if (loading) {
+              return null
+            }
             return (
               <Mutation mutation={MUTATION_OPENMODAL_TRAVELS} >
               {(openModal, { data }) => (
