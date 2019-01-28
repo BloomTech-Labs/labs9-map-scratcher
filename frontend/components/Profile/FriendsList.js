@@ -14,7 +14,7 @@ import './profile.less'
 
 //-- React Implementation ------------------------
 
-  //PROPS - passed from profile.js in pages: 
+  //PROPS - passed from profile.js in pages:
   //friends - friends that the current logged in user has added as a friend.
   //userId - the current user that is logged in
 const FriendsList = ({ friends, userId }) => (
