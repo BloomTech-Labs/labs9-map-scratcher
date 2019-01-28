@@ -1078,14 +1078,6 @@ export default class Backpaca extends React.Component {
           />
           <ellipse
             className="prefix__cls-5"
-            cx={452.63}
-            cy={165.25}
-            rx={4.15}
-            ry={8.38}
-            transform="translate(-9.84 29.95)"
-          />
-          <ellipse
-            className="prefix__cls-5"
             cx={397.77}
             cy={148.31}
             rx={8.56}
