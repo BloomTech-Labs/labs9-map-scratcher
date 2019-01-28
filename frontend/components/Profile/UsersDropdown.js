@@ -12,13 +12,24 @@ import { Mutation } from 'react-apollo';
 import { MUTATION_ADDFRIEND_PROFILE } from '../../services/requests/profile';
 
 //-- React Implementation ------------------------
+
+  //PROPS - passed from profile.js in pages:
+  //userId - the current user that is logged in
+  //users - users in the database which can be added as a friend
 const UsersDropdown = ({ userId, users }) => {
-  const userList = users.map(user => {
+
+  //filter users that are private and have names
+  let filtered = users.filter(user => user.isPrivate === false && user.name !== null)
+
+  //Takes users from props and maps over each user 
+  const userList = filtered.map(user => {
     return {
       text: user.name,
       value: user.id,
+      icon: 'user',
     };
   });
+
   return(
     <Mutation 
       mutation={MUTATION_ADDFRIEND_PROFILE}
@@ -26,6 +37,7 @@ const UsersDropdown = ({ userId, users }) => {
     {(addFriend, {data}) => (
       <Dropdown
       text='Search for friends'
+      icon='search'
       search
       selection
       options={userList}

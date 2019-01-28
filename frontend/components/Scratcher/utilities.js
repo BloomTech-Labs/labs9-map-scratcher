@@ -13,6 +13,13 @@
 */
 
 //-- Project Constants ---------------------------
+const RESOLUTION_DEFAULT = 25;
+/* RESOLUTION_DEFAULT: If draw is invoked before client rectangles have been
+    determined, then resize will fail with a width and height of 0. As a
+    temporary fix, a default resolution will be used instead. Note, however,
+    that this will result in a garbled display. The underlying problem should be
+    addressed instead, which is that React is invoking ComponentDidMount before
+    client rectangles have been assigned. */
 const URI_COUNTRY_ALPHA = '/static/country-alpha';
 /* URI_COUNTRY_ALPHA: The uri from which alpha masks can be loaded. This is
     probably a subdirectory under a "static" or "public" directory. */
@@ -48,6 +55,10 @@ export function initializeCanvas(drawingState, movementHandler) {
     const bounds = canvas.getBoundingClientRect();
     canvas.width  = bounds.right  - bounds.left;
     canvas.height = bounds.bottom - bounds.top ;
+    if(!canvas.width || !canvas.height) {
+      canvas.width  = RESOLUTION_DEFAULT;
+      canvas.height = RESOLUTION_DEFAULT;
+    }
     // Add event listeners for sratching actions
     canvas.addEventListener(
         'mousemove',
