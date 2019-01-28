@@ -12,7 +12,11 @@ import { Mutation } from 'react-apollo';
 import { MUTATION_ADDFRIEND_PROFILE } from '../../services/requests/profile';
 
 //-- React Implementation ------------------------
+
+  //userId and users is passed from profile.js in pages as a result of queries for the current user that is logged in && users in the database
 const UsersDropdown = ({ userId, users }) => {
+
+  //Takes users from props and maps over each user 
   const userList = users.map(user => {
     return {
       text: user.name,
@@ -20,6 +24,7 @@ const UsersDropdown = ({ userId, users }) => {
       icon: 'add user',
     };
   });
+
   return(
     <Mutation 
       mutation={MUTATION_ADDFRIEND_PROFILE}
