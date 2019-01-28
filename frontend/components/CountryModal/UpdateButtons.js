@@ -11,8 +11,7 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import { Query, Mutation } from 'react-apollo';
-import { 
-  
+import {
   QUERY_SCRATCHING_MODAL,
   MUTATION_SCRATCHING_MODAL,
   MUTATION_UPDATEVISIT_MODAL } from '../../services/requests/modal';
@@ -31,6 +30,7 @@ const buttons = [
 //-- React Implementation ------------------------
 export default class UpdateButtons extends Component {
   render(){
+    console.log('in update buttons', this.props); 
     let scratched = false;
     return (
       <Fragment>

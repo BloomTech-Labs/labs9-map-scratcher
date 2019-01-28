@@ -52,6 +52,7 @@ export const hoverStyle = {
 export const colorStyle ={
   stroke: true,
   weight: 1,
+  color: '#232323',
   fill: true,
   fillOpacity: 1,
 };
