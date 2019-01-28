@@ -9,7 +9,7 @@
 import React from 'react';
 import { List, Image } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
-import { 
+import {
   MUTATION_DELETEFRIEND_PROFILE,
   QUERY_FRIENDS_PROFILE } from '../../services/requests/profile';
 
@@ -27,10 +27,11 @@ const FriendsList = ({ friends, userId }) => (
             variables={{userId: userId, friendId: friend.id}}
             update={(cache, { data: { deleteFriend } }) => {
               const { friends } = cache.readQuery({ query: QUERY_FRIENDS_PROFILE, variables: {id: userId} });
+              const deletedFriend = friend.id
               cache.writeQuery({
                 query: QUERY_FRIENDS_PROFILE,
                 variables: {id: userId},
-                data: { friends: friends.filter(friend => friend.id !== deleteFriend.id) },
+                data: { friends: friends.filter(friend => friend.id !== deletedFriend) },
               });
               console.log(friends)
             }}
