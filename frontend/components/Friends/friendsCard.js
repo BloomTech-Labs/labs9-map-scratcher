@@ -6,7 +6,10 @@ export default class Friends extends React.Component {
         super(props)
     }
 
+    //the ID of the user's page they are on
     Id = this.props.id
+    //the current user that is logged in
+    userId = this.props.currentUserId
 
     numFriends = (
         <a>
@@ -21,7 +24,7 @@ export default class Friends extends React.Component {
             <div>
                 <Card 
                 image='/static/alpaca.png'
-                header={this.Id}
+                header={this.userId}
                 meta='friends?'
                 description='TBD, should we add this?'
                 extra={this.numFriends}
