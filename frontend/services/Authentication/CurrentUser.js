@@ -4,7 +4,6 @@ import axios from 'axios';
 
 axios.defaults.withCredentials = true;
 
-
 const URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:4000'
@@ -18,7 +17,6 @@ export default function CurrentUser({ children }) {
     }
   };
 
-  }
   return (
     <ApolloConsumer>
       {client => {
