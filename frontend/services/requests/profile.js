@@ -33,6 +33,7 @@ export const QUERY_USERS_PROFILE = gql`
     users {
       id
       name
+      isPrivate
     }
   }
 `
