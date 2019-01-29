@@ -11,11 +11,14 @@ const Friends = withRouter((props) => (
         }
         return (
             <Query query={QUERY_FRIENDS_PROFILE} variables={{id: userId}}> 
-            {({ loading, data }) => {
+            {({ loading, data: friends }) => {
+                if(loading) {
+                    return <div>loading...</div>
+                }
                 return (
-                <div>
-                    <FriendsCard id={props.router.query.id} currentUserId={userId} friendsData={data.friends} />
-                </div>
+                        <div>
+                            <FriendsCard id={props.router.query.id} currentUserId={userId} friendsData={friends.friends} />
+                        </div>
                 )
             }}
             </Query>

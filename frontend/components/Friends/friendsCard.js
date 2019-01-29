@@ -1,7 +1,7 @@
 import React from 'react'
-import { Card, Icon } from 'semantic-ui-react'
-import { QUERY_FRIENDS_PROFILE } from '../../services/requests/profile.js'
+import { QUERY_USER_PROFILE } from '../../services/requests/profile.js'
 import { Query } from 'react-apollo';
+import { Card, Icon } from 'semantic-ui-react'
 import AddFriendButton from './addFriend.js'
 import DeleteFriendButton from './deleteFriend.js'
 
@@ -51,15 +51,26 @@ export default class Friends extends React.Component {
 
     render() {
         return (
-            <div>
-                <Card 
-                image='/static/alpaca.png'
-                header={this.userId}
-                meta='friends?'
-                description='TBD, should we add this?'
-                extra={this.friends()}
-                />
-            </div>
+        <Query query={QUERY_USER_PROFILE} variables={ {id: this.Id} }>
+                {({ loading, data }) => {
+                    console.log(data)
+                    console.log(`this is current user id ${this.Id}`)
+                     if(loading) {
+                        return <div>loading...</div>
+                    }
+                    return (
+                    <div>
+                        <Card 
+                        image='/static/alpaca.png'
+                        header='name'
+                        meta='friends?'
+                        description='TBD, should we add this?'
+                        extra={this.friends()}
+                        />
+                    </div>
+                 )
+             }}
+        </Query>
         )
     }
 
