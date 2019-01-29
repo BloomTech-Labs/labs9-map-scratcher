@@ -13,6 +13,7 @@ scratch off to initiate an event. It accepts the following props:
     colorOutline(string/color) - The map shape is outlined in this color.
     colorScratch(string/color) - Scratching the image reveals this color.
     handleScratchAll(function) - A callback to invoke once fully scratched.
+    automateScratching(boolean): handleScratchAll will be invoked immediately.
 
 The state of the component can be changed during use by sending it new props.
 For example: a map can easily change from not scratchable to scratchable by
@@ -80,8 +81,13 @@ export default class extends React.Component {
                 return;
             }
         }
+        // Immediately invoke Complete if scratching is automated
+        if(this.drawingState.itchy && this.props.automateScratching) {
+            this.drawingState.itchy = false;
+            utilities.scratchAll(this.drawingState);
+            this.props.handleScratchAll();
         // Redraw if necessary
-        if(changeColor || needsUpdate) {
+        } else if(changeColor || needsUpdate) {
             this.drawingState.colorScratch = this.props.colorScratch;
             this.draw(this.drawingState);
         }

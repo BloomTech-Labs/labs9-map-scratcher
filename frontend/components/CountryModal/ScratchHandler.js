@@ -1,11 +1,27 @@
 
 
-//== Scratch Handler, Combined Slider and Country Display ======================
+/*== Scratch Handler, Combined Slider and Country Display ======================
+
+//-- Documentation -------------------------------
+
+ScratchHandler is a react component which displays a scratchable map and a visit
+level slider. Users can change the value of the slider to indicate the highest
+form of visit they've had in a country, and then scratch off a map of that
+country to finalize that value. It accepts the following props:
+
+  disabled(boolean) - Whether or not the visit level is adjustable.
+  countryId(string) - A GraphQL id, specifying the country.
+  displayId(string) - The GraphQL id of the user having visited the country.
+  
+*/
 
 //-- Dependencies --------------------------------
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
-import { QUERY_COUNTRYID_SCRATCHER } from '../../services/requests/scratcher';
+import {
+  QUERY_COUNTRYID_SCRATCHER,
+  QUERY_USER_SCRATCHER,
+} from '../../services/requests/scratcher';
 import {
   QUERY_USERVISITS_MODAL,
   MUTATION_CREATEVISIT_MODAL,
@@ -33,12 +49,14 @@ VISIT_COLORS[VISITLEVEL_LIVED    ] = '#600';
 export default class extends React.Component {
   constructor(props) {
     super(props);
+    // "Itchy" means the user has tried to change state, but must scratch first.
     this.state = {
       itchy: false,
       itchyLevel: undefined,
     };
   }
   componentDidUpdate(previousProps) {
+    // Resets to a "non-itchy" state when switching countries
     if(
       this.props.countryId !== previousProps.countryId ||
       this.props.displayId !== previousProps.displayId
@@ -51,14 +69,14 @@ export default class extends React.Component {
   }
 
   //-- Interaction ---------------------------------
-  handleCompletion = (mutationInvocation, createNewVisit) => {
+  handleCompletion = (mutationInvocation, visitId) => {
     /* handleCompletion is called whenever the user completes scratching the
     map. It is given two arguments, a function to invoke in order to perform a
     mutation, and a flag (createNewVisit) which determines if the mutation is a
     creation or an update. Once it returns the map will no longer be "itchy". */
     let mutationData;
     // Handle new visit mutations (user has never scratched country)
-    if(createNewVisit) {
+    if(!visitId) {
       mutationData = {
         variables: {
           userId: this.props.displayId,
@@ -70,7 +88,7 @@ export default class extends React.Component {
     } else {
       mutationData = {
         variables: {
-          id: this.props.countryId,
+          id: visitId,
           level: this.state.itchyLevel,
         }
       };
@@ -92,73 +110,78 @@ export default class extends React.Component {
   
   //-- Rendering -----------------------------------
   render() {
-    // Query Apollo for the currently focused country, and user visit data
+    // Query Apollo for the currently focused country, user visit data, and user
     const countryQuery = QUERY_COUNTRYID_SCRATCHER;
     const countryVars = {id: this.props.countryId};
     const visitQuery = QUERY_USERVISITS_MODAL
     const visitVars = {id: this.props.displayId};
+    const userQuery = QUERY_USER_SCRATCHER;
+    const userVars = {id: this.props.displayId};
     return (
       <React.Fragment>
         <Query query={countryQuery} variables={countryVars}>{replyCountry => (
-          <Query query={visitQuery} variables={visitVars}>{replyVisit => {
-            // Handling Loading State
-            const loadingCountryCode = replyCountry.loading;
-            const loadingVisit = replyVisit.loading;
-            if(loadingCountryCode || loadingVisit) {
-              return (<div>Loading</div>);
-            }
-            // Get values from Apollo replies
-            const countryCode = replyCountry.data.countryById.code;
-            const user = replyVisit.data.user;
-            // Find user visit level to this country
-            let visitLevel = VISITLEVEL_NONE;
-            let userHasVisited = false;
-            if(user) {
-              const visitsToCountry = user.visits.filter(visit => {
-                return (visit.country.id === this.props.countryId);
-              });
-              if(visitsToCountry.length) {
-                userHasVisited = true;
-                visitLevel = visitsToCountry[0].level;
+          <Query query={visitQuery} variables={visitVars}>{replyVisit => (
+            <Query query={userQuery} variables={userVars}>{replyUser => {
+              // Handling Loading State
+              const loadingCountryCode = replyCountry.loading;
+              const loadingVisit = replyVisit.loading;
+              const loadingUserSettings = replyUser.loading;
+              if(loadingCountryCode || loadingVisit || loadingUserSettings) {
+                return (<div>Loading</div>);
               }
-            }
-            // Determine slider display level
-            let displayLevel = this.state.itchyLevel;
-            if(this.state.itchyLevel === undefined) {
-              displayLevel = visitLevel;
-            }
-            // Determine scratcher background color
-            let colorOutline = VISIT_COLORS[displayLevel];
-            // Determine Mutation type
-            let createNewVisit = true;
-            let gqlMutation = MUTATION_CREATEVISIT_MODAL;
-            if(userHasVisited) {
-              createNewVisit = false;
-              gqlMutation = MUTATION_UPDATEVISIT_MODAL;
-            }
-            // Display Scratchable Country and Visit Slider
-            return (
-              <React.Fragment>
-                <Mutation mutation={gqlMutation}>{mutationInvocation => (
-                  <Scratcher
-                    scratchable={this.state.itchy}
-                    destination={countryCode} 
-                    colorOutline={colorOutline} 
-                    colorScratch={'silver'}
-                    handleScratchAll={() => {
-                      this.handleCompletion(mutationInvocation, createNewVisit);
-                    }}
+              // Get values from Apollo replies
+              const countryCode = replyCountry.data.countryById.code;
+              const user = replyVisit.data.user;
+              const autoScratch = replyUser.data.user.scratchingAutomated;
+              // Find user visit level to this country
+              let visitLevel = VISITLEVEL_NONE;
+              let visitId;
+              if(user) {
+                const visitsToCountry = user.visits.filter(visit => {
+                  return (visit.country.id === this.props.countryId);
+                });
+                if(visitsToCountry.length) {
+                  visitId = visitsToCountry[0].id;
+                  visitLevel = visitsToCountry[0].level;
+                }
+              }
+              // Determine slider display level
+              let displayLevel = this.state.itchyLevel;
+              if(this.state.itchyLevel === undefined) {
+                displayLevel = visitLevel;
+              }
+              // Determine scratcher background color
+              let colorOutline = VISIT_COLORS[displayLevel];
+              // Determine Mutation type
+              let gqlMutation = MUTATION_CREATEVISIT_MODAL;
+              if(visitId) {
+                gqlMutation = MUTATION_UPDATEVISIT_MODAL;
+              }
+              // Display Scratchable Country and Visit Slider
+              return (
+                <React.Fragment>
+                  <Mutation mutation={gqlMutation}>{mutationInvocation => (
+                    <Scratcher
+                      scratchable={this.state.itchy}
+                      destination={countryCode} 
+                      colorOutline={colorOutline} 
+                      colorScratch={'silver'}
+                      automateScratching={autoScratch}
+                      handleScratchAll={() => {
+                        this.handleCompletion(mutationInvocation, visitId);
+                      }}
+                    />
+                  )}</Mutation>
+                  <VisitSlider
+                    visitLevel={displayLevel}
+                    disabled={this.props.disabled}
+                    onChange={this.handleChangeVisit}
                   />
-                )}</Mutation>
-                <VisitSlider
-                  visitLevel={displayLevel}
-                  disabled={this.props.disabled}
-                  onChange={this.handleChangeVisit}
-                />
-              </React.Fragment>
-            );
-            //
-          }}</Query>
+                </React.Fragment>
+              );
+              //
+            }}</Query>
+          )}</Query>
         )}</Query>
       </React.Fragment>
     );
