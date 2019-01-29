@@ -5,12 +5,12 @@
 //-- Dependencies --------------------------------
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
-import { QUERY_USERVISITS_MODAL } from '../../services/requests/modal';
-import { 
-  QUERY_COUNTRYID_SCRATCHER, 
-  QUERY_USER_SCRATCHER,
-  MUTATION_COMPLETE_SCRATCHER,
-} from '../../services/requests/scratcher';
+import { QUERY_COUNTRYID_SCRATCHER } from '../../services/requests/scratcher';
+import {
+  QUERY_USERVISITS_MODAL,
+  MUTATION_CREATEVISIT_MODAL,
+  MUTATION_UPDATEVISIT_MODAL,
+} from '../../services/requests/modal';
 import Scratcher from '../Scratcher/index.js';
 
 //-- Project Constants ---------------------------
@@ -26,6 +26,7 @@ VISIT_COLORS[VISITLEVEL_TRANSITED] = '#404';
 VISIT_COLORS[VISITLEVEL_VISITED  ] = '#044';
 VISIT_COLORS[VISITLEVEL_LIVED    ] = '#600';
 
+
 //== Main Component ============================================================
 
   //-- Definition and Initialization ---------------
@@ -39,10 +40,39 @@ export default class extends React.Component {
   }
 
   //-- Interaction ---------------------------------
-  handleCompletion = () => {
+  handleCompletion = (mutationInvocation, createNewVisit) => {
+    /* handleCompletion is called whenever the user completes scratching the
+    map. It is given two arguments, a function to invoke in order to perform a
+    mutation, and a flag (createNewVisit) which determines if the mutation is a
+    creation or an update. Once it returns the map will no longer be "itchy". */
+    let mutationData;
+    // Handle new visit mutations (user has never scratched country)
+    if(createNewVisit) {
+      mutationData = {
+        variables: {
+          userId: this.props.displayId,
+          countryId: this.props.countryId,
+          level: data.value,
+        }
+      };
+    // Handle update visit mutations (user already has data for country)
+    } else {
+      mutationData = {
+        variables: {
+          id: this.props.countryId,
+          level: this.state.itchyLevel,
+        }
+      };
+    }
+    // Execute the mutation
+    mutationInvocation(mutationData)
+    // Put scratcher back in default state
     this.setState({itchy: false});
   }
   handleChangeVisit = (newVisitLevel) => {
+    /* handleChangeVisist is called whenever the user changes the visit level
+    using the slider. It makes the map "itchy" but does not perform a mutation.
+    */
     this.setState({
       itchy: true,
       itchyLevel: newVisitLevel,
@@ -51,17 +81,14 @@ export default class extends React.Component {
   
   //-- Rendering -----------------------------------
   render() {
-    // Get values from props
-    const countryId = this.props.countryId;
     // Query Apollo for the currently focused country, and user visit data
     const countryQuery = QUERY_COUNTRYID_SCRATCHER;
-    const countryVars = {id: countryId};
+    const countryVars = {id: this.props.countryId};
     const visitQuery = QUERY_USERVISITS_MODAL
     const visitVars = {id: this.props.displayId};
     return (
       <React.Fragment>
         <Query query={countryQuery} variables={countryVars}>{replyCountry => (
-          // Query Apollo for the user's visit level to that country
           <Query query={visitQuery} variables={visitVars}>{replyVisit => {
             // Handling Loading State
             const loadingCountryCode = replyCountry.loading;
@@ -74,11 +101,13 @@ export default class extends React.Component {
             const user = replyVisit.data.user;
             // Find user visit level to this country
             let visitLevel = VISITLEVEL_NONE;
+            let userHasVisited = false;
             if(user) {
               const visitsToCountry = user.visits.filter(visit => {
-                return visit.country.id === countryId;
+                return (visit.country.id === this.props.countryId);
               });
               if(visitsToCountry.length) {
+                userHasVisited = true;
                 visitLevel = visitsToCountry[0].level;
               }
             }
@@ -89,16 +118,27 @@ export default class extends React.Component {
             }
             // Determine scratcher background color
             let colorScratch = VISIT_COLORS[displayLevel];
+            // Determine Mutation type
+            let createNewVisit = true;
+            let gqlMutation = MUTATION_CREATEVISIT_MODAL;
+            if(userHasVisited) {
+              createNewVisit = false;
+              gqlMutation = MUTATION_UPDATEVISIT_MODAL;
+            }
             // Display Scratchable Country and Visit Slider
             return (
               <React.Fragment>
-                <Scratcher
-                  scratchable={this.state.itchy}
-                  destination={countryCode} 
-                  colorOutline={'black'} 
-                  colorScratch={colorScratch} 
-                  handleScratchAll={this.handleCompletion}
-                />
+                <Mutation mutation={gqlMutation}>{mutationInvocation => (
+                  <Scratcher
+                    scratchable={this.state.itchy}
+                    destination={countryCode} 
+                    colorOutline={'black'} 
+                    colorScratch={colorScratch}
+                    handleScratchAll={() => {
+                      this.handleCompletion(mutationInvocation, createNewVisit);
+                    }}
+                  />
+                )}</Mutation>
                 <VisitSlider
                   visitLevel={displayLevel}
                   disabled={this.props.disabled}
@@ -117,13 +157,18 @@ export default class extends React.Component {
 
 //== Subcomponents and Utilities ===============================================
 
-//-- Visit Slider ----------------------------------
+/*-- Visit Slider ----------------------------------
+  The slider expects the following props:
+    onChange(function): a function to invoke when a new visit level is selected
+    visitLevel(number): The current visit level selected, or from the database
+    disabled(boolean): Whether or not to display the slider
+*/
 function VisitSlider(props) {
   // If disabled, render nothing
   if(props.disabled) {
     return null;
   }
-  //
+  // Render a basic slider
   return (
     <input
       type="range"
@@ -131,131 +176,9 @@ function VisitSlider(props) {
       min={VISITLEVEL_NONE}
       max={VISITLEVEL_LIVED}
       onChange={(eventChange) => {
-        const newValue = eventChange.currentTarget.value;
+        const newValue = Number(eventChange.currentTarget.value);
         props.onChange(newValue);
       }}
     />
-  );
-}
-
-
-//== Scratcher =================================================================
-/*
-  Please add documentation detailing the purpose and use of this component.
-
-  This component is named the same as a component on which it depends, leading
-  to possible confusion. Ideally, this should be resolved by providing more
-  descriptive names for each component.
-
-  props to receive:
-    userType(string) - self or friend, determines if scratcher is scratchable and if visit level and note can be edited
-    countryId(string) - country that was clicked, needed for visit queries
-    userId(string) - user (not necessarily the loggedin user) whose map & country data is being viewed
-
-*/
-
-
-//== Buttons ===================================================================
-
-//-- Dependencies --------------------------------
-import {
-  MUTATION_CREATEVISIT_MODAL,
-  MUTATION_UPDATEVISIT_MODAL,
-} from '../../services/requests/modal';
-
-//-- Types of buttons to display -----------------
-/* buttonTypes: An array of objects used to configure buttons. There is one
-  object per visit level. Visit levels should probably be defined as constants
-  in an external file, and referenced by name in all dependent files. */
-const buttonTypes = [
-  {level: 1, color: 'pink', content: 'Wishlist'},
-  {level: 2, color: 'yellow', content: 'Transited'},
-  {level: 3, color: 'green', content: 'Visited'},
-  {level: 4, color: 'blue', content: 'Lived'},
-];
-
-//------------------------------------------------
-function makeButtons(mutation) {
-  return buttonTypes.map(button => {
-    let disabled = false;
-    let handleClick;
-    // Create buttons that create or update visits
-    if(mutation) {
-      handleClick = function (eventClick, data) {
-        mutation(data);
-      };
-      /*
-    // Create buttons that update visits
-    } else if(updateVisit) {
-      */
-    // Create disabled buttons
-    } else {
-      disabled = true;
-      handleClick = function () {};
-    }
-    return (
-      <Button
-        children={button.content}
-        key={button.level}
-        color={button.color}
-        value={button.level}
-        inverted
-        disabled={disabled}
-        onClick={handleClick}
-      />
-    );
-  });
-}
-
-//-- Buttons Disabled ----------------------------
-function DisabledButtons(props) {
-  return (
-    <Segment>
-      {makeButtons()}
-    </Segment>
-  );
-}
-
-//-- Buttons Visit Create ------------------------
-function CreateButtons(props) {
-  let gqlMutation = MUTATION_CREATEVISIT_MODAL;
-  return (
-    <Segment>
-      <Apollo.Mutation mutation={gqlMutation}>
-        {(createVisit) => {
-          const clickCallback = function (data) {
-            createVisit({ variables: {
-              userId: props.displayId,
-              countryId: props.countryId,
-              level: data.value,
-            }});
-          }
-          return makeButtons(clickCallback);
-        }}
-      </Apollo.Mutation>
-    </Segment>
-  );
-}
-
-//-- Buttons Visit Update ------------------------
-function UpdateButtons(props) {
-  let scratched = false;
-  let gqlMutation = MUTATION_UPDATEVISIT_MODAL;
-  return (
-    <Segment>
-      <Apollo.Mutation mutation={gqlMutation}>
-        {(updateVisit) => {
-          const clickCallback = function (data) {
-            if (scratched) {
-              updateVisit({ variables: {id: props.visitId, level: data.value} });
-              scratchingReset();
-            } else {
-              alert("Please scratch off country :)");
-            }
-          }
-          return makeButtons(clickCallback);
-        }}
-      </Apollo.Mutation>
-    </Segment>
   );
 }
