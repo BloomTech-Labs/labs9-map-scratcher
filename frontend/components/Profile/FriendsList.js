@@ -10,6 +10,7 @@ import React from 'react';
 import { List, Image, Button, Icon } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
 import { MUTATION_DELETEFRIEND_PROFILE } from '../../services/requests/profile';
+import { Router } from '../../services/routes.js'
 import './profile.less'
 
 //-- React Implementation ------------------------
@@ -25,7 +26,9 @@ const FriendsList = ({ friends, userId }) => (
     return (
       <List.Item key={friend.id}>
         <List.Content className='profile_friendsListContent'>
-          <List.Content>
+          <List.Content onClick={(e, data) => {
+              Router.pushRoute('friends', {id: friend.id} )
+            }}>
             <Image avatar src='/static/alpaca.png'/>
               {friend.name}
           </List.Content>
