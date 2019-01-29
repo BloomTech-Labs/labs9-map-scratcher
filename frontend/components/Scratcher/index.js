@@ -13,7 +13,6 @@ scratch off to initiate an event. It accepts the following props:
     colorOutline(string/color) - The map shape is outlined in this color.
     colorScratch(string/color) - Scratching the image reveals this color.
     handleScratchAll(function) - A callback to invoke once fully scratched.
-    handleLoadingError(function) - A callback invoked if images can't load.
 
 The state of the component can be changed during use by sending it new props.
 For example: a map can easily change from not scratchable to scratchable by
@@ -39,9 +38,11 @@ export default class Scratcher extends React.Component {
     
     //-- Render --------------------------------------
     render(props) {
-        return <div className="scratcher" style={{width: '100%', height: '100%'}}>
-            <canvas ref={this.canvasRef} style={{width: '100%', height: '100%'}}/>
-        </div>
+        return (
+            <div className="scratcher" style={{width: '100%', height: '100%'}}>
+                <canvas ref={this.canvasRef} style={{width: '100%', height: '100%'}}/>
+            </div>
+        );
     }
     
     //-- Component has been rendered to the DOM ------
@@ -49,12 +50,7 @@ export default class Scratcher extends React.Component {
         // Get display canvas from DOM (now that component has rendered)
         const displayCanvas = this.canvasRef.current;
         // Setup drawing contexts and load images
-        try {
-            await this.setup(displayCanvas);
-        } catch(error) {
-            this.props.handleLoadingError(error);
-            return;
-        }
+        await this.setup(displayCanvas);
         // Do initial Drawing
         this.draw(this.drawingState);
     }

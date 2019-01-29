@@ -11,7 +11,9 @@ import { Card } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import FriendsVisits from './FriendsVisits';
 import Note from './Note';
+//import LevelOfVisit from './LevelOfVisit';
 import Header from './Header';
+//import Scratcher from './Scratcher';
 import { QUERY_CLIENT_MODAL } from '../../services/requests/modal';
 import './countryModal.less'
 import ScratchHandler from './ScratchHandler.js';
