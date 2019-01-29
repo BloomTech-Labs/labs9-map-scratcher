@@ -1,5 +1,5 @@
 import FriendsCard from '../components/Friends/friendsCard.js'
-import { QUERY_CLIENT_PROFILE } from '../services/requests/profile.js'
+import { QUERY_CLIENT_PROFILE, QUERY_FRIENDS_PROFILE } from '../services/requests/profile.js'
 import { Query } from 'react-apollo';
 import { withRouter } from 'next/router'
 
@@ -10,9 +10,15 @@ const Friends = withRouter((props) => (
             return <div>Loading...</div>
         }
         return (
-            <div>
-                <FriendsCard id={props.router.query.id} currentUserId={userId} />
-            </div>
+            <Query query={QUERY_FRIENDS_PROFILE} variables={{id: userId}}> 
+            {({ loading, data }) => {
+                return (
+                <div>
+                    <FriendsCard id={props.router.query.id} currentUserId={userId} friendsData={data.friends} />
+                </div>
+                )
+            }}
+            </Query>
         )
     }}
     </Query>

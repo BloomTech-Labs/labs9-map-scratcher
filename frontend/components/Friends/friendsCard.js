@@ -14,33 +14,25 @@ export default class Friends extends React.Component {
     Id = this.props.id
     //the current user that is logged in
     userId = this.props.currentUserId
+    //list of friends of the logged in user
+    data = this.props.friendsData
 
-    numFriends = (
-        <Query query={QUERY_FRIENDS_PROFILE} variables={{id: this.userId}}> 
-        {({ loading, data }) => {
-
-            if(loading) {
-                return <div>loading...</div>
-            }
-
+    
+       friends = () => {
+            
             let friends = false
 
-            for (let i=0; i<data.friends.length; i++) {
-                if(data.friends[i].id === this.Id) {
+            for (let i=0; i<this.data.length; i++) {
+                if(this.data[i].id === this.Id) {
                     friends = true
                 }
             }
-
-            console.log(`current user ${this.userId}`)
-            console.log(`current profile ${this.Id}`)
-            console.log(data.friends)
-            console.log(`find user ${friends}`)
 
             if(friends === true) {
                 return (
                     <a>
                     <Icon name='user'/>
-                    16 friends
+                    12
                     <DeleteFriendButton userId={this.userId} friendId={this.Id} />
                     </a>
                 )
@@ -49,14 +41,12 @@ export default class Friends extends React.Component {
                 return (
                     <a>
                     <Icon name='user'/>
-                    16 friends
+                    12
                     <AddFriendButton userId={this.userId} friendId={this.Id} />
                     </a>
                 )
             }
-        }}
-        </Query>
-    )
+        }
 
 
     render() {
@@ -67,7 +57,7 @@ export default class Friends extends React.Component {
                 header={this.userId}
                 meta='friends?'
                 description='TBD, should we add this?'
-                extra={this.numFriends}
+                extra={this.friends()}
                 />
             </div>
         )
