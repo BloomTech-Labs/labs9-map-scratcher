@@ -43,36 +43,44 @@ export default class extends React.Component {
 */
 
 //-- React Implementation ------------------------
-class VisitSlider extends React.Component {
-  render() {
-    if (this.props.disabled) {
-      return (
-        <DisabledButtons />
-      );
-    }
+function VisitSlider() {
+  // If disabled, render several disabled buttons
+  if(this.props.disabled) {
     return (
-      <React.Fragment>
-        <Apollo.Query query={QUERY_USERVISITS_MODAL} variables={{ id: this.props.displayId }}>
-        {({ loading, data: { user }}) => {
-          let existing;
-          if (user) {
-            existing = user.visits.filter(visit => {
-              return visit.country.id === this.props.countryId;
-            });
-          }
-          if (existing.length > 0) {
-            return (
-              <UpdateButtons countryId={this.props.countryId} visitId={existing[0].id} displayId={this.props.displayId}/>
-            );
-          }
-          return (
-            <CreateButtons countryId={this.props.countryId} displayId={this.props.displayId} />
-          );
-        }}
-        </Apollo.Query>
-      </React.Fragment>
+      <DisabledButtons />
     );
   }
+  return (
+    <React.Fragment>
+      <Apollo.Query query={QUERY_USERVISITS_MODAL} variables={{ id: this.props.displayId }}>
+      {({ loading, data: { user }}) => {
+        // Check if user already has an existing visit, generate "Update Visit" buttons.
+        let existing;
+        if(user) {
+          existing = user.visits.filter(visit => {
+            return visit.country.id === this.props.countryId;
+          });
+        }
+        if(existing.length > 0) {
+          return (
+            <UpdateButtons
+              countryId={this.props.countryId}
+              visitId={existing[0].id}
+              displayId={this.props.displayId}
+            />
+          );
+        }
+        // Otherwise, generate "Create Visit" buttons
+        return (
+          <CreateButtons
+            countryId={this.props.countryId}
+            displayId={this.props.displayId}
+          />
+        );
+      }}
+      </Apollo.Query>
+    </React.Fragment>
+  );
 }
 
 
@@ -152,4 +160,110 @@ class Scratcher extends React.Component {
       </div>
     );
   }
+}
+
+
+//== Buttons ===================================================================
+
+//-- Dependencies --------------------------------
+import {
+  MUTATION_CREATEVISIT_MODAL,
+  MUTATION_UPDATEVISIT_MODAL,
+} from '../../services/requests/modal';
+
+//-- Types of buttons to display -----------------
+/* buttonTypes: An array of objects used to configure buttons. There is one
+  object per visit level. Visit levels should probably be defined as constants
+  in an external file, and referenced by name in all dependent files. */
+const buttonTypes = [
+  {level: 1, color: 'pink', content: 'Wishlist'},
+  {level: 2, color: 'yellow', content: 'Transited'},
+  {level: 3, color: 'green', content: 'Visited'},
+  {level: 4, color: 'blue', content: 'Lived'},
+];
+
+//------------------------------------------------
+function makeButtons(mutation) {
+  return buttonTypes.map(button => {
+    let disabled = false;
+    let handleClick;
+    // Create buttons that create or update visits
+    if(mutation) {
+      handleClick = function (eventClick, data) {
+        mutation(data);
+      };
+      /*
+    // Create buttons that update visits
+    } else if(updateVisit) {
+      */
+    // Create disabled buttons
+    } else {
+      disabled = true;
+      handleClick = function () {};
+    }
+    return (
+      <Button
+        children={button.content}
+        key={button.level}
+        color={button.color}
+        value={button.level}
+        inverted
+        disabled={disabled}
+        onClick={handleClick}
+      />
+    );
+  });
+}
+
+//-- Buttons Disabled ----------------------------
+function DisabledButtons(props) {
+  return (
+    <Segment>
+      {makeButtons()}
+    </Segment>
+  );
+}
+
+//-- Buttons Visit Create ------------------------
+function CreateButtons(props) {
+  let gqlMutation = MUTATION_CREATEVISIT_MODAL;
+  return (
+    <Segment>
+      <Apollo.Mutation mutation={gqlMutation}>
+        {(createVisit) => {
+          const clickCallback = function (data) {
+            createVisit({ variables: {
+              userId: props.displayId,
+              countryId: props.countryId,
+              level: data.value,
+            }});
+          }
+          return makeButtons(clickCallback);
+        }}
+      </Apollo.Mutation>
+    </Segment>
+  );
+}
+
+//-- Buttons Visit Update ------------------------
+function UpdateButtons(props) {
+  let scratched = false;
+  let gqlMutation = MUTATION_UPDATEVISIT_MODAL;
+  return (
+    <Segment>
+      <Apollo.Mutation mutation={gqlMutation}>
+        {(updateVisit) => {
+          const clickCallback = function (data) {
+            if (scratched) {
+              updateVisit({ variables: {id: props.visitId, level: data.value} });
+              scratchingReset();
+            } else {
+              alert("Please scratch off country :)");
+            }
+          }
+          return makeButtons(clickCallback);
+        }}
+      </Apollo.Mutation>
+    </Segment>
+  );
 }
