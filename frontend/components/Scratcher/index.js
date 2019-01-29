@@ -30,7 +30,7 @@ import './scratcher.less';
 //== React Life Cycle Methods ==================================================
 
 //-- Constructor and definition ------------------
-export default class Scratcher extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.canvasRef = React.createRef();
@@ -39,8 +39,8 @@ export default class Scratcher extends React.Component {
     //-- Render --------------------------------------
     render(props) {
         return (
-            <div className="scratcher" style={{width: '100%', height: '100%'}}>
-                <canvas ref={this.canvasRef} style={{width: '100%', height: '100%'}}/>
+            <div className="scratcher">
+                <canvas ref={this.canvasRef} />
             </div>
         );
     }
@@ -65,7 +65,8 @@ export default class Scratcher extends React.Component {
             (this.props.scratchable  !== previousProps.scratchable ) ||
             (this.props.urlMap       !== previousProps.urlMap      ) ||
             (this.props.urlFlag      !== previousProps.urlFlag     ) ||
-            (this.props.colorOutline !== previousProps.colorOutline)
+            (this.props.colorOutline !== previousProps.colorOutline) ||
+            (this.props.colorScratch !== previousProps.colorScratch)
         );
         // Reconfigure country, if necessary (shape, flag, outline)
         if(needsUpdate) {

@@ -19,11 +19,12 @@ const VISITLEVEL_WISHLIST = 1;
 const VISITLEVEL_TRANSITED = 2;
 const VISITLEVEL_VISITED = 3;
 const VISITLEVEL_LIVED = 4;
-const VISITCOLOR_NONE = '#888';
-const VISITCOLOR_WISHLIST = '#440';
-const VISITCOLOR_TRANSITED = '#404';
-const VISITCOLOR_VISITED = '#044';
-const VISITCOLOR_LIVED = '#600';
+const VISIT_COLORS = [];
+VISIT_COLORS[VISITLEVEL_NONE     ] = '#888';
+VISIT_COLORS[VISITLEVEL_WISHLIST ] = '#440';
+VISIT_COLORS[VISITLEVEL_TRANSITED] = '#404';
+VISIT_COLORS[VISITLEVEL_VISITED  ] = '#044';
+VISIT_COLORS[VISITLEVEL_LIVED    ] = '#600';
 
 //== Main Component ============================================================
 
@@ -86,18 +87,18 @@ export default class extends React.Component {
             if(this.state.itchyLevel === undefined) {
               displayLevel = visitLevel;
             }
+            // Determine scratcher background color
+            let colorScratch = VISIT_COLORS[displayLevel];
             // Display Scratchable Country and Visit Slider
             return (
               <React.Fragment>
-                <div style={{ height: '200px' }}>
-                  <Scratcher
-                    scratchable={this.state.itchy}
-                    destination={countryCode} 
-                    colorOutline={'black'} 
-                    colorScratch={'silver'} 
-                    handleScratchAll={this.handleCompletion}
-                  />
-                </div>
+                <Scratcher
+                  scratchable={this.state.itchy}
+                  destination={countryCode} 
+                  colorOutline={'black'} 
+                  colorScratch={colorScratch} 
+                  handleScratchAll={this.handleCompletion}
+                />
                 <VisitSlider
                   visitLevel={displayLevel}
                   disabled={this.props.disabled}
