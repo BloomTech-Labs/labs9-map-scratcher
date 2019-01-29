@@ -11,7 +11,7 @@
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
 const keys = require('../../config/keys');
-const project = require('./costants.js');
+const project = require('./constants.js');
 
 //-- Project Constants ---------------------------
 const STRATEGY_OPTIONS = {

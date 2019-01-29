@@ -10,7 +10,7 @@
 
 //-- Dependencies --------------------------------
 const passport = require('passport');
-const project = require('./costants.js');
+const project = require('./constants.js');
 
 //-- Utilities -----------------------------------
 const auth = passport.authenticate('twitter');
