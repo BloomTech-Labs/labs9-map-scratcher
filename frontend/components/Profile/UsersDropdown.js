@@ -3,13 +3,13 @@
 //== Users Drop Down ===========================================================
 /*
   Please add documentation detailing the purpose and use of this component.
+  https://www.npmjs.com/package/next-routes 
 */
 
 //-- Dependencies --------------------------------
 import React, { Fragment } from 'react'
 import { Dropdown } from 'semantic-ui-react'
-import { Mutation } from 'react-apollo';
-import { MUTATION_ADDFRIEND_PROFILE } from '../../services/requests/profile';
+import { Router } from '../../services/routes.js'
 
 //-- React Implementation ------------------------
 
@@ -31,10 +31,6 @@ const UsersDropdown = ({ userId, users }) => {
   });
 
   return(
-    <Mutation 
-      mutation={MUTATION_ADDFRIEND_PROFILE}
-    >
-    {(addFriend, {data}) => (
       <Dropdown
       text='Search for friends'
       icon='search'
@@ -43,11 +39,9 @@ const UsersDropdown = ({ userId, users }) => {
       options={userList}
       className='profile_userDropDown'
       onChange={(e, data) => {
-        addFriend({ variables: { userId: userId, friendId: data.value }});
+        Router.pushRoute('friends', {id: data.value} )
       }}
       />
-    )}
-    </Mutation>
   );
 }
 export default UsersDropdown;
