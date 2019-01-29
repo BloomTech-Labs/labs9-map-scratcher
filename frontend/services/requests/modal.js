@@ -35,6 +35,13 @@ export const QUERY_COUNTRYID_MODAL = gql`
     }
   }
 `
+export const QUERY_VISIT_MODAL = gql`
+  query Visit($id: ID!) {
+    visit(id: $id) {
+      level
+    }
+  }
+`
 export const QUERY_USERVISITS_MODAL = gql`
     query User($id: ID!) {
     user(id: $id) {

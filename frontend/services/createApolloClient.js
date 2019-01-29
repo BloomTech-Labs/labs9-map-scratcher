@@ -20,7 +20,9 @@ const defaults = {
   scratchingComplete: false
 }
 
-const cache = new InMemoryCache()
+const cache = new InMemoryCache({
+  dataIdFromObject: o => o.id
+})
 
 export default withApollo(
   () =>
