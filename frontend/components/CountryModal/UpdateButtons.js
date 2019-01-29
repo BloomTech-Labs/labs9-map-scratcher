@@ -12,9 +12,13 @@ import React, { Component, Fragment } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import { Query, Mutation } from 'react-apollo';
 import {
+  QUERY_USERVISITS_MODAL,
   QUERY_SCRATCHING_MODAL,
   MUTATION_SCRATCHING_MODAL,
   MUTATION_UPDATEVISIT_MODAL } from '../../services/requests/modal';
+  import {
+      QUERY_CLIENT_TRAVELS,
+  } from '../../services/requests/travels'; 
 
 //-- Types of buttons to display -----------------
 /* buttonTypes: An array of objects used to configure buttons. There is one
@@ -30,11 +34,14 @@ const buttons = [
 //-- React Implementation ------------------------
 export default class UpdateButtons extends Component {
   render(){
-    console.log('in update buttons', this.props); 
+    console.log('in update buttons', this.props);
     let scratched = false;
     return (
       <Fragment>
-        <Mutation mutation={MUTATION_UPDATEVISIT_MODAL}>
+        <Mutation mutation={MUTATION_UPDATEVISIT_MODAL} refetchQueries={[
+            {query: QUERY_CLIENT_TRAVELS},
+            {query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId}}
+          ]}>
         {(updateVisit, {data}) => (
           <Segment>
             <Query query={QUERY_SCRATCHING_MODAL}>

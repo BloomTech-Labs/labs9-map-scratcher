@@ -22,6 +22,10 @@ export default class FriendDropdown extends Component {
       <Query query={QUERY_CLIENT_HEADER}>
         {({ loading: loadingUserId, data: { userId }}) => {
           //query returns a fragment containing a second query for the user's friend, using the id that was retrieved in the previous query
+          console.log('who is', userId)
+          if (loadingUserId) {
+            return null;
+          }
           return (
             <React.Fragment>
               <Query query={QUERY_FRIENDS_HEADER} variables={{ id: userId }}>
@@ -39,6 +43,9 @@ export default class FriendDropdown extends Component {
                   //adds the user to the top of the dropdown options array.
                   friendsList.unshift({ text: 'My Travels', value: userId });
                   //query returns a mutation that checks if the id passed is the same as the user id, and if not sets the apollo cache values for the friend being viewed and the related boolean.
+                  if (loadingFriends){
+                    return null;
+                  }
                   return (
                     <Mutation mutation={MUTATION_VIEWFRIEND_HEADER}
                     >
