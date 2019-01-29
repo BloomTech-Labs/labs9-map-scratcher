@@ -1,7 +1,7 @@
 import FriendsCard from '../components/Friends/friendsCard.js'
 import { QUERY_CLIENT_PROFILE } from '../services/requests/profile.js'
-import {withRouter} from 'next/router'
 import { Query } from 'react-apollo';
+import { withRouter } from 'next/router'
 
 const Friends = withRouter((props) => (
     <Query query={QUERY_CLIENT_PROFILE}>

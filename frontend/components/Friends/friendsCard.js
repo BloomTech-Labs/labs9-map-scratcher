@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Icon } from 'semantic-ui-react'
+import AddFriendButton from './addFriend.js'
 
 export default class Friends extends React.Component {
     constructor(props) {
@@ -15,6 +16,7 @@ export default class Friends extends React.Component {
         <a>
             <Icon name='user'/>
             16 friends
+            <AddFriendButton userId={this.userId} friendId={this.Id} />
         </a>
     )
 
