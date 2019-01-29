@@ -38,6 +38,17 @@ export default class extends React.Component {
       itchyLevel: undefined,
     };
   }
+  componentDidUpdate(previousProps) {
+    if(
+      this.props.countryId !== previousProps.countryId ||
+      this.props.displayId !== previousProps.displayId
+    ) {
+      this.setState({
+        itchy: false,
+        itchyLevel: undefined,
+      });
+    }
+  }
 
   //-- Interaction ---------------------------------
   handleCompletion = (mutationInvocation, createNewVisit) => {
@@ -52,7 +63,7 @@ export default class extends React.Component {
         variables: {
           userId: this.props.displayId,
           countryId: this.props.countryId,
-          level: data.value,
+          level: this.state.itchyLevel,
         }
       };
     // Handle update visit mutations (user already has data for country)
@@ -117,7 +128,7 @@ export default class extends React.Component {
               displayLevel = visitLevel;
             }
             // Determine scratcher background color
-            let colorScratch = VISIT_COLORS[displayLevel];
+            let colorOutline = VISIT_COLORS[displayLevel];
             // Determine Mutation type
             let createNewVisit = true;
             let gqlMutation = MUTATION_CREATEVISIT_MODAL;
@@ -132,8 +143,8 @@ export default class extends React.Component {
                   <Scratcher
                     scratchable={this.state.itchy}
                     destination={countryCode} 
-                    colorOutline={'black'} 
-                    colorScratch={colorScratch}
+                    colorOutline={colorOutline} 
+                    colorScratch={'silver'}
                     handleScratchAll={() => {
                       this.handleCompletion(mutationInvocation, createNewVisit);
                     }}
