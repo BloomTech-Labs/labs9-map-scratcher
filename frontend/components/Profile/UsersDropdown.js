@@ -10,8 +10,6 @@
 import React, { Fragment } from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import { Router } from '../../services/routes.js'
-// import { Mutation } from 'react-apollo';
-// import { MUTATION_ADDFRIEND_PROFILE } from '../../services/requests/profile';
 
 //-- React Implementation ------------------------
 
@@ -32,12 +30,7 @@ const UsersDropdown = ({ userId, users }) => {
     };
   });
 
-  // console.log(userList)
   return(
-    // <Mutation 
-    //   mutation={MUTATION_ADDFRIEND_PROFILE}
-    // >
-    // {(addFriend, {data}) => (
       <Dropdown
       text='Search for friends'
       icon='search'
@@ -45,18 +38,10 @@ const UsersDropdown = ({ userId, users }) => {
       selection
       options={userList}
       className='profile_userDropDown'
-      // onClick={(e, data) => <Link href={`/friends`} />}
       onChange={(e, data) => {
         Router.pushRoute('friends', {id: data.value} )
       }}
-      // onChange={(e, data) => {
-      //   addFriend({ variables: { userId: userId, friendId: data.value }});
-      // }}
-      // onChange={(e, data) => console.log(data.value)}
-      // onChange={(e, data) => <Link href={`/friends`} />}
       />
-    // )}
-    // </Mutation>
   );
 }
 export default UsersDropdown;
