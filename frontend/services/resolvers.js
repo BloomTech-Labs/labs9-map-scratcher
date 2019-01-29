@@ -79,6 +79,12 @@ export const resolvers = {
       }
       cache.writeData({ data });
       return data;
+    },
+    setFriendId: (_obj, { id }, {cache}) => {
+      const data = { 
+        friendId: id 
+      }
+      cache.writeData({ data });
     }
   }
 }
