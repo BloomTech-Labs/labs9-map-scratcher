@@ -17,3 +17,33 @@
 - front-end: https://backpaca.now.sh/
 - back-end: https://backpaca-yoga.herokuapp.com/
 - database: https://backpaca-ed6c7c4fde.herokuapp.com/backpaca/prod
+
+- Tech-Stack
+  - Front-End production dependancies
+    - React
+    - react-apollo
+    - @zeit/next-less
+    - less
+    - apollo-boost
+    - axios
+    - graphql
+    - leaflet
+    - react-leaflet
+    - next
+    - next-routes
+    - next-with-apollo
+    - semantic-ui-react
+    - which-polygon
+  - Back-End production dependancies
+    - cookie-session
+    - cors
+    - dotenv
+    - graphql-yoga
+    - prisma-client-lib
+    - passport
+    - passport-twitter
+  - Back-End development depenancies
+     - nodemon
+    
+    
+    
