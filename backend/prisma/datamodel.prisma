@@ -4,6 +4,8 @@ type User {
   nickname: String
   email: String
   twitterHandle: String @unique
+  bio: String
+  pictureUrl: String 
   scratchingAutomated: Boolean @default(value: "false")
   isPrivate: Boolean @default(value: "false")
   visits: [Visit] @relation(name: "UserCountries")
@@ -13,7 +15,7 @@ type User {
 
 type Country {
   id: ID! @unique
-  name: String!
+  name: String! @unique
   code: String!
   visits: [Visit] @relation(name: "CountryVisits")
 }
