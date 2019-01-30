@@ -44,15 +44,23 @@ export default class UserCard extends Component {
   }
   
   //handle image upload
-  onDrop(file) {
+  onDrop = (file) => {
       this.setState({ file })
   }
 
   //handle cancel image upload
-  onCancel() {
+  onCancel = () => {
       this.setState({
           file: []
       })
+  }
+
+  uploadWidget = () => {
+    cloudinary.openUploadWidget({
+      cloud_name: 'dr9p6aaos',
+      upload_preset: 'vchytrzk'}, 
+      (error, result) => console.log(error, result[0].secure_url) 
+      )
   }
 
   //-- Rendering -----------------------------------
@@ -60,18 +68,12 @@ export default class UserCard extends Component {
     const { joinDate, name, email, nickname, scratchingAutomated, isPrivate } = this.state;
     return (
       <Card className='profile_userCardMain'>
-       <DropZone onDrop={this.onDrop.bind(this)} onFileDialogCancel={this.onCancel.bind(this)}>
-            {({getRootProps, getInputProps}) => (
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                <Image src='/static/alpaca.png' className='profile_userCardProfilePic' />
-              </div>
-            )}
-        </DropZone>
+        <Image src='/static/alpaca.png' className='profile_userCardProfilePic' />
         <Card.Content>
           <Card.Header>{name}</Card.Header>
             <Card.Meta>
               <span className='date'>Joined in {joinDate}</span>
+              <button onClick={this.uploadWidget}>Upload files</button>
             </Card.Meta>
             <Mutation
               mutation={MUTATION_UPDATEUSER_PROFILE}
