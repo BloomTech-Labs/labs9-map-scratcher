@@ -31,7 +31,7 @@ module.exports = function (expressServer) {
 
 //-- Callback ------------------------------------
 function handleCallback(request, response) {
-  response.redirect(URL_AUTH_SUCCESS);
+  response.redirect(project.URL_AUTH_SUCCESS);
 }
 
 //-- Logout --------------------------------------
