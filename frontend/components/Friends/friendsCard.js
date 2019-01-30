@@ -1,77 +1,78 @@
-import React from 'react'
-import { QUERY_USER_PROFILE } from '../../services/requests/profile.js'
+import React, { Component } from 'react'
 import { Query } from 'react-apollo';
 import { Card, Icon } from 'semantic-ui-react'
 import AddFriendButton from './addFriend.js'
 import DeleteFriendButton from './deleteFriend.js'
+import { 
+  QUERY_USER_PROFILE,
+  QUERY_FRIEND_PROFILE } from '../../services/requests/profile'
 
-export default class Friends extends React.Component {
-    constructor(props) {
-        super(props)
+
+export default class Friends extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  //the current user that is logged in
+  userId = this.props.currentUserId
+  //list of friends of the logged in user
+  data = this.props.friendsData
+
+  
+  friends = (id) => {   
+    let friends = false
+    for (let i=0; i<this.data.length; i++) {
+      if(this.data[i].id === id) {
+        friends = true
+      }
     }
 
-    //the ID of the user's page they are on
-    Id = this.props.id
-    //the current user that is logged in
-    userId = this.props.currentUserId
-    //list of friends of the logged in user
-    data = this.props.friendsData
+    if(friends === true) {
+      return (
+        <a>
+          <Icon name='user'/>
+          12
+          <DeleteFriendButton userId={this.userId} friendId={id} />
+        </a>
+      )
+    }
+    if(friends === false) {
+      return (
+        <a>
+          <Icon name='user'/>
+          12
+          <AddFriendButton userId={this.userId} friendId={id} />
+        </a>
+      )
+    }
+  }
 
-    
-       friends = () => {
-            
-            let friends = false
-
-            for (let i=0; i<this.data.length; i++) {
-                if(this.data[i].id === this.Id) {
-                    friends = true
+  render() {
+    return (
+      <Query query={QUERY_FRIEND_PROFILE}>
+        {({ loading: loadingFriendId, data: {friendId} }) => {
+          return (
+            <Query query={QUERY_USER_PROFILE} variables={ {id: friendId} }>
+              {({ loading: loadingUser, data: {user} }) => {
+                  if (loadingFriendId || loadingUser) {
+                  return <div>loading...</div>
                 }
-            }
-
-            if(friends === true) {
                 return (
-                    <a>
-                    <Icon name='user'/>
-                    12
-                    <DeleteFriendButton userId={this.userId} friendId={this.Id} />
-                    </a>
+                  <div>
+                    <Card 
+                    image='/static/alpaca.png'
+                    header={user.name}
+                    meta='number of visits'
+                    description='description'
+                    extra={this.friends(friendId)}
+                    />
+                  </div>
                 )
-            }
-            if(friends === false) {
-                return (
-                    <a>
-                    <Icon name='user'/>
-                    12
-                    <AddFriendButton userId={this.userId} friendId={this.Id} />
-                    </a>
-                )
-            }
-        }
-
-
-    render() {
-        return (
-        <Query query={QUERY_USER_PROFILE} variables={ {id: this.Id} }>
-                {({ loading, data }) => {
-                    console.log(data)
-                    console.log(`this is current user id ${this.Id}`)
-                     if(loading) {
-                        return <div>loading...</div>
-                    }
-                    return (
-                    <div>
-                        <Card 
-                        image='/static/alpaca.png'
-                        header='name'
-                        meta='friends?'
-                        description='TBD, should we add this?'
-                        extra={this.friends()}
-                        />
-                    </div>
-                 )
-             }}
-        </Query>
-        )
-    }
-
+              }}
+            </Query>
+          )
+        }}
+      </Query>
+    )
+  }
 }

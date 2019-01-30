@@ -6,6 +6,17 @@ export const QUERY_CLIENT_PROFILE = gql`
     userId @client
   }
 `
+export const QUERY_FRIEND_PROFILE = gql`
+  {
+    friendId @client
+  }
+`
+// client mutations
+export const MUTATION_FRIEND_PROFILE = gql`
+  mutation SetFriendId($id: ID!) {
+    setFriendId(id: $id) @client
+  }
+`
 
 // yoga queries
 export const QUERY_USER_PROFILE = gql`
