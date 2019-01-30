@@ -9,9 +9,7 @@
 import React, { Component, Fragment } from 'react'
 import { Mutation } from 'react-apollo';
 import { Button, Form, Input } from 'semantic-ui-react';
-import { 
- 
-  MUTATION_UPDATEVISIT_MODAL } from '../../services/requests/modal';
+import { MUTATION_UPDATEVISIT_MODAL } from '../../services/requests/modal';
 
 //-- React Implementation ------------------------
 export default class UpdateNote extends Component {
