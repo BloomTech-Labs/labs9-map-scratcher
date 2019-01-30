@@ -94,6 +94,7 @@ export default class extends Component {
         <Query query={QUERY_MODAL_TRAVELS}>
         {({ loading, data }) => {
           if (!data.modalOpen) {
+            console.log('modal query', data)
             return (
               null
             )

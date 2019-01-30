@@ -34,6 +34,9 @@ import {
   QUERY_COUNTRY_TRAVELS,
   MUTATION_OPENMODAL_TRAVELS,
 } from '../../services/requests/travels';
+import {
+  QUERY_COUNTRIES_HEADER
+} from '../../services/requests/header';
 
 //-- Project Constants ---------------------------
 // setting a center of the map. Configurable.
@@ -123,11 +126,18 @@ export default class WorldMap extends React.Component {
           />
 
         {geojson.features.map(feature => this.state.hovering === feature.properties.ADMIN && (
-          <Query key={feature.properties.ADMIN} query={QUERY_COUNTRY_TRAVELS} variables={{name: feature.properties.ADMIN}}>
-          {({ loading, data: { countryByName }}) => {
+          <Query key={feature.properties.ADMIN} query={QUERY_COUNTRIES_HEADER}>
+          {({ loading, data: { countries }}) => {
             if (loading) {
               return null;
             }
+            let country = {};
+            if (countries) {
+              country = countries.filter(country => {
+                return country.name === feature.properties.ADMIN;
+              })
+            }
+            console.log(country[0]);
             return (
               <Mutation mutation={MUTATION_OPENMODAL_TRAVELS} >
               {(openModal, { data }) => (
@@ -135,7 +145,7 @@ export default class WorldMap extends React.Component {
                   style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 400}}>
                     <GeoJSON
                       onClick={(e) => {
-                        openModal({ variables: {id: countryByName.id}})
+                        openModal({ variables: {id: country[0].id}})
                       }}
                       data={feature}
                       style={hoverStyle}
