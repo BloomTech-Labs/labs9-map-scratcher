@@ -6,7 +6,6 @@
     countries are drawn from GeoJSON data. It accept the following props:
         asdf(string) - sdfal;kjasdfjlk
         JKL:(boolean) - asdflsadfj;
-
     TODO:
         Look at reducing GeoJSON renders either by reducing the number of
         renders, or be using something like geojson-vt. There are currently four
@@ -34,6 +33,9 @@ import {
   QUERY_COUNTRY_TRAVELS,
   MUTATION_OPENMODAL_TRAVELS,
 } from '../../services/requests/travels';
+import {
+  QUERY_COUNTRIES_HEADER
+} from '../../services/requests/header';
 
 //-- Project Constants ---------------------------
 // setting a center of the map. Configurable.
@@ -121,13 +123,19 @@ export default class WorldMap extends React.Component {
           data={geojson.features}
           style={defaultStyle}
           />
-
         {geojson.features.map(feature => this.state.hovering === feature.properties.ADMIN && (
-          <Query key={feature.properties.ADMIN} query={QUERY_COUNTRY_TRAVELS} variables={{name: feature.properties.ADMIN}}>
-          {({ loading, data: { countryByName }}) => {
+          <Query key={feature.properties.ADMIN} query={QUERY_COUNTRIES_HEADER}>
+          {({ loading, data: { countries }}) => {
             if (loading) {
               return null;
             }
+            let country = {};
+            if (countries) {
+              country = countries.filter(country => {
+                return country.name === feature.properties.ADMIN;
+              })
+            }
+            console.log(country[0]);
             return (
               <Mutation mutation={MUTATION_OPENMODAL_TRAVELS} >
               {(openModal, { data }) => (
@@ -135,7 +143,7 @@ export default class WorldMap extends React.Component {
                   style={{position: 'absolute', left: this.state.mouse.x, top: this.state.mouse.y, zIndex: 400}}>
                     <GeoJSON
                       onClick={(e) => {
-                        openModal({ variables: {id: countryByName.id}})
+                        openModal({ variables: {id: country[0].id}})
                       }}
                       data={feature}
                       style={hoverStyle}
@@ -148,7 +156,6 @@ export default class WorldMap extends React.Component {
           }}
             </Query>
         ))}
-
         {this.props.colors && this.props.colors.map(visit => {
           //maps through the colors passed as props to the map to render the countries in the correct color.
           const level = visit[3];
@@ -176,7 +183,6 @@ export default class WorldMap extends React.Component {
             return (<GeoJSON key={visit[0]} data={feature} style={style}/>)
           })
         }
-
       </Map>
     )
   }
