@@ -30,8 +30,6 @@ export default class Friends extends Component {
     if(friends === true) {
       return (
         <a>
-          <Icon name='user'/>
-          12
           <DeleteFriendButton userId={this.userId} friendId={id} />
         </a>
       )
@@ -39,8 +37,6 @@ export default class Friends extends Component {
     if(friends === false) {
       return (
         <a>
-          <Icon name='user'/>
-          12
           <AddFriendButton userId={this.userId} friendId={id} />
         </a>
       )
@@ -54,6 +50,8 @@ export default class Friends extends Component {
           return (
             <Query query={QUERY_USER_PROFILE} variables={ {id: friendId} }>
               {({ loading: loadingUser, data: {user} }) => {
+                  console.log(user)
+                  console.log(friendId)
                   if (loadingFriendId || loadingUser) {
                   return <div>loading...</div>
                 }
