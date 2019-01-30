@@ -6,7 +6,6 @@ const User = {
   twitterHandle: parent => parent.twitterHandle,
   scratchingAutomated: parent => parent.scratchingAutomated,
   isPrivate: parent => parent.isPrivate,
-  bio: parent => parent.bio,
   visits: (parent, args, context) => {
     return context.prisma.user({ id: parent.id }).visits()
   },

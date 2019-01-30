@@ -1,2 +1,2 @@
-export const devURL = 'https://localhost:4000/';
+export const devURL = 'https://backpaca-yoga.herokuapp.com/';
 export const prodURL = 'https://backpaca-yoga.herokuapp.com/';

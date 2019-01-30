@@ -234,8 +234,6 @@ type User {
   nickname: String
   email: String
   twitterHandle: String
-  bio: String
-  pictureUrl: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
   visits(where: VisitWhereInput, orderBy: VisitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Visit!]
@@ -254,8 +252,6 @@ input UserCreateInput {
   nickname: String
   email: String
   twitterHandle: String
-  bio: String
-  pictureUrl: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
   visits: VisitCreateManyWithoutUserInput
@@ -278,8 +274,6 @@ input UserCreateWithoutVisitsInput {
   nickname: String
   email: String
   twitterHandle: String
-  bio: String
-  pictureUrl: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
   friends: UserCreateManyInput
@@ -302,10 +296,6 @@ enum UserOrderByInput {
   email_DESC
   twitterHandle_ASC
   twitterHandle_DESC
-  bio_ASC
-  bio_DESC
-  pictureUrl_ASC
-  pictureUrl_DESC
   scratchingAutomated_ASC
   scratchingAutomated_DESC
   isPrivate_ASC
@@ -324,8 +314,6 @@ type UserPreviousValues {
   nickname: String
   email: String
   twitterHandle: String
-  bio: String
-  pictureUrl: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
   isPremium: Boolean
@@ -402,34 +390,6 @@ input UserScalarWhereInput {
   twitterHandle_not_starts_with: String
   twitterHandle_ends_with: String
   twitterHandle_not_ends_with: String
-  bio: String
-  bio_not: String
-  bio_in: [String!]
-  bio_not_in: [String!]
-  bio_lt: String
-  bio_lte: String
-  bio_gt: String
-  bio_gte: String
-  bio_contains: String
-  bio_not_contains: String
-  bio_starts_with: String
-  bio_not_starts_with: String
-  bio_ends_with: String
-  bio_not_ends_with: String
-  pictureUrl: String
-  pictureUrl_not: String
-  pictureUrl_in: [String!]
-  pictureUrl_not_in: [String!]
-  pictureUrl_lt: String
-  pictureUrl_lte: String
-  pictureUrl_gt: String
-  pictureUrl_gte: String
-  pictureUrl_contains: String
-  pictureUrl_not_contains: String
-  pictureUrl_starts_with: String
-  pictureUrl_not_starts_with: String
-  pictureUrl_ends_with: String
-  pictureUrl_not_ends_with: String
   scratchingAutomated: Boolean
   scratchingAutomated_not: Boolean
   isPrivate: Boolean
@@ -464,8 +424,6 @@ input UserUpdateDataInput {
   nickname: String
   email: String
   twitterHandle: String
-  bio: String
-  pictureUrl: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
   visits: VisitUpdateManyWithoutUserInput
@@ -478,8 +436,6 @@ input UserUpdateInput {
   nickname: String
   email: String
   twitterHandle: String
-  bio: String
-  pictureUrl: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
   visits: VisitUpdateManyWithoutUserInput
@@ -492,8 +448,6 @@ input UserUpdateManyDataInput {
   nickname: String
   email: String
   twitterHandle: String
-  bio: String
-  pictureUrl: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
   isPremium: Boolean
@@ -515,8 +469,6 @@ input UserUpdateManyMutationInput {
   nickname: String
   email: String
   twitterHandle: String
-  bio: String
-  pictureUrl: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
   isPremium: Boolean
@@ -539,8 +491,6 @@ input UserUpdateWithoutVisitsDataInput {
   nickname: String
   email: String
   twitterHandle: String
-  bio: String
-  pictureUrl: String
   scratchingAutomated: Boolean
   isPrivate: Boolean
   friends: UserUpdateManyInput
@@ -634,34 +584,6 @@ input UserWhereInput {
   twitterHandle_not_starts_with: String
   twitterHandle_ends_with: String
   twitterHandle_not_ends_with: String
-  bio: String
-  bio_not: String
-  bio_in: [String!]
-  bio_not_in: [String!]
-  bio_lt: String
-  bio_lte: String
-  bio_gt: String
-  bio_gte: String
-  bio_contains: String
-  bio_not_contains: String
-  bio_starts_with: String
-  bio_not_starts_with: String
-  bio_ends_with: String
-  bio_not_ends_with: String
-  pictureUrl: String
-  pictureUrl_not: String
-  pictureUrl_in: [String!]
-  pictureUrl_not_in: [String!]
-  pictureUrl_lt: String
-  pictureUrl_lte: String
-  pictureUrl_gt: String
-  pictureUrl_gte: String
-  pictureUrl_contains: String
-  pictureUrl_not_contains: String
-  pictureUrl_starts_with: String
-  pictureUrl_not_starts_with: String
-  pictureUrl_ends_with: String
-  pictureUrl_not_ends_with: String
   scratchingAutomated: Boolean
   scratchingAutomated_not: Boolean
   isPrivate: Boolean
