@@ -3,10 +3,23 @@
 //== Backend Server ============================================================
 
 /*-- Documentation -------------------------------
+  
+  Server, and note on documentation incompleteness:
   This script is used to start the Backpaca backend server. This server provides
   data access to our database through graphQL and a Prisma service. I invite
-  anyone who understands this process better than I do to edit this
+  anyone who understands this process better than I do to add to this
   documentation.
+
+  Twitter Authentication:
+  The various portions of the Twitter authentication result in a "user" object
+  being available as a property on requests. I'm unsure if there are any
+  requests that for which this object is not available. If you understand this
+  process at all, please help to document it. The user object has the following
+  properties: [
+    name, scratchingAutomated, email, twitterHandle,
+    id, isPrivate, isPremium, nickname,
+  ]
+
 */
 
 /*
