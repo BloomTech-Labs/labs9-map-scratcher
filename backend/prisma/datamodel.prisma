@@ -9,6 +9,8 @@ type User {
   visits: [Visit] @relation(name: "UserCountries")
   friends: [User]
   isPremium: Boolean
+  bio: String
+  pictureUrl: String
 }
 
 type Country {
