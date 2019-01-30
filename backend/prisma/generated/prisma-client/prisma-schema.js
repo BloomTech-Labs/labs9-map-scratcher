@@ -167,6 +167,7 @@ input CountryWhereInput {
 
 input CountryWhereUniqueInput {
   id: ID
+  name: String
 }
 
 scalar Long

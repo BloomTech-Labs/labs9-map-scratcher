@@ -244,6 +244,7 @@ export interface VisitUpdateWithWhereUniqueWithoutCountryInput {
 
 export type CountryWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  name?: String;
 }>;
 
 export interface UserCreateManyInput {
@@ -1035,41 +1036,46 @@ export interface VisitConnectionSubscription
   aggregate: <T = AggregateVisitSubscription>() => T;
 }
 
-export interface UserPreviousValues {
+export interface Country {
   id: ID_Output;
-  name?: String;
-  nickname?: String;
-  email?: String;
-  twitterHandle?: String;
-  scratchingAutomated?: Boolean;
-  isPrivate?: Boolean;
-  isPremium?: Boolean;
+  name: String;
+  code: String;
 }
 
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
-    Fragmentable {
+export interface CountryPromise extends Promise<Country>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  nickname: () => Promise<String>;
-  email: () => Promise<String>;
-  twitterHandle: () => Promise<String>;
-  scratchingAutomated: () => Promise<Boolean>;
-  isPrivate: () => Promise<Boolean>;
-  isPremium: () => Promise<Boolean>;
+  code: () => Promise<String>;
+  visits: <T = FragmentableArray<Visit>>(
+    args?: {
+      where?: VisitWhereInput;
+      orderBy?: VisitOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
+export interface CountrySubscription
+  extends Promise<AsyncIterator<Country>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
-  nickname: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-  twitterHandle: () => Promise<AsyncIterator<String>>;
-  scratchingAutomated: () => Promise<AsyncIterator<Boolean>>;
-  isPrivate: () => Promise<AsyncIterator<Boolean>>;
-  isPremium: () => Promise<AsyncIterator<Boolean>>;
+  code: () => Promise<AsyncIterator<String>>;
+  visits: <T = Promise<AsyncIterator<VisitSubscription>>>(
+    args?: {
+      where?: VisitWhereInput;
+      orderBy?: VisitOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface UserEdge {
@@ -1271,46 +1277,41 @@ export interface CountrySubscriptionPayloadSubscription
   previousValues: <T = CountryPreviousValuesSubscription>() => T;
 }
 
-export interface Country {
+export interface UserPreviousValues {
   id: ID_Output;
-  name: String;
-  code: String;
+  name?: String;
+  nickname?: String;
+  email?: String;
+  twitterHandle?: String;
+  scratchingAutomated?: Boolean;
+  isPrivate?: Boolean;
+  isPremium?: Boolean;
 }
 
-export interface CountryPromise extends Promise<Country>, Fragmentable {
+export interface UserPreviousValuesPromise
+  extends Promise<UserPreviousValues>,
+    Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  code: () => Promise<String>;
-  visits: <T = FragmentableArray<Visit>>(
-    args?: {
-      where?: VisitWhereInput;
-      orderBy?: VisitOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  nickname: () => Promise<String>;
+  email: () => Promise<String>;
+  twitterHandle: () => Promise<String>;
+  scratchingAutomated: () => Promise<Boolean>;
+  isPrivate: () => Promise<Boolean>;
+  isPremium: () => Promise<Boolean>;
 }
 
-export interface CountrySubscription
-  extends Promise<AsyncIterator<Country>>,
+export interface UserPreviousValuesSubscription
+  extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
-  code: () => Promise<AsyncIterator<String>>;
-  visits: <T = Promise<AsyncIterator<VisitSubscription>>>(
-    args?: {
-      where?: VisitWhereInput;
-      orderBy?: VisitOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  nickname: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  twitterHandle: () => Promise<AsyncIterator<String>>;
+  scratchingAutomated: () => Promise<AsyncIterator<Boolean>>;
+  isPrivate: () => Promise<AsyncIterator<Boolean>>;
+  isPremium: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface VisitEdge {
