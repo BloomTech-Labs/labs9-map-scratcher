@@ -14,11 +14,12 @@ import { Query, Mutation } from 'react-apollo';
 import {
   QUERY_USERVISITS_MODAL,
   QUERY_SCRATCHING_MODAL,
+  QUERY_VISIT_MODAL,
   MUTATION_SCRATCHING_MODAL,
   MUTATION_UPDATEVISIT_MODAL } from '../../services/requests/modal';
   import {
       QUERY_CLIENT_TRAVELS,
-  } from '../../services/requests/travels'; 
+  } from '../../services/requests/travels';
 
 //-- Types of buttons to display -----------------
 /* buttonTypes: An array of objects used to configure buttons. There is one
@@ -34,14 +35,31 @@ const buttons = [
 //-- React Implementation ------------------------
 export default class UpdateButtons extends Component {
   render(){
-    console.log('in update buttons', this.props);
     let scratched = false;
+    const { displayId, visitId } = this.props
     return (
       <Fragment>
-        <Mutation mutation={MUTATION_UPDATEVISIT_MODAL} refetchQueries={[
-            {query: QUERY_CLIENT_TRAVELS},
-            {query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId}}
-          ]}>
+        <Mutation
+          mutation={MUTATION_UPDATEVISIT_MODAL}
+          update={(cache, {data: {updateVisit}}) => {
+            const res = cache.readQuery({ query: QUERY_VISIT_MODAL, variables: {id: visitId} });
+            console.log(res)
+            cache.writeQuery({
+              query: QUERY_VISIT_MODAL,
+              variables: {id: visitId},
+              data: {user: {visits: visits.map(v => v.id === visitId ? {...v, lvl} : v)}, __typename: 'Visit', __typename: 'User'} ,
+            });
+            const visits = user.visits
+            const lvl = updateVisit.level
+            cache.writeQuery({
+              query: QUERY_VISIT_MODAL,
+              variables: {id: visitId},
+              data: {user: {visits: visits.map(v => v.id === visitId ? {...v, lvl} : v)}, __typename: 'Visit', __typename: 'User'} ,
+            });
+          console.log('visits', user.visits)
+          console.log('new note', updateVisit.note)
+          }}
+        >
         {(updateVisit, {data}) => (
           <Segment>
             <Query query={QUERY_SCRATCHING_MODAL}>
@@ -65,7 +83,7 @@ export default class UpdateButtons extends Component {
                           value={button.level}
                           onClick={(e, data) => {
                             if (scratched) {
-                              updateVisit({ variables: {id: this.props.visitId, level: data.value} });
+                              updateVisit({ variables: {id: visitId, level: data.value} });
                               scratchingReset();
                             } else {
                               alert("Please scratch off country :)");

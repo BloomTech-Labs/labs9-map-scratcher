@@ -146,6 +146,9 @@ export default class extends React.Component {
         this.imageOutline = utilities.generateOutline(
             this.drawingState, colorOutline,
         );
+        // Remove previous path data
+        this.drawingState.lastMoveX = undefined;
+        this.drawingState.lastMoveY = undefined;
     }
 
     //-- Draw Canvas ---------------------------------
