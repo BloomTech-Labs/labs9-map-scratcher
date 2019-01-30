@@ -83,20 +83,18 @@ export const resolvers = {
       cache.writeData({ data });
       return data;
     },
-<<<<<<< HEAD
     userLogin: (_obj, args, {cache}) => {
       const data = {
         userId: args.id
       }
       cache.writeData({ data });
-      return data;  
-=======
+      return data;
+    },
     setFriendId: (_obj, { id }, {cache}) => {
-      const data = { 
-        friendId: id 
+      const data = {
+        friendId: id
       }
       cache.writeData({ data });
->>>>>>> c597974598a3ace9308807ace32d321375347077
     }
   }
 }
