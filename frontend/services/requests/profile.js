@@ -28,6 +28,7 @@ export const QUERY_USER_PROFILE = gql`
       email
       scratchingAutomated
       isPrivate
+      bio
     }
   }
 `

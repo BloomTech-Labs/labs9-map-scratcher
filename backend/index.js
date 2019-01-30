@@ -34,6 +34,7 @@
 
 //Do this in the backend folder
 //export PRISMA_MANAGEMENT_API_SECRET={obtain from heroku} => prisma deploy => prisma generate
+*/
 //==============================================================================
 
 //-- Dependencies --------------------------------
