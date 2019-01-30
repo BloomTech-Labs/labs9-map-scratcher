@@ -6,7 +6,8 @@ export const QUERY_CLIENT_MODAL = gql`
     userId @client,
     viewingFriend @client,
     friendId @client,
-    viewBorders @client
+    viewBorders @client,
+    countryId @client
   }
 `
 export const QUERY_SCRATCHING_MODAL = gql`

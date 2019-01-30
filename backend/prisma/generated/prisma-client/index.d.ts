@@ -212,12 +212,20 @@ export type UserOrderByInput =
   | "email_DESC"
   | "twitterHandle_ASC"
   | "twitterHandle_DESC"
+  | "bio_ASC"
+  | "bio_DESC"
+  | "pictureUrl_ASC"
+  | "pictureUrl_DESC"
   | "scratchingAutomated_ASC"
   | "scratchingAutomated_DESC"
   | "isPrivate_ASC"
   | "isPrivate_DESC"
   | "isPremium_ASC"
   | "isPremium_DESC"
+  | "bio_ASC"
+  | "bio_DESC"
+  | "pictureUrl_ASC"
+  | "pictureUrl_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -262,11 +270,15 @@ export interface UserCreateInput {
   nickname?: String;
   email?: String;
   twitterHandle?: String;
+  bio?: String;
+  pictureUrl?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   visits?: VisitCreateManyWithoutUserInput;
   friends?: UserCreateManyInput;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface UserUpdateWithoutVisitsDataInput {
@@ -274,10 +286,14 @@ export interface UserUpdateWithoutVisitsDataInput {
   nickname?: String;
   email?: String;
   twitterHandle?: String;
+  bio?: String;
+  pictureUrl?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   friends?: UserUpdateManyInput;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface VisitCreateManyWithoutUserInput {
@@ -356,6 +372,34 @@ export interface UserWhereInput {
   twitterHandle_not_starts_with?: String;
   twitterHandle_ends_with?: String;
   twitterHandle_not_ends_with?: String;
+  bio?: String;
+  bio_not?: String;
+  bio_in?: String[] | String;
+  bio_not_in?: String[] | String;
+  bio_lt?: String;
+  bio_lte?: String;
+  bio_gt?: String;
+  bio_gte?: String;
+  bio_contains?: String;
+  bio_not_contains?: String;
+  bio_starts_with?: String;
+  bio_not_starts_with?: String;
+  bio_ends_with?: String;
+  bio_not_ends_with?: String;
+  pictureUrl?: String;
+  pictureUrl_not?: String;
+  pictureUrl_in?: String[] | String;
+  pictureUrl_not_in?: String[] | String;
+  pictureUrl_lt?: String;
+  pictureUrl_lte?: String;
+  pictureUrl_gt?: String;
+  pictureUrl_gte?: String;
+  pictureUrl_contains?: String;
+  pictureUrl_not_contains?: String;
+  pictureUrl_starts_with?: String;
+  pictureUrl_not_starts_with?: String;
+  pictureUrl_ends_with?: String;
+  pictureUrl_not_ends_with?: String;
   scratchingAutomated?: Boolean;
   scratchingAutomated_not?: Boolean;
   isPrivate?: Boolean;
@@ -368,6 +412,34 @@ export interface UserWhereInput {
   friends_none?: UserWhereInput;
   isPremium?: Boolean;
   isPremium_not?: Boolean;
+  bio?: String;
+  bio_not?: String;
+  bio_in?: String[] | String;
+  bio_not_in?: String[] | String;
+  bio_lt?: String;
+  bio_lte?: String;
+  bio_gt?: String;
+  bio_gte?: String;
+  bio_contains?: String;
+  bio_not_contains?: String;
+  bio_starts_with?: String;
+  bio_not_starts_with?: String;
+  bio_ends_with?: String;
+  bio_not_ends_with?: String;
+  pictureUrl?: String;
+  pictureUrl_not?: String;
+  pictureUrl_in?: String[] | String;
+  pictureUrl_not_in?: String[] | String;
+  pictureUrl_lt?: String;
+  pictureUrl_lte?: String;
+  pictureUrl_gt?: String;
+  pictureUrl_gte?: String;
+  pictureUrl_contains?: String;
+  pictureUrl_not_contains?: String;
+  pictureUrl_starts_with?: String;
+  pictureUrl_not_starts_with?: String;
+  pictureUrl_ends_with?: String;
+  pictureUrl_not_ends_with?: String;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
@@ -423,11 +495,15 @@ export interface UserUpdateInput {
   nickname?: String;
   email?: String;
   twitterHandle?: String;
+  bio?: String;
+  pictureUrl?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   visits?: VisitUpdateManyWithoutUserInput;
   friends?: UserUpdateManyInput;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface VisitUpdateManyWithoutCountryInput {
@@ -474,9 +550,13 @@ export interface UserUpdateManyDataInput {
   nickname?: String;
   email?: String;
   twitterHandle?: String;
+  bio?: String;
+  pictureUrl?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface UserUpdateOneRequiredWithoutVisitsInput {
@@ -557,12 +637,68 @@ export interface UserScalarWhereInput {
   twitterHandle_not_starts_with?: String;
   twitterHandle_ends_with?: String;
   twitterHandle_not_ends_with?: String;
+  bio?: String;
+  bio_not?: String;
+  bio_in?: String[] | String;
+  bio_not_in?: String[] | String;
+  bio_lt?: String;
+  bio_lte?: String;
+  bio_gt?: String;
+  bio_gte?: String;
+  bio_contains?: String;
+  bio_not_contains?: String;
+  bio_starts_with?: String;
+  bio_not_starts_with?: String;
+  bio_ends_with?: String;
+  bio_not_ends_with?: String;
+  pictureUrl?: String;
+  pictureUrl_not?: String;
+  pictureUrl_in?: String[] | String;
+  pictureUrl_not_in?: String[] | String;
+  pictureUrl_lt?: String;
+  pictureUrl_lte?: String;
+  pictureUrl_gt?: String;
+  pictureUrl_gte?: String;
+  pictureUrl_contains?: String;
+  pictureUrl_not_contains?: String;
+  pictureUrl_starts_with?: String;
+  pictureUrl_not_starts_with?: String;
+  pictureUrl_ends_with?: String;
+  pictureUrl_not_ends_with?: String;
   scratchingAutomated?: Boolean;
   scratchingAutomated_not?: Boolean;
   isPrivate?: Boolean;
   isPrivate_not?: Boolean;
   isPremium?: Boolean;
   isPremium_not?: Boolean;
+  bio?: String;
+  bio_not?: String;
+  bio_in?: String[] | String;
+  bio_not_in?: String[] | String;
+  bio_lt?: String;
+  bio_lte?: String;
+  bio_gt?: String;
+  bio_gte?: String;
+  bio_contains?: String;
+  bio_not_contains?: String;
+  bio_starts_with?: String;
+  bio_not_starts_with?: String;
+  bio_ends_with?: String;
+  bio_not_ends_with?: String;
+  pictureUrl?: String;
+  pictureUrl_not?: String;
+  pictureUrl_in?: String[] | String;
+  pictureUrl_not_in?: String[] | String;
+  pictureUrl_lt?: String;
+  pictureUrl_lte?: String;
+  pictureUrl_gt?: String;
+  pictureUrl_gte?: String;
+  pictureUrl_contains?: String;
+  pictureUrl_not_contains?: String;
+  pictureUrl_starts_with?: String;
+  pictureUrl_not_starts_with?: String;
+  pictureUrl_ends_with?: String;
+  pictureUrl_not_ends_with?: String;
   AND?: UserScalarWhereInput[] | UserScalarWhereInput;
   OR?: UserScalarWhereInput[] | UserScalarWhereInput;
   NOT?: UserScalarWhereInput[] | UserScalarWhereInput;
@@ -658,10 +794,14 @@ export interface UserCreateWithoutVisitsInput {
   nickname?: String;
   email?: String;
   twitterHandle?: String;
+  bio?: String;
+  pictureUrl?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   friends?: UserCreateManyInput;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface UserUpdateDataInput {
@@ -669,11 +809,15 @@ export interface UserUpdateDataInput {
   nickname?: String;
   email?: String;
   twitterHandle?: String;
+  bio?: String;
+  pictureUrl?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   visits?: VisitUpdateManyWithoutUserInput;
   friends?: UserUpdateManyInput;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -855,9 +999,13 @@ export interface UserUpdateManyMutationInput {
   nickname?: String;
   email?: String;
   twitterHandle?: String;
+  bio?: String;
+  pictureUrl?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface VisitSubscriptionWhereInput {
@@ -1101,9 +1249,13 @@ export interface User {
   nickname?: String;
   email?: String;
   twitterHandle?: String;
+  bio?: String;
+  pictureUrl?: String;
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
@@ -1112,6 +1264,8 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   nickname: () => Promise<String>;
   email: () => Promise<String>;
   twitterHandle: () => Promise<String>;
+  bio: () => Promise<String>;
+  pictureUrl: () => Promise<String>;
   scratchingAutomated: () => Promise<Boolean>;
   isPrivate: () => Promise<Boolean>;
   visits: <T = FragmentableArray<Visit>>(
@@ -1137,6 +1291,8 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     }
   ) => T;
   isPremium: () => Promise<Boolean>;
+  bio: () => Promise<String>;
+  pictureUrl: () => Promise<String>;
 }
 
 export interface UserSubscription
@@ -1147,6 +1303,8 @@ export interface UserSubscription
   nickname: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   twitterHandle: () => Promise<AsyncIterator<String>>;
+  bio: () => Promise<AsyncIterator<String>>;
+  pictureUrl: () => Promise<AsyncIterator<String>>;
   scratchingAutomated: () => Promise<AsyncIterator<Boolean>>;
   isPrivate: () => Promise<AsyncIterator<Boolean>>;
   visits: <T = Promise<AsyncIterator<VisitSubscription>>>(
@@ -1172,6 +1330,8 @@ export interface UserSubscription
     }
   ) => T;
   isPremium: () => Promise<AsyncIterator<Boolean>>;
+  bio: () => Promise<AsyncIterator<String>>;
+  pictureUrl: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BatchPayload {
@@ -1283,6 +1443,11 @@ export interface UserPreviousValues {
   nickname?: String;
   email?: String;
   twitterHandle?: String;
+<<<<<<< HEAD
+=======
+  bio?: String;
+  pictureUrl?: String;
+>>>>>>> 697c143867e32719dea269ac5316af567e1bf04d
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   isPremium?: Boolean;
@@ -1296,6 +1461,11 @@ export interface UserPreviousValuesPromise
   nickname: () => Promise<String>;
   email: () => Promise<String>;
   twitterHandle: () => Promise<String>;
+<<<<<<< HEAD
+=======
+  bio: () => Promise<String>;
+  pictureUrl: () => Promise<String>;
+>>>>>>> 697c143867e32719dea269ac5316af567e1bf04d
   scratchingAutomated: () => Promise<Boolean>;
   isPrivate: () => Promise<Boolean>;
   isPremium: () => Promise<Boolean>;
@@ -1309,6 +1479,11 @@ export interface UserPreviousValuesSubscription
   nickname: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   twitterHandle: () => Promise<AsyncIterator<String>>;
+<<<<<<< HEAD
+=======
+  bio: () => Promise<AsyncIterator<String>>;
+  pictureUrl: () => Promise<AsyncIterator<String>>;
+>>>>>>> 697c143867e32719dea269ac5316af567e1bf04d
   scratchingAutomated: () => Promise<AsyncIterator<Boolean>>;
   isPrivate: () => Promise<AsyncIterator<Boolean>>;
   isPremium: () => Promise<AsyncIterator<Boolean>>;

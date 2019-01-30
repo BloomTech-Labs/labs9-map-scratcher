@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
-import { Query } from 'react-apollo';
-import { Card, Icon } from 'semantic-ui-react'
-import AddFriendButton from './addFriend.js'
-import DeleteFriendButton from './deleteFriend.js'
+import React, { Component, Fragment } from 'react'
+import { Query, Mutation } from 'react-apollo';
+import { Card, Icon, Button } from 'semantic-ui-react';
+import AddFriendButton from './addFriend.js';
+import DeleteFriendButton from './deleteFriend.js';
+import { Router } from '../../services/routes.js';
 import { 
   QUERY_USER_PROFILE,
-  QUERY_FRIEND_PROFILE } from '../../services/requests/profile'
+  QUERY_FRIEND_PROFILE,
+  MUTATION_VIEWFRIEND_PROFILE } from '../../services/requests/profile';
 
 
 export default class Friends extends Component {
@@ -19,7 +21,7 @@ export default class Friends extends Component {
   data = this.props.friendsData
 
   
-  friends = (id) => {   
+  friends = (id, name) => {   
     let friends = false
     for (let i=0; i<this.data.length; i++) {
       if(this.data[i].id === id) {
@@ -29,11 +31,25 @@ export default class Friends extends Component {
 
     if(friends === true) {
       return (
-        <a>
-          <Icon name='user'/>
-          12
-          <DeleteFriendButton userId={this.userId} friendId={id} />
-        </a>
+        <Fragment>
+          <a>
+            <Icon name='user'/>
+            12
+            <DeleteFriendButton userId={this.userId} friendId={id} />
+          </a>
+          <Mutation mutation={MUTATION_VIEWFRIEND_PROFILE} variables={{id: id}}>
+            {viewFriend => (
+              <Button
+              onClick={() => {
+                viewFriend()
+                // Router.pushRoute('travels')
+              }}
+            >
+              {`View ${name}'s Travels`}
+            </Button>
+            )}
+          </Mutation>
+        </Fragment>
       )
     }
     if(friends === false) {
@@ -54,6 +70,7 @@ export default class Friends extends Component {
           return (
             <Query query={QUERY_USER_PROFILE} variables={ {id: friendId} }>
               {({ loading: loadingUser, data: {user} }) => {
+                console.log(user)
                   if (loadingFriendId || loadingUser) {
                   return <div>loading...</div>
                 }
@@ -63,8 +80,8 @@ export default class Friends extends Component {
                     image='/static/alpaca.png'
                     header={user.name}
                     meta='number of visits'
-                    description='description'
-                    extra={this.friends(friendId)}
+                    description={user.bio === null ? null : user.bio}
+                    extra={this.friends(friendId, user.name)}
                     />
                   </div>
                 )

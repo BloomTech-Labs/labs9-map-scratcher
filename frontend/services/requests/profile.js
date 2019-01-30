@@ -11,10 +11,16 @@ export const QUERY_FRIEND_PROFILE = gql`
     friendId @client
   }
 `
+
 // client mutations
 export const MUTATION_FRIEND_PROFILE = gql`
   mutation SetFriendId($id: ID!) {
     setFriendId(id: $id) @client
+  }
+`
+export const MUTATION_VIEWFRIEND_PROFILE = gql`
+  mutation($id: ID!) {
+    viewFriend(id: $id) @client
   }
 `
 
@@ -28,6 +34,7 @@ export const QUERY_USER_PROFILE = gql`
       email
       scratchingAutomated
       isPrivate
+      bio
     }
   }
 `
@@ -57,7 +64,8 @@ export const MUTATION_UPDATEUSER_PROFILE = gql`
       $nickname: String,
       $email: String,
       $scratchingAutomated: Boolean,
-      $isPrivate: Boolean)
+      $isPrivate: Boolean,
+      $bio: String)
     {
     updateUser(
       id: $id,
@@ -65,13 +73,15 @@ export const MUTATION_UPDATEUSER_PROFILE = gql`
       nickname: $nickname,
       email: $email,
       scratchingAutomated: $scratchingAutomated,
-      isPrivate: $isPrivate)
+      isPrivate: $isPrivate,
+      bio: $bio)
     {
       name,
       nickname,
       email,
       scratchingAutomated,
-      isPrivate
+      isPrivate,
+      bio
     }
   }
 `
@@ -84,9 +94,7 @@ export const MUTATION_ADDFRIEND_PROFILE = gql`
       userId: $userId,
       friendId: $friendId,
       )
-    {
-     id
-    }
+    { id }
   }
 `
 export const MUTATION_DELETEFRIEND_PROFILE = gql`
@@ -98,8 +106,13 @@ export const MUTATION_DELETEFRIEND_PROFILE = gql`
       userId: $userId,
       friendId: $friendId,
     )
-    {
-      id,
-    }
+    { id }
+  }
+`
+export const MUTATION_DELETEUSER_PROFILE = gql`
+  mutation DeleteUser($id: ID!)
+  {
+    deleteUser(id: $id)
+    { id }
   }
 `
