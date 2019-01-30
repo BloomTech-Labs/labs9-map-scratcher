@@ -6,10 +6,16 @@ const cors = require('cors')
 
 const keys = require('../config/keys')
 
+const whitelist = ['http://localhost:1738', 'https://backpaca.now.sh']
 const corsOptions = {
   credentials: true,
-  origin: ['http://localhost:1738', 'https://backpaca.now.sh']
-}
+  origin: function (origin, callback) {
+   if (whitelist.indexOf(origin) !== -1 || !origin) {
+     callback(null, true)
+   } else {
+     callback(new Error('Not allowed by CORS'))
+   }
+ }};
 
 // GLOBAL MIDDLEWARE
 // ==============================================
@@ -17,6 +23,8 @@ const corsOptions = {
 // ({ express }) using es6 destructuring syntax
 // ==============================================
 module.exports = ({ express }) => {
+  express.use(cors(corsOptions))
+  express.options('*', cors(corsOptions));
   express.use(
     cookieSession({
       name: 'Backpaca',
@@ -26,5 +34,4 @@ module.exports = ({ express }) => {
   )
   express.use(passport.initialize())
   express.use(passport.session())
-  express.use(cors(corsOptions))
 }

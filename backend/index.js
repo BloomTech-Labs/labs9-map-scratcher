@@ -17,7 +17,11 @@ const { prisma } = require('./prisma/generated/prisma-client')
 
 const { resolvers } = require('./resolvers')
 require('./services/passport/passport')(prisma)
+
+
 //------------------------------------------------
+
+
 
 const server = new GraphQLServer({
   typeDefs: './schema.graphql',
