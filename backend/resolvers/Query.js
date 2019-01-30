@@ -6,7 +6,15 @@ const Query = {
   hello: () => 'Hello',
   //-- Begin Project Queries
   user: (parent, args, context) => {
-    return context.prisma.user({ id: args.id });
+
+    if (context.request.session.passport){
+      console.log('i used context to resolve', context.request.session.passport.user);
+      return context.prisma.user({ id: context.request.session.passport.user});
+    };
+    if (!context.request.session.passport){
+      console.log('i used the passed in id', args.id)
+      return context.prisma.user({ id: args.id });
+    }
   },
   users: (parent, args, context) => {
     return context.prisma.users();
