@@ -8,6 +8,7 @@
 import React, { Component } from 'react'
 import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo'
+import DropZone from 'react-dropzone'
 import { MUTATION_UPDATEUSER_PROFILE } from '../../services/requests/profile'
 import './profile.less'
 
@@ -25,6 +26,7 @@ export default class UserCard extends Component {
       nickname: '',
       scratchingAutomated: null,
       isPrivate: null,
+      file: []
     };
   }
   componentDidMount() {
@@ -40,13 +42,32 @@ export default class UserCard extends Component {
       [changeEvent.target.name]: changeEvent.target.value,
     });
   }
+  
+  //handle image upload
+  onDrop(file) {
+      this.setState({ file })
+  }
+
+  //handle cancel image upload
+  onCancel() {
+      this.setState({
+          file: []
+      })
+  }
 
   //-- Rendering -----------------------------------
   render() {
     const { joinDate, name, email, nickname, scratchingAutomated, isPrivate } = this.state;
     return (
       <Card className='profile_userCardMain'>
-        <Image src='/static/alpaca.png' className='profile_userCardProfilePic' />
+       <DropZone onDrop={this.onDrop.bind(this)} onFileDialogCancel={this.onCancel.bind(this)}>
+            {({getRootProps, getInputProps}) => (
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <Image src='/static/alpaca.png' className='profile_userCardProfilePic' />
+              </div>
+            )}
+        </DropZone>
         <Card.Content>
           <Card.Header>{name}</Card.Header>
             <Card.Meta>
