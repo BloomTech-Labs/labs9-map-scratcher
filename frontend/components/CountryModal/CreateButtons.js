@@ -9,9 +9,7 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
-import {
-
-  MUTATION_CREATEVISIT_MODAL } from '../../services/requests/modal';
+import { MUTATION_CREATEVISIT_MODAL } from '../../services/requests/modal';
 
 //-- Types of buttons to display -----------------
 /* buttonTypes: An array of objects used to configure buttons. There is one

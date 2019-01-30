@@ -11,7 +11,6 @@ export const QUERY_CLIENT_TRAVELS = gql`
 `
 export const QUERY_MODAL_TRAVELS = gql`
   query {
-    countryId @client
     modalOpen @client
   }
 `

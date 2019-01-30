@@ -11,10 +11,16 @@ export const QUERY_FRIEND_PROFILE = gql`
     friendId @client
   }
 `
+
 // client mutations
 export const MUTATION_FRIEND_PROFILE = gql`
   mutation SetFriendId($id: ID!) {
     setFriendId(id: $id) @client
+  }
+`
+export const MUTATION_VIEWFRIEND_PROFILE = gql`
+  mutation($id: ID!) {
+    viewFriend(id: $id) @client
   }
 `
 
@@ -92,9 +98,7 @@ export const MUTATION_ADDFRIEND_PROFILE = gql`
       userId: $userId,
       friendId: $friendId,
       )
-    {
-     id
-    }
+    { id }
   }
 `
 export const MUTATION_DELETEFRIEND_PROFILE = gql`
@@ -106,8 +110,13 @@ export const MUTATION_DELETEFRIEND_PROFILE = gql`
       userId: $userId,
       friendId: $friendId,
     )
-    {
-      id,
-    }
+    { id }
+  }
+`
+export const MUTATION_DELETEUSER_PROFILE = gql`
+  mutation DeleteUser($id: ID!)
+  {
+    deleteUser(id: $id)
+    { id }
   }
 `
