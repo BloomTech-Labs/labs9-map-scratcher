@@ -218,6 +218,10 @@ export type UserOrderByInput =
   | "isPrivate_DESC"
   | "isPremium_ASC"
   | "isPremium_DESC"
+  | "bio_ASC"
+  | "bio_DESC"
+  | "pictureUrl_ASC"
+  | "pictureUrl_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -266,6 +270,8 @@ export interface UserCreateInput {
   visits?: VisitCreateManyWithoutUserInput;
   friends?: UserCreateManyInput;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface UserUpdateWithoutVisitsDataInput {
@@ -277,6 +283,8 @@ export interface UserUpdateWithoutVisitsDataInput {
   isPrivate?: Boolean;
   friends?: UserUpdateManyInput;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface VisitCreateManyWithoutUserInput {
@@ -367,6 +375,34 @@ export interface UserWhereInput {
   friends_none?: UserWhereInput;
   isPremium?: Boolean;
   isPremium_not?: Boolean;
+  bio?: String;
+  bio_not?: String;
+  bio_in?: String[] | String;
+  bio_not_in?: String[] | String;
+  bio_lt?: String;
+  bio_lte?: String;
+  bio_gt?: String;
+  bio_gte?: String;
+  bio_contains?: String;
+  bio_not_contains?: String;
+  bio_starts_with?: String;
+  bio_not_starts_with?: String;
+  bio_ends_with?: String;
+  bio_not_ends_with?: String;
+  pictureUrl?: String;
+  pictureUrl_not?: String;
+  pictureUrl_in?: String[] | String;
+  pictureUrl_not_in?: String[] | String;
+  pictureUrl_lt?: String;
+  pictureUrl_lte?: String;
+  pictureUrl_gt?: String;
+  pictureUrl_gte?: String;
+  pictureUrl_contains?: String;
+  pictureUrl_not_contains?: String;
+  pictureUrl_starts_with?: String;
+  pictureUrl_not_starts_with?: String;
+  pictureUrl_ends_with?: String;
+  pictureUrl_not_ends_with?: String;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
@@ -427,6 +463,8 @@ export interface UserUpdateInput {
   visits?: VisitUpdateManyWithoutUserInput;
   friends?: UserUpdateManyInput;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface VisitUpdateManyWithoutCountryInput {
@@ -476,6 +514,8 @@ export interface UserUpdateManyDataInput {
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface UserUpdateOneRequiredWithoutVisitsInput {
@@ -562,6 +602,34 @@ export interface UserScalarWhereInput {
   isPrivate_not?: Boolean;
   isPremium?: Boolean;
   isPremium_not?: Boolean;
+  bio?: String;
+  bio_not?: String;
+  bio_in?: String[] | String;
+  bio_not_in?: String[] | String;
+  bio_lt?: String;
+  bio_lte?: String;
+  bio_gt?: String;
+  bio_gte?: String;
+  bio_contains?: String;
+  bio_not_contains?: String;
+  bio_starts_with?: String;
+  bio_not_starts_with?: String;
+  bio_ends_with?: String;
+  bio_not_ends_with?: String;
+  pictureUrl?: String;
+  pictureUrl_not?: String;
+  pictureUrl_in?: String[] | String;
+  pictureUrl_not_in?: String[] | String;
+  pictureUrl_lt?: String;
+  pictureUrl_lte?: String;
+  pictureUrl_gt?: String;
+  pictureUrl_gte?: String;
+  pictureUrl_contains?: String;
+  pictureUrl_not_contains?: String;
+  pictureUrl_starts_with?: String;
+  pictureUrl_not_starts_with?: String;
+  pictureUrl_ends_with?: String;
+  pictureUrl_not_ends_with?: String;
   AND?: UserScalarWhereInput[] | UserScalarWhereInput;
   OR?: UserScalarWhereInput[] | UserScalarWhereInput;
   NOT?: UserScalarWhereInput[] | UserScalarWhereInput;
@@ -661,6 +729,8 @@ export interface UserCreateWithoutVisitsInput {
   isPrivate?: Boolean;
   friends?: UserCreateManyInput;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface UserUpdateDataInput {
@@ -673,6 +743,8 @@ export interface UserUpdateDataInput {
   visits?: VisitUpdateManyWithoutUserInput;
   friends?: UserUpdateManyInput;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -857,6 +929,8 @@ export interface UserUpdateManyMutationInput {
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface VisitSubscriptionWhereInput {
@@ -1044,6 +1118,8 @@ export interface UserPreviousValues {
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface UserPreviousValuesPromise
@@ -1057,6 +1133,8 @@ export interface UserPreviousValuesPromise
   scratchingAutomated: () => Promise<Boolean>;
   isPrivate: () => Promise<Boolean>;
   isPremium: () => Promise<Boolean>;
+  bio: () => Promise<String>;
+  pictureUrl: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -1070,6 +1148,8 @@ export interface UserPreviousValuesSubscription
   scratchingAutomated: () => Promise<AsyncIterator<Boolean>>;
   isPrivate: () => Promise<AsyncIterator<Boolean>>;
   isPremium: () => Promise<AsyncIterator<Boolean>>;
+  bio: () => Promise<AsyncIterator<String>>;
+  pictureUrl: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserEdge {
@@ -1098,6 +1178,8 @@ export interface User {
   scratchingAutomated?: Boolean;
   isPrivate?: Boolean;
   isPremium?: Boolean;
+  bio?: String;
+  pictureUrl?: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
@@ -1131,6 +1213,8 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     }
   ) => T;
   isPremium: () => Promise<Boolean>;
+  bio: () => Promise<String>;
+  pictureUrl: () => Promise<String>;
 }
 
 export interface UserSubscription
@@ -1166,6 +1250,8 @@ export interface UserSubscription
     }
   ) => T;
   isPremium: () => Promise<AsyncIterator<Boolean>>;
+  bio: () => Promise<AsyncIterator<String>>;
+  pictureUrl: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BatchPayload {

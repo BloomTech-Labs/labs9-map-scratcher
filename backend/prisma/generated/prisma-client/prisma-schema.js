@@ -239,6 +239,8 @@ type User {
   visits(where: VisitWhereInput, orderBy: VisitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Visit!]
   friends(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   isPremium: Boolean
+  bio: String
+  pictureUrl: String
 }
 
 type UserConnection {
@@ -257,6 +259,8 @@ input UserCreateInput {
   visits: VisitCreateManyWithoutUserInput
   friends: UserCreateManyInput
   isPremium: Boolean
+  bio: String
+  pictureUrl: String
 }
 
 input UserCreateManyInput {
@@ -278,6 +282,8 @@ input UserCreateWithoutVisitsInput {
   isPrivate: Boolean
   friends: UserCreateManyInput
   isPremium: Boolean
+  bio: String
+  pictureUrl: String
 }
 
 type UserEdge {
@@ -302,6 +308,10 @@ enum UserOrderByInput {
   isPrivate_DESC
   isPremium_ASC
   isPremium_DESC
+  bio_ASC
+  bio_DESC
+  pictureUrl_ASC
+  pictureUrl_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -317,6 +327,8 @@ type UserPreviousValues {
   scratchingAutomated: Boolean
   isPrivate: Boolean
   isPremium: Boolean
+  bio: String
+  pictureUrl: String
 }
 
 input UserScalarWhereInput {
@@ -396,6 +408,34 @@ input UserScalarWhereInput {
   isPrivate_not: Boolean
   isPremium: Boolean
   isPremium_not: Boolean
+  bio: String
+  bio_not: String
+  bio_in: [String!]
+  bio_not_in: [String!]
+  bio_lt: String
+  bio_lte: String
+  bio_gt: String
+  bio_gte: String
+  bio_contains: String
+  bio_not_contains: String
+  bio_starts_with: String
+  bio_not_starts_with: String
+  bio_ends_with: String
+  bio_not_ends_with: String
+  pictureUrl: String
+  pictureUrl_not: String
+  pictureUrl_in: [String!]
+  pictureUrl_not_in: [String!]
+  pictureUrl_lt: String
+  pictureUrl_lte: String
+  pictureUrl_gt: String
+  pictureUrl_gte: String
+  pictureUrl_contains: String
+  pictureUrl_not_contains: String
+  pictureUrl_starts_with: String
+  pictureUrl_not_starts_with: String
+  pictureUrl_ends_with: String
+  pictureUrl_not_ends_with: String
   AND: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   NOT: [UserScalarWhereInput!]
@@ -429,6 +469,8 @@ input UserUpdateDataInput {
   visits: VisitUpdateManyWithoutUserInput
   friends: UserUpdateManyInput
   isPremium: Boolean
+  bio: String
+  pictureUrl: String
 }
 
 input UserUpdateInput {
@@ -441,6 +483,8 @@ input UserUpdateInput {
   visits: VisitUpdateManyWithoutUserInput
   friends: UserUpdateManyInput
   isPremium: Boolean
+  bio: String
+  pictureUrl: String
 }
 
 input UserUpdateManyDataInput {
@@ -451,6 +495,8 @@ input UserUpdateManyDataInput {
   scratchingAutomated: Boolean
   isPrivate: Boolean
   isPremium: Boolean
+  bio: String
+  pictureUrl: String
 }
 
 input UserUpdateManyInput {
@@ -472,6 +518,8 @@ input UserUpdateManyMutationInput {
   scratchingAutomated: Boolean
   isPrivate: Boolean
   isPremium: Boolean
+  bio: String
+  pictureUrl: String
 }
 
 input UserUpdateManyWithWhereNestedInput {
@@ -495,6 +543,8 @@ input UserUpdateWithoutVisitsDataInput {
   isPrivate: Boolean
   friends: UserUpdateManyInput
   isPremium: Boolean
+  bio: String
+  pictureUrl: String
 }
 
 input UserUpdateWithWhereUniqueNestedInput {
@@ -596,6 +646,34 @@ input UserWhereInput {
   friends_none: UserWhereInput
   isPremium: Boolean
   isPremium_not: Boolean
+  bio: String
+  bio_not: String
+  bio_in: [String!]
+  bio_not_in: [String!]
+  bio_lt: String
+  bio_lte: String
+  bio_gt: String
+  bio_gte: String
+  bio_contains: String
+  bio_not_contains: String
+  bio_starts_with: String
+  bio_not_starts_with: String
+  bio_ends_with: String
+  bio_not_ends_with: String
+  pictureUrl: String
+  pictureUrl_not: String
+  pictureUrl_in: [String!]
+  pictureUrl_not_in: [String!]
+  pictureUrl_lt: String
+  pictureUrl_lte: String
+  pictureUrl_gt: String
+  pictureUrl_gte: String
+  pictureUrl_contains: String
+  pictureUrl_not_contains: String
+  pictureUrl_starts_with: String
+  pictureUrl_not_starts_with: String
+  pictureUrl_ends_with: String
+  pictureUrl_not_ends_with: String
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

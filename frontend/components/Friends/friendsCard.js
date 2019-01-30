@@ -54,6 +54,7 @@ export default class Friends extends Component {
           return (
             <Query query={QUERY_USER_PROFILE} variables={ {id: friendId} }>
               {({ loading: loadingUser, data: {user} }) => {
+                console.log(user)
                   if (loadingFriendId || loadingUser) {
                   return <div>loading...</div>
                 }
@@ -63,7 +64,7 @@ export default class Friends extends Component {
                     image='/static/alpaca.png'
                     header={user.name}
                     meta='number of visits'
-                    description='description'
+                    description={user.bio === null ? null : user.bio}
                     extra={this.friends(friendId)}
                     />
                   </div>

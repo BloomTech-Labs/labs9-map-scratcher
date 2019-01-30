@@ -28,6 +28,7 @@ export default withApollo(
   () =>
     new ApolloClient({
       uri: process.env.NODE_ENV === 'development' ? devURL : prodURL,
+      credentials: 'same-origin',
       clientState: {
         cache,
         defaults,
