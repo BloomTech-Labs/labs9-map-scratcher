@@ -1,7 +1,16 @@
+
+
+//== Test Page 1 ===============================================================
+/*
+  This page contains experiments used during development of Backpaca.
+  Consider leaving a note here to briefly explain the purpose of the test, and
+  under what circumstances the test can be deleted, such as meeting a milestone.
+*/
+
+//-- Dependencies --------------------------------
 import Link from 'next/link';
 import React, { Component } from 'react'
 import { Query, Mutation, ApolloConsumer } from 'react-apollo'
-
 // import gql from 'graphql-tag'
 import {
     USERS_QUERY,
@@ -12,9 +21,10 @@ import {
     FRIENDS_QUERY,
     FRIENDSVISITS_QUERY
 } from '../services/queries';
-// import CountryModal from '../components/CountryViewModal/CountryModal.js'
+import CountryModal from '../components/CountryViewModal/CountryModal.js'
 
-class Test extends Component {
+//-- Experiments ---------------------------------
+export default class Test extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -87,10 +97,3 @@ class Test extends Component {
         );
     }
 }
-
-export default Test;
-
-
-
-
-

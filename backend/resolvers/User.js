@@ -4,6 +4,8 @@ const User = {
   nickname: parent => parent.nickname,
   email: parent => parent.email,
   twitterHandle: parent => parent.twitterHandle,
+  scratchingAutomated: parent => parent.scratchingAutomated,
+  isPrivate: parent => parent.isPrivate,
   visits: (parent, args, context) => {
     return context.prisma.user({ id: parent.id }).visits()
   },

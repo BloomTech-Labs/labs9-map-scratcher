@@ -2,7 +2,34 @@
 
 //== Scratchable Canvas ========================================================
 
+/*-- Documentation -------------------------------
+
+    This document consists of two parts. The first is a set of configurable
+    constants. These constants are fully documented, and can be tweaked to
+    improve the look and feel of the Scratcher. The second section is a set of
+    functions, which are exported for use by the Scratcher Component. Knowledge
+    of these functions is not necessary to use the Scratcher.
+
+*/
+
 //-- Project Constants ---------------------------
+const RESOLUTION_DEFAULT = 25;
+/* RESOLUTION_DEFAULT: If draw is invoked before client rectangles have been
+    determined, then resize will fail with a width and height of 0. As a
+    temporary fix, a default resolution will be used instead. Note, however,
+    that this will result in a garbled display. The underlying problem should be
+    addressed instead, which is that React is invoking ComponentDidMount before
+    client rectangles have been assigned. */
+const URI_COUNTRY_ALPHA = '/static/country-alpha';
+/* URI_COUNTRY_ALPHA: The uri from which alpha masks can be loaded. This is
+    probably a subdirectory under a "static" or "public" directory. */
+const URI_COUNTRY_FLAG  = '/static/country-flag' ;
+/* URI_COUNTRY_FLAG: The uri from which flags can be loaded. This is probably a
+    subdirectory under a "static" or "public" directory. */
+const DESTINATION_DEFAULT = 'default';
+/* DESTINATION_DEFAULT: The name of the resource files (alpha mask and flag) to
+    load if no other destination was specified, or if loading fails. The flag
+    url to be loaded, for example, will resemble: /static/flags/default.svg */
 export const COMPLETION_CHECK_RATE = 1000/4;
 /* Completion Check Rate: The number of miliseconds between checks to see if
     the user has completed scratching the entire map. (only takes place during
@@ -28,6 +55,10 @@ export function initializeCanvas(drawingState, movementHandler) {
     const bounds = canvas.getBoundingClientRect();
     canvas.width  = bounds.right  - bounds.left;
     canvas.height = bounds.bottom - bounds.top ;
+    if(!canvas.width || !canvas.height) {
+      canvas.width  = RESOLUTION_DEFAULT;
+      canvas.height = RESOLUTION_DEFAULT;
+    }
     // Add event listeners for sratching actions
     canvas.addEventListener(
         'mousemove',
@@ -54,29 +85,51 @@ export function createCompositingCanvas(drawingState) {
     compositingCanvas.width  = drawingState.displayCanvas.width ;
     compositingCanvas.height = drawingState.displayCanvas.height;
     drawingState.compositingContext = compositingCanvas.getContext('2d');
+    // A bug with SVGs in FireFox requires an extra context for conversion
+    const conversionCanvas = document.createElement('canvas');
+    drawingState.conversionContext = conversionCanvas.getContext('2d');
 }
 
 //-- Load Resources for specific Country ---------
-export async function configureCountry(drawingState, urlMap, urlFlag) {
+export async function configureCountry(drawingState, destination) {
+    // Create URIs from specified destination, or from default
+    if(!destination || destination === -99 || destination === '-99') {
+        destination = DESTINATION_DEFAULT;
+    }
+    let uriMap  = `${URI_COUNTRY_ALPHA}/${destination}.svg`;
+    let uriFlag = `${URI_COUNTRY_FLAG }/${destination}.svg`;
     // Create images of the map (alpha mask) and flag, to be used in draw
-    const imageMap  = new Image();
-    const imageFlag = new Image();
+    let imageMap  = new Image();
+    let imageFlag = new Image();
     // Create a promise that will resolve once the image loads
-    function loadImage(unloadedImage, urlToLoad) {
+    function loadImage(unloadedImage, uriToLoad) {
         return new Promise((resolve, reject) => {
             unloadedImage.addEventListener("error", reject);
             unloadedImage.addEventListener(
                 "load",
                 function () { resolve(unloadedImage);},
             );
-            unloadedImage.src = urlToLoad;
+            unloadedImage.src = uriToLoad;
         });
     }
     // Wait for both to load
-    await Promise.all([
-        loadImage(imageMap , urlMap ),
-        loadImage(imageFlag, urlFlag),
-    ]);
+    try {
+        await Promise.all([
+            loadImage(imageMap , uriMap ),
+            loadImage(imageFlag, uriFlag),
+        ]);
+    }
+    // Try to load default images, if necessary
+    catch(error) {
+        uriMap  = `${URI_COUNTRY_ALPHA}/${DESTINATION_DEFAULT}.svg`;
+        uriFlag = `${URI_COUNTRY_FLAG}/${DESTINATION_DEFAULT}.svg`;
+        imageMap  = new Image();
+        imageFlag = new Image();
+        await Promise.all([
+            loadImage(imageMap , uriMap ),
+            loadImage(imageFlag, uriFlag),
+        ]);
+    }
     // Save images
     drawingState.imageMap  = imageMap ;
     drawingState.imageFlag = imageFlag;
@@ -89,6 +142,7 @@ export async function configureCountry(drawingState, urlMap, urlFlag) {
 export function checkSize(drawingState) {
     const canvas = drawingState.displayCanvas;
     const compositingContext = drawingState.compositingContext;
+    const conversionContext = drawingState.conversionContext;
     // Compare current dimensions to previous dimensions
     const bounds = canvas.parentNode.getBoundingClientRect();
     const oldWidth  = canvas.width ;
@@ -101,6 +155,8 @@ export function checkSize(drawingState) {
     canvas.height = newHeight;
     compositingContext.canvas.width  = newWidth ;
     compositingContext.canvas.height = newHeight;
+    conversionContext.canvas.width  = newWidth ;
+    conversionContext.canvas.height = newHeight;
     generateOutline(drawingState);
     // Redraw scratch layer at larger size
     createScratchLayer(drawingState);
@@ -267,9 +323,11 @@ export function drawScratchOverlay(drawingState) {
     compositingContext.fillStyle = 'black';
     compositingContext.fillRect(0, 0, canvas.width, canvas.height);
     centerImage(canvas, mainContext);
+    // Convert map from SVG (due to bug in FireFox)
+    centerImage(drawingState.imageFlag, drawingState.conversionContext);
     // Draw flag onto composite context
     compositingContext.globalCompositeOperation = 'source-atop';
-    centerImage(drawingState.imageFlag, compositingContext, {
+    centerImage(drawingState.conversionContext.canvas, compositingContext, {
         cover: true,
     });
     // Draw composite onto MAIN CONTEXT
@@ -345,12 +403,12 @@ export function coordinatesOfTouch(touchEvent, canvas) {
     // Only consider the first instance of a moving touch as a scratch
     touchEvent = touchEvent.changedTouches[0];
     // Handle touchEvent same as mouseEvent
-    return this.coordinatesOfMouse(touchEvent, canvas);
+    return coordinatesOfMouse(touchEvent, canvas);
 }
 
 //-- Respond to user mouse movements -------------
 export function coordinatesOfMouse(mouseEvent, canvas) {
-    // Calculate coordinates of event relativee to the canvas
+    // Calculate coordinates of event relative to the canvas
     const bounds = canvas.getBoundingClientRect();
     return {
         x: mouseEvent.clientX - bounds.left,

@@ -18,18 +18,19 @@
   "dependencies": {
     "@zeit/next-less": "^1.0.1",
     "apollo-boost": "^0.1.23",
-    "apollo-client": "^2.4.8",
+    "axios": "^0.18.0",
     "graphql": "^14.0.2",
     "leaflet": "^1.4.0",
     "less": "^3.9.0",
     "next": "^7.0.2",
+    "next-routes": "^1.4.2",
     "next-with-apollo": "^3.3.1",
     "react": "^16.7.0",
     "react-apollo": "^2.3.3",
     "react-dom": "^16.7.0",
     "react-leaflet": "^2.1.4",
     "semantic-ui-react": "^0.84.0",
-    "which-country": "^1.0.0"
+    "which-polygon": "^2.2.0"
   },
   "bugs": {
     "url": "https://github.com/Lambda-School-Labs/labs9-map-scratcher/issues"

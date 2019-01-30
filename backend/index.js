@@ -30,7 +30,7 @@ const server = new GraphQLServer({
   }
 })
 
-require('./services/passport/middleware')(server)
+require('./services/middleware')(server)
 require('./services/passport/routes')(server)
 
 //-- Start Server ---------------------------------------

@@ -9,12 +9,11 @@ scratch off to initiate an event. It accepts the following props:
     scratchable(boolean) - What kind of map to display. Options are:
         True - Display a scratchable map with flag overlay
         False - Display a simple colored map.
-    urlMap(string/URL) - An image specifying the shape of the component.
-    urlFlag(string/URL) - An image to be overlaid on the map shape.
+    destination(string) - An id, usually an ISO 3166-1 Alpha-3 code.
     colorOutline(string/color) - The map shape is outlined in this color.
     colorScratch(string/color) - Scratching the image reveals this color.
     handleScratchAll(function) - A callback to invoke once fully scratched.
-    handleLoadingError(function) - A callback invoked if images can't load.
+    automateScratching(boolean): handleScratchAll will be invoked immediately.
 
 The state of the component can be changed during use by sending it new props.
 For example: a map can easily change from not scratchable to scratchable by
@@ -28,10 +27,11 @@ import React from 'react';
 import * as utilities from './utilities.js';
 import './scratcher.less';
 
+
 //== React Life Cycle Methods ==================================================
 
 //-- Constructor and definition ------------------
-export default class Scratcher extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.canvasRef = React.createRef();
@@ -39,9 +39,11 @@ export default class Scratcher extends React.Component {
     
     //-- Render --------------------------------------
     render(props) {
-        return <div className="scratcher" style={{width: '100%', height: '100%'}}>
-            <canvas ref={this.canvasRef} style={{width: '100%', height: '100%'}}/>
-        </div>
+        return (
+            <div className="scratcher">
+                <canvas ref={this.canvasRef} />
+            </div>
+        );
     }
     
     //-- Component has been rendered to the DOM ------
@@ -49,12 +51,7 @@ export default class Scratcher extends React.Component {
         // Get display canvas from DOM (now that component has rendered)
         const displayCanvas = this.canvasRef.current;
         // Setup drawing contexts and load images
-        try {
-            await this.setup(displayCanvas);
-        } catch(error) {
-            this.props.handleLoadingError(error);
-            return;
-        }
+        await this.setup(displayCanvas);
         // Do initial Drawing
         this.draw(this.drawingState);
     }
@@ -69,23 +66,28 @@ export default class Scratcher extends React.Component {
             (this.props.scratchable  !== previousProps.scratchable ) ||
             (this.props.urlMap       !== previousProps.urlMap      ) ||
             (this.props.urlFlag      !== previousProps.urlFlag     ) ||
-            (this.props.colorOutline !== previousProps.colorOutline)
+            (this.props.colorOutline !== previousProps.colorOutline) ||
+            (this.props.colorScratch !== previousProps.colorScratch)
         );
         // Reconfigure country, if necessary (shape, flag, outline)
         if(needsUpdate) {
             this.drawingState.colorOutline = this.props.colorOutline;
             this.drawingState.itchy = this.props.scratchable;
             try {
-                const urlMap  = this.props.urlMap ;
-                const urlFlag = this.props.urlFlag;
-                await this.configureCountry(urlMap, urlFlag);
+                const destination = this.props.destination;
+                await this.configureCountry(destination);
             } catch(error) {
                 this.props.handleLoadingError(error);
                 return;
             }
         }
+        // Immediately invoke Complete if scratching is automated
+        if(this.drawingState.itchy && this.props.automateScratching) {
+            this.drawingState.itchy = false;
+            utilities.scratchAll(this.drawingState);
+            this.props.handleScratchAll();
         // Redraw if necessary
-        if(changeColor || needsUpdate) {
+        } else if(changeColor || needsUpdate) {
             this.drawingState.colorScratch = this.props.colorScratch;
             this.draw(this.drawingState);
         }
@@ -105,9 +107,7 @@ export default class Scratcher extends React.Component {
         // Setup Drawing Contexts
         this.generateDrawingContexts();
         // Configure for current Country
-        const urlMap  = this.props.urlMap ;
-        const urlFlag = this.props.urlFlag;
-        await this.configureCountry(urlMap, urlFlag);
+        await this.configureCountry(this.props.destination);
     }
     
     //-- Generate Drawing Contexts -------------------
@@ -120,7 +120,11 @@ export default class Scratcher extends React.Component {
     }
     
     //-- Configure Country ---------------------------
-    async configureCountry(urlMap, urlFlag) {
+    async configureCountry(destination) {
+        // Convert to lowercase (if provided as a string)
+        if(destination && destination.toLowerCase) {
+            destination = destination.toLowerCase();
+        }
         // Clear old data
         this.drawingState.imageMap     = undefined;
         this.drawingState.imageFlag    = undefined;
@@ -128,7 +132,7 @@ export default class Scratcher extends React.Component {
         // Load Image from Urls
         await utilities.configureCountry(
             this.drawingState,
-            urlMap, urlFlag,
+            destination,
         );
         // Setup scratch overlay
         this.drawingState.itchy = this.props.scratchable;
@@ -142,6 +146,9 @@ export default class Scratcher extends React.Component {
         this.imageOutline = utilities.generateOutline(
             this.drawingState, colorOutline,
         );
+        // Remove previous path data
+        this.drawingState.lastMoveX = undefined;
+        this.drawingState.lastMoveY = undefined;
     }
 
     //-- Draw Canvas ---------------------------------

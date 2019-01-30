@@ -2,20 +2,27 @@
 // next-with-apollo -> withApollo: A HOC that allows
 // the Apollo Client to work with Next.js (SSR)
 // ==================================================
-import withApollo from 'next-with-apollo';
-import ApolloClient from 'apollo-boost';
+import withApollo from 'next-with-apollo'
+import ApolloClient from 'apollo-boost'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-import { devURL, prodURL } from './config.js';
+import { resolvers } from './resolvers'
+import { devURL, prodURL } from './config.js'
 
 const defaults = {
-  userId: "cjqt5c95y00s40894zs7m6q4v",
-  viewingFriend: false,
+  userId: 'cjqt5c95y00s40894zs7m6q4v',
   friendId: null,
-  isLoggedIn: false
+  countryId: null,
+  viewingFriend: false,
+  isLoggedIn: false,
+  modalOpen: false,
+  viewBorders: false,
+  scratchingComplete: false
 }
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  dataIdFromObject: o => o.id
+})
 
 export default withApollo(
   () =>
@@ -24,6 +31,7 @@ export default withApollo(
       clientState: {
         cache,
         defaults,
+        resolvers
       }
     })
-);
+)
