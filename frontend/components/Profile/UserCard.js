@@ -8,7 +8,6 @@
 import React, { Component } from 'react'
 import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo'
-import DropZone from 'react-dropzone'
 import { MUTATION_UPDATEUSER_PROFILE } from '../../services/requests/profile'
 import './profile.less'
 
@@ -26,7 +25,7 @@ export default class UserCard extends Component {
       nickname: '',
       scratchingAutomated: null,
       isPrivate: null,
-      file: []
+      pictureUrl: ''
     };
   }
   componentDidMount() {
@@ -42,30 +41,25 @@ export default class UserCard extends Component {
       [changeEvent.target.name]: changeEvent.target.value,
     });
   }
-  
-  //handle image upload
-  onDrop = (file) => {
-      this.setState({ file })
-  }
 
-  //handle cancel image upload
-  onCancel = () => {
-      this.setState({
-          file: []
-      })
-  }
 
-  uploadWidget = () => {
+  //uploads the image and sends back the url of the uploaded image
+  uploadWidget = (url) => {
     cloudinary.openUploadWidget({
       cloud_name: 'dr9p6aaos',
       upload_preset: 'vchytrzk'}, 
-      (error, result) => console.log(error, result[0].secure_url) 
-      )
+      (error, result) => { 
+        console.log(error, result)
+        if(result) {
+        this.setState({ pictureUrl: result[0].secure_url })
+        }
+      } 
+    )
   }
 
   //-- Rendering -----------------------------------
   render() {
-    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate } = this.state;
+    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, pictureUrl } = this.state;
     return (
       <Card className='profile_userCardMain'>
         <Image src='/static/alpaca.png' className='profile_userCardProfilePic' />
@@ -73,11 +67,10 @@ export default class UserCard extends Component {
           <Card.Header>{name}</Card.Header>
             <Card.Meta>
               <span className='date'>Joined in {joinDate}</span>
-              <button onClick={this.uploadWidget}>Upload files</button>
             </Card.Meta>
             <Mutation
               mutation={MUTATION_UPDATEUSER_PROFILE}
-              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate }}
+              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate, pictureUrl }}
             >
               {updateUser => (
               <Form className='profile_userCardForm' onSubmit={updateUser}>
@@ -138,6 +131,7 @@ export default class UserCard extends Component {
                     />
                 </Form.Field>
                 <Form.Field>
+                <Button onClick={this.uploadWidget}>Upload files</Button>
                   <Button onClick={updateUser} primary>Submit</Button>
                 </Form.Field>
               </Form>)}

@@ -7,7 +7,7 @@ const User = {
   scratchingAutomated: parent => parent.scratchingAutomated,
   isPrivate: parent => parent.isPrivate,
   bio: parent => parent.bio,
-  picture: parent => parent.picture,
+  pictureUrl: parent => parent.pictureUrl,
   visits: (parent, args, context) => {
     return context.prisma.user({ id: parent.id }).visits()
   },
