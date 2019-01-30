@@ -28,7 +28,9 @@ export default class UserCard extends Component {
       nickname: '',
       scratchingAutomated: null,
       isPrivate: null,
+      pictureUrl: '',
       editing: false
+
     };
   }
   componentDidMount() {
@@ -44,12 +46,28 @@ export default class UserCard extends Component {
       [changeEvent.target.name]: changeEvent.target.value,
     });
   }
+
+
+
+  //uploads the image and sends back the url of the uploaded image
+  uploadWidget = (url) => {
+    cloudinary.openUploadWidget({
+      cloud_name: 'dr9p6aaos',
+      upload_preset: 'vchytrzk'}, 
+      (error, result) => { 
+        console.log(error, result)
+        if(result) {
+        this.setState({ pictureUrl: result[0].secure_url })
+        }
+      } 
+    )
+  }
   toggleEditing = () => {
     this.setState({ editing: !this.state.editing })
   }
   //-- Rendering -----------------------------------
   render() {
-    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing } = this.state;
+    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing, pictureUrl } = this.state;
     return (
       <Card className='profile_userCardMain'>
         <Image src='/static/alpaca.png' className='profile_userCardProfilePic' />
@@ -62,8 +80,8 @@ export default class UserCard extends Component {
             <Fragment>
               <Mutation
               mutation={MUTATION_UPDATEUSER_PROFILE}
-              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate }}
-              >
+              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate, pictureUrl }}
+            >
               {updateUser => (
               <Form 
                 className='profile_userCardForm' 
@@ -128,6 +146,7 @@ export default class UserCard extends Component {
                   />
                 </Form.Field>
                 <Form.Field>
+                <Button onClick={this.uploadWidget}>Upload profile picture</Button>
                   <Button 
                     onSubmit={() => { 
                       updateUser()

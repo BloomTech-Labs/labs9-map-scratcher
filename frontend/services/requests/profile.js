@@ -35,6 +35,7 @@ export const QUERY_USER_PROFILE = gql`
       scratchingAutomated
       isPrivate
       bio
+      pictureUrl
     }
   }
 `
@@ -65,7 +66,8 @@ export const MUTATION_UPDATEUSER_PROFILE = gql`
       $email: String,
       $scratchingAutomated: Boolean,
       $isPrivate: Boolean,
-      $bio: String)
+      $bio: String,
+      $pictureUrl: String)
     {
     updateUser(
       id: $id,
@@ -74,14 +76,16 @@ export const MUTATION_UPDATEUSER_PROFILE = gql`
       email: $email,
       scratchingAutomated: $scratchingAutomated,
       isPrivate: $isPrivate,
-      bio: $bio)
+      bio: $bio,
+      pictureUrl: $pictureUrl)
     {
       name,
       nickname,
       email,
       scratchingAutomated,
       isPrivate,
-      bio
+      bio,
+      pictureUrl
     }
   }
 `

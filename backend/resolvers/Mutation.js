@@ -11,7 +11,7 @@ const Mutation = {
       isPrivate: false
     })
   },
-  updateUser: async (parent, { name, nickname, email, scratchingAutomated, isPrivate, bio, id }, context) => {
+  updateUser: async (parent, { name, nickname, email, scratchingAutomated, isPrivate, id, bio, pictureUrl }, context) => {
     return await context.prisma.updateUser({
       where: { id },
       data: { 
@@ -20,7 +20,8 @@ const Mutation = {
         email,
         scratchingAutomated,
         isPrivate,
-        bio 
+        bio,
+        pictureUrl
       }
     })
   },
