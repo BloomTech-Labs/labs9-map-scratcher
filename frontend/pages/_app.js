@@ -20,13 +20,11 @@ class MyApp extends App {
     let pageProps = {};
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
-      console.log(pageProps); 
     }
     pageProps.query = ctx.query;
     return { pageProps };
   }
   render() {
-    console.log(pageProps);
     const { apollo, Component, pageProps } = this.props;
     return (
       <Container>

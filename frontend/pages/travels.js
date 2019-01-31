@@ -45,12 +45,10 @@ export default class extends Component {
             return null;
           }
           const id = localState.userId;
-          console.log('travels inside qct', id)
           return (
             <Fragment>
               <Query query={QUERY_USERVISITS_TRAVELS} variables={{id}}>
               {({ loading: loadingVisits, data} ) => {
-                console.log('travels inside qut', id);
                 let visitsUser = [];
                 if (data.user) {
                   visitsUser.push(data.user);
@@ -59,7 +57,6 @@ export default class extends Component {
                 return (
                   <Query query={QUERY_FRIENDSVISITS_TRAVELS} variables={{id}}>
                     {({ loading: loadingFriendVisits, data: { friends }}) => {
-                      console.log('travels inside qft', id);
                       let colors, borders;
                       let friendVisits = [];
                       let viewBorders = localState.viewBorders ? true: false;
@@ -94,7 +91,6 @@ export default class extends Component {
         <Query query={QUERY_MODAL_TRAVELS}>
         {({ loading, data }) => {
           if (!data.modalOpen) {
-            console.log('modal query', data)
             return (
               null
             )

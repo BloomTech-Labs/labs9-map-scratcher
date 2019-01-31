@@ -12,9 +12,6 @@ import {  QUERY_VIEWBORDERS_HEADER } from './requests/header'
 //     isLoggedIn: Boolean
 //   }
 // `
-const userIdQuery = gql`
-  {userId @client}
-`;
 
 export const resolvers = {
   Mutation: {
@@ -79,13 +76,6 @@ export const resolvers = {
     scratchingReset: (_obj, args, {cache}) => {
       const data = {
         scratchingComplete: false
-      }
-      cache.writeData({ data });
-      return data;
-    },
-    userLogin: (_obj, args, {cache}) => {
-      const data = {
-        userId: args.id
       }
       cache.writeData({ data });
       return data;
