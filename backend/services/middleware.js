@@ -9,7 +9,7 @@ const keys = require('../config/keys')
 const corsOptions = {
   credentials: true,
   origin: ['http://localhost:1738', 'https://backpaca.now.sh']
-}
+};
 
 // GLOBAL MIDDLEWARE
 // ==============================================
