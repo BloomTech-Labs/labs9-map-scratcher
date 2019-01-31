@@ -9,9 +9,9 @@
 //-- Dependencies --------------------------------
 import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
-import { Router } from '../../services/routes.js'
+import { Router } from '../../../services/routes.js'
 import { Mutation } from 'react-apollo';
-import { MUTATION_FRIEND_PROFILE } from '../../services/requests/profile';
+import { MUTATION_FRIEND_PROFILE } from '../../../services/requests/profile.js';
 
 //-- React Implementation ------------------------
 

@@ -16,27 +16,14 @@ import {
   QUERY_USERS_PROFILE
 } from '../services/requests/profile'
 import UserCard from '../components/Profile/UserCard'
-import FriendsList from '../components/Profile/FriendsList'
-import UsersDropdown from '../components/Profile/UsersDropdown'
+import Header from '../components/Profile/ProfileHeader/ProfileHeader.js'
+import FriendsList from '../components/Profile/FriendsList.js'
 import '../components/Profile/profile.less'
 
 //-- React Implementation ------------------------
 export default () => (
   <Fragment>
     <div className='profile_pageContainer'>
-
-      {/* #region Breadcrumbs */}
-      <p className='profile_breadCrumbs'>
-        <Link href="/">
-          <a className='profile_breadCrumbsLink'>Home </a>
-        </Link>
-        >
-        <Link href="/profile">
-          <a className='profile_breadCrumbsLink'> Profile</a>
-        </Link>
-      </p>
-      {/* #endregion Breadcrumbs end*/}
-
       <div className='profile_mainContainer'>
         <Query query={QUERY_CLIENT_PROFILE}>
         {({ loading: loadingUserId, data: {userId} }) => {
@@ -68,7 +55,7 @@ export default () => (
                     return <div>Loading</div>
                   }
                   return (
-                    <UsersDropdown userId={userId} users={users} />
+                    <Header userId={userId} users={users} />
                   );
                 }}
                 </Query>
