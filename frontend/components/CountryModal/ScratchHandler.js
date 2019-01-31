@@ -28,6 +28,7 @@ import {
   MUTATION_UPDATEVISIT_MODAL,
 } from '../../services/requests/modal';
 import Scratcher from '../Scratcher/index.js';
+import { colors } from '../Map/countryStyles.js';
 
 //-- Project Constants ---------------------------
 const VISITLEVEL_NONE = 0;
@@ -35,12 +36,6 @@ const VISITLEVEL_WISHLIST = 1;
 const VISITLEVEL_TRANSITED = 2;
 const VISITLEVEL_VISITED = 3;
 const VISITLEVEL_LIVED = 4;
-const VISIT_COLORS = [];
-VISIT_COLORS[VISITLEVEL_NONE     ] = '#888';
-VISIT_COLORS[VISITLEVEL_WISHLIST ] = '#440';
-VISIT_COLORS[VISITLEVEL_TRANSITED] = '#404';
-VISIT_COLORS[VISITLEVEL_VISITED  ] = '#044';
-VISIT_COLORS[VISITLEVEL_LIVED    ] = '#600';
 
 
 //== Main Component ============================================================
@@ -151,7 +146,7 @@ export default class extends React.Component {
                 displayLevel = visitLevel;
               }
               // Determine scratcher background color
-              let colorOutline = VISIT_COLORS[displayLevel];
+              let colorOutline = colors[displayLevel];
               // Determine Mutation type
               let gqlMutation = MUTATION_CREATEVISIT_MODAL;
               if(visitId) {
