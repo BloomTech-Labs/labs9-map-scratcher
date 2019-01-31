@@ -30,9 +30,9 @@ class MyApp extends App {
       <Container>
         <ApolloProvider client={apollo}>
           <Meta />
-          <CurrentUser>
+
             <Component {...pageProps} />
-          </CurrentUser>
+
         </ApolloProvider>
       </Container>
     );

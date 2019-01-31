@@ -11,7 +11,7 @@ const User = {
     return context.prisma.user({ id: parent.id }).visits()
   },
   friends: (parent, args, context) => {
-    return context.prisma.user({ id: parent.id }).friends(); 
+    return context.prisma.user({ id: parent.id }).friends();
   }
 }
 
