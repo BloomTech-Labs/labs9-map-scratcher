@@ -26,16 +26,17 @@ export default class UserCard extends Component {
       name: '',
       email: '',
       nickname: '',
+      bio: '',
+      pictureUrl: '',
       scratchingAutomated: null,
       isPrivate: null,
-      pictureUrl: '',
       editing: false
     };
   }
   componentDidMount() {
     const user = this.props.user;
-    const { name, email, nickname, scratchingAutomated, isPrivate, pictureUrl } = user;
-    this.setState({ name, email, nickname, scratchingAutomated, isPrivate, pictureUrl });
+    const { name, email, nickname, scratchingAutomated, isPrivate, pictureUrl, bio } = user;
+    this.setState({ name, email, nickname, scratchingAutomated, isPrivate, pictureUrl, bio });
     // Is there a reason not to pass user instead of deconstruct/reconstruct it?
   }
 
@@ -62,13 +63,17 @@ export default class UserCard extends Component {
       } 
     )
   }
+
+  //toggles whether the form is editable
   toggleEditing = () => {
     this.setState({ editing: !this.state.editing })
   }
+
+
   //-- Rendering -----------------------------------
   render() {
     console.log(this.props.user)
-    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing, pictureUrl } = this.state;
+    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing, pictureUrl, bio } = this.state;
     return (
       <Card className='profile_userCardMain'>
         <Image src={pictureUrl === '' ? '/static/alpaca.png' : pictureUrl} className='profile_userCardProfilePic' />
@@ -170,6 +175,7 @@ export default class UserCard extends Component {
               <div>{name}</div>
               <div>{email}</div>
               <div>{nickname}</div>
+              <div>{bio}</div>
               <div>Settings
                 <div>{scratchingAutomated ? 'automated scratchoff' : 'manual scratchoff'}</div>
                 <div>{isPrivate ? 'private user' : 'public user'}</div>
