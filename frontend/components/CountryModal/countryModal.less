@@ -1,108 +1,95 @@
 // width attribute set on ui card breaks scratcher
-.ui.card {
-   background: #F3F3F3;
-   bottom: 10%;
-   display: flex;
+.modal {
+  background: #F3F3F3;
+  border-radius: 10px;
+  bottom: 10%;
+  top: 20%;
+  display: flex;
   flex-direction: column;
-   left: 5%;
-   min-height: 70%;
-   overflow-y: hidden;
-   position: absolute;
-   z-index: 500;
+  align-items: center;
+  justify-content: space-between;
+  left: 5%;
+  min-width: 10%;
+  overflow-y: hidden;
+  position: absolute;
+  z-index: 500;
 
-   @media (max-width: 1000px) {
-     // width: 40%;
-   }
 
-   @media (max-width: 700px) {
-     // width: 60%;
-   }
+  @media (max-width: 500px) {
+    bottom: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+  }
 
-   @media (max-width: 500px) {
-     bottom: 0;
-     left: 0;
-     // width: 100%;
-     height: 100vh;
-   }
+  div.content {
+    width: 90%;
+    text-align: center;
+  }
 
-   div.header.modal_header {
-     align-items: flex-start;
-     display: flex;
-     flex-direction: row;
-     justify-content: space-between;
-     padding: 5%;
-     width: 100%;
-     @media (max-width: 1200px) {
-       flex-direction: column-reverse;
-       align-items: center;
-     }
+  .header.modal_header {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 5%;
+    width: 100%;
 
-     @media (max-width: 500px) {
-       height: 15vh;
-     }
 
-     p {
-       width: 40%;
+    @media (max-width: 500px) {
+      height: 15vh;
+    }
 
-       @media (max-width: 1200px) {
-         width: 100%;
-         text-align: center;
-       }
-     }
-     .button {
-       align-self: flex-end;
-       width: 60%;
+    p {
+      width: 90%;
+      text-align: center;
+      font-size: 2rem;
+    }
+    .ui.button {
+      font-size: 1.6rem;
+      text-align: center;
+      width: 90%;
+      padding: 5%;
+      margin: 5% auto;
 
-       @media (max-width: 1200px) {
-         width: 100%;
-       }
-     }
-   }
-   div.ui.segment {
-     display: flex;
-     flex-wrap: wrap;
-     height: 10%;
-     align-items: space-evenly;
-     justify-content: space-evenly;
+    }
+  } // end modal Header
 
-     @media (max-width: 500px) {
-       flex-direction: column;
-       align-items: center;
-       height: 30%;
-     }
-      button.ui.inverted.button {
-        text-align: center;
-        width: 40%;
+  .ui.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    margin: 10% auto;
 
-        @media (max-width: 1200px) {
-          width: 45%;
-          font-size: 1rem;
-        }
+    .ui.input {
+      border: 1px solid darkgray;
+      border-radius: 5px;
+      width: 90%;
+      height: 7rem;
+      text-align: center;
+    }
 
-        @media (max-width: 500px) {
-          width: 90%;
-          margin: 2% auto;
-        }
+    .ui.button {
+      text-align: center;
+      width: 90%;
+      padding: 5%;
+      margin: 5% auto;
+      font-size: 1.4rem; 
+
+      @media (max-width: 500px) {
+        width: 90%;
+        padding: 5%;
+        margin: 5% auto;
       }
-   }
+    }//end Form
+    // input {
+    //   width: 90%;
+    //   margin: 0 auto;
+    //   border: 1px solid black;
+    // }
 
-   form {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     width: 95%;
-     margin: 0 auto;
+  }
 
-     input {
-       border: 1px solid darkgray;
-       border-radius: 5px;
-       width: 100%;
-       height: 5rem;
-       text-align: center;
-     }
-
-     button {
-       margin-top: 1rem;
-     }
-   }
- }
+}

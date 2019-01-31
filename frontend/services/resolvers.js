@@ -81,8 +81,8 @@ export const resolvers = {
       return data;
     },
     setFriendId: (_obj, { id }, {cache}) => {
-      const data = { 
-        friendId: id 
+      const data = {
+        friendId: id
       }
       cache.writeData({ data });
     }
