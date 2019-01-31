@@ -2,22 +2,21 @@
 // ==============================================
 const passport = require('passport')
 const cookieSession = require('cookie-session')
-const cors = require('cors')
 
 const keys = require('../config/keys')
 
-const whitelist = ['http://localhost:1738', 'htto://localhost:4000', 'https://backpaca.now.sh']
-const corsOptions = {
-  credentials: true,
-  origin: function (origin, callback) {
-   if (whitelist.indexOf(origin) !== -1 || !origin) {
-     console.log('whitelisted domain', origin);
-     callback(null, true)
-   } else {
-     console.log('go away')
-     callback(new Error('Not allowed by CORS'))
-   }
- }};
+// const whitelist = ['http://localhost:1738', 'htto://localhost:4000', 'https://backpaca.now.sh']
+// const corsOptions = {
+//   credentials: true,
+//   origin: function (origin, callback) {
+//    if (whitelist.indexOf(origin) !== -1 || !origin) {
+//      console.log('whitelisted domain', origin);
+//      callback(null, true)
+//    } else {
+//      console.log('go away')
+//      callback(new Error('Not allowed by CORS'))
+//    }
+//  }};
 
 // const whitelist = ['http://localhost:1738', 'htto://localhost:4000', 'https://backpaca.now.sh']
 // const corsOptionsDelegate = function (req, callback) {
@@ -37,9 +36,9 @@ const corsOptions = {
 // ({ express }) using es6 destructuring syntax
 // ==============================================
 module.exports = ({ express }) => {
-  express.use(cors(corsOptions))
-  // express.post('/', cors(corsOptions));
-  express.options('http://localhost:1738', cors(corsOptions));
+  // express.use('http://localhost:1738', cors(corsOptions))
+  // // express.post('/', cors(corsOptions));
+  // express.options('*', cors(corsOptions));
 
   express.use(
     cookieSession({

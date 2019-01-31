@@ -41,6 +41,13 @@ export const QUERY_ME_TRAVELS = gql`
     query Me {
     me {
       id
+      name
+      visits {
+        level
+        country {
+          name
+        }
+      }
     }
   }
 `

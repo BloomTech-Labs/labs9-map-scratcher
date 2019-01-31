@@ -35,11 +35,11 @@ export default class extends Component {
                   return (<div>Loading</div>)
                 }
                 if (error) {
-                  console.log(error); 
+                  console.log(error);
                   return (<div> I fucked up</div>)
                 }
                 return (
-                  <div>I made a query</div>
+                  <div>{data.me.name}</div>
                 );
               }}
               </Query>

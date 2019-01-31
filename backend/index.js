@@ -14,9 +14,22 @@
 const { GraphQLServer } = require('graphql-yoga')
 const { prisma } = require('./prisma/generated/prisma-client')
 
+const cors = require('cors')
 const { resolvers } = require('./resolvers')
 require('./services/passport/passport')(prisma)
 //------------------------------------------------
+const whitelist = ['http://localhost:1738', 'htto://localhost:4000', 'https://backpaca.now.sh']
+const corsOptions = {
+  credentials: true,
+  origin: function (origin, callback) {
+   if (whitelist.indexOf(origin) !== -1 || !origin) {
+     console.log('whitelisted domain', origin);
+     callback(null, true)
+   } else {
+     console.log('go away')
+     callback(new Error('Not allowed by CORS'))
+   }
+ }};
 
 const server = new GraphQLServer({
   typeDefs: './schema.graphql',
@@ -32,5 +45,9 @@ const server = new GraphQLServer({
 require('./services/middleware')(server)
 require('./services/passport/routes')(server)
 
+const opts = {
+  cors: corsOptions
+}
+
 //-- Start Server ---------------------------------------
-server.start(() => console.log(`Server is running on http://localhost:4000`))
+server.start(opts, () => console.log(`Server is running on http://localhost:4000`))

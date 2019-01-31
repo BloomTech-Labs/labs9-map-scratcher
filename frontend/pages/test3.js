@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Router from 'next/router';
 import axios from 'axios';
 
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 const URL =
   process.env.NODE_ENV === 'development'
