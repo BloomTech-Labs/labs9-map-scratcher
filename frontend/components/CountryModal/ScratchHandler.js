@@ -82,6 +82,16 @@ export default class extends React.Component {
           userId: this.props.displayId,
           countryId: this.props.countryId,
           level: this.state.itchyLevel,
+        },
+        update: (cache, {data: {createVisit}}) => {
+          const result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId } });
+          const visits = result.user.visits
+          const newVisit = createVisit
+          cache.writeQuery({
+            query: QUERY_USERVISITS_MODAL,
+            variables: {id: result.user },
+            data: {user: {visits: [...visits, newVisit], __typename: 'Visit'}} 
+          });
         }
       };
     // Handle update visit mutations (user already has data for country)
@@ -90,6 +100,16 @@ export default class extends React.Component {
         variables: {
           id: visitId,
           level: this.state.itchyLevel,
+        },
+        update: (cache, {data: {updateVisit}}) => {
+          const result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId } });
+          const visits = result.user.visits
+          const level = updateVisit['level']
+          cache.writeQuery({
+            query: QUERY_USERVISITS_MODAL,
+            variables: {id: result.user },
+            data: {user: {visits: visits.map(v => v.id === visitId ? {...v, level} : v), __typename: 'Visit'}} 
+          });
         }
       };
     }
@@ -160,7 +180,10 @@ export default class extends React.Component {
               // Display Scratchable Country and Visit Slider
               return (
                 <React.Fragment>
-                  <Mutation mutation={gqlMutation}>{mutationInvocation => (
+                  <Mutation 
+                    mutation={gqlMutation}
+                  >  
+                  {mutationInvocation => (
                     <Scratcher
                       scratchable={this.state.itchy}
                       destination={countryCode} 
