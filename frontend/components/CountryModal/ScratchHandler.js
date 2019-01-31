@@ -29,7 +29,6 @@ import {
 } from '../../services/requests/modal';
 import Scratcher from '../Scratcher/index.js';
 import { colors } from '../Map/countryStyles.js';
-import './scratch-handler.less';
 
 //-- Project Constants ---------------------------
 const VISITLEVEL_NONE = 0;
