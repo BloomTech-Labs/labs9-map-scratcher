@@ -86,7 +86,7 @@ export default class UserCard extends Component {
             <Fragment>
               <Mutation
               mutation={MUTATION_UPDATEUSER_PROFILE}
-              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate, pictureUrl }}
+              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate, pictureUrl, bio }}
             >
               {updateUser => (
               <Form 
@@ -127,6 +127,18 @@ export default class UserCard extends Component {
                   placeholder={nickname}
                   type="text"
                   value={nickname}
+                  required
+                  className='profile_userCardInput'
+                />
+                </Form.Field>
+                <Form.Field>
+                <label>Bio</label>
+                <Input
+                  name="bio"
+                  onChange={this.handleChange}
+                  placeholder={bio}
+                  type="text"
+                  value={bio}
                   required
                   className='profile_userCardInput'
                 />
