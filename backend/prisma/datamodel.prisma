@@ -4,11 +4,9 @@ type User {
   nickname: String
   email: String
   twitterHandle: String @unique
-  bio: String
-  pictureUrl: String 
   scratchingAutomated: Boolean @default(value: "false")
   isPrivate: Boolean @default(value: "false")
-  visits: [Visit] @relation(name: "UserCountries")
+  visits: [Visit] @relation(name: "UserCountries", onDelete: CASCADE)
   friends: [User]
   isPremium: Boolean
   bio: String
@@ -19,13 +17,13 @@ type Country {
   id: ID! @unique
   name: String! @unique
   code: String!
-  visits: [Visit] @relation(name: "CountryVisits")
+  visits: [Visit] @relation(name: "CountryVisits", onDelete: CASCADE)
 }
 
 type Visit {
   id: ID! @unique
-  user: User! @relation(name: "UserCountries")
-  country: Country! @relation(name: "CountryVisits")
+  user: User! @relation(name: "UserCountries", onDelete: SET_NULL)
+  country: Country! @relation(name: "CountryVisits", onDelete: SET_NULL)
   note: String
   level: Int
 }
