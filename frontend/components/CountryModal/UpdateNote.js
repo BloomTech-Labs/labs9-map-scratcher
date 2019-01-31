@@ -9,7 +9,7 @@
 import React, { Component, Fragment } from 'react'
 import { Mutation } from 'react-apollo';
 import { Button, Form, Input } from 'semantic-ui-react';
-import { MUTATION_UPDATEVISIT_MODAL } from '../../services/requests/modal';
+import { MUTATION_UPDATEVISIT_MODAL, QUERY_USERVISITS_MODAL } from '../../services/requests/modal';
 
 //-- React Implementation ------------------------
 export default class UpdateNote extends Component {
@@ -35,11 +35,23 @@ export default class UpdateNote extends Component {
   }
 
   render() {
+    const { visitId, displayId } = this.props
     return (
       <Fragment>
         <Mutation 
           mutation={MUTATION_UPDATEVISIT_MODAL}
-          variables={{id: this.props.visitId, note: this.state.note }}
+          variables={{id: visitId, note: this.state.note}}
+          update={(cache, {data: {updateVisit}}) => {
+            const data = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: displayId } });
+            const visits = data.user.visits
+            console.log(visits)
+            const note = updateVisit.note
+            cache.writeQuery({
+              query: QUERY_USERVISITS_MODAL,
+              variables: {id: data.user},
+              data: {user: {visits: visits.map(v => v.id === visitId ? {...v, note} : v), __typename: 'Visit'}} 
+            });
+          }}
         >
           {updateVisit => (
             <Form onSubmit={updateVisit}>
