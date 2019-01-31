@@ -35,8 +35,8 @@ export default class UserCard extends Component {
   }
   componentDidMount() {
     const user = this.props.user;
-    const { name, email, nickname, scratchingAutomated, isPrivate } = user;
-    this.setState({ name, email, nickname, scratchingAutomated, isPrivate });
+    const { name, email, nickname, scratchingAutomated, isPrivate, pictureUrl } = user;
+    this.setState({ name, email, nickname, scratchingAutomated, isPrivate, pictureUrl });
     // Is there a reason not to pass user instead of deconstruct/reconstruct it?
   }
 
@@ -50,7 +50,8 @@ export default class UserCard extends Component {
 
 
   //uploads the image and sends back the url of the uploaded image
-  uploadWidget = (url) => {
+  uploadWidget = (e) => {
+    e.preventDefault()
     cloudinary.openUploadWidget({
       cloud_name: 'dr9p6aaos',
       upload_preset: 'vchytrzk'}, 
@@ -70,7 +71,7 @@ export default class UserCard extends Component {
     const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing, pictureUrl } = this.state;
     return (
       <Card className='profile_userCardMain'>
-        <Image src='/static/alpaca.png' className='profile_userCardProfilePic' />
+        <Image src={pictureUrl === '' ? '/static/alpaca.png' : pictureUrl} className='profile_userCardProfilePic' />
         <Card.Content>
           <Card.Header>{name}</Card.Header>
           <Card.Meta>
