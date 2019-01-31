@@ -14,12 +14,6 @@
   position: absolute;
   z-index: 500;
 
-  @media (max-width: 1000px) {
-  }
-
-   @media (max-width: 700px) {
-     // width: 60%;
-   }
 
   @media (max-width: 500px) {
     bottom: 0;
@@ -28,33 +22,29 @@
     width: 100%;
     height: 100vh;
   }
-  input {
+
+  div.content {
     width: 90%;
+    text-align: center;
   }
 
-  div.header.modal_header {
+  .header.modal_header {
     align-items: flex-start;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column-reverse;
+    align-items: center;
     padding: 5%;
     width: 100%;
-    @media (max-width: 1200px) {
-      flex-direction: column-reverse;
-      align-items: center;
-    }
+
 
     @media (max-width: 500px) {
       height: 15vh;
     }
 
     p {
-      width: 40%;
-
-      @media (max-width: 1200px) {
-        width: 100%;
-        text-align: center;
-      }
+      width: 90%;
+      text-align: center;
+      font-size: 2rem;
     }
     .ui.button {
       font-size: 1.6rem;
@@ -64,21 +54,7 @@
       margin: 5% auto;
 
     }
-  }
-  div.ui.segment {
-    display: flex;
-    flex-wrap: wrap;
-    height: 10%;
-    align-items: space-evenly;
-    justify-content: space-evenly;
-
-    @media (max-width: 500px) {
-      flex-direction: column;
-      align-items: center;
-      height: 30%;
-    }
-
-  }
+  } // end modal Header
 
   .ui.form {
     display: flex;
@@ -100,17 +76,20 @@
       width: 90%;
       padding: 5%;
       margin: 5% auto;
-
-      // @media (max-width: 1200px) {
-      //   width: 45%;
-      //   font-size: 1rem;
-      // }
+      font-size: 1.4rem; 
 
       @media (max-width: 500px) {
         width: 90%;
         padding: 5%;
         margin: 5% auto;
       }
-    }
+    }//end Form
+    // input {
+    //   width: 90%;
+    //   margin: 0 auto;
+    //   border: 1px solid black;
+    // }
+
   }
+
 }
