@@ -1,5 +1,3 @@
-
-
 //== Travels Page ==============================================================
 /*
   [Insert Documentation here]
@@ -8,8 +6,9 @@
 //-- Dependencies --------------------------------
 import dynamic from 'next/dynamic';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import { Query, Mutation, ApolloConsumer } from 'react-apollo';
+import { Query } from 'react-apollo';
 import React, { Component, Fragment } from 'react';
+
 import MapHeader from '../components/MapHeader/MapHeader';
 import Legend from '../components/MapLegend/Legend';
 import CountryModal from '../components/CountryModal/CountryModal';
@@ -20,7 +19,8 @@ import {
   QUERY_CLIENT_TRAVELS,
   QUERY_USERVISITS_TRAVELS,
   QUERY_FRIENDSVISITS_TRAVELS,
-  QUERY_MODAL_TRAVELS } from '../services/requests/travels';
+  QUERY_MODAL_TRAVELS,
+} from '../services/requests/travels';
 
 //-- Subcomponent: Dynamic Map -------------------
 const DynamicMap = dynamic(() => import('../components/Map/StaticMap'), {
@@ -29,14 +29,14 @@ const DynamicMap = dynamic(() => import('../components/Map/StaticMap'), {
       <Loader size="large" />
     </Dimmer>
   ),
-  ssr: false
+  ssr: false,
 });
 
 //-- React Implementation ------------------------
 export default class extends Component {
   render() {
     return (
-      <div className='travels_map-container'>
+      <div className="travels_map-container">
         <MapHeader />
         <Query query={QUERY_CLIENT_TRAVELS}>
         {({ loading: loadinguser, data }) => {
@@ -45,12 +45,10 @@ export default class extends Component {
             return null;
           }
           const id = localState.userId;
-          console.log('travels inside qct', id)
           return (
             <Fragment>
               <Query query={QUERY_USERVISITS_TRAVELS} variables={{id}}>
               {({ loading: loadingVisits, data} ) => {
-                console.log('travels inside qut', id);
                 let visitsUser = [];
                 if (data.user) {
                   visitsUser.push(data.user);
@@ -59,7 +57,6 @@ export default class extends Component {
                 return (
                   <Query query={QUERY_FRIENDSVISITS_TRAVELS} variables={{id}}>
                     {({ loading: loadingFriendVisits, data: { friends }}) => {
-                      console.log('travels inside qft', id);
                       let colors, borders;
                       let friendVisits = [];
                       let viewBorders = localState.viewBorders ? true: false;
@@ -99,14 +96,12 @@ export default class extends Component {
             )
           }
           if (data.modalOpen) {
-            return (
-              <CountryModal />
-            );
-          }
-        }}
+              return <CountryModal />;
+            }
+          }}
         </Query>
-        <div className='travels_checkboxMobile'>
-        <ViewBordersCheckbox />
+        <div className="travels_checkboxMobile">
+          <ViewBordersCheckbox />
         </div>
         <Legend />
       </div>

@@ -28,6 +28,8 @@ import {
   MUTATION_UPDATEVISIT_MODAL,
 } from '../../services/requests/modal';
 import Scratcher from '../Scratcher/index.js';
+import { colors } from '../Map/countryStyles.js';
+import './scratch-handler.less';
 
 //-- Project Constants ---------------------------
 const VISITLEVEL_NONE = 0;
@@ -35,12 +37,6 @@ const VISITLEVEL_WISHLIST = 1;
 const VISITLEVEL_TRANSITED = 2;
 const VISITLEVEL_VISITED = 3;
 const VISITLEVEL_LIVED = 4;
-const VISIT_COLORS = [];
-VISIT_COLORS[VISITLEVEL_NONE     ] = '#888';
-VISIT_COLORS[VISITLEVEL_WISHLIST ] = '#440';
-VISIT_COLORS[VISITLEVEL_TRANSITED] = '#404';
-VISIT_COLORS[VISITLEVEL_VISITED  ] = '#044';
-VISIT_COLORS[VISITLEVEL_LIVED    ] = '#600';
 
 
 //== Main Component ============================================================
@@ -82,6 +78,16 @@ export default class extends React.Component {
           userId: this.props.displayId,
           countryId: this.props.countryId,
           level: this.state.itchyLevel,
+        },
+        update: (cache, {data: {createVisit}}) => {
+          const result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId } });
+          const visits = result.user.visits
+          const newVisit = createVisit
+          cache.writeQuery({
+            query: QUERY_USERVISITS_MODAL,
+            variables: {id: result.user },
+            data: {user: {visits: [...visits, newVisit], __typename: 'Visit'}} 
+          });
         }
       };
     // Handle update visit mutations (user already has data for country)
@@ -90,6 +96,16 @@ export default class extends React.Component {
         variables: {
           id: visitId,
           level: this.state.itchyLevel,
+        },
+        update: (cache, {data: {updateVisit}}) => {
+          const result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId } });
+          const visits = result.user.visits
+          const level = updateVisit['level']
+          cache.writeQuery({
+            query: QUERY_USERVISITS_MODAL,
+            variables: {id: result.user },
+            data: {user: {visits: visits.map(v => v.id === visitId ? {...v, level} : v), __typename: 'Visit'}} 
+          });
         }
       };
     }
@@ -151,7 +167,7 @@ export default class extends React.Component {
                 displayLevel = visitLevel;
               }
               // Determine scratcher background color
-              let colorOutline = VISIT_COLORS[displayLevel];
+              let colorOutline = colors[displayLevel];
               // Determine Mutation type
               let gqlMutation = MUTATION_CREATEVISIT_MODAL;
               if(visitId) {
@@ -159,7 +175,7 @@ export default class extends React.Component {
               }
               // Display Scratchable Country and Visit Slider
               return (
-                <React.Fragment>
+                <div className="scratch-handler">
                   <Mutation mutation={gqlMutation}>{mutationInvocation => (
                     <Scratcher
                       scratchable={this.state.itchy}
@@ -177,7 +193,7 @@ export default class extends React.Component {
                     disabled={this.props.disabled}
                     onChange={this.handleChangeVisit}
                   />
-                </React.Fragment>
+                </div>
               );
               //
             }}</Query>
@@ -204,15 +220,24 @@ function VisitSlider(props) {
   }
   // Render a basic slider
   return (
-    <input
-      type="range"
-      value={props.visitLevel}
-      min={VISITLEVEL_NONE}
-      max={VISITLEVEL_LIVED}
-      onChange={(eventChange) => {
-        const newValue = Number(eventChange.currentTarget.value);
-        props.onChange(newValue);
-      }}
-    />
+    <div>
+      <div className="scratch-handler_visit-labels">
+        <span></span>
+        <span>Wishlist</span>
+        <span>Transited</span>
+        <span>Visited</span>
+        <span>Lived</span>
+      </div>
+      <input className="scratch-handler_slider"
+        type="range"
+        value={props.visitLevel}
+        min={VISITLEVEL_NONE}
+        max={VISITLEVEL_LIVED}
+        onChange={(eventChange) => {
+          const newValue = Number(eventChange.currentTarget.value);
+          props.onChange(newValue);
+        }}
+      />
+    </div>
   );
 }

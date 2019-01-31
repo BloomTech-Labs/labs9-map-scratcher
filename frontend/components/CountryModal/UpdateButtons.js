@@ -12,10 +12,14 @@ import React, { Component, Fragment } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import { Query, Mutation } from 'react-apollo';
 import {
+  QUERY_USERVISITS_MODAL,
   QUERY_SCRATCHING_MODAL,
   QUERY_VISIT_MODAL,
   MUTATION_SCRATCHING_MODAL,
   MUTATION_UPDATEVISIT_MODAL } from '../../services/requests/modal';
+  import {
+      QUERY_CLIENT_TRAVELS,
+  } from '../../services/requests/travels';
 
 //-- Types of buttons to display -----------------
 /* buttonTypes: An array of objects used to configure buttons. There is one
@@ -35,25 +39,25 @@ export default class UpdateButtons extends Component {
     const { displayId, visitId } = this.props
     return (
       <Fragment>
-        <Mutation 
+        <Mutation
           mutation={MUTATION_UPDATEVISIT_MODAL}
           update={(cache, {data: {updateVisit}}) => {
             const res = cache.readQuery({ query: QUERY_VISIT_MODAL, variables: {id: visitId} });
             console.log(res)
-            // cache.writeQuery({
-            //   query: QUERY_VISIT_MODAL,
-            //   variables: {id: visitId},
-            //   data: {user: {visits: visits.map(v => v.id === visitId ? {...v, lvl} : v)}, __typename: 'Visit', __typename: 'User'} ,
-            // });
-            // const visits = user.visits
-            // const lvl = updateVisit.level
-            // cache.writeQuery({
-            //   query: QUERY_VISIT_MODAL,
-            //   variables: {id: visitId},
-            //   data: {user: {visits: visits.map(v => v.id === visitId ? {...v, lvl} : v)}, __typename: 'Visit', __typename: 'User'} ,
-            // });
-          // console.log('visits', user.visits)
-          // console.log('new note', updateVisit.note)
+            cache.writeQuery({
+              query: QUERY_VISIT_MODAL,
+              variables: {id: visitId},
+              data: {user: {visits: visits.map(v => v.id === visitId ? {...v, lvl} : v)}, __typename: 'Visit', __typename: 'User'} ,
+            });
+            const visits = user.visits
+            const lvl = updateVisit.level
+            cache.writeQuery({
+              query: QUERY_VISIT_MODAL,
+              variables: {id: visitId},
+              data: {user: {visits: visits.map(v => v.id === visitId ? {...v, lvl} : v)}, __typename: 'Visit', __typename: 'User'} ,
+            });
+          console.log('visits', user.visits)
+          console.log('new note', updateVisit.note)
           }}
         >
         {(updateVisit, {data}) => (

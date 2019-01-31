@@ -1,5 +1,3 @@
-
-
 //== next/app -> App ===========================================================
 /*
   Next.js uses the App component to initialize pages. We wrap ApolloProvider
@@ -7,16 +5,16 @@
 */
 
 //-- Dependencies --------------------------------
-import App, { Container } from 'next/app'
-import { ApolloProvider } from 'react-apollo'
-import createApolloClient from '../services/createApolloClient.js'
-import Meta from '../components/Meta.js'
-import CurrentUser from '../services/Authentication/CurrentUser.js'
-import '../less/index.less'
+import App, { Container } from 'next/app';
+import { ApolloProvider } from 'react-apollo';
+import createApolloClient from '../services/createApolloClient.js';
+
+import Meta from '../components/Meta.js';
+import '../less/index.less';
 
 //-- React Implementation ------------------------
 class MyApp extends App {
-  static async getInitialProps({ Component, router, ctx }) {
+  static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
@@ -24,15 +22,14 @@ class MyApp extends App {
     pageProps.query = ctx.query;
     return { pageProps };
   }
+
   render() {
     const { apollo, Component, pageProps } = this.props;
     return (
       <Container>
         <ApolloProvider client={apollo}>
           <Meta />
-          <CurrentUser>
-            <Component {...pageProps} />
-          </CurrentUser>
+          <Component {...pageProps} />
         </ApolloProvider>
       </Container>
     );
