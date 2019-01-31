@@ -29,6 +29,7 @@ import {
 } from '../../services/requests/modal';
 import Scratcher from '../Scratcher/index.js';
 import { colors } from '../Map/countryStyles.js';
+import './scratch-handler.less';
 
 //-- Project Constants ---------------------------
 const VISITLEVEL_NONE = 0;
@@ -154,7 +155,7 @@ export default class extends React.Component {
               }
               // Display Scratchable Country and Visit Slider
               return (
-                <React.Fragment>
+                <div className="scratch-handler">
                   <Mutation mutation={gqlMutation}>{mutationInvocation => (
                     <Scratcher
                       scratchable={this.state.itchy}
@@ -172,7 +173,7 @@ export default class extends React.Component {
                     disabled={this.props.disabled}
                     onChange={this.handleChangeVisit}
                   />
-                </React.Fragment>
+                </div>
               );
               //
             }}</Query>
@@ -199,7 +200,7 @@ function VisitSlider(props) {
   }
   // Render a basic slider
   return (
-    <input
+    <input className="scratch-handler_slider"
       type="range"
       value={props.visitLevel}
       min={VISITLEVEL_NONE}
