@@ -153,13 +153,6 @@ export default class extends React.Component {
 
     //-- Draw Canvas ---------------------------------
     draw() {
-        /* Cancel out if resources aren't ready. This can happen if
-            props.scratchable is true, but no urlMap or urlImage are falsy or
-            cannot be loaded.
-        */
-        if(!(this.drawingState.imageMap && this.drawingState.imageFlag)) {
-            return;
-        }
         // Redraw canvas on animation frame
         requestAnimationFrame(() => {
             utilities.draw(this.drawingState);

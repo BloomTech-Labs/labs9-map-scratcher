@@ -164,6 +164,18 @@ export function checkSize(drawingState) {
 
 //-- Draw full map scratcher ---------------------
 export function draw(drawingState) {
+    /* Cancel out if resources aren't ready. This can happen if
+        props.scratchable is true, but no urlMap or urlImage are falsy or
+        cannot be loaded.
+    */
+    if(
+      !drawingState.imageMap  ||
+      !drawingState.imageFlag ||
+      !drawingState.imageOutline
+      ) {
+        return;
+    }
+    //
     const context = drawingState.mainContext;
     const canvas = context.canvas;
     context.save();
