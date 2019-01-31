@@ -21,6 +21,7 @@ const Meta = () => (
     <meta charSet="utf-8" />
     <link href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css' rel='stylesheet'></link>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"></link>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"></link>
     <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <title>Backpaca</title>
   </Head>
