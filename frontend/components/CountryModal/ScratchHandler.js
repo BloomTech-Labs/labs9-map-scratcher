@@ -200,15 +200,24 @@ function VisitSlider(props) {
   }
   // Render a basic slider
   return (
-    <input className="scratch-handler_slider"
-      type="range"
-      value={props.visitLevel}
-      min={VISITLEVEL_NONE}
-      max={VISITLEVEL_LIVED}
-      onChange={(eventChange) => {
-        const newValue = Number(eventChange.currentTarget.value);
-        props.onChange(newValue);
-      }}
-    />
+    <div>
+      <div className="scratch-handler_visit-labels">
+        <span></span>
+        <span>Wishlist</span>
+        <span>Transited</span>
+        <span>Visited</span>
+        <span>Lived</span>
+      </div>
+      <input className="scratch-handler_slider"
+        type="range"
+        value={props.visitLevel}
+        min={VISITLEVEL_NONE}
+        max={VISITLEVEL_LIVED}
+        onChange={(eventChange) => {
+          const newValue = Number(eventChange.currentTarget.value);
+          props.onChange(newValue);
+        }}
+      />
+    </div>
   );
 }
