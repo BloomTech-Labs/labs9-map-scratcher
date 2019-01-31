@@ -5,10 +5,13 @@
 */
 
 //-- Dependencies --------------------------------
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react'
-import { Mutation } from 'react-apollo'
-import { MUTATION_UPDATEUSER_PROFILE } from '../../services/requests/profile'
+import { Mutation } from 'react-apollo';
+import { Router } from '../../services/routes';
+import { 
+  MUTATION_UPDATEUSER_PROFILE,
+  MUTATION_DELETEUSER_PROFILE } from '../../services/requests/profile'
 import './profile.less'
 
 //== React Implementation ======================================================
@@ -25,6 +28,9 @@ export default class UserCard extends Component {
       nickname: '',
       scratchingAutomated: null,
       isPrivate: null,
+      pictureUrl: '',
+      editing: false
+
     };
   }
   componentDidMount() {
@@ -41,23 +47,48 @@ export default class UserCard extends Component {
     });
   }
 
+
+
+  //uploads the image and sends back the url of the uploaded image
+  uploadWidget = (url) => {
+    cloudinary.openUploadWidget({
+      cloud_name: 'dr9p6aaos',
+      upload_preset: 'vchytrzk'}, 
+      (error, result) => { 
+        console.log(error, result)
+        if(result) {
+        this.setState({ pictureUrl: result[0].secure_url })
+        }
+      } 
+    )
+  }
+  toggleEditing = () => {
+    this.setState({ editing: !this.state.editing })
+  }
   //-- Rendering -----------------------------------
   render() {
-    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate } = this.state;
+    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing, pictureUrl } = this.state;
     return (
       <Card className='profile_userCardMain'>
         <Image src='/static/alpaca.png' className='profile_userCardProfilePic' />
         <Card.Content>
           <Card.Header>{name}</Card.Header>
-            <Card.Meta>
-              <span className='date'>Joined in {joinDate}</span>
-            </Card.Meta>
-            <Mutation
+          <Card.Meta>
+            <span className='date'>Joined in {joinDate}</span>
+          </Card.Meta>
+          {editing ? (
+            <Fragment>
+              <Mutation
               mutation={MUTATION_UPDATEUSER_PROFILE}
-              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate }}
+              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate, pictureUrl }}
             >
               {updateUser => (
-              <Form className='profile_userCardForm' onSubmit={updateUser}>
+              <Form 
+                className='profile_userCardForm' 
+                onSubmit={() => { 
+                  updateUser()
+                  this.toggleEditing()
+                }}>
                 <Form.Field>
                 <label>Name</label>
                 <Input
@@ -95,30 +126,60 @@ export default class UserCard extends Component {
                 />
                 </Form.Field>
                 <Form.Field>
-                    <Checkbox
-                    type='checkbox'
-                    name='automateScratchOff'
-                    toggle
-                    onChange={() => this.setState({scratchingAutomated: !scratchingAutomated})}
-                    checked={!!scratchingAutomated}
-                    label="Automate Scratch-off"
-                    />
+                  <Checkbox
+                  type='checkbox'
+                  name='automateScratchOff'
+                  toggle
+                  onChange={() => this.setState({scratchingAutomated: !scratchingAutomated})}
+                  checked={!!scratchingAutomated}
+                  label="Automate Scratch-off"
+                  />
                 </Form.Field>
                 <Form.Field>
-                    <Checkbox
-                    type='checkbox'
-                    name='isPrivate'
-                    toggle
-                    onChange={() => this.setState({isPrivate: !isPrivate})}
-                    checked={!!isPrivate}
-                    label="Private User"
-                    />
+                  <Checkbox
+                  type='checkbox'
+                  name='isPrivate'
+                  toggle
+                  onChange={() => this.setState({isPrivate: !isPrivate})}
+                  checked={!!isPrivate}
+                  label="Private User"
+                  />
                 </Form.Field>
                 <Form.Field>
-                  <Button onClick={updateUser} primary>Submit</Button>
+                <Button onClick={this.uploadWidget}>Upload profile picture</Button>
+                  <Button 
+                    onSubmit={() => { 
+                      updateUser()
+                      this.toggleEditing()
+                    }}
+                    primary
+                  >Submit</Button>
                 </Form.Field>
               </Form>)}
             </Mutation>
+            <Mutation mutation={MUTATION_DELETEUSER_PROFILE} variables={{id: this.props.user.id}}>
+              {deleteUser => (
+              <Button onClick={deleteUser}>permanently delete account</Button> 
+              )}
+            </Mutation>
+          </Fragment>
+          ) : (
+            <Fragment>
+              <Button onClick={this.toggleEditing}>edit profile</Button>
+              <div>{name}</div>
+              <div>{email}</div>
+              <div>{nickname}</div>
+              <div>Settings
+                <div>{scratchingAutomated ? 'automated scratchoff' : 'manual scratchoff'}</div>
+                <div>{isPrivate ? 'private user' : 'public user'}</div>
+              </div>
+              <Button
+                // onClick={() => Router.pushRoute('travels')}
+              >
+                View Your Travels
+              </Button>
+            </Fragment>
+          )}
         </Card.Content>
       </Card>
     );

@@ -6,9 +6,8 @@
 // if you don't see one: `git remote add heroku-backend https://git.heroku.com/backpaca-yoga.git`
 // then to push changes `git subtree push --prefix backend heroku-backend master`
 
-// NOTE #2
-// Added a script for the command `prisma deploy` called yarn deploy -> this will
-// inject the environment variables from the config.env file
+//Do this in the backend folder
+//export PRISMA_MANAGEMENT_API_SECRET={obtain from heroku} => prisma deploy => prisma generate
 //==============================================================================
 
 //-- Dependencies --------------------------------

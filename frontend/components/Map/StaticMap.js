@@ -6,7 +6,6 @@
     countries are drawn from GeoJSON data. It accept the following props:
         asdf(string) - sdfal;kjasdfjlk
         JKL:(boolean) - asdflsadfj;
-
     TODO:
         Look at reducing GeoJSON renders either by reducing the number of
         renders, or be using something like geojson-vt. There are currently four
@@ -124,7 +123,6 @@ export default class WorldMap extends React.Component {
           data={geojson.features}
           style={defaultStyle}
           />
-
         {geojson.features.map(feature => this.state.hovering === feature.properties.ADMIN && (
           <Query key={feature.properties.ADMIN} query={QUERY_COUNTRIES_HEADER}>
           {({ loading, data: { countries }}) => {
@@ -158,7 +156,6 @@ export default class WorldMap extends React.Component {
           }}
             </Query>
         ))}
-
         {this.props.colors && this.props.colors.map(visit => {
           //maps through the colors passed as props to the map to render the countries in the correct color.
           const level = visit[3];
@@ -186,7 +183,6 @@ export default class WorldMap extends React.Component {
             return (<GeoJSON key={visit[0]} data={feature} style={style}/>)
           })
         }
-
       </Map>
     )
   }

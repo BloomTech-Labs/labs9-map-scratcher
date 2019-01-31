@@ -1,3 +1,5 @@
+
+
 type Query {
   user(id: ID!): User!
   users: [User!]!
@@ -12,7 +14,7 @@ type Query {
 
 type Mutation {
   createUser(twitterHandle: String, name: String, nickname: String, email: String): User!
-  updateUser(name: String, nickname: String, email: String, scratchingAutomated: Boolean, isPrivate: Boolean, id: ID!): User!
+  updateUser(name: String, nickname: String, email: String, scratchingAutomated: Boolean, isPrivate: Boolean, id: ID!, bio: String, pictureUrl: String): User!
   deleteUser(id: ID!): User!
   createCountry(name: String!, code: String!): Country!
   createVisit(userId: ID!, countryId: ID!, level: Int, note: String): Visit!
@@ -30,8 +32,10 @@ type User {
   visits: [Visit]
   twitterHandle: String
   scratchingAutomated: Boolean
-  isPrivate: Boolean,
+  isPrivate: Boolean
   friends: [User]
+  bio: String
+  pictureUrl: String
 }
 
 type Country {
