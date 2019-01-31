@@ -8,7 +8,6 @@
 import React, { Component, Fragment } from 'react'
 import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo';
-import { Router } from '../../services/routes';
 import { 
   MUTATION_UPDATEUSER_PROFILE,
   MUTATION_DELETEUSER_PROFILE } from '../../services/requests/profile'
@@ -26,17 +25,17 @@ export default class UserCard extends Component {
       name: '',
       email: '',
       nickname: '',
+      bio: '',
+      pictureUrl: '',
       scratchingAutomated: null,
       isPrivate: null,
-      pictureUrl: '',
       editing: false
-
     };
   }
   componentDidMount() {
     const user = this.props.user;
-    const { name, email, nickname, scratchingAutomated, isPrivate, pictureUrl } = user;
-    this.setState({ name, email, nickname, scratchingAutomated, isPrivate, pictureUrl });
+    const { name, email, nickname, scratchingAutomated, isPrivate, pictureUrl, bio } = user;
+    this.setState({ name, email, nickname, scratchingAutomated, isPrivate, pictureUrl, bio });
     // Is there a reason not to pass user instead of deconstruct/reconstruct it?
   }
 
@@ -63,12 +62,16 @@ export default class UserCard extends Component {
       } 
     )
   }
+
+  //toggles whether the form is editable
   toggleEditing = () => {
     this.setState({ editing: !this.state.editing })
   }
+
+
   //-- Rendering -----------------------------------
   render() {
-    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing, pictureUrl } = this.state;
+    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing, pictureUrl, bio } = this.state;
     return (
       <Card className='profile_userCardMain'>
         <Image src={pictureUrl === '' ? '/static/alpaca.png' : pictureUrl} className='profile_userCardProfilePic' />
@@ -81,7 +84,7 @@ export default class UserCard extends Component {
             <Fragment>
               <Mutation
               mutation={MUTATION_UPDATEUSER_PROFILE}
-              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate, pictureUrl }}
+              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate, pictureUrl, bio }}
             >
               {updateUser => (
               <Form 
@@ -122,6 +125,18 @@ export default class UserCard extends Component {
                   placeholder={nickname}
                   type="text"
                   value={nickname}
+                  required
+                  className='profile_userCardInput'
+                />
+                </Form.Field>
+                <Form.Field>
+                <label>Bio</label>
+                <Input
+                  name="bio"
+                  onChange={this.handleChange}
+                  placeholder={bio}
+                  type="text"
+                  value={bio}
                   required
                   className='profile_userCardInput'
                 />
@@ -170,6 +185,7 @@ export default class UserCard extends Component {
               <div>{name}</div>
               <div>{email}</div>
               <div>{nickname}</div>
+              <div>{bio}</div>
               <div>Settings
                 <div>{scratchingAutomated ? 'automated scratchoff' : 'manual scratchoff'}</div>
                 <div>{isPrivate ? 'private user' : 'public user'}</div>
