@@ -8,7 +8,6 @@
 import React, { Component, Fragment } from 'react'
 import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo';
-import { Router } from '../../services/routes';
 import { 
   MUTATION_UPDATEUSER_PROFILE,
   MUTATION_DELETEUSER_PROFILE } from '../../services/requests/profile'
@@ -26,6 +25,8 @@ export default class UserCard extends Component {
       name: '',
       email: '',
       nickname: '',
+      bio: '',
+      pictureUrl: '',
       scratchingAutomated: null,
       isPrivate: null,
       editing: false
@@ -33,8 +34,8 @@ export default class UserCard extends Component {
   }
   componentDidMount() {
     const user = this.props.user;
-    const { name, email, nickname, scratchingAutomated, isPrivate } = user;
-    this.setState({ name, email, nickname, scratchingAutomated, isPrivate });
+    const { name, email, nickname, scratchingAutomated, isPrivate, pictureUrl, bio } = user;
+    this.setState({ name, email, nickname, scratchingAutomated, isPrivate, pictureUrl, bio });
     // Is there a reason not to pass user instead of deconstruct/reconstruct it?
   }
 
@@ -44,15 +45,36 @@ export default class UserCard extends Component {
       [changeEvent.target.name]: changeEvent.target.value,
     });
   }
+
+
+
+  //uploads the image and sends back the url of the uploaded image
+  uploadWidget = (e) => {
+    e.preventDefault()
+    cloudinary.openUploadWidget({
+      cloud_name: 'dr9p6aaos',
+      upload_preset: 'vchytrzk'}, 
+      (error, result) => { 
+        console.log(error, result)
+        if(result) {
+        this.setState({ pictureUrl: result[0].secure_url })
+        }
+      } 
+    )
+  }
+
+  //toggles whether the form is editable
   toggleEditing = () => {
     this.setState({ editing: !this.state.editing })
   }
+
+
   //-- Rendering -----------------------------------
   render() {
-    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing } = this.state;
+    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing, pictureUrl, bio } = this.state;
     return (
       <Card className='profile_userCardMain'>
-        <Image src='/static/alpaca.png' className='profile_userCardProfilePic' />
+        <Image src={pictureUrl === '' ? '/static/alpaca.png' : pictureUrl} className='profile_userCardProfilePic' />
         <Card.Content>
           <Card.Header>{name}</Card.Header>
           <Card.Meta>
@@ -62,8 +84,8 @@ export default class UserCard extends Component {
             <Fragment>
               <Mutation
               mutation={MUTATION_UPDATEUSER_PROFILE}
-              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate }}
-              >
+              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate, pictureUrl, bio }}
+            >
               {updateUser => (
               <Form 
                 className='profile_userCardForm' 
@@ -108,6 +130,18 @@ export default class UserCard extends Component {
                 />
                 </Form.Field>
                 <Form.Field>
+                <label>Bio</label>
+                <Input
+                  name="bio"
+                  onChange={this.handleChange}
+                  placeholder={bio}
+                  type="text"
+                  value={bio}
+                  required
+                  className='profile_userCardInput'
+                />
+                </Form.Field>
+                <Form.Field>
                   <Checkbox
                   type='checkbox'
                   name='automateScratchOff'
@@ -128,6 +162,7 @@ export default class UserCard extends Component {
                   />
                 </Form.Field>
                 <Form.Field>
+                <Button onClick={this.uploadWidget}>Upload profile picture</Button>
                   <Button 
                     onSubmit={() => { 
                       updateUser()
@@ -150,6 +185,7 @@ export default class UserCard extends Component {
               <div>{name}</div>
               <div>{email}</div>
               <div>{nickname}</div>
+              <div>{bio}</div>
               <div>Settings
                 <div>{scratchingAutomated ? 'automated scratchoff' : 'manual scratchoff'}</div>
                 <div>{isPrivate ? 'private user' : 'public user'}</div>
