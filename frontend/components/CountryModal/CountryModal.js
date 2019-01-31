@@ -34,7 +34,7 @@ export default class CountryModal extends Component {
           disabled = false
         }
         return (
-          <Card>
+          <div className='modal'>
             <Card.Content>
               <Header id={data.countryId} />
               <ScratchHandler
@@ -52,7 +52,7 @@ export default class CountryModal extends Component {
                 displayId={displayId}
               />
             </Card.Content>
-          </Card>
+          </div>
         );
         /* Legacy code. Delete once slider component has replaced buttons, and
           all merge conflicts have been resolved.

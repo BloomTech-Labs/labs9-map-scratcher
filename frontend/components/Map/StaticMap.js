@@ -135,7 +135,6 @@ export default class WorldMap extends React.Component {
                 return country.name === feature.properties.ADMIN;
               })
             }
-            console.log(country[0]);
             return (
               <Mutation mutation={MUTATION_OPENMODAL_TRAVELS} >
               {(openModal, { data }) => (
