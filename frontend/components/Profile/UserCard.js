@@ -8,7 +8,6 @@
 import React, { Component, Fragment } from 'react'
 import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo';
-import { Router } from '../../services/routes';
 import { 
   MUTATION_UPDATEUSER_PROFILE,
   MUTATION_DELETEUSER_PROFILE } from '../../services/requests/profile'
@@ -72,7 +71,6 @@ export default class UserCard extends Component {
 
   //-- Rendering -----------------------------------
   render() {
-    console.log(this.props.user)
     const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing, pictureUrl, bio } = this.state;
     return (
       <Card className='profile_userCardMain'>

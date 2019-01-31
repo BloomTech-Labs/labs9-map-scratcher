@@ -24,8 +24,8 @@ export default class NavigationDropdown extends Component {
     return (
       <Dropdown icon="user" size="large">
         <Dropdown.Menu>
-          <Link href="/">
-            <Dropdown.Item text="Home" icon="home" />
+          <Link href="/travels">
+            <Dropdown.Item text="Travels" icon="plane" />
           </Link>
           <Link href="/profile">
             <Dropdown.Item text="Profile" icon="user" href="/profile" />
