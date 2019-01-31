@@ -46,6 +46,7 @@ export const QUERY_VISIT_MODAL = gql`
 export const QUERY_USERVISITS_MODAL = gql`
     query User($id: ID!) {
     user(id: $id) {
+      id
       visits {
         id
         level
@@ -92,8 +93,14 @@ export const MUTATION_CREATEVISIT_MODAL = gql`
       level: $level,
       note: $note)
     {
+      id,
       level,
-      note
+      note,
+      country {
+        id
+        code
+        name
+      }
     }
   }
 `
