@@ -34,9 +34,15 @@ export default class UserCard extends Component {
   }
   componentDidMount() {
     const user = this.props.user;
-    const { name, email, nickname, scratchingAutomated, isPrivate, pictureUrl, bio } = user;
-    this.setState({ name, email, nickname, scratchingAutomated, isPrivate, pictureUrl, bio });
-    // Is there a reason not to pass user instead of deconstruct/reconstruct it?
+    this.setState({ 
+      name: user.name, 
+      email: user.email, 
+      nickname: user.nickname, 
+      scratchingAutomated: user.scratchingAutomated, 
+      isPrivate: user.isPrivate, 
+      pictureUrl: user.pictureUrl, 
+      bio: user.bio 
+    });
   }
 
   //-- Interaction ---------------------------------
@@ -45,8 +51,6 @@ export default class UserCard extends Component {
       [changeEvent.target.name]: changeEvent.target.value,
     });
   }
-
-
 
   //uploads the image and sends back the url of the uploaded image
   uploadWidget = (e) => {
@@ -72,13 +76,15 @@ export default class UserCard extends Component {
   //-- Rendering -----------------------------------
   render() {
     const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing, pictureUrl, bio } = this.state;
+    const visitCount = this.props.user.visits.length
     return (
       <Card className='profile_userCardMain'>
         <Image src={pictureUrl === '' ? '/static/alpaca.png' : pictureUrl} className='profile_userCardProfilePic' />
         <Card.Content>
           <Card.Header>{name}</Card.Header>
           <Card.Meta>
-            <span className='date'>Joined in {joinDate}</span>
+            <div>Joined in {joinDate}</div>
+            <div>{visitCount === 1 ? `${visitCount} Visit` : `${visitCount} Visits`}</div>
           </Card.Meta>
           {editing ? (
             <Fragment>
