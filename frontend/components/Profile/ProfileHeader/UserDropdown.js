@@ -38,8 +38,8 @@ const UsersDropdown = ({ userId, users }) => {
       {setFriendId => (
         <Dropdown
         text='Search for friends'
-        icon='search'
         search
+        icon='search'
         selection
         options={userList}
         className='profile_userDropDown'

@@ -23,7 +23,7 @@ const logout =
 export default class NavigationDropdown extends Component {
   render() {
     return (
-      <Dropdown floating text="Nav" className= 'Nav_dropDown'>
+      <Dropdown floating text="pages" className= 'Nav_dropDown'>
         <Dropdown.Menu className='Nav_menu'>
           <Link href="/travels">
             <Dropdown.Item text="Travels" icon="plane" className='Nav_item'/>
