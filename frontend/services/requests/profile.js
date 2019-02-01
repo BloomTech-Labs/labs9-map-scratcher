@@ -36,6 +36,9 @@ export const QUERY_USER_PROFILE = gql`
       isPrivate
       bio
       pictureUrl
+      visits {
+        id
+      }
     }
   }
 `
