@@ -7,7 +7,7 @@
 
 //-- Dependencies --------------------------------
 import React, { Component } from 'react';
-import NavigationDropdown from '../../Navigation/NavigationDropdown';
+import NavigationDropdown from '../Navigation/NavigationDropdown';
 import UserDropdown from './UserDropdown';
 import './ProfileHeader.less';
 

@@ -1,5 +1,5 @@
 import FriendsCard from '../components/Friends/friendsCard.js'
-import Header from '../components/Profile/ProfileHeader/ProfileHeader.js'
+import Header from '../components/ProfileHeader/ProfileHeader.js'
 import { 
   QUERY_CLIENT_PROFILE, 
   QUERY_FRIENDS_PROFILE,

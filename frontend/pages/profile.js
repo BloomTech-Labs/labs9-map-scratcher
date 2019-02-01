@@ -6,7 +6,6 @@
 */
 
 //-- Dependencies --------------------------------
-import Link from 'next/link'
 import { Fragment } from 'react'
 import { Query } from 'react-apollo'
 import {
@@ -16,7 +15,7 @@ import {
   QUERY_USERS_PROFILE
 } from '../services/requests/profile'
 import UserCard from '../components/Profile/UserCard'
-import Header from '../components/Profile/ProfileHeader/ProfileHeader.js'
+import Header from '../components/ProfileHeader/ProfileHeader.js'
 import FriendsList from '../components/Profile/FriendsList.js'
 import '../components/Profile/profile.less'
 
