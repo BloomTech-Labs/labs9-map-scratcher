@@ -1,53 +1,49 @@
 
 
-//== Travels Page ==============================================================
+//== Profile Page ==============================================================
 /*
   [Insert Documentation here]
 */
 
 //-- Dependencies --------------------------------
-import { Query, Mutation, ApolloConsumer } from 'react-apollo';
-import React, { Component, Fragment } from 'react';
+import Link from 'next/link'
+import { Fragment } from 'react'
+import { Query } from 'react-apollo'
 import {
-  QUERY_CLIENT_TRAVELS,
-  QUERY_ME_TRAVELS,
-   } from '../services/requests/tests';
 
+  QUERY_ME_PROFILE,
+
+} from '../services/requests/tests'
+import UserCard from '../components/Profile/UserCard'
+import FriendsList from '../components/Profile/FriendsList'
+import UsersDropdown from '../components/Profile/UsersDropdown'
+import '../components/Profile/profile.less'
 
 //-- React Implementation ------------------------
-export default class extends Component {
-  render() {
-    return (
-      <div className='travels_map-container'>
-        <Query query={QUERY_CLIENT_TRAVELS}>
-        {({ loading: loadinguser, data }) => {
-          const localState = data;
-          console.log('query client', localState);
-          if (!localState.userId) {
-            return null;
-          }
-          return (
-            <Fragment>
-              <Query query={QUERY_ME_TRAVELS}>
-              {({ loading: loadingVisits, error, data} ) => {
-                console.log('travels inside qut', data);
-                if (loadinguser || loadingVisits) {
-                  return (<div>Loading</div>)
-                }
-                if (error) {
-                  console.log(error);
-                  return (<div> I fucked up</div>)
-                }
-                return (
-                  <div>{data.me.name}</div>
-                );
-              }}
-              </Query>
-            </Fragment>
-          )
-        }}
-        </Query>
+export default () => (
+  <Fragment>
+    <div className='profile_pageContainer'>
+
+      <div className='profile_mainContainer'>
+
+              {/* #region UserCard component */}
+                <Query query={QUERY_ME_PROFILE}>
+                {({ loading: loadingUser, error, data: {user} }) => {
+                  if (loadingUser) {
+                    return <div>Loading</div>
+                  }
+                  if (error) {
+                    return ( <div>I fucked up</div>)
+                  }
+                  console.log(user)
+                  return (
+                    <UserCard user={user}/>
+                  );
+                }}
+                </Query>
+              {/* #endregion UserCard component */}
+
       </div>
-    );
-  }
-}
+    </div>
+  </Fragment>
+);

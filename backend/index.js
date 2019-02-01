@@ -18,7 +18,7 @@ const cors = require('cors')
 const { resolvers } = require('./resolvers')
 require('./services/passport/passport')(prisma)
 //------------------------------------------------
-const whitelist = ['http://localhost:1738', 'htto://localhost:4000', 'https://backpaca.now.sh']
+const whitelist = ['http://localhost:1738', 'http://localhost:3000', 'https://backpaca.now.sh']
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {

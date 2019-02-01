@@ -27,7 +27,8 @@ const cache = new InMemoryCache({
 export default withApollo(
   () =>
     new ApolloClient({
-      uri: process.env.NODE_ENV === 'development' ? devURL : prodURL,
+      // uri: process.env.NODE_ENV === 'development' ? devURL : prodURL,
+      uri: 'http://localhost:4000',
       credentials: 'include',
       clientState: {
         cache,

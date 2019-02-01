@@ -23,7 +23,7 @@ module.exports = ({ express }) => {
     passport.authenticate('twitter'),
     (_, res) => {
       if (process.env.NODE_ENV === 'production') {
-        res.redirect('https://backpaca.now.sh/test3')
+        res.redirect('https://localhost:3000/test3')
       } else res.redirect('http://localhost:1738/test3')
     }
   )

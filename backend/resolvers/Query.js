@@ -5,21 +5,21 @@ const Query = {
   //-- Sanity Check Query returns 'Hello'
   hello: () => 'Hello',
   //-- Begin Project Queries
-  // me: (parent, args, context) => {
-  //   console.log(context.request.session.passport);
-  //   if (context.request.session.passport) {
-  //     console.log('you queried me', context.request.session.passport.user)
-  //     return context.prisma.user({ id: context.request.session.passport.user})
-  //   }
-  // },
   me: (parent, args, context) => {
     console.log(context.request.session.passport);
     if (context.request.session.passport) {
       console.log('you queried me', context.request.session.passport.user)
       return context.prisma.user({ id: context.request.session.passport.user})
     }
-    return 'hello'
   },
+  // me: (parent, args, context) => {
+  //   console.log(context.request.session.passport);
+  //   if (context.request.session.passport) {
+  //     console.log('you queried me', context.request.session.passport.user)
+  //     return context.prisma.user({ id: context.request.session.passport.user})
+  //   }
+  //   return 'hello'
+  // },
   user: (parent, args, context) => {
 
     if (context.request.session.passport){

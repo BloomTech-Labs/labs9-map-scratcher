@@ -70,3 +70,17 @@ query User($id: ID!) {
   }
 }
 `
+
+export const QUERY_ME_PROFILE = gql`
+  query {
+    me {
+      id
+      name
+      nickname
+      email
+      scratchingAutomated
+      isPrivate
+      bio
+    }
+  }
+`
