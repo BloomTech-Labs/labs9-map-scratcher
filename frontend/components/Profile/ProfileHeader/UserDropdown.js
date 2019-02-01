@@ -30,6 +30,7 @@ const UsersDropdown = ({ userId, users }) => {
       text: user.name,
       value: user.id,
       icon: 'user',
+      className: 'profile_dropList'
     };
   });
 
@@ -37,10 +38,11 @@ const UsersDropdown = ({ userId, users }) => {
     <Mutation mutation={MUTATION_FRIEND_PROFILE}>
       {setFriendId => (
         <Dropdown
-        text='Search for friends'
+        placeholder='Search for friends'
+        floating
         search
+        selectOnBlur={false}
         icon='search'
-        selection
         options={userList}
         className='profile_userDropDown'
         onChange={(e, data) => {

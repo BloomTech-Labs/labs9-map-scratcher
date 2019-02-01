@@ -49,6 +49,7 @@ export default class FriendDropdown extends Component {
                           viewFriend({ variables: { id: data.value }});
                         }}
                         button
+                        selectOnBlur={false}
                         className="icon"
                         floating
                         labeled
