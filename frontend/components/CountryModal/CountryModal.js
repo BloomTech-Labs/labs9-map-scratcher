@@ -55,6 +55,7 @@ export default class CountryModal extends Component {
               <ClearVisitButton 
                 countryId={data.countryId}
                 userId={data.userId}
+                friendId={data.friendId}
                 disabled={disabled}
               />
             </Card.Content>
