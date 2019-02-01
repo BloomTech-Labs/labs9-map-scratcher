@@ -48,7 +48,7 @@ export default () => (
 
               <div className='profile_friendsContainer'>
 
-              {/* #region Userdropdown component */}
+              {/* #region Header component */}
                 <Query query={QUERY_USERS_PROFILE}>
                 {({ loading: loadingUsers, data: {users} }) => {
                   if (loadingUserId || loadingUsers) {
@@ -59,7 +59,7 @@ export default () => (
                   );
                 }}
                 </Query>
-              {/* #endregion Userdropdown component end */}
+              {/* #endregion Header component end */}
 
               {/* #region FriendsList component */}
                 <Query query={QUERY_FRIENDS_PROFILE} variables={{id: userId}}>
