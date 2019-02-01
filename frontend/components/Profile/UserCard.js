@@ -6,7 +6,8 @@
 
 //-- Dependencies --------------------------------
 import React, { Component, Fragment } from 'react'
-import { Card, Image, Checkbox, Form, Input, Button } from 'semantic-ui-react'
+import { Card, Image, Checkbox, Form, Input, Button, Icon } from 'semantic-ui-react'
+import Link from 'next/link'
 import { Mutation } from 'react-apollo';
 import { 
   MUTATION_UPDATEUSER_PROFILE,
@@ -162,7 +163,6 @@ export default class UserCard extends Component {
                   />
                 </Form.Field>
                 <Form.Field>
-                <Button onClick={this.uploadWidget}>Upload profile picture</Button>
                   <Button 
                     onSubmit={() => { 
                       updateUser()
@@ -178,10 +178,11 @@ export default class UserCard extends Component {
               <Button onClick={deleteUser}>permanently delete account</Button> 
               )}
             </Mutation>
+            <Button onClick={this.uploadWidget}>Upload profile picture</Button>
           </Fragment>
           ) : (
             <Fragment>
-              <Button onClick={this.toggleEditing}>edit profile</Button>
+              <Icon className='edit outline' onClick={this.toggleEditing}/>
               <div>{name}</div>
               <div>{email}</div>
               <div>{nickname}</div>
@@ -190,11 +191,9 @@ export default class UserCard extends Component {
                 <div>{scratchingAutomated ? 'automated scratchoff' : 'manual scratchoff'}</div>
                 <div>{isPrivate ? 'private user' : 'public user'}</div>
               </div>
-              <Button
-                // onClick={() => Router.pushRoute('travels')}
-              >
-                View Your Travels
-              </Button>
+              <Link href='/travels'>
+                <Button inverted color='green'>Go to your travels</Button>
+              </Link>
             </Fragment>
           )}
         </Card.Content>

@@ -6,7 +6,6 @@
 */
 
 //-- Dependencies --------------------------------
-import Link from 'next/link'
 import { Fragment } from 'react'
 import { Query } from 'react-apollo'
 import {
@@ -16,7 +15,7 @@ import {
   QUERY_USERS_PROFILE
 } from '../services/requests/profile'
 import UserCard from '../components/Profile/UserCard'
-import Header from '../components/Profile/ProfileHeader/ProfileHeader.js'
+import Header from '../components/ProfileHeader/ProfileHeader.js'
 import FriendsList from '../components/Profile/FriendsList.js'
 import '../components/Profile/profile.less'
 
@@ -48,7 +47,7 @@ export default () => (
 
               <div className='profile_friendsContainer'>
 
-              {/* #region Userdropdown component */}
+              {/* #region Header component */}
                 <Query query={QUERY_USERS_PROFILE}>
                 {({ loading: loadingUsers, data: {users} }) => {
                   if (loadingUserId || loadingUsers) {
@@ -59,7 +58,7 @@ export default () => (
                   );
                 }}
                 </Query>
-              {/* #endregion Userdropdown component end */}
+              {/* #endregion Header component end */}
 
               {/* #region FriendsList component */}
                 <Query query={QUERY_FRIENDS_PROFILE} variables={{id: userId}}>

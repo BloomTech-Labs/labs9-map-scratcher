@@ -38,6 +38,7 @@ export default class CountriesDropdown extends Component {
                 button
                 className="icon"
                 floating
+                selectOnBlur={false}
                 labeled
                 icon="world"
                 options={countriesList}

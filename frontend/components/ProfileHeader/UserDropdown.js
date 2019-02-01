@@ -9,9 +9,10 @@
 //-- Dependencies --------------------------------
 import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
-import { Router } from '../../../services/routes.js'
+import { Router } from '../../services/routes.js'
 import { Mutation } from 'react-apollo';
-import { MUTATION_FRIEND_PROFILE } from '../../../services/requests/profile.js';
+import { MUTATION_FRIEND_PROFILE } from '../../services/requests/profile.js';
+import '../Profile/profile.less'
 
 //-- React Implementation ------------------------
 
@@ -29,6 +30,7 @@ const UsersDropdown = ({ userId, users }) => {
       text: user.name,
       value: user.id,
       icon: 'user',
+      className: 'profile_dropList'
     };
   });
 
@@ -36,10 +38,11 @@ const UsersDropdown = ({ userId, users }) => {
     <Mutation mutation={MUTATION_FRIEND_PROFILE}>
       {setFriendId => (
         <Dropdown
-        text='Search for friends'
-        icon='search'
+        placeholder='Search for friends'
+        floating
         search
-        selection
+        selectOnBlur={false}
+        icon='search'
         options={userList}
         className='profile_userDropDown'
         onChange={(e, data) => {
