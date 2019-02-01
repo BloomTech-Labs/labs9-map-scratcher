@@ -9,7 +9,6 @@ import {
   QUERY_FRIEND_PROFILE,
   MUTATION_VIEWFRIEND_PROFILE } from '../../services/requests/profile';
 
-
 export default class Friends extends Component {
   constructor(props) {
     super(props)
@@ -18,30 +17,29 @@ export default class Friends extends Component {
   //the current user that is logged in
   userId = this.props.currentUserId
   //list of friends of the logged in user
-  data = this.props.friendsData
+  friendList = this.props.friendsData
 
   
   friends = (id, name) => {   
-    let friends = false
-    for (let i=0; i<this.data.length; i++) {
-      if(this.data[i].id === id) {
-        friends = true
+    let isFriends = false
+    this.friendList.forEach(friend => {
+      if (friend.id === id) {
+        isFriends = true
       }
-    }
+    })
 
-    if(friends === true) {
+    if(isFriends) {
       return (
         <Fragment>
           <a>
             <Icon name='user'/>
-            12
             <DeleteFriendButton userId={this.userId} friendId={id} />
           </a>
           <Mutation mutation={MUTATION_VIEWFRIEND_PROFILE} variables={{id: id}}>
             {viewFriend => (
               <Button
               onClick={() => {
-                viewFriend()
+                // viewFriend()
                 // Router.pushRoute('travels')
               }}
             >
@@ -52,11 +50,11 @@ export default class Friends extends Component {
         </Fragment>
       )
     }
-    if(friends === false) {
+
+    if(!isFriends) {
       return (
         <a>
           <Icon name='user'/>
-          12
           <AddFriendButton userId={this.userId} friendId={id} />
         </a>
       )
@@ -74,12 +72,13 @@ export default class Friends extends Component {
                   if (loadingFriendId || loadingUser) {
                   return <div>loading...</div>
                 }
+                const visitCount = user.visits.length
                 return (
                   <div>
                     <Card 
                     image='/static/alpaca.png'
                     header={user.name}
-                    meta='number of visits'
+                    meta={visitCount === 1 ? `${visitCount} Visit` : `${visitCount} Visits`}
                     description={user.bio === null ? null : user.bio}
                     extra={this.friends(friendId, user.name)}
                     />

@@ -10,6 +10,7 @@ import React from 'react';
 import { List, Image, Button, Icon } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
 import { 
+  QUERY_FRIENDS_PROFILE,
   MUTATION_DELETEFRIEND_PROFILE,
   MUTATION_FRIEND_PROFILE } from '../../services/requests/profile';
 import { Router } from '../../services/routes.js'

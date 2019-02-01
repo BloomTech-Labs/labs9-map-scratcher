@@ -17,6 +17,7 @@ import Header from './Header';
 import { QUERY_CLIENT_MODAL } from '../../services/requests/modal';
 import './countryModal.less'
 import ScratchHandler from './ScratchHandler.js';
+import ClearVisitButton from './ClearVisitButton';
 
 //-- React Implementation ------------------------
 export default class CountryModal extends Component {
@@ -50,6 +51,12 @@ export default class CountryModal extends Component {
               <FriendsVisits
                 id={data.countryId}
                 displayId={displayId}
+              />
+              <ClearVisitButton 
+                countryId={data.countryId}
+                userId={data.userId}
+                friendId={data.friendId}
+                disabled={disabled}
               />
             </Card.Content>
           </div>
