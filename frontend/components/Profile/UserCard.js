@@ -163,7 +163,6 @@ export default class UserCard extends Component {
                   />
                 </Form.Field>
                 <Form.Field>
-                <Button onClick={this.uploadWidget}>Upload profile picture</Button>
                   <Button 
                     onSubmit={() => { 
                       updateUser()
@@ -179,6 +178,7 @@ export default class UserCard extends Component {
               <Button onClick={deleteUser}>permanently delete account</Button> 
               )}
             </Mutation>
+            <Button onClick={this.uploadWidget}>Upload profile picture</Button>
           </Fragment>
           ) : (
             <Fragment>
