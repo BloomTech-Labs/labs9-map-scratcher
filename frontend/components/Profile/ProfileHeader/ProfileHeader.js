@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import NavigationDropdown from '../../Navigation/NavigationDropdown';
 import UserDropdown from './UserDropdown';
-import './mapHeader.less';
+import './ProfileHeader.less';
 
 //-- React Implementation ------------------------
 export default class MapHeader extends Component {
@@ -20,7 +20,9 @@ export default class MapHeader extends Component {
 
   render() {
     return (
-      <div className="mapHeader_mapHeader">
+      <div className="Profile_profileHeader">
+        {/* Logo in place of backpaca */}
+        Backpaca 
         <UserDropdown userId={this.props.userId} users={this.props.users}/>
         <NavigationDropdown />
       </div>
