@@ -22,7 +22,7 @@ export default class MapHeader extends Component {
     return (
       <div className="Profile_profileHeader">
         {/* Logo in place of backpaca */}
-        Backpaca 
+        <div className='logo'>Backpaca</div>
         <UserDropdown userId={this.props.userId} users={this.props.users}/>
         <NavigationDropdown />
       </div>

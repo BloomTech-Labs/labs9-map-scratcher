@@ -1,18 +1,24 @@
 .Nav_dropDown {
-    border: 1px solid black;
-    border-radius: 40px;
-    width: 10%;
-    font-size: 2rem;
-    padding: .8% .4% .8% 2%;
-        .Nav_menu {
-            width: 100%; 
-        }
-        .Nav_item {
-            i {
-                font-size: 1.6rem;
-            }
-            span {
-                font-size: 1.6rem;
-            }
-        }
+  border: 1px solid black;
+  border-radius: 40px;
+  width: 12rem;
+  font-size: 1.6rem;
+  padding: 1rem 2rem;
+  display: flex!important;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 700px) {
+    width: 90%;
+  } 
+  .Nav_menu {
+    width: 100%; 
+  }
+  .Nav_item {
+    i {
+      font-size: 1.6rem;
+    }
+    span {
+      font-size: 1.6rem;
+    }
+  }
 }
