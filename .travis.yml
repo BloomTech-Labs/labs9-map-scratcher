@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-  - 'stable'
-cache: yarn
-  yarn: true
-  directories:
-    - node_modules
-script:
-  - cd frontend && yarn dev && cd ../backend && yarn dev

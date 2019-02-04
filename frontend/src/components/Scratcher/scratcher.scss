@@ -1,0 +1,12 @@
+
+
+//== SASS styles for use with the Scratcher Component ==========================
+
+.scratcher {
+  height: 200px;
+  width: 200px;
+  canvas {
+    width: 200px;//100%;
+    height: 200px;//100%;
+  }
+}

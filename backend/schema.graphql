@@ -1,6 +1,7 @@
-
+directive @isAuthenticated on QUERY | FIELD | MUTATION
 
 type Query {
+  me: User!
   user(id: ID!): User!
   users: [User!]!
   hello: String!
@@ -13,7 +14,8 @@ type Query {
 }
 
 type Mutation {
-  createUser(twitterHandle: String, name: String, nickname: String, email: String): User!
+  authenticate(idToken: String!): User
+  # createUser(twitterHandle: String, name: String, nickname: String, email: String): User!
   updateUser(name: String, nickname: String, email: String, scratchingAutomated: Boolean, isPrivate: Boolean, id: ID!, bio: String, pictureUrl: String): User!
   deleteUser(id: ID!): User!
   createCountry(name: String!, code: String!): Country!
@@ -26,6 +28,8 @@ type Mutation {
 
 type User {
   id: ID!
+  identity: String
+  auth0id: String
   name: String
   nickname: String
   email: String

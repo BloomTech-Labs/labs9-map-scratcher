@@ -1,10 +1,17 @@
 //== Root Query ================================================================
-
+const contextUser = context => {
+  console.log('contextUser');
+  return context.request.user
+}
 //-- Construct Query -----------------------------
 const Query = {
   //-- Sanity Check Query returns 'Hello'
   hello: () => 'Hello',
   //-- Begin Project Queries
+  me: (parent, args, context, info) => {
+    console.log('who is asking', contextUser(context).id);
+    return context.prisma.user({ id: contextUser(context).id })
+  },
   user: (parent, args, context) => {
     return context.prisma.user({ id: args.id });
   },
