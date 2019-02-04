@@ -2,14 +2,14 @@ import React from 'react'
 import { Button } from 'semantic-ui-react'
 import { Router } from '../../services/routes';
 import { Query, Mutation } from 'react-apollo';
-import { 
-  MUTATION_DELETEVISIT_MODAL, 
+import {
+  MUTATION_DELETEVISIT_MODAL,
   QUERY_USERVISITS_MODAL } from '../../services/requests/modal';
 
 const ClearVisitButton = ({ countryId, userId, friendId, disabled }) => {
   return (
-    disabled ? 
-    <Button 
+    disabled ?
+    <Button
       onClick={() => Router.pushRoute('friends', {id: friendId})}
     >View Friend's Profile</Button>
     :
@@ -19,10 +19,13 @@ const ClearVisitButton = ({ countryId, userId, friendId, disabled }) => {
           if (loading) return <div>Loading</div>
           let visits = user.visits
           let visit = visits.find(visit => visit.country.id === countryId)
-          let visitId = visit.id
+          if (!visit) {
+            return (null); 
+          }
+          let visitId = visit.id;
           return (
-            <Mutation 
-              mutation={MUTATION_DELETEVISIT_MODAL} 
+            <Mutation
+              mutation={MUTATION_DELETEVISIT_MODAL}
               variables={{ id: visitId }}
               update={(cache, {data}) => {
                 const result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: userId} });
