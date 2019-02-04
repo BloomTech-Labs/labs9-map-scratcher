@@ -52,16 +52,13 @@ export function initializeCanvas(drawingState, movementHandler) {
     // Setup Main canvas and drawing context
     const canvas = drawingState.displayCanvas;
     // Determine dimensions of available drawing container
-    const bounds = canvas.getBoundingClientRect();
-    canvas.width  = bounds.right  - bounds.left;
-    canvas.height = bounds.bottom - bounds.top ;
-    // Enforce lower bound for canvas resolution
-    if(canvas.width  < RESOLUTION_DEFAULT) {
+    //const bounds = canvas.getBoundingClientRect();
+    canvas.width  = 200;//bounds.right  - bounds.left;
+    canvas.height = 200;//bounds.bottom - bounds.top ;
+    /*if(!canvas.width || !canvas.height) {
       canvas.width  = RESOLUTION_DEFAULT;
-    }
-    if(canvas.height < RESOLUTION_DEFAULT) {
       canvas.height = RESOLUTION_DEFAULT;
-    }
+    }*/
     // Add event listeners for sratching actions
     canvas.addEventListener(
         'mousemove',
@@ -152,16 +149,14 @@ export function checkSize(drawingState) {
     const oldHeight = canvas.height;
     const newWidth  = bounds.right  - bounds.left;
     const newHeight = bounds.bottom - bounds.top ;
-    if(newWidth  < RESOLUTION_DEFAULT){ newWidth  = RESOLUTION_DEFAULT;}
-    if(newHeight < RESOLUTION_DEFAULT){ newHeight = RESOLUTION_DEFAULT;}
-    if(newWidth === oldWidth && newHeight === oldHeight) { return;}
+    //if(newWidth === oldWidth && newHeight === oldHeight) { return;}
     // Redraw outline at larger size
-    canvas.width  = newWidth ;
-    canvas.height = newHeight;
-    compositingContext.canvas.width  = newWidth ;
-    compositingContext.canvas.height = newHeight;
-    conversionContext.canvas.width  = newWidth ;
-    conversionContext.canvas.height = newHeight;
+    canvas.width  = 200;//newWidth ;
+    canvas.height = 200;//newHeight;
+    compositingContext.canvas.width  = 200;//newWidth ;
+    compositingContext.canvas.height = 200;//newHeight;
+    conversionContext.canvas.width  = 200;//newWidth ;
+    conversionContext.canvas.height = 200;//newHeight;
     generateOutline(drawingState);
     // Redraw scratch layer at larger size
     createScratchLayer(drawingState);
