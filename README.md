@@ -19,22 +19,18 @@
 - database: https://backpaca-ed6c7c4fde.herokuapp.com/backpaca/prod
 
 - Tech-Stack
-  - Front-End production dependancies
+  - Front-End production dependencies
     - React
     - react-apollo
-    - @zeit/next-less
-    - less
+    - node-sass
     - apollo-boost
-    - axios
     - graphql
     - leaflet
     - react-leaflet
-    - next
-    - next-routes
-    - next-with-apollo
     - semantic-ui-react
     - which-polygon
-  - Back-End production dependancies
+    - auth0-lock
+  - Back-End production dependencies
     - cookie-session
     - cors
     - dotenv
@@ -42,8 +38,7 @@
     - prisma-client-lib
     - passport
     - passport-twitter
-  - Back-End development depenancies
+  - Back-End development dependencies
      - nodemon
-    
     
     

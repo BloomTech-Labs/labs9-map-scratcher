@@ -204,6 +204,10 @@ export type VisitOrderByInput =
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "auth0id_ASC"
+  | "auth0id_DESC"
+  | "identity_ASC"
+  | "identity_DESC"
   | "name_ASC"
   | "name_DESC"
   | "nickname_ASC"
@@ -262,6 +266,8 @@ export interface VisitUpdateManyDataInput {
 }
 
 export interface UserCreateInput {
+  auth0id?: String;
+  identity?: String;
   name?: String;
   nickname?: String;
   email?: String;
@@ -276,6 +282,8 @@ export interface UserCreateInput {
 }
 
 export interface UserUpdateWithoutVisitsDataInput {
+  auth0id?: String;
+  identity?: String;
   name?: String;
   nickname?: String;
   email?: String;
@@ -308,6 +316,34 @@ export interface UserWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
+  auth0id?: String;
+  auth0id_not?: String;
+  auth0id_in?: String[] | String;
+  auth0id_not_in?: String[] | String;
+  auth0id_lt?: String;
+  auth0id_lte?: String;
+  auth0id_gt?: String;
+  auth0id_gte?: String;
+  auth0id_contains?: String;
+  auth0id_not_contains?: String;
+  auth0id_starts_with?: String;
+  auth0id_not_starts_with?: String;
+  auth0id_ends_with?: String;
+  auth0id_not_ends_with?: String;
+  identity?: String;
+  identity_not?: String;
+  identity_in?: String[] | String;
+  identity_not_in?: String[] | String;
+  identity_lt?: String;
+  identity_lte?: String;
+  identity_gt?: String;
+  identity_gte?: String;
+  identity_contains?: String;
+  identity_not_contains?: String;
+  identity_starts_with?: String;
+  identity_not_starts_with?: String;
+  identity_ends_with?: String;
+  identity_not_ends_with?: String;
   name?: String;
   name_not?: String;
   name_in?: String[] | String;
@@ -455,6 +491,8 @@ export interface CountryUpdateInput {
 }
 
 export interface UserUpdateInput {
+  auth0id?: String;
+  identity?: String;
   name?: String;
   nickname?: String;
   email?: String;
@@ -508,6 +546,8 @@ export interface VisitUpdateWithoutCountryDataInput {
 }
 
 export interface UserUpdateManyDataInput {
+  auth0id?: String;
+  identity?: String;
   name?: String;
   nickname?: String;
   email?: String;
@@ -541,6 +581,34 @@ export interface UserScalarWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
+  auth0id?: String;
+  auth0id_not?: String;
+  auth0id_in?: String[] | String;
+  auth0id_not_in?: String[] | String;
+  auth0id_lt?: String;
+  auth0id_lte?: String;
+  auth0id_gt?: String;
+  auth0id_gte?: String;
+  auth0id_contains?: String;
+  auth0id_not_contains?: String;
+  auth0id_starts_with?: String;
+  auth0id_not_starts_with?: String;
+  auth0id_ends_with?: String;
+  auth0id_not_ends_with?: String;
+  identity?: String;
+  identity_not?: String;
+  identity_in?: String[] | String;
+  identity_not_in?: String[] | String;
+  identity_lt?: String;
+  identity_lte?: String;
+  identity_gt?: String;
+  identity_gte?: String;
+  identity_contains?: String;
+  identity_not_contains?: String;
+  identity_starts_with?: String;
+  identity_not_starts_with?: String;
+  identity_ends_with?: String;
+  identity_not_ends_with?: String;
   name?: String;
   name_not?: String;
   name_in?: String[] | String;
@@ -722,6 +790,8 @@ export interface UserUpdateWithWhereUniqueNestedInput {
 }
 
 export interface UserCreateWithoutVisitsInput {
+  auth0id?: String;
+  identity?: String;
   name?: String;
   nickname?: String;
   email?: String;
@@ -735,6 +805,8 @@ export interface UserCreateWithoutVisitsInput {
 }
 
 export interface UserUpdateDataInput {
+  auth0id?: String;
+  identity?: String;
   name?: String;
   nickname?: String;
   email?: String;
@@ -790,6 +862,7 @@ export interface VisitUpdateWithWhereUniqueWithoutUserInput {
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  auth0id?: String;
   twitterHandle?: String;
 }>;
 
@@ -923,6 +996,8 @@ export interface CountryUpsertWithoutVisitsInput {
 }
 
 export interface UserUpdateManyMutationInput {
+  auth0id?: String;
+  identity?: String;
   name?: String;
   nickname?: String;
   email?: String;
@@ -1171,6 +1246,8 @@ export interface UserEdgeSubscription
 
 export interface User {
   id: ID_Output;
+  auth0id?: String;
+  identity?: String;
   name?: String;
   nickname?: String;
   email?: String;
@@ -1184,6 +1261,8 @@ export interface User {
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
+  auth0id: () => Promise<String>;
+  identity: () => Promise<String>;
   name: () => Promise<String>;
   nickname: () => Promise<String>;
   email: () => Promise<String>;
@@ -1221,6 +1300,8 @@ export interface UserSubscription
   extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  auth0id: () => Promise<AsyncIterator<String>>;
+  identity: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   nickname: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
@@ -1359,6 +1440,8 @@ export interface CountrySubscriptionPayloadSubscription
 
 export interface UserPreviousValues {
   id: ID_Output;
+  auth0id?: String;
+  identity?: String;
   name?: String;
   nickname?: String;
   email?: String;
@@ -1374,6 +1457,8 @@ export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  auth0id: () => Promise<String>;
+  identity: () => Promise<String>;
   name: () => Promise<String>;
   nickname: () => Promise<String>;
   email: () => Promise<String>;
@@ -1389,6 +1474,8 @@ export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  auth0id: () => Promise<AsyncIterator<String>>;
+  identity: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   nickname: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;

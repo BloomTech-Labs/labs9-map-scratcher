@@ -231,6 +231,8 @@ type Subscription {
 
 type User {
   id: ID!
+  auth0id: String
+  identity: String
   name: String
   nickname: String
   email: String
@@ -251,6 +253,8 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  auth0id: String
+  identity: String
   name: String
   nickname: String
   email: String
@@ -275,6 +279,8 @@ input UserCreateOneWithoutVisitsInput {
 }
 
 input UserCreateWithoutVisitsInput {
+  auth0id: String
+  identity: String
   name: String
   nickname: String
   email: String
@@ -295,6 +301,10 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  auth0id_ASC
+  auth0id_DESC
+  identity_ASC
+  identity_DESC
   name_ASC
   name_DESC
   nickname_ASC
@@ -321,6 +331,8 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
+  auth0id: String
+  identity: String
   name: String
   nickname: String
   email: String
@@ -347,6 +359,34 @@ input UserScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  auth0id: String
+  auth0id_not: String
+  auth0id_in: [String!]
+  auth0id_not_in: [String!]
+  auth0id_lt: String
+  auth0id_lte: String
+  auth0id_gt: String
+  auth0id_gte: String
+  auth0id_contains: String
+  auth0id_not_contains: String
+  auth0id_starts_with: String
+  auth0id_not_starts_with: String
+  auth0id_ends_with: String
+  auth0id_not_ends_with: String
+  identity: String
+  identity_not: String
+  identity_in: [String!]
+  identity_not_in: [String!]
+  identity_lt: String
+  identity_lte: String
+  identity_gt: String
+  identity_gte: String
+  identity_contains: String
+  identity_not_contains: String
+  identity_starts_with: String
+  identity_not_starts_with: String
+  identity_ends_with: String
+  identity_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -461,6 +501,8 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateDataInput {
+  auth0id: String
+  identity: String
   name: String
   nickname: String
   email: String
@@ -475,6 +517,8 @@ input UserUpdateDataInput {
 }
 
 input UserUpdateInput {
+  auth0id: String
+  identity: String
   name: String
   nickname: String
   email: String
@@ -489,6 +533,8 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyDataInput {
+  auth0id: String
+  identity: String
   name: String
   nickname: String
   email: String
@@ -512,6 +558,8 @@ input UserUpdateManyInput {
 }
 
 input UserUpdateManyMutationInput {
+  auth0id: String
+  identity: String
   name: String
   nickname: String
   email: String
@@ -536,6 +584,8 @@ input UserUpdateOneRequiredWithoutVisitsInput {
 }
 
 input UserUpdateWithoutVisitsDataInput {
+  auth0id: String
+  identity: String
   name: String
   nickname: String
   email: String
@@ -579,6 +629,34 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  auth0id: String
+  auth0id_not: String
+  auth0id_in: [String!]
+  auth0id_not_in: [String!]
+  auth0id_lt: String
+  auth0id_lte: String
+  auth0id_gt: String
+  auth0id_gte: String
+  auth0id_contains: String
+  auth0id_not_contains: String
+  auth0id_starts_with: String
+  auth0id_not_starts_with: String
+  auth0id_ends_with: String
+  auth0id_not_ends_with: String
+  identity: String
+  identity_not: String
+  identity_in: [String!]
+  identity_not_in: [String!]
+  identity_lt: String
+  identity_lte: String
+  identity_gt: String
+  identity_gte: String
+  identity_contains: String
+  identity_not_contains: String
+  identity_starts_with: String
+  identity_not_starts_with: String
+  identity_ends_with: String
+  identity_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -682,6 +760,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  auth0id: String
   twitterHandle: String
 }
 
