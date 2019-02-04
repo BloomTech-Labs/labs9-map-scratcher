@@ -22,7 +22,7 @@ const { resolvers } = require('./resolvers')
 
 //-- CORS whitelist and configuration ----------------------------------------------
 
-const whitelist = ['http://localhost:1738', 'http://localhost:3000', 'https://backpaca.now.sh', 'http://localhost:4000', 'http://backpaca.surge.sh/', 'https://backpaca.surge.sh/']
+const whitelist = ['http://localhost:1738', 'http://localhost:3000', 'https://backpaca.now.sh', 'http://localhost:4000', 'http://backpaca.surge.sh/', 'https://backpaca.surge.sh/', 'https://backpaca-yoga.herokuapp.com']
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
