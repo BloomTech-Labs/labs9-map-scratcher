@@ -1,22 +1,48 @@
+const validateAndParseIdToken = require('../helpers/validateAndParseIdToken');
+
+async function createPrismaUser(context, idToken) {
+  const user = await context.prisma.createUser({
+      identity: idToken.sub.split(`|`)[0],
+      auth0id: idToken.sub.split(`|`)[1],
+      name: idToken.name,
+      email: idToken.email,
+      pictureUrl: idToken.picture
+  })
+  return user;
+};
 
 //-- Construct Mutation -----------------------------
 const Mutation = {
-  createUser: async (parent, { twitterHandle, name, nickname, email }, context) => {
-    return await context.prisma.createUser({
-      twitterHandle,
-      name,
-      nickname,
-      email,
-      scratchingAutomated: false,
-      isPrivate: false
-    })
+  authenticate: async (parent, { idToken }, context, info) => {
+    let userToken = null;
+    try {
+      userToken = await validateAndParseIdToken(idToken);
+    } catch (err) {
+      throw new Error(err.message)
+    }
+    const auth0id = userToken.sub.split("|")[1];
+    let user = await context.prisma.user({ auth0id }, info);
+    if (!user) {
+      user = createPrismaUser(context, userToken)
+    }
+    return user
   },
+  // createUser: async (parent, { twitterHandle, name, nickname, email }, context) => {
+  //   return await context.prisma.createUser({
+  //     twitterHandle,
+  //     name,
+  //     nickname,
+  //     email,
+  //     scratchingAutomated: false,
+  //     isPrivate: false
+  //   })
+  // },
   updateUser: async (parent, { name, nickname, email, scratchingAutomated, isPrivate, id, bio, pictureUrl }, context) => {
     return await context.prisma.updateUser({
       where: { id },
-      data: { 
-        name, 
-        nickname, 
+      data: {
+        name,
+        nickname,
         email,
         scratchingAutomated,
         isPrivate,
@@ -39,13 +65,13 @@ const Mutation = {
   createVisit: async (parent, { userId, countryId, note, level }, context) => {
     return await context.prisma.createVisit({
       user: {
-        connect: { 
-          id: userId 
+        connect: {
+          id: userId
         }
       },
       country: {
-        connect: { 
-          id: countryId 
+        connect: {
+          id: countryId
         }
       },
       note,
@@ -55,8 +81,8 @@ const Mutation = {
   updateVisit: async (parent, { id, note, level }, context) => {
     return await context.prisma.updateVisit({
       where: { id },
-      data: { 
-        note, level 
+      data: {
+        note, level
       }
     })
   },
@@ -67,15 +93,15 @@ const Mutation = {
   },
   addFriend: async (parent, { userId, friendId }, context) => {
     return await context.prisma.updateUser({
-      where: { 
-        id: userId 
+      where: {
+        id: userId
       },
-      data: { 
-        friends: { 
-          connect: { 
-            id: friendId 
-          } 
-        } 
+      data: {
+        friends: {
+          connect: {
+            id: friendId
+          }
+        }
       }
     })
   },

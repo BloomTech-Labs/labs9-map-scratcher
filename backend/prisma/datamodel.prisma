@@ -1,5 +1,7 @@
 type User {
   id: ID! @unique
+  auth0id: String @unique
+  identity: String
   name: String
   nickname: String
   email: String
