@@ -110,7 +110,7 @@ class Auth {
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
-    window.location.reload()
+    window.location.push('/')
   }
 
 // check to see if the current time is past the expiration time of the user's token.
