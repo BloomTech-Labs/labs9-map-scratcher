@@ -46,18 +46,18 @@
     - [React-scripts](#React-scripts)
     - [Semantic-ui-react](#Semantic-ui-react)
     - [Which-polygon](#Which-polygon)
-  - Back-End production dependencies
-    - cookie-session
-    - cors
-    - dotenv
-    - express-jwt
-    - graphql-yoga
-    - jsonwebtoken
-    - jwks-rsa
-    - lodash.get
-    - prisma-client-lib
-  - Back-End development dependencies
-     - nodemon
+  - [Back-End production dependencies](#Back-End-dependencies-Production)
+    - [Cookie-session](#Cookie-session)
+    - [Cors](#Cors)
+    - [Dotenv](#Dotenv)
+    - [Express-jwt](#Express-jwt)
+    - [Graphql-yoga](#Graphql-yoga)
+    - [Jsonwebtoken](#Jsonwebtoken)
+    - [Jwks-rsa](#Jwks-rsa)
+    - [Lodash.get](#Lodash.get)
+    - [Prisma-client-lib](#Prisma-client-lib)
+  - [Back-End development dependencies](#Back-End-dependencies-Development)
+     - [Nodemon](#Nodemon)
 - Running
 - Environment Variables
  - Frontend
@@ -142,4 +142,28 @@ An Apollo link for local state management
 ### Semantic-ui-react
 
 ### Which-polygon
+
+## Back-End dependencies (_Production_)
+
+### Cookie-session
+
+### Cors
+
+### Dotenv
+
+### Express-jwt
+
+### Graphql-yoga
+
+### Jsonwebtoken
+
+### Jwks-rsa
+
+### Lodash.get
+
+### Prisma-client-lib
+
+## Back-End dependencies (_Development_)
+
+### Nodemon
 
