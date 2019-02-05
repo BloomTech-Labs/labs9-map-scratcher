@@ -10,6 +10,7 @@
 import StaticMap from '../components/Map/StaticMap';
 import { Query } from 'react-apollo';
 import React, { Component, Fragment } from 'react';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import MapHeader from '../components/MapHeader/MapHeader';
 import Legend from '../components/MapLegend/Legend';
 import CountryModal from '../components/CountryModal/CountryModal';
@@ -41,7 +42,11 @@ export default class Travels extends Component {
         {({ loading: loadinglocal, data }) => {
           const localState = data;
           if (loadinglocal) {
-            return <div>loading</div>
+            return (
+              <Dimmer active>
+                <Loader />
+              </Dimmer>
+            )
           }
           if (!localState) {
             return null;
@@ -51,7 +56,11 @@ export default class Travels extends Component {
               <Query query={QUERY_ME_TRAVELS} >
               {({ loading: loadingVisits, data: { me }} ) => {
                 if (loadingVisits) {
-                  return <div>loading...</div>
+                  return (
+                    <Dimmer active>
+                      <Loader />
+                    </Dimmer>
+                  )
                 }
                 console.log('me in tra',me);
                 let visitsUser = [];
