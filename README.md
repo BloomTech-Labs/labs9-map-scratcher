@@ -58,10 +58,10 @@
     - [Prisma-client-lib](#Prisma-client-lib)
   - [Back-End development dependencies](#Back-End-dependencies-Development)
      - [Nodemon](#Nodemon)
-- Running
-- Environment Variables
- - Frontend
- - Backend
+- [Running](#Running)
+- [Environment variables](#Enviornment-variables)
+ - [Frontend](#Frontend)
+ - [Backend](#Backend)
     
 # Running
 
