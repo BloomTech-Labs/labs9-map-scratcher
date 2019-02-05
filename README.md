@@ -20,11 +20,11 @@
 
 # Table of Contents
 
-- Introduction
-- Team 
-- Deployment Links
-- Table of Contents
-- Tech-Stack
+- [Introduction](#Introduction)
+- [Team](#Team)
+- [Deployment Links](#Deployment-links)
+- [Table of Contents](#Table-of-Contents)
+- [Tech-Stack](#Tech-Stack)
   - Front-End production dependencies
     - apollo-boost
     - apollo-cache-inmemory
