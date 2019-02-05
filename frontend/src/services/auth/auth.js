@@ -13,11 +13,11 @@ import { AUTH_CONFIG } from './auth0-variables'
 //graphql mutation to send to the backend
 const AUTHENTICATE = gql`
     mutation authenticate($idToken: String!) {
-        authenticate(idToken: $idToken) {
-            id
-            name
-            email
-        }
+      authenticate(idToken: $idToken) {
+        id
+        name
+        email
+      }
     }
 `
 
@@ -30,7 +30,7 @@ class Auth {
       sso: false,
       redirectUrl: AUTH_CONFIG.callbackUrl,
       responseType: 'token id_token',
-      audience: `${AUTH_CONFIG.api_audience}`,
+      audience: AUTH_CONFIG.api_audience,
       params: {
         scope: `openid profile email user_metadata app_metadata picture`
       }

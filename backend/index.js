@@ -57,7 +57,6 @@ server.express.post(
   checkJwt,
   (err, req, res, next) => {
     if (err) {
-      console.log('i am the problem')
       return res.status(401).send(err.message)
     }
     next()

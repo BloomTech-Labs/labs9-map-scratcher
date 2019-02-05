@@ -18,6 +18,7 @@ export default class LandingPage extends Component {
   getToken = () => {
     const expire = localStorage.getItem('expires_at');
     const token = localStorage.getItem('access_token');
+    
     const now = new Date().getTime()
     if (token && now < expire) {
       this.props.history.push('/profile')
