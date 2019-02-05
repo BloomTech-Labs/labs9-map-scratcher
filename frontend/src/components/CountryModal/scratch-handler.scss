@@ -59,7 +59,7 @@ $contrast: 5%;
   height: $track-height;
   cursor: pointer;
   animate: 0.2s;
-  background-image: url('/static/slider_track.png');
+  background-image: url('../../static/slider_track.png');
   background-position: center;
 }
 
@@ -72,7 +72,7 @@ $contrast: 5%;
   width: $thumb-width;
   //border-radius: $thumb-radius;
   //background: $thumb-color;
-  background-image: url('/static/coin.png');
+  background-image: url('../../static/coin.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
