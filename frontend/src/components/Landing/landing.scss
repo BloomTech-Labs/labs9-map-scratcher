@@ -1,5 +1,6 @@
 .landing_mainDiv {
-    background: lightblue;
+    background: #243352;
+    color: #EBEDE8;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -11,7 +12,7 @@
 
             @media(max-width: 500px) {
                 display: flex;
-                flex-direction: column;
+                flex-direction: column-reverse;
             }
                 .landing_title {
                     @media(max-width: 500px) {
@@ -20,40 +21,42 @@
                     }
                 }
                 .login_loginButton {
+
                     @media(max-width: 500px) {
                         text-align: center;
                     }
-                        .login_twitterButton {
-                            @media(max-width: 500px) {
-                                align: center;
-                                width: 70%;
-                                margin: 1rem 0rem;
-                            }
-                        }
-                        .login_registerButton {
-                            @media(max-width: 500px) {
-                                align-self: center;
-                                width: 70%
-                            }
-                        }
+                  button {
+                    background: #EBEDE8;
+                    color: #243352;
+                    font-size: 1.4rem;
+                    margin-right: 5%;
+                    padding: 5%;
+                  }
                 }
 
          }
         svg {
-          margin: 0 auto;
+          margin: -10% auto 5%;
           transform: scale(.75);
+
+          @media(max-width: 800px) {
+            margin: -40%;
+            transform: scale(.40);
+          }
         }
+
          #prefix__tail {
            animation: shake-it 2s infinite;
            transform-origin: 20% 45%;
          }
         .landing_mainContent {
            width: 40%;
-           margin: 0 auto;
+           margin: -20% auto;
            font-weight: bold;
            font-size: 3.4rem;
            line-height: 3.5rem;
            text-align: center;
+
             @media(max-width: 1300px) {
                 font-size: 2rem;
                 line-height: 2.3rem;

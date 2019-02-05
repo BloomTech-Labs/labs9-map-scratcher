@@ -36,7 +36,7 @@ export default class LandingPage extends Component {
         </div>
         <Backpaca />
         <div className='landing_mainContent'>
-          Backpaca is a web application that allows users to brag about their travel experiences and plan future adventures with their friends.
+          Brag about your travels. Share your dreams. Discover your friends' notes about the places you've been and the places you want to go.
         </div>
       </div>
     );
