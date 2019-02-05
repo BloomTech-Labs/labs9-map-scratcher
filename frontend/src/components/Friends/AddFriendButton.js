@@ -15,7 +15,8 @@ const AddFriendButton = ({ userId, friendId }) => {
     >
     {( addFriend, {data} ) => (
       <Button
-        positive
+        className='add'
+        fluid
         onClick={() => {
           addFriend({ variables: { userId: userId, friendId: friendId } })
         }}

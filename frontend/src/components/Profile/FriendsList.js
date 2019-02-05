@@ -22,6 +22,7 @@ import {
   //friends - friends that the current logged in user has added as a friend.
   //userId - the current user that is logged in
 const FriendsList = ({ friends, userId }) => (
+  <div className='profile_friendsContainer'>
   <List className='profile_friendsListMain'>
   <List.Header>Your Friends</List.Header>
   {!friends && <List.Item><List.Content>You don't have any friends yet! Explore the app to find some!</List.Content></List.Item>}
@@ -67,5 +68,6 @@ const FriendsList = ({ friends, userId }) => (
     );
   })}
   </List>
+  </div>
 );
 export default FriendsList

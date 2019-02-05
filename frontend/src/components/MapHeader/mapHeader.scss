@@ -5,7 +5,7 @@
   align-items: center;
   z-index: 500;
   padding: 2rem;
-  position: absolute;
+  position: fixed;
   background: white;
   width: 80%;
   top: 2.5%;
@@ -27,7 +27,7 @@
     }
     .ui.checkbox {
       font-size: 1.4rem;
-    }  
+    }
   }
   .ui.dropdown {
     width: 10rem;
