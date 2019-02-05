@@ -3,3 +3,4 @@ config.env
 dev.js
 .DS_Store
 build/
+.env
