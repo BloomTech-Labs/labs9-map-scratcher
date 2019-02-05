@@ -43,9 +43,26 @@
     
 ## Running
 
->cd into frontend folder > `yarn dev` : Runs the frontend on `http://localhost:3000`
+>cd /frontend > `yarn dev` : Runs the frontend on `http://localhost:3000`
 
->cd into backend folder > `yarn dev` : Runs the backend locally with nodemon on `http://localhost:4000`
+>cd /backend > `yarn dev` : Runs the backend locally with nodemon on `http://localhost:4000`
 
 ## Environment variables
 
+### Frontend
+
+`REACT_APP_AUTH0_DOMAIN` : domain name
+
+`REACT_APP_AUTH0_CLIENT_ID` : Your personal Auth0 Client ID
+
+`REACT_APP_AUTH0_CLIENT_SECRET` : Secret for Auth0
+
+`REACT_APP_AUTH0_AUDIENCE` : URL 
+
+### Backend
+
+`REACT_APP_AUTH0_ISSUER` : URL
+
+`REACT_APP_AUTH0_CLIENT_SECRET` : Secret for Auth0 (Same as frontend)
+
+`REACT_APP_AUTH0_AUDIENCE` : URL (Same as frontend)
