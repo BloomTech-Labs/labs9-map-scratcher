@@ -1,14 +1,14 @@
 import React from 'react'
 import { Button } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo';
-import { 
-  MUTATION_DELETEFRIEND_PROFILE, 
+import {
+  MUTATION_DELETEFRIEND_PROFILE,
   QUERY_FRIENDS_PROFILE } from '../../services/requests/profile';
 
 const DeleteFriendButton = ({ userId, friendId }) => {
   return (
-    <Mutation 
-      mutation={MUTATION_DELETEFRIEND_PROFILE} 
+    <Mutation
+      mutation={MUTATION_DELETEFRIEND_PROFILE}
       variables={{ userId: userId, friendId: friendId }}
       update={(cache, {data}) => {
         const { friends } = cache.readQuery({ query: QUERY_FRIENDS_PROFILE, variables: {id: userId} });
@@ -22,7 +22,8 @@ const DeleteFriendButton = ({ userId, friendId }) => {
     >
     {deleteFriend => (
       <Button
-        negative
+        className='delete'
+        fluid
         onClick={deleteFriend}
       >Delete friend</Button>
     )}

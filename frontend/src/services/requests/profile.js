@@ -63,6 +63,7 @@ export const QUERY_ME_PROFILE = gql`
       friends {
         id
         name
+        pictureUrl
       }
     }
   }
@@ -95,6 +96,7 @@ export const QUERY_USERS_PROFILE = gql`
       id
       name
       isPrivate
+      pictureUrl
     }
   }
 `

@@ -8,7 +8,7 @@
 import React, { Component, Fragment } from 'react'
 import { Card, Image, Checkbox, Form, Input, Button, Icon } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo';
-import { 
+import {
   MUTATION_UPDATEUSER_PROFILE,
   MUTATION_DELETEUSER_PROFILE } from '../../services/requests/profile'
 import './profile.scss'
@@ -34,14 +34,14 @@ export default class UserCard extends Component {
   }
   componentDidMount() {
     const user = this.props.user;
-    this.setState({ 
-      name: user.name, 
-      email: user.email, 
-      nickname: user.nickname, 
-      scratchingAutomated: user.scratchingAutomated, 
-      isPrivate: user.isPrivate, 
-      pictureUrl: user.pictureUrl, 
-      bio: user.bio 
+    this.setState({
+      name: user.name,
+      email: user.email,
+      nickname: user.nickname,
+      scratchingAutomated: user.scratchingAutomated,
+      isPrivate: user.isPrivate,
+      pictureUrl: user.pictureUrl,
+      bio: user.bio
     });
   }
 
@@ -57,13 +57,13 @@ export default class UserCard extends Component {
     e.preventDefault()
     window.cloudinary.openUploadWidget({
       cloud_name: 'dr9p6aaos',
-      upload_preset: 'vchytrzk'}, 
-      (error, result) => { 
+      upload_preset: 'vchytrzk'},
+      (error, result) => {
         console.log(error, result)
         if(result) {
         this.setState({ pictureUrl: result[0].secure_url })
         }
-      } 
+      }
     )
   }
 
@@ -79,6 +79,7 @@ export default class UserCard extends Component {
     const visitCount = this.props.user.visits.length
     return (
       <Card className='profile_userCardMain'>
+        <Icon className='edit outline' onClick={this.toggleEditing}/>
         <Image src={pictureUrl === '' ? '/static/alpaca.png' : pictureUrl} className='profile_userCardProfilePic' />
         <Card.Content>
           <Card.Header>{name}</Card.Header>
@@ -93,9 +94,9 @@ export default class UserCard extends Component {
               variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate, pictureUrl, bio }}
             >
               {updateUser => (
-              <Form 
-                className='profile_userCardForm' 
-                onSubmit={() => { 
+              <Form
+                className='profile_userCardForm'
+                onSubmit={() => {
                   updateUser()
                   this.toggleEditing()
                 }}>
@@ -151,7 +152,7 @@ export default class UserCard extends Component {
                   <Checkbox
                   type='checkbox'
                   name='automateScratchOff'
-                  toggle
+                  slider
                   onChange={() => this.setState({scratchingAutomated: !scratchingAutomated})}
                   checked={!!scratchingAutomated}
                   label="Automate Scratch-off"
@@ -161,33 +162,35 @@ export default class UserCard extends Component {
                   <Checkbox
                   type='checkbox'
                   name='isPrivate'
-                  toggle
+                  slider
                   onChange={() => this.setState({isPrivate: !isPrivate})}
                   checked={!!isPrivate}
                   label="Private User"
                   />
                 </Form.Field>
                 <Form.Field>
-                  <Button 
-                    onSubmit={() => { 
+                  <Button className='submit'
+                    color='linkedin'
+                    fluid
+                    onSubmit={() => {
                       updateUser()
                       this.toggleEditing()
                     }}
-                    primary
                   >Submit</Button>
                 </Form.Field>
               </Form>)}
             </Mutation>
+            <div className='profile_editButtons'>
+            <Button className='upload' fluid onClick={this.uploadWidget}>Upload Profile Picture </Button>
             <Mutation mutation={MUTATION_DELETEUSER_PROFILE} variables={{id: this.props.user.id}}>
               {deleteUser => (
-              <Button onClick={deleteUser}>permanently delete account</Button> 
+              <Button className='delete' fluid label='This cannot be undone!' content='Delete Account' onClick={deleteUser}>Delete Account</Button>
               )}
             </Mutation>
-            <Button onClick={this.uploadWidget}>Upload profile picture</Button>
+            </div>
           </Fragment>
           ) : (
             <Fragment>
-              <Icon className='edit outline' onClick={this.toggleEditing}/>
               <div>{name}</div>
               <div>{email}</div>
               <div>{nickname}</div>
@@ -196,8 +199,8 @@ export default class UserCard extends Component {
                 <div>{scratchingAutomated ? 'automated scratchoff' : 'manual scratchoff'}</div>
                 <div>{isPrivate ? 'private user' : 'public user'}</div>
               </div>
-              <Button 
-                inverted color='green'
+              <Button
+                fluid
                 onClick={() => this.props.history.push('/travels')}
               >Go to your travels</Button>
             </Fragment>

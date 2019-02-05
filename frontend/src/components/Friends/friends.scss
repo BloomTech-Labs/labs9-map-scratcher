@@ -1,3 +1,36 @@
 #friendCard {
-    margin: 20rem auto;
+    margin: 20% auto;
+
+    @media (max-width: 700px) {
+      margin: 35% auto 0;
+      width: 80%;
+    }
+
+    @media (max-width: 570px) {
+      margin: 40% auto 0;
+    }
+
+    @media (max-width: 500px) {
+      margin: 50% auto 0;
+    }
+
+    @media (max-width: 400px) {
+      margin: 60% auto 0; 
+    }
+
+    img {
+      min-height: 250px;
+    }
+
+    button {
+      background: #243352;
+      color: #EBEDE8;
+      font-size: 1.6rem;
+      margin: 5% auto;
+      padding: 5%;
+    }
+
+    .delete {
+      background: #8C4646;
+    }
 }
