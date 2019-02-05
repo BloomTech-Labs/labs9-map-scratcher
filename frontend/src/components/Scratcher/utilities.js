@@ -21,10 +21,10 @@ const RESOLUTION_DEFAULT = 25;
     that this will result in a garbled display. The underlying problem should be
     addressed instead, which is that React is invoking ComponentDidMount before
     client rectangles have been assigned. */
-const URI_COUNTRY_ALPHA = '/static/country-alpha';
+const URI_COUNTRY_ALPHA = process.env.PUBLIC_URL+'/img/country-alpha';
 /* URI_COUNTRY_ALPHA: The uri from which alpha masks can be loaded. This is
     probably a subdirectory under a "static" or "public" directory. */
-const URI_COUNTRY_FLAG  = '/static/country-flag';
+const URI_COUNTRY_FLAG  = process.env.PUBLIC_URL+'/img/country-flag';
 /* URI_COUNTRY_FLAG: The uri from which flags can be loaded. This is probably a
     subdirectory under a "static" or "public" directory. */
 const DESTINATION_DEFAULT = 'default';
