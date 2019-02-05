@@ -14,7 +14,7 @@
 
 ## Deployment links
 
-- front-end: https://backpaca.now.sh/
+- front-end: https://backpaca.surge.sh/
 - back-end: https://backpaca-yoga.herokuapp.com/
 - database: https://backpaca-ed6c7c4fde.herokuapp.com/backpaca/prod
 
@@ -25,16 +25,16 @@
 - [Deployment Links](#Deployment-links)
 - [Table of Contents](#Table-of-Contents)
 - [Tech-Stack](#Tech-Stack)
-  - Front-End production dependencies
-    - apollo-boost
-    - apollo-cache-inmemory
+  - [Front-End production dependencies](#Front-End-Dependencies-Production)
+    - [apollo-boost](#Apollo-Boost)
+    - [apollo-client](#Apollo-Client)
+    - [apollo-cache-inmemory](#Apollo-cache-inmemory)
+    - [apollo-link-http](#Apollo-link-http)
+    - [apollo-link-error](#Apollo-link-error)
+    - [apollo-link-state](#Apollo-link-state)
     - apollo-cache-persist
-    - apollo-client
     - apollo-link
     - apollo-link-context
-    - apollo-link-error
-    - apollo-link-http
-    - apollo-link-state
     - auth0-lock
     - graphql
     - leaflet
@@ -64,15 +64,15 @@
  - Frontend
  - Backend
     
-## Running
+# Running
 
 >cd /frontend > `yarn dev` : Runs the frontend on `http://localhost:3000`
 
 >cd /backend > `yarn dev` : Runs the backend locally with nodemon on `http://localhost:4000`
 
-## Environment variables
+# Environment variables
 
-### Frontend
+## Frontend
 
 `REACT_APP_AUTH0_DOMAIN` : domain name
 
@@ -82,10 +82,32 @@
 
 `REACT_APP_AUTH0_AUDIENCE` : URL 
 
-### Backend
+## Backend
 
 `REACT_APP_AUTH0_ISSUER` : URL
 
 `REACT_APP_AUTH0_CLIENT_SECRET` : Secret for Auth0 (Same as frontend)
 
 `REACT_APP_AUTH0_AUDIENCE` : URL (Same as frontend)
+
+# Tech-Stack
+
+## Front-End Dependencies (_Production_)
+
+### [Apollo-boost](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost)
+
+A package that contains some recommended defaults for using Apollo Client which include:
+
+#### [Apollo-Client](https://github.com/apollographql/apollo-client)
+
+A fully-featured caching GraphQL client that integrates with React. It allows for you to build UI components that will fetch data using GraphQL.
+
+#### Apollo-cache-inmemory
+
+#### Apollo-link-http
+
+#### Apollo-link-error
+
+#### Apollo-link-state
+
+#### graphql-tag
