@@ -65,7 +65,7 @@ export default class Travels extends Component {
                 console.log('me in tra',me);
                 let visitsUser = [];
                 if (me.visits && me.visits.length > 0) {
-                  visitsUser.push(me.visits);
+                  visitsUser.push(me                           );
                 }
                 visitsUser = (fixData(visitsUser))
                 let colors, borders;
