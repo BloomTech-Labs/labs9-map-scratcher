@@ -26,27 +26,26 @@
 - [Table of Contents](#Table-of-Contents)
 - [Tech-Stack](#Tech-Stack)
   - [Front-End production dependencies](#Front-End-Dependencies-Production)
-    - [apollo-boost](#Apollo-Boost)
     - [apollo-client](#Apollo-Client)
     - [apollo-cache-inmemory](#Apollo-cache-inmemory)
     - [apollo-link-http](#Apollo-link-http)
     - [apollo-link-error](#Apollo-link-error)
     - [apollo-link-state](#Apollo-link-state)
-    - apollo-cache-persist
-    - apollo-link
-    - apollo-link-context
-    - auth0-lock
-    - graphql
-    - leaflet
-    - node-sass
-    - react
-    - react-apollo
-    - react-dom
-    - react-leaflet
-    - react-router-dom
-    - react-scripts
-    - semantic-ui-react
-    - which-polygon
+    - [Apollo-cache-persist](#Apollo-cache-persist)
+    - [Apollo-link](#Apollo-link)
+    - [Apollo-link-context](#Apollo-link-context)
+    - [Auth0-lock](#Auth0-lock)
+    - [Graphql](#Graphql)
+    - [Leaflet](#Leaflet)
+    - [Node-sass](#Node-sass)
+    - [React](#React)
+    - [React-apollo](#React-apollo)
+    - [React-dom](#React-dom)
+    - [React-leaflet](#React-leaflet)
+    - [React-router-dom](#React-router-dom)
+    - [React-scripts](#React-scripts)
+    - [Semantic-ui-react](#Semantic-ui-react)
+    - [Which-polygon](#Which-polygon)
   - Back-End production dependencies
     - cookie-session
     - cors
@@ -94,26 +93,53 @@
 
 ## Front-End Dependencies (_Production_)
 
-### [Apollo-boost](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost)
-
-A package that contains some recommended defaults for using Apollo Client which include:
-
-#### [Apollo-Client](https://github.com/apollographql/apollo-client)
+### [Apollo-Client](https://github.com/apollographql/apollo-client)
 
 A fully-featured caching GraphQL client that integrates with React. It allows for you to build UI components that will fetch data using GraphQL.
 
-#### [Apollo-cache-inmemory](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
+### [Apollo-cache-inmemory](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
 
 Used to store data from the client
 
-#### [Apollo-link-http](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
+### [Apollo-link-http](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
 
 An Apollo link used to remotely fetch data
 
-#### [Apollo-link-error](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
+### [Apollo-link-error](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
 
 An Apollo link for handling errors
 
-#### [Apollo-link-state](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
+### [Apollo-link-state](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
 
 An Apollo link for local state management
+
+### Apollo-cache-persist
+
+### Apollo-link
+
+### Apollo-link-context
+
+### Auth0-lock
+
+### Graphql
+
+### Leaflet
+
+### Node-sass
+
+### React
+
+### React-apollo
+
+### React-dom
+
+### React-leaflet
+
+### React-router-dom
+
+### React-scripts
+
+### Semantic-ui-react
+
+### Which-polygon
+
