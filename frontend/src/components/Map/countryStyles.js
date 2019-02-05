@@ -15,6 +15,10 @@ export const colorsBright = {
   4: '#38B1Bf', //lived
   5: '#713E88', //hover
 };
+
+//orig back: 243352
+
+//one combo: 2D4E83, e2e8e4
 export const colorsFun = {
   0: '#707070', //no interaction yet
   1: '#D33C67', //wishlist
@@ -23,13 +27,22 @@ export const colorsFun = {
   4: '#2D4E83', //lived
   5: '#713E88', //hover
 };
+// export const colors = {
+//   0: '#EBEDE8', //no interaction yet
+//   1: '#8d230f', //wishlist
+//   2: '#5b7065', //transited
+//   3: '#eb8a3e', //visited
+//   4: '#46211a', //lived
+//   5: '#C5C9C6', //hover
+// };
+
 export const colors = {
-  0: 'lightgray', //no interaction yet
-  1: '#FD9B9F', //wishlist
-  2: '#FDD57B', //transited
-  3: '#B2DD83', //visited
-  4: '#ADD8E6', //lived
-  5: '#F6B372', //hover
+  0: '#EBEDE8', //no interaction yet
+  1: '#588C73', //wishlist
+  2: '#F2AE72', //transited
+  3: '#8C4646', //visited
+  4: '#D96459', //lived
+  5: '#C5C9C6', //hover
 };
 
 //-- Map Region Styles ---------------------------
