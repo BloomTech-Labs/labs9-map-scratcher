@@ -152,8 +152,8 @@ export function checkSize(drawingState) {
 
     const oldWidth  = canvas.width ;
     const oldHeight = canvas.height;
-    const newWidth  = bounds.right  - bounds.left;
-    const newHeight = bounds.bottom - bounds.top ;
+    let newWidth  = bounds.right  - bounds.left;
+    let newHeight = bounds.bottom - bounds.top ;
     if(newWidth  < RESOLUTION_DEFAULT){ newWidth  = RESOLUTION_DEFAULT;}
     if(newHeight < RESOLUTION_DEFAULT){ newHeight = RESOLUTION_DEFAULT;}
     if(newWidth === oldWidth && newHeight === oldHeight) { return;}
