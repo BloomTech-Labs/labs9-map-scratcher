@@ -1,5 +1,5 @@
 /*== JWT MIDDLEWARE ============================================
-  Checks the jwt against whe jwks enpoint keys.
+  Checks the jwt against whe jwks endpoint keys.
 */
 
 // NODE MODULES ==============================================
@@ -8,7 +8,7 @@ const jwksRsa = require('jwks-rsa')
 
 //-- checkJwt --------------------------------
 const checkJwt = jwt({
-  // Dynamically provide a signing key based on the kid in the header and signing keys provided by the JWKS endpoint.
+  // Dynamically provide a signing key based on the id in the header and signing keys provided by the JWKS endpoint.
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     rateLimit: true,

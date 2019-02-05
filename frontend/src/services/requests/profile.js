@@ -6,9 +6,6 @@ export const QUERY_CLIENT_PROFILE = gql`
     userId @client
   }
 `
-
-
-
 export const QUERY_FRIEND_PROFILE = gql`
   {
     friendId @client
