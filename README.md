@@ -20,24 +20,37 @@
 
 - Tech-Stack
   - Front-End production dependencies
-    - React
-    - react-apollo
-    - node-sass
     - apollo-boost
+    - apollo-cache-inmemory
+    - apollo-cache-persist
+    - apollo-client
+    - apollo-link
+    - apollo-link-context
+    - apollo-link-error
+    - apollo-link-http
+    - apollo-link-state
+    - auth0-lock
     - graphql
     - leaflet
+    - node-sass
+    - react
+    - react-apollo
+    - react-dom
     - react-leaflet
+    - react-router-dom
+    - react-scripts
     - semantic-ui-react
     - which-polygon
-    - auth0-lock
   - Back-End production dependencies
     - cookie-session
     - cors
     - dotenv
+    - express-jwt
     - graphql-yoga
+    - jsonwebtoken
+    - jwks-rsa
+    - lodash.get
     - prisma-client-lib
-    - passport
-    - passport-twitter
   - Back-End development dependencies
      - nodemon
     
