@@ -24,11 +24,7 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <Fragment>
         <div className='profile_pageContainer'>
-          <div className='profile_mainContainer'>
-            <div className='profile_userCardContainer'>
-
             {/* #region UserCard component */}
               <Query query={QUERY_ME_PROFILE} >
               {({ loading: loadingUser, error, data: { me } }) => {
@@ -42,7 +38,6 @@ export default class Profile extends Component {
                 if (error) {
                   return <div>Whoops!</div>
                 }
-                console.log('in profile', me)
                 return (
                   <Fragment>
                   {/* #region Header component */}
@@ -61,20 +56,18 @@ export default class Profile extends Component {
                     }}
                     </Query>
                   {/* #endregion Header component end */}
+                  <div className='profile_content'>
                   <UserCard user={me} {...this.props}/>
                   {/* #region FriendsList component */}
                   <FriendsList userId={me.id} friends={me.friends} />
                   {/* #endregion FriendsList component */}
+                  </div>
                   </Fragment>
                 );
               }}
               </Query>
             {/* #endregion UserCard component */}
-
-            </div>
-          </div>
         </div>
-      </Fragment>
     );
 
   }
