@@ -102,12 +102,18 @@ A package that contains some recommended defaults for using Apollo Client which 
 
 A fully-featured caching GraphQL client that integrates with React. It allows for you to build UI components that will fetch data using GraphQL.
 
-#### Apollo-cache-inmemory
+#### [Apollo-cache-inmemory](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
 
-#### Apollo-link-http
+Used to store data from the client
 
-#### Apollo-link-error
+#### [Apollo-link-http](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
 
-#### Apollo-link-state
+An Apollo link used to remotely fetch data
 
-#### graphql-tag
+#### [Apollo-link-error](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
+
+An Apollo link for handling errors
+
+#### [Apollo-link-state](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
+
+An Apollo link for local state management
