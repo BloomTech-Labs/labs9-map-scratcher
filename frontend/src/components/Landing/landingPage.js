@@ -11,12 +11,15 @@ import Login from './Login/Login.js';
 import Backpaca from './Backpaca';
 import './landing.scss';
 
+
 //-- React Implementation ------------------------
 export default class LandingPage extends Component {
 
   getToken = () => {
+    const expire = localStorage.getItem('expires_at');
     const token = localStorage.getItem('access_token');
-    if (token) {
+    const now = new Date().getTime()
+    if (token && now < expire) {
       this.props.history.push('/profile')
     }
   }
