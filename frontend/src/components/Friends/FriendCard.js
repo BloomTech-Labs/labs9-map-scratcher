@@ -31,12 +31,11 @@ export default class FriendCard extends Component {
       return (
         <Fragment>
           <a>
-            <Icon name='user'/>
             <DeleteFriendButton userId={this.userId} friendId={id} />
           </a>
           <Mutation mutation={MUTATION_VIEWFRIEND_PROFILE} variables={{id: id}}>
             {viewFriend => (
-              <Button onClick={() => {
+              <Button fluid onClick={() => {
                 viewFriend()
                 this.props.history.push('/travels')
               }}>
@@ -51,7 +50,6 @@ export default class FriendCard extends Component {
     if(!isFriends) {
       return (
         <a>
-          <Icon name='user'/>
           <AddFriendButton userId={this.userId} friendId={id} />
         </a>
       )
@@ -62,7 +60,7 @@ export default class FriendCard extends Component {
     return (
       <Query query={QUERY_FRIEND_PROFILE}>
         {({ loading: loadingFriendId, data: {friendId} }) => {
-          console.log('friendId in friendCard', friendId); 
+          console.log('friendId in friendCard', friendId);
           return (
             <Query query={QUERY_USER_PROFILE} variables={ {id: friendId} }>
               {({ loading: loadingUser, data: {user} }) => {
@@ -73,7 +71,7 @@ export default class FriendCard extends Component {
                 const visitCount = user.visits.length
                 return (
                   <div>
-                    <Card 
+                    <Card
                       id='friendCard'
                       image={user.pictureUrl ? user.pictureUrl : require('../../static/alpaca.png')}
                       header={user.name}
