@@ -48,6 +48,9 @@ const server = new GraphQLServer({
   }
 })
 
+//-- Preflight Cors --------------------------------------
+server.express.options('*', cors(corsOptions))
+
 //-- JWT check middleware --------------------------------
 server.express.post(
   server.options.endpoint,
@@ -66,9 +69,12 @@ server.express.post(server.options.endpoint, (req, res, done ) => {
   return getUser(req, res, done, prisma)
 })
 
+
 //-- Repackage CORS options for easy use by the server --------------------------------
 const opts = {
   cors: corsOptions
 }
 //-- Start Server ---------------------------------------
 server.start(opts, () => console.log(`Server is running on http://localhost:4000`))
+
+// Redeployment change
