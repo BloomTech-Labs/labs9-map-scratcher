@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import FriendCard from '../components/Friends/FriendCard';
+import FriendCard from '../components/Friends/sensible.js';
 import Header from '../components/ProfileHeader/ProfileHeader';
 import {
   QUERY_ME_PROFILE,

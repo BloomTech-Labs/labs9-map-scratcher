@@ -56,6 +56,7 @@ export default class WorldMap extends React.Component {
       hovering: null,
       mouse: null,
     }
+    this.geojsonKey = Math.random();
   }
 
   // shouldComponentUpdate(prevProps, nextState) {
@@ -67,6 +68,7 @@ export default class WorldMap extends React.Component {
   //-- When Receiving Props ------------------------
   componentDidUpdate(prevProps) {
     if (prevProps.colors !== this.props.colors) {
+      this.geojsonKey = Math.random();
       console.log('was', prevProps.colors, 'is', this.props.colors)
       this.forceUpdate();
     }
@@ -105,7 +107,7 @@ export default class WorldMap extends React.Component {
 
   //-- Final React Render --------------------------
   render() {
-
+    console.log('Colors:',this.props.colors)
     return (
       <Map
         className="map"
@@ -123,7 +125,7 @@ export default class WorldMap extends React.Component {
         <GeoJSON
           data={geojson.features}
           style={defaultStyle}
-          />
+        />
         {geojson.features.map(feature => this.state.hovering === feature.properties.ADMIN && (
           <Query key={feature.properties.ADMIN} query={QUERY_COUNTRIES_HEADER}>
           {({ loading, data: { countries }}) => {
@@ -166,7 +168,7 @@ export default class WorldMap extends React.Component {
           const feature = getFeature(geojson, visit[2])
           return (
             <GeoJSON
-            key={visit[0]}
+            key={`${visit[0]}${this.geojsonKey}`}
             data={feature}
             style={style}
             />)
