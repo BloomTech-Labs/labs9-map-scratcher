@@ -125,17 +125,29 @@ Allows for async look up of things like Authentication tokens. Provides a functi
 
 Provides persistence for Apollo Client, the Apollo cache will immediately be restored asynchronously and will be persisted upon every write to the cache.
 
-### Auth0-lock
+### [Auth0-lock](https://github.com/auth0/lock)
 
-### Graphql
+Allows for authentication through social and enterprise identity providers. Supports both logging the user in and registering the user. 
 
-### Leaflet
+### [Graphql](https://www.npmjs.com/package/graphql)
 
-### Node-sass
+A data query and manipulation language built in Javascript for APIs. GraphQL allows the client to retrieve exactly what they are asking for and nothing more.
 
-### React
+### [Leaflet](https://github.com/Leaflet/Leaflet)
 
-### React-apollo
+A Javascript library for for light-weight, mobile-friendly maps.
+
+### [Node-sass](https://github.com/sass/node-sass)
+
+Binds Node.JS to [LibSass](https://github.com/sass/libsass) which is used to complile Sass.
+
+### [React](https://reactjs.org/)
+
+A fast and scalable Javascript library for building user interfaces. Allows for a lot of out of the box solutions to modern problems. React has a large community backing which allows for finding solutions to most problems easy accessible. 
+
+### [React-apollo](https://github.com/apollographql/react-apollo)
+
+
 
 ### React-dom
 
