@@ -9,7 +9,6 @@
     "deploy": "prisma deploy --env file config.env"
   },
   "dependencies": {
-    "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express-jwt": "^5.3.1",

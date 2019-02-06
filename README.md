@@ -47,7 +47,6 @@
     - [Semantic-ui-react](#Semantic-ui-react)
     - [Which-polygon](#Which-polygon)
   - [Back-End production dependencies](#Back-End-dependencies-Production)
-    - [Cookie-session](#Cookie-session)
     - [Cors](#Cors)
     - [Dotenv](#Dotenv)
     - [Express-jwt](#Express-jwt)
@@ -177,17 +176,25 @@ Used within our map, which-polygon allows for matching against a set of GeoJSON 
 
 ## Back-End dependencies (_Production_)
 
-### Cookie-session
+### [Cors](https://www.npmjs.com/package/cors)
 
-### Cors
+A node.js package used as a middleware for Express that allows for enabling of CORS with various options.
 
-### Dotenv
+### [Dotenv](https://www.npmjs.com/package/dotenv)
 
-### Express-jwt
+Allows for loading of environment variables from a `.env` file into `process.env` separating the configuration environment from the actual code.
 
-### Graphql-yoga
+### [Express-jwt](https://github.com/auth0/express-jwt)
 
-### Jsonwebtoken
+Middleware to validate the JsonWebToken which allows for authentication of JWT tokens in the application.
+
+### [Graphql-yoga](https://github.com/prisma/graphql-yoga)
+
+A fully featured GraphQL Server that allows us to implement our Query and Mutation Resolvers, check permissions, and authenticates our JsonWebTokens.
+
+### [Jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
+
+
 
 ### Jwks-rsa
 
