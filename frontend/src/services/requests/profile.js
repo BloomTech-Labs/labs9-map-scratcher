@@ -153,9 +153,10 @@ export const MUTATION_DELETEFRIEND_PROFILE = gql`
     )
     { id
       friends {
-      id
-      name
-    }
+        id
+        name
+        bio
+      }
     }
   }
 `

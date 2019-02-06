@@ -6,6 +6,7 @@ export const QUERY_CLIENT_TRAVELS = gql`
       viewingFriend @client
       friendId @client
       viewBorders @client
+      countryId @client
   }
 `
 export const QUERY_MODAL_TRAVELS = gql`
