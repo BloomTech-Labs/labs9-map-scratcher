@@ -28,12 +28,12 @@
   - [Front-End production dependencies](#Front-End-Dependencies-Production)
     - [apollo-client](#Apollo-Client)
     - [apollo-cache-inmemory](#Apollo-cache-inmemory)
+    - [Apollo-link](#Apollo-link)
     - [apollo-link-http](#Apollo-link-http)
     - [apollo-link-error](#Apollo-link-error)
     - [apollo-link-state](#Apollo-link-state)
-    - [Apollo-cache-persist](#Apollo-cache-persist)
-    - [Apollo-link](#Apollo-link)
     - [Apollo-link-context](#Apollo-link-context)
+    - [Apollo-cache-persist](#Apollo-cache-persist)
     - [Auth0-lock](#Auth0-lock)
     - [Graphql](#Graphql)
     - [Leaflet](#Leaflet)
@@ -99,25 +99,31 @@ A fully-featured caching GraphQL client that integrates with React. It allows fo
 
 ### [Apollo-cache-inmemory](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
 
-Used to store data from the client
+Used to store data from the client.
+
+### [Apollo-link](https://github.com/apollographql/apollo-link)
+
+A standard interface for modifying control flow of GraphQL requests and fetching GraphQL results.
 
 ### [Apollo-link-http](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
 
-An Apollo link used to remotely fetch data
+An Apollo link used to remotely fetch data.
 
 ### [Apollo-link-error](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
 
-An Apollo link for handling errors
+An Apollo link for handling errors.
 
 ### [Apollo-link-state](https://www.apollographql.com/docs/react/essentials/get-started.html#apollo-boost)
 
-An Apollo link for local state management
+An Apollo link for local state management.
 
-### Apollo-cache-persist
+### [Apollo-link-context](https://www.npmjs.com/package/apollo-link-context)
 
-### Apollo-link
+Allows for async look up of things like Authentication tokens. Provides a function that returns either an object or a promise that returns an object to set the new context of the request.
 
-### Apollo-link-context
+### [Apollo-cache-persist](https://github.com/apollographql/apollo-cache-persist)
+
+Provides persistence for Apollo Client, the Apollo cache will immediately be restored asynchronously and will be persisted upon every write to the cache.
 
 ### Auth0-lock
 
