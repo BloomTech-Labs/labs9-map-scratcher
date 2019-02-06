@@ -16,8 +16,8 @@ export function getFeature(data, name) {
 //massages the data into a form easily used in the map render
 export function fixData(userArray) {
   let finalArray = [];
-  userArray.map(user => {
-    user.visits.map(visit => {
+  userArray.forEach(user => {
+    user.visits.forEach(visit => {
       let arrVisit = [visit.id, visit.country.id, visit.country.name, visit.level];
       finalArray.push(arrVisit);
     });

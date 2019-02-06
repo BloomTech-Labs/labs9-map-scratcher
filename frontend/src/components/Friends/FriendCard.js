@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Query, Mutation } from 'react-apollo';
-import { Card, Icon, Button } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import AddFriendButton from './AddFriendButton.js';
 import DeleteFriendButton from './DeleteFriendButton.js';
 import './friends.scss'
@@ -30,9 +30,7 @@ export default class FriendCard extends Component {
     if(isFriends) {
       return (
         <Fragment>
-          <a>
-            <DeleteFriendButton userId={this.userId} friendId={id} />
-          </a>
+          <DeleteFriendButton userId={this.userId} friendId={id} />
           <Mutation mutation={MUTATION_VIEWFRIEND_PROFILE} variables={{id: id}}>
             {viewFriend => (
               <Button fluid onClick={() => {
@@ -49,9 +47,7 @@ export default class FriendCard extends Component {
 
     if(!isFriends) {
       return (
-        <a>
-          <AddFriendButton userId={this.userId} friendId={id} />
-        </a>
+        <AddFriendButton userId={this.userId} friendId={id} />
       )
     }
   }

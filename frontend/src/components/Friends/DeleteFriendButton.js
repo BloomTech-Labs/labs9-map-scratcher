@@ -3,8 +3,7 @@ import { Button } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo';
 import {
   QUERY_ME_PROFILE,
-  MUTATION_DELETEFRIEND_PROFILE,
-  QUERY_FRIENDS_PROFILE } from '../../services/requests/profile';
+  MUTATION_DELETEFRIEND_PROFILE } from '../../services/requests/profile';
 
 const DeleteFriendButton = ({ userId, friendId }) => {
   return (

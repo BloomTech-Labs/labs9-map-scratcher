@@ -4,3 +4,4 @@ dev.js
 .DS_Store
 build/
 .env
+burn/

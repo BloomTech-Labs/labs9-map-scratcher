@@ -29,8 +29,8 @@ export default class FriendsVisits extends Component {
         let friendsList;
         if (friends) {
           let friendArray = [];
-          friends.map(friend => {
-            friend.visits.map(visit => {
+          friends.forEach(friend => {
+            friend.visits.forEach(visit => {
               if (visit.country.id === this.props.id) {
                 friendArray.push([friend.name, visit.level]);
               }
