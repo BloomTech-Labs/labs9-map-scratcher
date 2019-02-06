@@ -147,19 +147,33 @@ A fast and scalable Javascript library for building user interfaces. Allows for 
 
 ### [React-apollo](https://github.com/apollographql/react-apollo)
 
+Allows for fetching of data from the GraphQL server and use of the data for building UIs with React right out of the box.
 
+### [React-dom](https://www.npmjs.com/package/react-dom)
 
-### React-dom
+Pairs with react to serve as the entry point to the DOM.
 
-### React-leaflet
+### [React-leaflet](https://react-leaflet.js.org/)
 
-### React-router-dom
+React-leaflet provides for an abstraction of Leaflet as React components. This does not replace Leaflet but leverages React's lifecycle methods to call the relevant Leaflet handlers.
 
-### React-scripts
+### [React-router-dom](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom)
 
-### Semantic-ui-react
+Binds React Router to the DOM.
 
-### Which-polygon
+### [React-scripts](https://www.npmjs.com/package/react-scripts)
+
+Includes the scripts and configuration used by Create React App.
+
+See documentation [here](https://facebook.github.io/create-react-app/docs/getting-started) on how to use Create React App.
+
+### [Semantic-ui-react](https://github.com/Semantic-Org/Semantic-UI-React)
+
+A react implementation of Semantic-UI which is a component framework used to build elegant user interfaces.
+
+### [Which-polygon](https://www.npmjs.com/package/which-polygon)
+
+Used within our map, which-polygon allows for matching against a set of GeoJSON polygons to determine the location of a country.
 
 ## Back-End dependencies (_Production_)
 
