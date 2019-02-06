@@ -59,8 +59,9 @@
      - [Nodemon](#Nodemon)
 - [Running](#Running)
 - [Environment variables](#Enviornment-variables)
- - [Frontend](#Frontend)
- - [Backend](#Backend)
+  - [Frontend](#Frontend)
+  - [Backend](#Backend)
+- [Auth0 Setup](#Auth0-Setup)
     
 # Running
 
@@ -69,6 +70,8 @@
 >cd /backend > `yarn` to install dependencies > `yarn dev` : Runs the backend locally with [nodemon](#Nodemon) on `http://localhost:4000`
 
 # Environment variables
+
+> See [Auth0 Setup](#Auth0-Setup) for a guide on how to assign environment variables with Auth0
 
 ## Frontend
 
@@ -214,3 +217,24 @@ Includes all the dependancies besides GraphQL needed to run Prisma client in Jav
 
 Watches for changes in the server and automatically restarts the server once changes are detected.
 
+## Auth0 Setup
+
+* Log in or sign up for an account at Auth0.com.
+
+* Create a new tenant domain. You will be prompted to do so if this is a new account.
+
+* Go to your dashboard and create a new single page web application.
+
+* Go to the Applications tab and open your newly created App.
+
+* Copy and paste the domain field into the REACT_APP_AUTH0_DOMAIN key.
+
+* Copy and paste your Client ID field into the REACT_APP_AUTH0_CLIENT_ID key.
+
+* Scroll down to the Allowed Callback URLs field. Enter http://localhost:3000/callback
+
+* In the Allowed Web Origins field, the Allowed Logout URLs field, and the Allowed Origins(CORS) field, enter http://localhost:3000
+
+* Under the APIs tab, create a new API. Use the identifier http://localhost:5000
+
+* To use our custom log in widget, go to the Hosted Pages tab, enable the Custom Login Page switch and paste the following code over the existing widget code.
