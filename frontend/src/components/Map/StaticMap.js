@@ -58,10 +58,16 @@ export default class WorldMap extends React.Component {
     }
   }
 
+  // shouldComponentUpdate(prevProps, nextState) {
+  //   if (JSON.stringify(prevProps) !== JSON.stringify(this.props)) {
+  //     return true;
+  //   }
+  //   return true
+  // }
   //-- When Receiving Props ------------------------
   componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
-      console.log('was', prevProps, 'is', this.props)
+    if (prevProps.colors !== this.props.colors) {
+      console.log('was', prevProps.colors, 'is', this.props.colors)
       this.forceUpdate();
     }
   }
@@ -99,12 +105,7 @@ export default class WorldMap extends React.Component {
 
   //-- Final React Render --------------------------
   render() {
-    //test logic for if either of these is false
-    if (!this.props.colors || !this.props.borders) {
-      return (
-        <h1>I'm trying </h1>
-      )
-    }
+
     return (
       <Map
         className="map"

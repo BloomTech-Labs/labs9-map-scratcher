@@ -81,7 +81,7 @@ export function initializeCanvas(drawingState, movementHandler) {
     // Save drawing context
     drawingState.mainContext = canvas.getContext('2d');
 }
-    
+
 //-- Create Compositing Canvas -------------------
 export function createCompositingCanvas(drawingState) {
     // Setup compositing canvas and context
@@ -157,6 +157,9 @@ export function checkSize(drawingState) {
     if(newWidth  < RESOLUTION_DEFAULT){ newWidth  = RESOLUTION_DEFAULT;}
     if(newHeight < RESOLUTION_DEFAULT){ newHeight = RESOLUTION_DEFAULT;}
     if(newWidth === oldWidth && newHeight === oldHeight) { return;}
+    // Temporary fix to constant resizing
+    if(drawingState.checked) { return;}
+    drawingState.checked = true;
     // Redraw outline at larger size
     canvas.width  = newWidth ;
     canvas.height = newHeight;

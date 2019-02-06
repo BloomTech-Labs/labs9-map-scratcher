@@ -11,7 +11,17 @@ const AddFriendButton = ({ userId, friendId }) => {
   return (
     <Mutation
       mutation={MUTATION_ADDFRIEND_PROFILE}
-      refetchQueries={[{query: QUERY_ME_PROFILE}]}
+      variables={{ userId: userId, friendId: friendId }}
+      update={(cache, {data}) => {
+      let result  = cache.readQuery({ query: QUERY_ME_PROFILE });
+      const friends = result.me.friends.push({id: friendId});
+      result.me.friends = friends;
+      console.log(result)
+      cache.writeQuery({
+        query: QUERY_ME_PROFILE,
+        data: { result },
+      });
+    }}
     >
     {( addFriend, {data} ) => (
       <Button

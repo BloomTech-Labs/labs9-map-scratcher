@@ -86,7 +86,7 @@ export default class Travels extends Component {
                 }
                 return (
                   <Fragment>
-                    <StaticMap colors={colors} borders={borders} viewBorders={viewBorders} />
+                    <StaticMap colors={colors} borders={borders} viewBorders={viewBorders} viewingCountry={localState.countryId}/>
                     <Query query={QUERY_MODAL_TRAVELS}>
                     {({ loading, data }) => {
                       if (loading) return <div>Loading</div>

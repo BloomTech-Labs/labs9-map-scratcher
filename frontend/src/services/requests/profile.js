@@ -81,7 +81,7 @@ export const QUERY_ME_FRIENDS_PROFILE = gql`
       id
       friends {
         id
-        namd
+        name
       }
     }
   }
@@ -151,7 +151,13 @@ export const MUTATION_DELETEFRIEND_PROFILE = gql`
       userId: $userId,
       friendId: $friendId,
     )
-    { id }
+    { id
+      friends {
+        id
+        name
+        bio
+      }
+    }
   }
 `
 export const MUTATION_DELETEUSER_PROFILE = gql`

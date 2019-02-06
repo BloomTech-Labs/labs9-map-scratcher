@@ -12,7 +12,7 @@ country to finalize that value. It accepts the following props:
   disabled(boolean) - Whether or not the visit level is adjustable.
   countryId(string) - A GraphQL id, specifying the country.
   displayId(string) - The GraphQL id of the user having visited the country.
-  
+
 */
 
 //-- Dependencies --------------------------------
@@ -85,8 +85,8 @@ export default class extends React.Component {
           const newVisit = createVisit
           cache.writeQuery({
             query: QUERY_USERVISITS_MODAL,
-            variables: {id: result.user },
-            data: {user: {visits: [...visits, newVisit], __typename: 'Visit'}} 
+            variables: {id: result.user.id },
+            data: {user: {id: result.user.id, scratchingAutomated: result.user.scratchingAutomated, visits: [...visits, newVisit], __typename: 'Visit'}, __typename: 'User'}
           });
         }
       };
@@ -103,8 +103,8 @@ export default class extends React.Component {
           const level = updateVisit['level']
           cache.writeQuery({
             query: QUERY_USERVISITS_MODAL,
-            variables: {id: result.user },
-            data: {user: {visits: visits.map(v => v.id === visitId ? {...v, level} : v), __typename: 'Visit'}} 
+            variables: {id: result.user.id },
+            data: {user: {id: result.user, scratchingAutomated: result.user.scratchingAutomated, visits: visits.map(v => v.id === visitId ? {...v, level} : v), __typename: 'Visit'}, __typename: 'User'}
           });
         }
       };
@@ -123,7 +123,7 @@ export default class extends React.Component {
       itchyLevel: newVisitLevel,
     });
   }
-  
+
   //-- Rendering -----------------------------------
   render() {
     // Query Apollo for the currently focused country, user visit data, and user
@@ -148,7 +148,7 @@ export default class extends React.Component {
               // Get values from Apollo replies
               const countryCode = replyCountry.data.countryById.code;
               const user = replyVisit.data.user;
-              const autoScratch = replyUser.data.user.scratchingAutomated;
+              const autoScratch = replyUser-replyVisit.data.user.scratchingAutomated;
               // Find user visit level to this country
               let visitLevel = VISITLEVEL_NONE;
               let visitId;
@@ -179,8 +179,8 @@ export default class extends React.Component {
                   <Mutation mutation={gqlMutation}>{mutationInvocation => (
                     <Scratcher
                       scratchable={this.state.itchy}
-                      destination={countryCode} 
-                      colorOutline={colorOutline} 
+                      destination={countryCode}
+                      colorOutline={colorOutline}
                       colorScratch={'silver'}
                       automateScratching={autoScratch}
                       handleScratchAll={() => {
