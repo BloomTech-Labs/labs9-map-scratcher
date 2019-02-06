@@ -64,9 +64,9 @@
     
 # Running
 
->cd /frontend > `yarn dev` : Runs the frontend on `http://localhost:3000`
+>cd /frontend > `yarn` to install dependencies > `yarn dev` : Runs the frontend on `http://localhost:3000`
 
->cd /backend > `yarn dev` : Runs the backend locally with nodemon on `http://localhost:4000`
+>cd /backend > `yarn` to install dependencies > `yarn dev` : Runs the backend locally with [nodemon](#Nodemon) on `http://localhost:4000`
 
 # Environment variables
 
