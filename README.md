@@ -62,6 +62,7 @@
   - [Frontend](#Frontend)
   - [Backend](#Backend)
 - [Auth0 Setup](#Auth0-Setup)
+- [API Documentation](#API-Documentation)
     
 # Running
 
@@ -75,6 +76,8 @@
 
 ## Frontend
 
+In a `.env` file at the highest level of the front end folder add these environment variables:
+
 `REACT_APP_AUTH0_DOMAIN` : domain name
 
 `REACT_APP_AUTH0_CLIENT_ID` : Your personal Auth0 Client ID
@@ -84,6 +87,8 @@
 `REACT_APP_AUTH0_AUDIENCE` : URL 
 
 ## Backend
+
+In a `config.env` file at the highest level of the project add these environment variables:
 
 `REACT_APP_AUTH0_ISSUER` : URL
 
@@ -238,3 +243,5 @@ Watches for changes in the server and automatically restarts the server once cha
 * Under the APIs tab, create a new API. Use the identifier http://localhost:5000
 
 * To use our custom log in widget, go to the Hosted Pages tab, enable the Custom Login Page switch and paste the following code over the existing widget code.
+
+## API Documentation
