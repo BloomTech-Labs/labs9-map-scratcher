@@ -194,15 +194,23 @@ A fully featured GraphQL Server that allows us to implement our Query and Mutati
 
 ### [Jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
 
+An implementation of [JSON Web Tokens](https://tools.ietf.org/html/rfc7519) used for Auth0.
 
+### [Jwks-rsa](https://github.com/auth0/node-jwks-rsa)
 
-### Jwks-rsa
+A library used to retrieve RSA signing kets from a JSON Web Key Set endpoint. Jwks-rsa is used with Auth0.
 
-### Lodash.get
+### [Lodash.get](https://www.npmjs.com/package/lodash.get)
 
-### Prisma-client-lib
+A lodash method used to get the value at path of an object. If the resolved value is undefined, the default value will be returned.
+
+### [Prisma-client-lib](https://www.npmjs.com/package/prisma-client-lib)
+
+Includes all the dependancies besides GraphQL needed to run Prisma client in Javascript. Prisma is our GraphQL database interface that provides a set of CRUD APIs for the database. Prisma also allows us to define our schema and add data relationships.
 
 ## Back-End dependencies (_Development_)
 
-### Nodemon
+### [Nodemon](https://github.com/remy/nodemon)
+
+Watches for changes in the server and automatically restarts the server once changes are detected.
 
