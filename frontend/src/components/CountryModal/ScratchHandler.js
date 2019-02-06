@@ -33,9 +33,10 @@ import './scratch-handler.scss';
 
 //-- Project Constants ---------------------------
 const VISITLEVEL_NONE = 0;
-const VISITLEVEL_WISHLIST = 1;
+/*const VISITLEVEL_WISHLIST = 1;
 const VISITLEVEL_TRANSITED = 2;
 const VISITLEVEL_VISITED = 3;
+*/
 const VISITLEVEL_LIVED = 4;
 
 
