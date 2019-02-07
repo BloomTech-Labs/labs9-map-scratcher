@@ -1,5 +1,8 @@
+
+$color-primary: #243352;
+
 .landing_mainDiv {
-    background: #243352;
+    background: $color-primary;
     color: #EBEDE8;
     width: 100vw;
     height: 100vh;
@@ -27,7 +30,7 @@
                     }
                   button {
                     background: #EBEDE8;
-                    color: #243352;
+                    color: $color-primary;
                     font-size: 1.4rem;
                     margin-right: 5%;
                     padding: 5%;
