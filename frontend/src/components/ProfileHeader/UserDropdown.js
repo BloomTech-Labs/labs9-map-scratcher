@@ -41,23 +41,18 @@ const UsersDropdown = (props) => {
   });
 
   return(
-    <Mutation mutation={MUTATION_FRIEND_PROFILE}>
-      {setFriendId => (
-        <Dropdown
-        placeholder='Search for friends'
-        floating
-        search
-        selectOnBlur={false}
-        icon='search'
-        options={userList}
-        className='profile_userDropDown'
-        onChange={(e, data) => {
-          setFriendId({ variables: { id: data.value }});
-          props.history.push(`/friends/${data.value}`)
-        }}
-        />
-      )}
-    </Mutation>
-  );
+    <Dropdown
+      placeholder='Search for friends'
+      floating
+      search
+      selectOnBlur={false}
+      icon='search'
+      options={userList}
+      className='profile_userDropDown'
+      onChange={(e, data) => {
+        props.history.push(`/friends/${data.value}`)
+      }}
+    />
+  )
 }
 export default UsersDropdown;
