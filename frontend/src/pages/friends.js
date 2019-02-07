@@ -18,27 +18,27 @@ const Friends = (props) => (
       )
     }
     return (
-          <Query query={QUERY_USERS_PROFILE}>
-          {({ loading: loadingUsers, data: {users} }) => {
-            if (loadingUser || loadingUsers) {
-              return (
-                <Dimmer active>
-                  <Loader />
-                </Dimmer>
-              )
-            }
-            let friends = false;
-            if (me.friends) {
-              friends = me.friends;
-            }
-            return (
-              <div>
-                <Header userId={me.id} users={users} logout={props.logout} {...props} />
-                <FriendCard currentUserId={me.id} friendsData={friends} {...props} />
-              </div>
-            );
-          }}
-          </Query>
+      <Query query={QUERY_USERS_PROFILE}>
+      {({ loading: loadingUsers, data: {users} }) => {
+        if (loadingUser || loadingUsers) {
+          return (
+            <Dimmer active>
+              <Loader />
+            </Dimmer>
+          )
+        }
+        let friends = false;
+        if (me.friends) {
+          friends = me.friends;
+        }
+        return (
+          <div>
+            <Header userId={me.id} users={users} logout={props.logout} {...props} />
+            <FriendCard key={Math.random()} currentUserId={me.id} friendsData={friends} {...props} />
+          </div>
+        );
+      }}
+      </Query>
     )
   }}
   </Query>
