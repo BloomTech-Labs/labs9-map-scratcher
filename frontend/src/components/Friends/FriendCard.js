@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Query, Mutation } from 'react-apollo';
-import { Card, Button } from 'semantic-ui-react';
+import { Card, Button, Dimmer, Loader } from 'semantic-ui-react';
 import AddFriendButton from './AddFriendButton.js';
 import DeleteFriendButton from './DeleteFriendButton.js';
 import './friends.scss'
@@ -39,8 +39,12 @@ export default class FriendCard extends Component {
     return (
       <Query query={QUERY_USER_PROFILE} variables={ {id: this.state.friendId} }>
         {({ loading: loadingUser, data: {user} }) => {
-            if (loadingUser) {
-            return <div>loading...</div>
+          if (loadingUser) {
+            return (
+              <Dimmer active>
+                <Loader />
+              </Dimmer>
+            )
           }
           const visitCount = user.visits.length
           return (
