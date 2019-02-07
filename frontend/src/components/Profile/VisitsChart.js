@@ -22,7 +22,7 @@ const VisitsChart = ({user}) => {
     {name: 'visited', value: distribution.visited}, 
     {name: 'lived', value: distribution.lived}
   ];
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ['#6b0d4b', '#00C49F', '#FFBB28', '#FF8042'];
   
   const RADIAN = Math.PI / 180;                    
 
@@ -30,7 +30,6 @@ const VisitsChart = ({user}) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 1.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-  
     const item = data[index];
   
     return (
@@ -48,20 +47,23 @@ const VisitsChart = ({user}) => {
   };
   
   return (
-    <PieChart width={800} height={400}>
-      <Pie
-        dataKey='value'
-        data={data} 
-        cx={300} 
-        cy={200} 
-        labelLine={true}
-        label={renderLabel}
-        outerRadius={80} 
-        fill='#8884d8'
-      >
-        {data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} key={index}/>)}
-      </Pie>
-    </PieChart>
+    <div className='visits-chart'>
+      <PieChart width={400} height={400}>
+        <Pie
+          dataKey='value'
+          data={data} 
+          cx={200} 
+          cy={200} 
+          labelLine={true}
+          label={renderLabel}
+          outerRadius={80} 
+          fill='#8884d8'
+        >
+          {data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} key={index}/>)}
+        </Pie>
+      </PieChart>
+    </div>
+    
   )
 }
 
