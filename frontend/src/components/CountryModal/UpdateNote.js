@@ -38,7 +38,7 @@ export default class UpdateNote extends Component {
     const { visitId, displayId } = this.props
     return (
       <Fragment>
-        <Mutation 
+        <Mutation
           mutation={MUTATION_UPDATEVISIT_MODAL}
           variables={{id: visitId, note: this.state.note}}
           update={(cache, {data: {updateVisit}}) => {
@@ -49,12 +49,13 @@ export default class UpdateNote extends Component {
             cache.writeQuery({
               query: QUERY_USERVISITS_MODAL,
               variables: {id: data.user},
-              data: {user: {visits: visits.map(v => v.id === visitId ? {...v, note} : v), __typename: 'Visit'}} 
+              data: {user: {visits: visits.map(v => v.id === visitId ? {...v, note} : v), __typename: 'Visit'}}
             });
           }}
         >
           {updateVisit => (
             <Form onSubmit={updateVisit}>
+              <h3>Country Notes</h3>
               <Input
                 type='textarea'
                 name='note'
