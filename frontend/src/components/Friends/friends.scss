@@ -1,36 +1,30 @@
 #friendCard {
-    margin: 20% auto;
+  margin: 15rem auto 1rem;
+  min-width: 40rem;
+  text-align: center;
+  @media (max-width: 700px) {
+    margin: 25rem auto 0;
+    width: 80%;
+  }
 
-    @media (max-width: 700px) {
-      margin: 35% auto 0;
-      width: 80%;
-    }
+  .extra.content {
+    padding-top: 0;
+  }
 
-    @media (max-width: 570px) {
-      margin: 40% auto 0;
-    }
+  img {
+    margin: 2rem auto;
+    width: 80%;
+  }
 
-    @media (max-width: 500px) {
-      margin: 50% auto 0;
-    }
+  button {
+    background: #243352;
+    color: #EBEDE8;
+    font-size: 1.6rem;
+    margin: 2rem auto;
+    padding: 5%;
+  }
 
-    @media (max-width: 400px) {
-      margin: 60% auto 0; 
-    }
-
-    img {
-      min-height: 250px;
-    }
-
-    button {
-      background: #243352;
-      color: #EBEDE8;
-      font-size: 1.6rem;
-      margin: 5% auto;
-      padding: 5%;
-    }
-
-    .delete {
-      background: #8C4646;
-    }
+  .delete {
+    background: #8C4646;
+  }
 }
