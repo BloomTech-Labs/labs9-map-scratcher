@@ -27,23 +27,23 @@ export const colorsFun = {
   4: '#2D4E83', //lived
   5: '#713E88', //hover
 };
-// export const colors = {
-//   0: '#EBEDE8', //no interaction yet
-//   1: '#8d230f', //wishlist
-//   2: '#5b7065', //transited
-//   3: '#eb8a3e', //visited
-//   4: '#46211a', //lived
-//   5: '#C5C9C6', //hover
-// };
-
 export const colors = {
   0: '#EBEDE8', //no interaction yet
-  1: '#588C73', //wishlist
-  2: '#F2AE72', //transited
-  3: '#8C4646', //visited
-  4: '#D96459', //lived
+  1: '#D96459', //wishlist
+  2: '#c21807', //transited
+  3: '#800000', //visited
+  4: '#7c0a02', //lived
   5: '#C5C9C6', //hover
 };
+
+// export const colors = {
+//   0: '#EBEDE8', //no interaction yet
+//   1: '#588C73', //wishlist
+//   2: '#F2AE72', //transited
+//   3: '#8C4646', //visited
+//   4: '#D96459', //lived
+//   5: '#C5C9C6', //hover
+// };
 
 //-- Map Region Styles ---------------------------
 export const defaultStyle = {

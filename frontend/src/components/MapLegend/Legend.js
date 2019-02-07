@@ -15,19 +15,19 @@ const Legend = () => (
   <Card className="legend_main">
     <Card.Content>
       <div className='legend_div'>
-        <div className='legend_pinkBox'></div>
+        <div className='legend_wishlist'></div>
         <Card.Content>Wishlist</Card.Content>
       </div>
       <div className='legend_div'>
-        <div className='legend_yellowBox'></div>
+        <div className='legend_transited'></div>
         <Card.Content>Transited</Card.Content>
       </div>
       <div className='legend_div'>
-        <div className='legend_greenBox'></div>
+        <div className='legend_visited'></div>
         <Card.Content>Visited</Card.Content>
       </div>
       <div className='legend_div'>
-        <div className='legend_blueBox'></div>
+        <div className='legend_lived'></div>
         <Card.Content>Lived</Card.Content>
       </div>
     </Card.Content>
