@@ -19,7 +19,7 @@ export default class MapHeader extends Component {
       <div className="Profile_profileHeader">
         {/* Logo in place of backpaca */}
         <div className='logo'>
-        <img src='https://files.slack.com/files-pri/T4JUEB3ME-FG0C50JFK/slider_thumb.png' alt='logo alpaca'/>
+        <img src={require('../../static/slider_thumb.png')} alt='logo alpaca'/>
         <p>
         Backpaca
         </p>
