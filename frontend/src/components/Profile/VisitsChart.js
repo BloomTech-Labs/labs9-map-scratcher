@@ -14,6 +14,7 @@ const VisitsChart = ({user}) => {
     if (visit.level === 2) { distribution.transited++ }
     if (visit.level === 3) { distribution.visited++ }
     if (visit.level === 4) { distribution.lived++ }
+    return null
   })
   const data = [
     {name: 'wishlist', value: distribution.wishlist}, 
@@ -49,13 +50,14 @@ const VisitsChart = ({user}) => {
   return (
     <PieChart width={800} height={400}>
       <Pie
+        dataKey='value'
         data={data} 
         cx={300} 
         cy={200} 
         labelLine={true}
         label={renderLabel}
         outerRadius={80} 
-        fill="#8884d8"
+        fill='#8884d8'
       >
         {data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} key={index}/>)}
       </Pie>
