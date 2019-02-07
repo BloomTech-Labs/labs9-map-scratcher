@@ -191,7 +191,7 @@ Used within our map, which-polygon allows for matching against a set of GeoJSON 
 
 ### [Recharts](https://www.npmjs.com/package/recharts)
 
-Used to build the user visit distribution pie chart. Recharts is a library built with React and [D3](https://d3js.org/). The purpose of Recharts is to help in writing of charts.
+Used to build the user visit distribution pie chart. Recharts is a library built with React and [D3](https://d3js.org/). The purpose of Recharts is to help in the writing of charts.
 
 ## Back-End dependencies (_Production_)
 
