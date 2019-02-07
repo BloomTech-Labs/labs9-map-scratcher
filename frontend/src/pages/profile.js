@@ -16,6 +16,7 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 import UserCard from '../components/Profile/UserCard';
 import Header from '../components/ProfileHeader/ProfileHeader';
 import FriendsList from '../components/Profile/FriendsList';
+import VisitsChart from '../components/Profile/VisitsChart';
 import '../components/Profile/profile.scss';
 
 //-- React Implementation ------------------------
@@ -57,10 +58,11 @@ export default class Profile extends Component {
                     </Query>
                   {/* #endregion Header component end */}
                   <div className='profile_content'>
-                  <UserCard user={me} {...this.props}/>
-                  {/* #region FriendsList component */}
-                  <FriendsList userId={me.id} friends={me.friends} />
-                  {/* #endregion FriendsList component */}
+                    <UserCard user={me} {...this.props}/>
+                    {/* #region FriendsList component */}
+                    <FriendsList userId={me.id} friends={me.friends} />
+                    {/* #endregion FriendsList component */}
+                    <VisitsChart user={me} />
                   </div>
                   </Fragment>
                 );

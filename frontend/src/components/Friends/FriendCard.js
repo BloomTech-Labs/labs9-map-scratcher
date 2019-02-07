@@ -6,7 +6,6 @@ import DeleteFriendButton from './DeleteFriendButton.js';
 import './friends.scss'
 import {
   QUERY_USER_PROFILE,
-  QUERY_FRIEND_PROFILE,
   MUTATION_VIEWFRIEND_PROFILE } from '../../services/requests/profile';
 
 export default class FriendCard extends Component {

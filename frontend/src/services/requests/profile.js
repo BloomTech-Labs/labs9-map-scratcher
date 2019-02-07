@@ -56,6 +56,7 @@ export const QUERY_ME_PROFILE = gql`
       pictureUrl
       visits {
         id
+        level
       }
       friends {
         id
