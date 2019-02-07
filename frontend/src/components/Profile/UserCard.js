@@ -24,7 +24,6 @@ export default class UserCard extends Component {
       numFriends: 0,
       name: '',
       email: '',
-      nickname: '',
       bio: '',
       pictureUrl: '',
       scratchingAutomated: null,
@@ -37,7 +36,6 @@ export default class UserCard extends Component {
     this.setState({
       name: user.name,
       email: user.email,
-      nickname: user.nickname,
       scratchingAutomated: user.scratchingAutomated,
       isPrivate: user.isPrivate,
       pictureUrl: user.pictureUrl,
@@ -75,23 +73,16 @@ export default class UserCard extends Component {
 
   //-- Rendering -----------------------------------
   render() {
-    const { joinDate, name, email, nickname, scratchingAutomated, isPrivate, editing, pictureUrl, bio } = this.state;
+    const { joinDate, name, email, scratchingAutomated, isPrivate, editing, pictureUrl, bio } = this.state;
     const visitCount = this.props.user.visits.length
     return (
       <Card className='profile_userCardMain'>
         <Icon className='edit outline' onClick={this.toggleEditing}/>
-        <Image src={pictureUrl === '' ? '/static/alpaca.png' : pictureUrl} className='profile_userCardProfilePic' />
-        <Card.Content>
-          <Card.Header>{name}</Card.Header>
-          <Card.Meta>
-            <div>Joined in {joinDate}</div>
-            <div>{visitCount === 1 ? `${visitCount} Visit` : `${visitCount} Visits`}</div>
-          </Card.Meta>
           {editing ? (
-            <Fragment>
+            <Card.Content>
               <Mutation
               mutation={MUTATION_UPDATEUSER_PROFILE}
-              variables={{id: this.props.user.id, name, nickname, email, scratchingAutomated, isPrivate, pictureUrl, bio }}
+              variables={{id: this.props.user.id, name, email, scratchingAutomated, isPrivate, pictureUrl, bio }}
             >
               {updateUser => (
               <Form
@@ -120,18 +111,6 @@ export default class UserCard extends Component {
                   placeholder={email}
                   type="text"
                   value={email}
-                  required
-                  className='profile_userCardInput'
-                />
-                </Form.Field>
-                <Form.Field>
-                <label>Nickname</label>
-                <Input
-                  name="nickname"
-                  onChange={this.handleChange}
-                  placeholder={nickname}
-                  type="text"
-                  value={nickname}
                   required
                   className='profile_userCardInput'
                 />
@@ -188,24 +167,28 @@ export default class UserCard extends Component {
               )}
             </Mutation>
             </div>
-          </Fragment>
+            </Card.Content>
           ) : (
             <Fragment>
-              <div>{name}</div>
-              <div>{email}</div>
-              <div>{nickname}</div>
-              <div>{bio}</div>
-              <div>Settings
-                <div>{scratchingAutomated ? 'automated scratchoff' : 'manual scratchoff'}</div>
-                <div>{isPrivate ? 'private user' : 'public user'}</div>
-              </div>
-              <Button
-                fluid
-                onClick={() => this.props.history.push('/travels')}
-              >Go to your travels</Button>
+              <Image src={pictureUrl === '' ? '/static/alpaca.png' : pictureUrl} className='profile_userCardProfilePic' />
+              <Card.Content>
+                <Card.Header id='card-header'>{name}</Card.Header>
+                <Card.Meta>
+                  <div className='card-meta'>{bio}</div>
+                  <div className='card-meta'>Joined in {joinDate}</div>
+                  <div className='card-meta'>{visitCount === 1 ? `${visitCount} Visit` : `${visitCount} Visits`}</div>
+              </Card.Meta>
+                <div className='user-preferences'>
+                  <div>{scratchingAutomated ? 'Automated Scratchoff' : 'Manual Scratchoff'}</div>
+                  <div>{isPrivate ? 'Private User' : 'Public User'}</div>
+                </div>
+                <Button
+                  fluid
+                  onClick={() => this.props.history.push('/travels')}
+                >Go to your travels</Button>
+              </Card.Content>
             </Fragment>
           )}
-        </Card.Content>
       </Card>
     );
   }
