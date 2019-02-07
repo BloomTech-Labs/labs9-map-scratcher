@@ -3,25 +3,25 @@ import { Button } from 'semantic-ui-react'
 import { Mutation } from 'react-apollo';
 import {
   QUERY_ME_PROFILE,
-  MUTATION_DELETEFRIEND_PROFILE,
-  QUERY_FRIENDS_PROFILE } from '../../services/requests/profile';
+  MUTATION_DELETEFRIEND_PROFILE } from '../../services/requests/profile';
 
-const DeleteFriendButton = ({ userId, friendId }) => {
+const DeleteFriendButton = ({ userId, friend, toggle }) => {
+  const friendId = friend.id
   return (
     <Mutation
       mutation={MUTATION_DELETEFRIEND_PROFILE}
       variables={{ userId: userId, friendId: friendId }}
       update={(cache, {data}) => {
-        const result = cache.readQuery({ query: QUERY_ME_PROFILE });
-        console.log(result);
+        let result = cache.readQuery({ query: QUERY_ME_PROFILE });
         const friends = result.me.friends.filter(friend => friend.id !== friendId);
         result.me.friends = friends; 
-        console.log('after', result);
+        const me = result.me
         cache.writeQuery({
           query: QUERY_ME_PROFILE,
-          data: { result },
+          data: { me },
         });
       }}
+      onCompleted={toggle}
     >
     {deleteFriend => (
       <Button
