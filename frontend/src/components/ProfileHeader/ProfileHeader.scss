@@ -15,9 +15,9 @@
     right: 10%;
     @media (max-width: 700px) {
       height: 18rem;
-      flex-direction: column-reverse;
+      flex-direction: column;
       top: 1%;
-      padding: 2%;
+      padding: 3%;
     }
     // logo
     .logo {
@@ -32,9 +32,9 @@
         padding-right: 0rem;
         width: 25%;
       }
-      @media (max-width: 860px) {
-        display: none;
-      }
+      // @media (max-width: 860px) {
+      //   display: none;
+      // }
     }
       //dropdown component
     .profile_userDropDown {
@@ -57,7 +57,7 @@
       }
       @media (max-width: 700px) {
         width: 90%;
-        margin: 0rem;
+        margin: 1rem 0rem;
       }
       //the actual dropdown
       .visible.menu.transition {
