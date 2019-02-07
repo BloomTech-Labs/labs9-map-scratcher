@@ -2,13 +2,14 @@
 .modal {
   background: #F3F3F3;
   border-radius: 10px;
-  bottom: 10%;
+
   top: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   left: 5%;
+  min-height: 560px;
   min-width: 260px;
   width: 80%;
   overflow-y: hidden;
@@ -58,11 +59,15 @@
     width: 100%;
 
     a {
+      display: flex;
+      justify-content: center; 
       width: 33%;
     }
   } // end modal Header
 
-//note
+.top-content {
+  width: 90%;
+}
 .middle-content {
   width: 95%;
   .ui.form {
