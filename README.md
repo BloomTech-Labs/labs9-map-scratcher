@@ -46,6 +46,7 @@
     - [React-scripts](#React-scripts)
     - [Semantic-ui-react](#Semantic-ui-react)
     - [Which-polygon](#Which-polygon)
+    - [Recharts](#Recharts)
   - [Back-End production dependencies](#Back-End-dependencies-Production)
     - [Cors](#Cors)
     - [Dotenv](#Dotenv)
@@ -187,6 +188,10 @@ A react implementation of Semantic-UI which is a component framework used to bui
 ### [Which-polygon](https://www.npmjs.com/package/which-polygon)
 
 Used within our map, which-polygon allows for matching against a set of GeoJSON polygons to determine the location of a country.
+
+### [Recharts](https://www.npmjs.com/package/recharts)
+
+Used to build the user visit distribution pie chart. Recharts is a library built with React and [D3](https://d3js.org/). The purpose of Recharts is to help in writing of charts.
 
 ## Back-End dependencies (_Production_)
 
