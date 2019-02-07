@@ -8,7 +8,7 @@
 
 //-- Dependencies --------------------------------
 import React from 'react';
-import { Item, Loader, Segment } from 'semantic-ui-react';
+import { Item } from 'semantic-ui-react';
 import Backpaca from '../Landing/Backpaca';
 import './alpaca-facts.scss';
 
@@ -36,7 +36,6 @@ export default function (props) {
           <Item>
             <Item.Image size='medium'>
               <Backpaca />
-              <Loader inverted>Authenticating...</Loader>
             </Item.Image>
             <Item.Content>
               <Item.Header as='a'>Did you know?</Item.Header>
