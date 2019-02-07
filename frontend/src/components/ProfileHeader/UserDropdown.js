@@ -9,8 +9,6 @@
 //-- Dependencies --------------------------------
 import React from 'react'
 import { Dropdown, Header, Image } from 'semantic-ui-react'
-import { Mutation } from 'react-apollo';
-import { MUTATION_FRIEND_PROFILE } from '../../services/requests/profile.js';
 import '../Profile/profile.scss'
 
 //-- React Implementation ------------------------
