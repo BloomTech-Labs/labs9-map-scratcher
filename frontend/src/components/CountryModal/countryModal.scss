@@ -2,16 +2,17 @@
 .modal {
   background: #F3F3F3;
   border-radius: 10px;
-  bottom: 10%;
+
   top: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   left: 5%;
+  min-height: 560px;
   min-width: 260px;
-  width: 20%;
-  overflow-y: scroll;
+  width: 80%;
+  overflow-y: hidden;
   position: absolute;
   z-index: 500;
 
@@ -30,50 +31,63 @@
 
   div.content {
     width: 90%;
-    text-align: center;
-  }
-
-  .header.modal_header {
-    align-items: flex-start;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 5%;
-    width: 100%;
+    text-align: center;
 
-
-    @media (max-width: 500px) {
-      height: 15vh;
+    .ui.button {
+      font-size: 1.4rem;
+      width: 100%;
+      margin: 2% auto;
     }
-
     p {
       width: 90%;
       text-align: center;
       font-size: 2rem;
-    }
-    .ui.button {
-      font-size: 1.6rem;
-      text-align: center;
-      width: 90%;
-      padding: 5%;
       margin: 5% auto;
+    }
+  }
 
+
+  .ui.modal_header.menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5% auto;
+    width: 100%;
+
+    a {
+      display: flex;
+      justify-content: center; 
+      width: 33%;
     }
   } // end modal Header
 
+.top-content {
+  width: 90%;
+}
+.middle-content {
+  width: 95%;
   .ui.form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 95%;
-    margin: 10% auto;
+    width: 100%;
+    margin: 3% auto;
+
+    h3 {
+      font-size: 2rem;
+    }
 
     .ui.input {
       border: 1px solid darkgray;
       border-radius: 5px;
-      width: 90%;
-      height: 7rem;
+      width: 100%;
+      min-height: 10rem;
       text-align: center;
+      margin: 5% auto;
     }
 
     .ui.button {
@@ -81,7 +95,7 @@
       width: 90%;
       padding: 5%;
       margin: 5% auto;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
 
       @media (max-width: 500px) {
         width: 90%;
@@ -95,5 +109,20 @@
     //   border: 1px solid black;
     // }
 
+  }//end note
+}//end middle content
+
+.bottom-content {
+  width: 90%;
+
+  .header {
+    margin: 5% auto;
   }
+}
+
+.delete{
+  bottom: 5%;
+  position: absolute;
+  width: 50%;
+}
 }

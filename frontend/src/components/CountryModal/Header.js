@@ -7,15 +7,16 @@
 
 //-- Dependencies --------------------------------
 import React, { Component } from 'react'
-import { Card, Button, Icon } from 'semantic-ui-react'
+import { Card, Button, Icon, Menu } from 'semantic-ui-react'
 import { Query, Mutation } from 'react-apollo'
-import { 
-  QUERY_COUNTRYID_MODAL, 
+import {
+  QUERY_COUNTRYID_MODAL,
   MUTATION_CLOSEMODAL_MODAL } from '../../services/requests/modal'
 
 //-- React Implementation ------------------------
 export default class Header extends Component {
   render() {
+    const { activeItem } = this.props.activeItem;
     return (
       <Query query={QUERY_COUNTRYID_MODAL} variables={{id: this.props.id}}>
         {({ loading, data: {countryById} }) => {
@@ -23,16 +24,34 @@ export default class Header extends Component {
             return <div>Loading</div>
           }
           return (
-            <Card.Header className='modal_header'>
+            <React.Fragment>
+            <Mutation mutation={MUTATION_CLOSEMODAL_MODAL}>
+              {closeModal => (
+                <Button
+                size='tiny' onClick={closeModal}>
+                <Icon name="world"/>Return to Map</Button>
+              )}
+            </Mutation>
             <p>{countryById.name}</p>
-              <Mutation mutation={MUTATION_CLOSEMODAL_MODAL}>
-                {closeModal => (
-                  <Button
-                  size='tiny' onClick={closeModal}>
-                  <Icon name="world"/>Return to Map</Button>
-                )}
-              </Mutation>
-            </Card.Header>
+            <Menu pointing secondary className='modal_header'>
+            <Menu.Item
+              name='scratcher'
+              active={activeItem === 'scratcher'}
+              onClick={this.props.toggleView}
+              />
+            <Menu.Item
+              name='note'
+              active={activeItem === 'note'}
+              onClick={this.props.toggleView}
+            />
+            <Menu.Item
+              name='friends'
+              active={activeItem === 'friends'}
+              onClick={this.props.toggleView}
+              />
+            </Menu>
+
+            </React.Fragment>
           );
         }}
       </Query>

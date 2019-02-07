@@ -21,15 +21,24 @@ import ClearVisitButton from './ClearVisitButton';
 
 //-- React Implementation ------------------------
 export default class CountryModal extends Component {
+  state = {
+    activeItem: 'scratcher'
+  }
+
+  toggleView = (event, { name }) => {
+    this.setState({
+      activeItem: name
+    })
+  }
   render() {
-    console.log('Country Modal props', this.props)
+    const { activeItem } = this.state;
     return (
       <Query query={QUERY_CLIENT_MODAL}>
       {({ loading, data }) => {
         if (loading) {
           return null;
         }
-        console.log(data); 
+        console.log(data);
         let displayId, disabled
         if (data.viewingFriend) {
           displayId = data.friendId
@@ -42,21 +51,30 @@ export default class CountryModal extends Component {
         return (
           <div className='modal'>
             <Card.Content>
-              <Header id={data.countryId} />
+              <Header id={data.countryId} toggleView={this.toggleView} activeItem={this.state.activeItem}/>
+              {this.state.activeItem === 'scratcher' &&
+              <div className='top-content'>
               <ScratchHandler
                 countryId={data.countryId}
                 displayId={displayId}
                 disabled={disabled}
               />
+              </div>}
+              {this.state.activeItem === 'note' &&
+              <div className='middle-content'>
               <Note
                 countryId={data.countryId}
                 displayId={displayId}
                 disabled={disabled}
               />
+              </div>}
+              {this.state.activeItem === 'friends' && <div className='bottom-content'>
               <FriendsVisits
                 id={data.countryId}
                 displayId={displayId}
               />
+              </div>}
+              <div className='delete'>
               <ClearVisitButton
                 countryId={data.countryId}
                 userId={data.userId}
@@ -64,6 +82,7 @@ export default class CountryModal extends Component {
                 disabled={disabled}
                 {...this.props}
               />
+              </div>
             </Card.Content>
           </div>
         );

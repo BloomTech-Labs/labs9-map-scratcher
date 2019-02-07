@@ -1,18 +1,14 @@
 
 
 /*== Scratch Handler, Combined Slider and Country Display ======================
-
 //-- Documentation -------------------------------
-
 ScratchHandler is a react component which displays a scratchable map and a visit
 level slider. Users can change the value of the slider to indicate the highest
 form of visit they've had in a country, and then scratch off a map of that
 country to finalize that value. It accepts the following props:
-
   disabled(boolean) - Whether or not the visit level is adjustable.
   countryId(string) - A GraphQL id, specifying the country.
   displayId(string) - The GraphQL id of the user having visited the country.
-
 */
 
 //-- Dependencies --------------------------------
@@ -196,25 +192,27 @@ export default class extends React.Component {
               }
               // Display Scratchable Country and Visit Slider
               return (
-                <div className="scratch-handler">
-                  <Mutation mutation={gqlMutation}>{mutationInvocation => (
-                    <Scratcher
-                      scratchable={this.state.itchy}
-                      destination={countryCode}
-                      colorOutline={colorOutline}
-                      colorScratch={'silver'}
-                      automateScratching={autoScratch}
-                      handleScratchAll={() => {
-                        this.handleCompletion(mutationInvocation, visitId);
-                      }}
-                    />
-                  )}</Mutation>
+                <React.Fragment>
+                  <div className="scratch-handler">
+                    <Mutation mutation={gqlMutation}>{mutationInvocation => (
+                      <Scratcher
+                        scratchable={this.state.itchy}
+                        destination={countryCode}
+                        colorOutline={colorOutline}
+                        colorScratch={'silver'}
+                        automateScratching={autoScratch}
+                        handleScratchAll={() => {
+                          this.handleCompletion(mutationInvocation, visitId);
+                        }}
+                      />
+                    )}</Mutation>
+                  </div>
                   <VisitSlider
                     visitLevel={displayLevel}
                     disabled={this.props.disabled}
                     onChange={this.handleChangeVisit}
                   />
-                </div>
+                </React.Fragment>
               );
               //
             }}</Query>

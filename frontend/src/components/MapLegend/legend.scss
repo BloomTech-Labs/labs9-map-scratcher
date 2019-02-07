@@ -24,37 +24,37 @@
             align-items: baseline;
             padding-top: 3%;
             align-content: center;
-                .legend_blueBox {
+                .legend_wishlist {
                     border: 1px solid darkgray;
                     border-radius: 3px;
                     width: 1rem;
                     height: 1rem;
                     margin-right: 5%;
-                    background: #8CDAFC;
+                    background: #D96459;
                 }
-                .legend_greenBox {
+                .legend_visited {
                     border: 1px solid darkgray;
                     border-radius: 3px;
                     width: 1rem;
                     height: 1rem;
                     margin-right: 5%;
-                    background: #B2DD83;
+                    background: #c21807;
                 }
-                .legend_yellowBox {
+                .legend_transited {
                     border: 1px solid darkgray;
                     border-radius: 3px;
                     width: 1rem;
                     height: 1rem;
                     margin-right: 5%;
-                    background: #FDD57B;
+                    background: #800000;
                 }
-                .legend_pinkBox {
+                .legend_lived {
                     border: 1px solid darkgray;
                     border-radius: 3px;
                     width: 1rem;
                     height: 1rem;
                     margin-right: 5%;
-                    background: #FD9B9F;
+                    background: #7c0a02;
                 }
     }
 }

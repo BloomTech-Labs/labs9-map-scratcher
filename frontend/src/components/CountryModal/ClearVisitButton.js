@@ -28,13 +28,16 @@ const ClearVisitButton = ({ countryId, userId, friendId, disabled, history }) =>
               mutation={MUTATION_DELETEVISIT_MODAL}
               variables={{ id: visitId }}
               update={(cache, {data}) => {
-                const result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: userId} });
-                const deletedVisit = data.deleteVisit
-                const visits = result.user.visits
+                let result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: userId} });
+                const deletedVisit = data.deleteVisit;
+                const visits = result.user.visits.filter(visit => visit.id !== deletedVisit.id);
+                let user = result.user
+                user.visits = visits;
+                console.log(result);
                 cache.writeQuery({
                   query: QUERY_USERVISITS_MODAL,
                   variables: {id: userId},
-                  data: { visits: visits.filter(visit => visit.id !== deletedVisit.id) },
+                  data: { user },
                 });
               }}
             >

@@ -15,7 +15,12 @@ import Landing from './pages/landing';
 import Friends from './pages/friends';
 import Profile from './pages/profile';
 import Travels from './pages/travels';
-import Callback from './components/Callback/Callback';
+import AlpacaFacts from './components/AlpacaFacts/AlpacaFacts.js';
+/*import Callback from './components/Callback/Callback';
+  Legacy callback code, using a Dimmer and a Loader. I'd like to be able to
+  encorporate this code, but couldn't develop a good design. If you can work it
+  in, please do. If not, then we can remove this legacy code.
+*/
 
 //-- Project Constants ---------------------------
 //creates a rew instance of Auth to check the result of authentication
@@ -42,7 +47,7 @@ class App extends Component {
         <Route path='/travels' render={(props) => <Travels {...props} logout={auth.logout}/>} />
         <Route path='/callback' render={(props) => {
           handleAuthentication(props)
-          return <Callback{...props} />
+          return <AlpacaFacts {...props} />
         }} />
       </Fragment>
     );

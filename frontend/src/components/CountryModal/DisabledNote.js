@@ -7,7 +7,7 @@
 
 //-- Dependencies --------------------------------
 import React, { Component, Fragment } from 'react';
-import { Label } from 'semantic-ui-react';
+import { Form, Input, Label } from 'semantic-ui-react';
 
 //-- React Component Implementation --------------
 export default class UpdateNote extends Component {
@@ -27,8 +27,9 @@ export default class UpdateNote extends Component {
   render() {
     return (
       <Fragment>
-        <form>
-          <input
+        <Form>
+        <h3>Country Notes</h3>
+          <Input
           disabled
           type='textarea'
           name='note'
@@ -37,7 +38,7 @@ export default class UpdateNote extends Component {
           {!this.props.disabled &&
             <Label disabled>You must select a visit level above to create a note</Label>
           }
-        </form>
+        </Form>
       </Fragment>
     );
   }
