@@ -81,7 +81,6 @@ export default class extends React.Component {
           level: this.state.itchyLevel,
         },
         update: (cache, {data: {createVisit}}) => {
-          console.log("7: Create New");
           const result = cache.readQuery({
             query: QUERY_USERVISITS_MODAL,
             variables: {id: this.props.displayId }
@@ -101,7 +100,6 @@ export default class extends React.Component {
                 __typename: 'User'
             }
           }
-          console.log("Update Data:",updateData)
           cache.writeQuery(updateData);
         }
       };
@@ -114,24 +112,20 @@ export default class extends React.Component {
         },
         update: (cache, response) => {
           const updateVisit = response.data.updateVisit;//{data: {updateVisit}}
-          console.log("7: Update Visit");
           const result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId } });
-          const visits = result.user.visits
-          const level = updateVisit['level']
-          console.log("Response",response)
-          const writeData = {
-            user: {
-              id: result.user.id,
-              scratchingAutomated: result.user.scratchingAutomated,
-              visits: visits.map(v => v.id === visitId ? {...v, level} : v),
-              __typename: 'User'
-            }
-          }
-          console.log("Write Data", writeData)
+          const visits = result.user.visits;
+          const level = updateVisit['level'];
           cache.writeQuery({
             query: QUERY_USERVISITS_MODAL,
             variables: {id: result.user.id },
-            data: writeData
+            data: {
+              user: {
+                id: result.user.id,
+                scratchingAutomated: result.user.scratchingAutomated,
+                visits: visits.map(v => v.id === visitId ? {...v, level} : v),
+                __typename: 'User'
+              }
+            }
           });
         }
       };
@@ -201,7 +195,6 @@ export default class extends React.Component {
                 gqlMutation = MUTATION_UPDATEVISIT_MODAL;
               }
               // Display Scratchable Country and Visit Slider
-              console.log("Rendering Scratch Handler Mutation")
               return (
                 <div className="scratch-handler">
                   <Mutation mutation={gqlMutation}>{mutationInvocation => (

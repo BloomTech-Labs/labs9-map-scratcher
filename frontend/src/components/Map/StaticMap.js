@@ -105,7 +105,6 @@ export default class WorldMap extends React.Component {
 
   //-- Final React Render --------------------------
   render() {
-    console.log("Rendering Static Map")
     return (
       <Map
         className="map"
@@ -124,6 +123,37 @@ export default class WorldMap extends React.Component {
           data={geojson.features}
           style={defaultStyle}
           />
+        {this.props.colors && this.props.colors.map(visit => {
+          //maps through the colors passed as props to the map to render the countries in the correct color.
+          const level = visit[3];
+          let style = {
+            ...colorStyle,
+            fillColor: colors[level]
+          };
+          const feature = getFeature(geojson, visit[2])
+          return (
+            <GeoJSON
+            key={`${visit[0]}${Math.random()}`}
+            data={feature}
+            style={style}
+            />)
+          }
+        )}
+        { (this.props.borders && this.props.viewBorders) &&
+          this.props.borders.map(visit => {
+            const level = visit[3];
+            let style = {
+              ...borderStyle,
+              color: colors[level]
+            }
+            const feature = getFeature(geojson, visit[2]);
+            return (<GeoJSON
+              key={`${visit[0]}${Math.random()+1}`}
+              data={feature}
+              style={style}
+            />)
+          })
+        }
         {geojson.features.map(feature => this.state.hovering === feature.properties.ADMIN && (
           <Query key={feature.properties.ADMIN} query={QUERY_COUNTRIES_HEADER}>
           {({ loading, data: { countries }}) => {
@@ -156,37 +186,6 @@ export default class WorldMap extends React.Component {
           }}
             </Query>
         ))}
-        {this.props.colors && this.props.colors.map(visit => {
-          //maps through the colors passed as props to the map to render the countries in the correct color.
-          const level = visit[3];
-          let style = {
-            ...colorStyle,
-            fillColor: colors[level]
-          };
-          const feature = getFeature(geojson, visit[2])
-          return (
-            <GeoJSON
-            key={`${visit[0]}${Math.random()}`}
-            data={feature}
-            style={style}
-            />)
-          }
-        )}
-        { (this.props.borders && this.props.viewBorders) &&
-          this.props.borders.map(visit => {
-            const level = visit[3];
-            let style = {
-              ...borderStyle,
-              color: colors[level]
-            }
-            const feature = getFeature(geojson, visit[2]);
-            return (<GeoJSON
-              key={`${visit[0]}${Math.random()+1}`}
-              data={feature}
-              style={style}
-            />)
-          })
-        }
       </Map>
     )
   }
