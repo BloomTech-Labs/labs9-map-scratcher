@@ -105,7 +105,6 @@ export default class WorldMap extends React.Component {
 
   //-- Final React Render --------------------------
   render() {
-    console.log("Rendering Static Map")
     return (
       <Map
         className="map"
