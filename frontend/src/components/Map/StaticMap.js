@@ -67,7 +67,8 @@ export default class WorldMap extends React.Component {
   //-- When Receiving Props ------------------------
   componentDidUpdate(prevProps) {
     if (prevProps.colors !== this.props.colors) {
-      console.log('was', prevProps.colors, 'is', this.props.colors)
+      //console.log('was', prevProps.colors, 'is', this.props.colors)
+      this.geoKey = Math.random();
       this.forceUpdate();
     }
   }
@@ -133,7 +134,7 @@ export default class WorldMap extends React.Component {
           const feature = getFeature(geojson, visit[2])
           return (
             <GeoJSON
-            key={`${visit[0]}${Math.random()}`}
+            key={`${visit[0]}${this.geoKey}`}
             data={feature}
             style={style}
             />)
@@ -148,7 +149,7 @@ export default class WorldMap extends React.Component {
             }
             const feature = getFeature(geojson, visit[2]);
             return (<GeoJSON
-              key={`${visit[0]}${Math.random()+1}`}
+              key={`${visit[0]}${this.geoKey}`}
               data={feature}
               style={style}
             />)
