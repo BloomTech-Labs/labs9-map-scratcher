@@ -4,7 +4,6 @@ import FriendCard from '../components/Friends/FriendCard';
 import Header from '../components/ProfileHeader/ProfileHeader';
 import {
   QUERY_ME_PROFILE,
-  QUERY_FRIENDS_PROFILE,
   QUERY_USERS_PROFILE } from '../services/requests/profile';
 import { Query } from 'react-apollo';
 

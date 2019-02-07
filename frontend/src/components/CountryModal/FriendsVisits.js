@@ -25,14 +25,13 @@ export default class FriendsVisits extends Component {
         if (error) {
           return (<div>error</div>);
         }
-        console.log(friends);
         let friendsList;
         if (friends) {
           let friendArray = [];
-          friends.map(friend => {
-            friend.visits.map(visit => {
+          friends.forEach(friend => {
+            friend.visits.forEach(visit => {
               if (visit.country.id === this.props.id) {
-                friendArray.push([friend.name, visit.level]);
+                return friendArray.push([friend.name, visit.level]);
               }
             });
           });
@@ -47,11 +46,10 @@ export default class FriendsVisits extends Component {
           };
           friendsList = friendArray.map(friend => {
             friend[1] = icons[friend[1]];
+            console.log(friend)
             return friend;
           });
-          return friendsList;
         }
-        console.log('list', friendsList);
         return (
           <Fragment>
           <List>
@@ -59,9 +57,9 @@ export default class FriendsVisits extends Component {
               Friends
             </List.Header>
             {friendsList && friendsList.map(person => {
-              const icon = person[1];
+              const iconyas = person[1];
               return (
-                <List.Item key={person[0]} icon={icon} content={person[0]}/>
+                <List.Item key={person[0]} icon={iconyas} content={person[0]}/>
               );
             })}
           </List>

@@ -1,7 +1,9 @@
 
+/* Unused things comments out to cease React's endless warnings
 import gql from 'graphql-tag';
 import {  QUERY_CLIENT_MODAL } from './requests/modal'
 import {  QUERY_CLIENT_PROFILE } from './requests/profile'
+*/
 import {  QUERY_VIEWBORDERS_HEADER } from './requests/header'
 
 // export const typeDefs = gql`
@@ -13,6 +15,7 @@ import {  QUERY_VIEWBORDERS_HEADER } from './requests/header'
 //   }
 // `
 
+/* Unused things comments out to cease React's endless warnings
 const QUERY_ME_ID = gql`
 query MyId {
   me {
@@ -20,12 +23,13 @@ query MyId {
   }
 }
 `
+*/
 
 export const resolvers = {
   Mutation: {
     viewFriend: (_obj, args, {cache}) => {
       let data = {};
-      if (args.me == args.id) {
+      if (args.me === args.id) {
         data = {
           viewingFriend: false,
           friendId: null,

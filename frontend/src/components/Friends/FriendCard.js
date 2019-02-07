@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Query, Mutation } from 'react-apollo';
-import { Card, Icon, Button } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import AddFriendButton from './AddFriendButton.js';
 import DeleteFriendButton from './DeleteFriendButton.js';
 import './friends.scss'
