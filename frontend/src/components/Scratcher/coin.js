@@ -42,7 +42,6 @@ export default class {
       drawWidth, drawHeight,
     );
     mainContext.restore();
-    console.log("Still Drawing")
   }
   active() {
     // Determines whether or not the coin needs to be drawn

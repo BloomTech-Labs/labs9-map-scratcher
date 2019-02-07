@@ -159,7 +159,6 @@ export default class extends React.Component {
         const scheduleDraw = () => {
             requestAnimationFrame(() => {
                 this.drawingActive = true;
-                console.log("requested")
                 utilities.draw(this.drawingState);
                 // Continue redrawing so long as animations are active
                 if(this.drawingState.coin.active()) {
