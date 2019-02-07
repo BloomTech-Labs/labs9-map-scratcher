@@ -58,11 +58,9 @@ export default class Profile extends Component {
                     </Query>
                   {/* #endregion Header component end */}
                   <div className='profile_content'>
-                    <UserCard user={me} {...this.props}/>
-                    {/* #region FriendsList component */}
-                    {(me.friends.length > 0) ? <FriendsList userId={me.id} friends={me.friends} /> : null}
-                    {/* #endregion FriendsList component */}
                     {(me.visits.length > 0) ? <VisitsChart user={me} /> : null}
+                    <UserCard user={me} {...this.props}/>
+                    {(me.friends.length > 0) ? <FriendsList userId={me.id} friends={me.friends} /> : null}
                   </div>
                   </Fragment>
                 );
