@@ -7,7 +7,7 @@
 
 //-- Dependencies --------------------------------
 import React, { Fragment, Component } from 'react';
-import { List } from 'semantic-ui-react';
+import { List, Loader } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import { QUERY_FRIENDSVISITS_MODAL } from '../../services/requests/modal';
 
@@ -20,7 +20,7 @@ export default class FriendsVisits extends Component {
       <Query query={QUERY_FRIENDSVISITS_MODAL} variables={{ id: this.props.displayId }}>
       {({ loading: loadingFriends, error , data: { friends }}) => {
         if (loadingFriends) {
-          return (<div>loading</div>);
+          return (<Loader/>);
         }
         if (error) {
           return (<div>error</div>);
@@ -50,21 +50,34 @@ export default class FriendsVisits extends Component {
             return friend;
           });
         }
-        return (
-          <Fragment>
-          <List>
-            <List.Header>
-              Friends
-            </List.Header>
-            {friendsList && friendsList.map(person => {
-              const iconyas = person[1];
-              return (
-                <List.Item key={person[0]} icon={iconyas} content={person[0]}/>
-              );
-            })}
-          </List>
-        </Fragment>
-        );
+        if (friendsList.length > 0) {
+          return (
+            <Fragment>
+            <List>
+              <List.Header>
+                Friends' Visits
+              </List.Header>
+              {friendsList && friendsList.map(person => {
+                const iconyas = person[1];
+                return (
+                  <List.Item key={person[0]} icon={iconyas} content={person[0]}/>
+                );
+              })}
+            </List>
+          </Fragment>
+            );
+        }
+          return (
+            <Fragment>
+            <List>
+              <List.Header>
+                Friends' Visits
+              </List.Header>
+                  <List.Item content='Looks like none of your friends have interacted with this country yet. Be the first!'/>
+            </List>
+          </Fragment>
+          )
+
       }}
       </Query>
     );
