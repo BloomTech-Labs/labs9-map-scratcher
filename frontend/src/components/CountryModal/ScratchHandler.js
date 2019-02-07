@@ -196,25 +196,27 @@ export default class extends React.Component {
               }
               // Display Scratchable Country and Visit Slider
               return (
-                <div className="scratch-handler">
-                  <Mutation mutation={gqlMutation}>{mutationInvocation => (
-                    <Scratcher
-                      scratchable={this.state.itchy}
-                      destination={countryCode}
-                      colorOutline={colorOutline}
-                      colorScratch={'silver'}
-                      automateScratching={autoScratch}
-                      handleScratchAll={() => {
-                        this.handleCompletion(mutationInvocation, visitId);
-                      }}
-                    />
-                  )}</Mutation>
+                <React.Fragment>
+                  <div className="scratch-handler">
+                    <Mutation mutation={gqlMutation}>{mutationInvocation => (
+                      <Scratcher
+                        scratchable={this.state.itchy}
+                        destination={countryCode}
+                        colorOutline={colorOutline}
+                        colorScratch={'silver'}
+                        automateScratching={autoScratch}
+                        handleScratchAll={() => {
+                          this.handleCompletion(mutationInvocation, visitId);
+                        }}
+                      />
+                    )}</Mutation>
+                  </div>
                   <VisitSlider
                     visitLevel={displayLevel}
                     disabled={this.props.disabled}
                     onChange={this.handleChangeVisit}
                   />
-                </div>
+                </React.Fragment>
               );
               //
             }}</Query>
