@@ -81,14 +81,28 @@ export default class extends React.Component {
           level: this.state.itchyLevel,
         },
         update: (cache, {data: {createVisit}}) => {
-          const result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId } });
+          console.log("7: Create New");
+          const result = cache.readQuery({
+            query: QUERY_USERVISITS_MODAL,
+            variables: {id: this.props.displayId }
+          });
           const visits = result.user.visits
           const newVisit = createVisit
-          cache.writeQuery({
+          const updateData = {
             query: QUERY_USERVISITS_MODAL,
             variables: {id: result.user.id },
-            data: {user: {id: result.user.id, scratchingAutomated: result.user.scratchingAutomated, visits: [...visits, newVisit], __typename: 'Visit'}, __typename: 'User'}
-          });
+            data: {
+              user: {
+                id: result.user.id,
+                scratchingAutomated: result.user.scratchingAutomated,
+                visits: [...visits, newVisit],
+                __typename: 'Visit'
+              },
+                __typename: 'User'
+            }
+          }
+          console.log("Update Data:",updateData)
+          cache.writeQuery(updateData);
         }
       };
     // Handle update visit mutations (user already has data for country)
@@ -98,14 +112,26 @@ export default class extends React.Component {
           id: visitId,
           level: this.state.itchyLevel,
         },
-        update: (cache, {data: {updateVisit}}) => {
+        update: (cache, response) => {
+          const updateVisit = response.data.updateVisit;//{data: {updateVisit}}
+          console.log("7: Update Visit");
           const result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId } });
           const visits = result.user.visits
           const level = updateVisit['level']
+          console.log("Response",response)
+          const writeData = {
+            user: {
+              id: result.user.id,
+              scratchingAutomated: result.user.scratchingAutomated,
+              visits: visits.map(v => v.id === visitId ? {...v, level} : v),
+              __typename: 'User'
+            }
+          }
+          console.log("Write Data", writeData)
           cache.writeQuery({
             query: QUERY_USERVISITS_MODAL,
             variables: {id: result.user.id },
-            data: {user: {id: result.user, scratchingAutomated: result.user.scratchingAutomated, visits: visits.map(v => v.id === visitId ? {...v, level} : v), __typename: 'Visit'}, __typename: 'User'}
+            data: writeData
           });
         }
       };
@@ -175,6 +201,7 @@ export default class extends React.Component {
                 gqlMutation = MUTATION_UPDATEVISIT_MODAL;
               }
               // Display Scratchable Country and Visit Slider
+              console.log("Rendering Scratch Handler Mutation")
               return (
                 <div className="scratch-handler">
                   <Mutation mutation={gqlMutation}>{mutationInvocation => (

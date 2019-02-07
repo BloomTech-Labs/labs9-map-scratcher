@@ -105,7 +105,7 @@ export default class WorldMap extends React.Component {
 
   //-- Final React Render --------------------------
   render() {
-
+    console.log("Rendering Static Map")
     return (
       <Map
         className="map"
@@ -147,8 +147,8 @@ export default class WorldMap extends React.Component {
                       }}
                       data={feature}
                       style={hoverStyle}
-                      />
-                      {this.state.hovering}
+                    />
+                    {this.state.hovering}
                     </Label>
               )}
               </Mutation>
@@ -166,7 +166,7 @@ export default class WorldMap extends React.Component {
           const feature = getFeature(geojson, visit[2])
           return (
             <GeoJSON
-            key={visit[0]}
+            key={`${visit[0]}${Math.random()}`}
             data={feature}
             style={style}
             />)
@@ -180,7 +180,11 @@ export default class WorldMap extends React.Component {
               color: colors[level]
             }
             const feature = getFeature(geojson, visit[2]);
-            return (<GeoJSON key={visit[0]} data={feature} style={style}/>)
+            return (<GeoJSON
+              key={`${visit[0]}${Math.random()+1}`}
+              data={feature}
+              style={style}
+            />)
           })
         }
       </Map>
