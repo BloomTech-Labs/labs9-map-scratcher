@@ -1,13 +1,11 @@
 //Main page
 
-body {
-  background: #243352
-}
+$color-primary: #243352;
 
 .profile_pageContainer {
   height: 100vh;
   width: 100vw;
-  background: #243352;
+  background: $color-primary;
   display: flex;
   flex-direction: column;
 
@@ -53,7 +51,7 @@ body {
     }
 
     .profile_userCardMain {
-      border: 1px solid #243352;
+      border: 1px solid $color-primary;
       background: #EBEDE8;
       display: flex;
       flex-direction: column;
@@ -72,7 +70,7 @@ body {
       i.icon.edit.outline {
         align-self: flex-end;
         cursor: pointer;
-        color: #243352;
+        color: $color-primary;
         font-size: 2.6rem;
         padding-right: 5%;
       }
@@ -89,7 +87,7 @@ body {
           text-align: center;
 
           button {
-            background: #243352;
+            background: $color-primary;
             color: #EBEDE8;
             font-size: 1.4rem;
             margin: 5% auto;
@@ -106,15 +104,15 @@ body {
               }
 
               .profile_userCardInput {
-                background: #243352;
+                background: $color-primary;
               }
 
               button {
-                color: #243352;
+                color: $color-primary;
               }
 
               .submit {
-                background: #243352;
+                background: $color-primary;
                 color: #EBEDE8;
                 font-size: 1.6rem;
                 padding: 5%;
@@ -130,7 +128,7 @@ body {
               }
 
               .upload {
-                background: #243352;
+                background: $color-primary;
                 color: #EBEDE8;
               }
 
