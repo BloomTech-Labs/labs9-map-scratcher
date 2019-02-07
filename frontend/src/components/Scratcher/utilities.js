@@ -12,6 +12,9 @@
 
 */
 
+//-- React Implementation ------------------------
+import Coin from './coin.js';
+
 //-- Project Constants ---------------------------
 
 const RESOLUTION_DEFAULT = 25;
@@ -96,6 +99,8 @@ export function createCompositingCanvas(drawingState) {
 
 //-- Load Resources for specific Country ---------
 export async function configureCountry(drawingState, destination) {
+    // Reset coin
+    drawingState.coin = new Coin();
     // Create URIs from specified destination, or from default
     if(!destination || destination === -99 || destination === '-99') {
         destination = DESTINATION_DEFAULT;
@@ -212,6 +217,8 @@ export function draw(drawingState) {
         0, 0,
         canvas.width, canvas.height
     );
+    // Draw coin
+    drawingState.coin.draw(drawingState);
     // Cleanup
     context.restore();
 }
@@ -374,6 +381,8 @@ export function eraseScratchLine(drawingState, startX, startY, endX, endY) {
     compositingContext.lineTo(endX, endY);
     compositingContext.closePath();
     compositingContext.stroke();
+    // Reposition coin
+    drawingState.coin.setPosition(endX, endY);
 }
 
 //-- Count the number of pixels not scratched ----
