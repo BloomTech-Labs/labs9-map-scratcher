@@ -17,39 +17,18 @@ body {
 
   .profile_content {
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: flex-start;
-    margin: 15% auto 0;
+    margin: 15rem auto 0;
     width: 90%;
-
+    
+    @media (max-width: 800px) {
+      flex-direction: column;
+    }
 
     @media (max-width: 800px) {
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 700px) {
-      margin: 30% auto 0;
-    }
-
-    @media (max-width: 650px) {
-      margin: 35% auto 0;
-    }
-
-    @media (max-width: 550px) {
-      margin: 40% auto 0;
-      width: 100%;
-    }
-
-    @media (max-width: 500px) {
-      margin: 45% auto 0;
-    }
-
-    @media (max-width: 420px) {
-      margin: 50% auto 0;
-    }
-
-    @media (max-width: 400px) {
-      margin-top: 60%;
+      margin: 25rem auto 1rem;
     }
 
     .profile_userCardMain {
@@ -59,14 +38,18 @@ body {
       flex-direction: column;
       align-items: center;
       width: 30%;
+      margin: 0 1rem 1rem;
+      min-width: 180px;
+      min-height: 60rem;
       line-height: 1.7;
-
+      
       @media (max-width: 1100px) {
         width: 45%;
       }
 
       @media (max-width: 800px) {
         width: 90%;
+        margin: 2rem;
       }
 
       i.icon.edit.outline {
@@ -74,7 +57,24 @@ body {
         cursor: pointer;
         color: #243352;
         font-size: 2.6rem;
-        padding-right: 5%;
+        margin: 1rem 5% 2rem 0;
+      }
+
+      .card-meta {
+        color: black;
+        font-size: 1.8rem;
+      }
+
+      .user-preferences {
+        font-style: oblique;
+        color: grey;
+        font-size: 1.6rem;
+        margin: 1rem auto;
+        width: 70%;
+      }
+      
+      #card-header {
+        font-size: 2.6rem;
       }
 
       .profile_userCardProfilePic {
@@ -89,24 +89,35 @@ body {
           text-align: center;
 
           button {
-            background: #243352;
-            color: #EBEDE8;
-            font-size: 1.4rem;
+            border: 1px solid #243352;
+            background: #EBEDE8;
+            color: #243352;
+            font-size: 1.6rem;
             margin: 5% auto;
-            padding: 5%;
+            padding: 2rem 5%;
+            width: 80%;
+            &:hover {
+              background: #243352;
+              color: #EBEDE8;
+            }
           }
 
-
           .profile_userCardForm {
-            padding-top: 5%;
+            padding-top: 1rem;
             font-size: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
               .ui.slider.checkbox {
                 font-size: 1.5rem;
+                width: 20rem;
               }
 
               .profile_userCardInput {
                 background: #243352;
+                border-radius: 5px;
+                border: 1px solid #243352;
               }
 
               button {
@@ -117,34 +128,59 @@ body {
                 background: #243352;
                 color: #EBEDE8;
                 font-size: 1.6rem;
-                padding: 5%;
+                padding: 1rem 5%;
+                width: 20rem;
+                &:hover {
+                  border: 1px solid #243352;
+                  background: #EBEDE8;
+                  color: #243352;
+                }
               }
           } //end form
 
 
             .profile_editButtons {
               button {
-                margin: 5% auto;
-                padding: 5%;
+                margin: 1rem auto;
+                padding: 1rem 5%;
                 font-size: 1.6rem;
               }
 
               .upload {
                 background: #243352;
                 color: #EBEDE8;
+                width: 20rem;
+                &:hover {
+                  border: 1px solid #243352;
+                  background: #EBEDE8;
+                  color: #243352;
+                }
               }
 
               .delete {
+                border: 1px solid #8C4646;
                 background: #8C4646;
                 color: #EBEDE8;
                 font-size: 1.4rem;
+                margin: 2px auto;
               }
             }
         } //end content
 
     }//end profile_userCardMain
+
+    .visits-chart {
+      display: inline-block;
+      width: 25%;
+      min-width: 40rem;
+      margin: -8rem 0 1rem 1rem;
+      @media (max-width: 1100px) {
+        display: none;
+      }
+    }
+
     .profile_friendsContainer {
-      width: 30%;
+      width: 25%;
 
       @media (max-width: 1100px) {
         width: 45%;
@@ -152,28 +188,37 @@ body {
 
       @media (max-width: 800px) {
         width: 90%;
+        margin: 2rem;
       }
 
       //FriendsList component
       .profile_friendsListMain {
         border: 1px solid black;
-        broder-radius: 5px;
-        width: 100%;
+        min-width: 12rem;
         background: #EBEDE8;
         padding: 20px 10%;
-        line-height: 1.7;
-        font-size: 2.6rem;
+        line-height: 2.8;
+        font-size: 2.2rem;
         text-align: center;
+
+        .header {
+          padding: 0.8rem 1rem 1rem;
+          margin-bottom: 0.8rem;
+          border-bottom: 1px solid lightgrey; 
+        }
 
         .profile_friendsListContent {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          font-size: 2.4rem;
-
+          font-size: 1.8rem;
           a {
             color: black;
-            font-size: 2.2rem;
+            font-size: 1.8rem;
+            padding: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
 
           img {
@@ -181,8 +226,9 @@ body {
           }
           .profile_friendsListIcon {
             cursor: pointer;
-            font-size: 2.6rem;
+            font-size: 2rem;
             color: #8C4646;
+            margin: 0 2px;
           }
         }
 
@@ -190,6 +236,4 @@ body {
     }
   }
 			//Usercard component
-
-
-		}//end container
+}//end container
