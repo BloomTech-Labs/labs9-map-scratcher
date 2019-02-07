@@ -19,8 +19,8 @@ export const MUTATION_FRIEND_PROFILE = gql`
   }
 `
 export const MUTATION_VIEWFRIEND_PROFILE = gql`
-  mutation($id: ID!) {
-    viewFriend(id: $id) @client
+  mutation($id: ID!, $me: String) {
+    viewFriend(id: $id, me: $me) @client
   }
 `
 
