@@ -33,7 +33,14 @@ const VisitsChart = ({user}) => {
     const item = data[index];
   
     return (
-      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central" key={`label-${item.value}`}>
+      <text 
+        x={x} 
+        y={y} 
+        fill="white" 
+        textAnchor={x > cx ? 'start' : 'end'} 
+        dominantBaseline="central" 
+        key={`label-${item.value}`}
+      >
         {item.name}: {(percent*100).toFixed(0)}%
       </text>
     )

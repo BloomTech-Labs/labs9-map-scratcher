@@ -60,9 +60,9 @@ export default class Profile extends Component {
                   <div className='profile_content'>
                     <UserCard user={me} {...this.props}/>
                     {/* #region FriendsList component */}
-                    <FriendsList userId={me.id} friends={me.friends} />
+                    {(me.friends.length > 0) ? <FriendsList userId={me.id} friends={me.friends} /> : null}
                     {/* #endregion FriendsList component */}
-                    <VisitsChart user={me} />
+                    {(me.visits.length > 0) ? <VisitsChart user={me} /> : null}
                   </div>
                   </Fragment>
                 );
