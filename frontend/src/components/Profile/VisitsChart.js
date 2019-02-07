@@ -1,5 +1,5 @@
 import React from 'react';
-import { PieChart, Pie, Cell, Label } from 'recharts';
+import { PieChart, Pie, Cell } from 'recharts';
 
 
 const VisitsChart = ({user}) => {
