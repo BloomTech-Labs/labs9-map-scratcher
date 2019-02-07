@@ -6,7 +6,7 @@
 const fileCoin = require('../../static/coin.png');
 
 //-- Project Constants ---------------------------
-const EASING_FACTOR = 1/2;
+const EASING_FACTOR = 2/3;
 // The amount the coin will progress each cycle, as a factor of total distance
 const TIME_FADE = 16;
 // The number of drawing cycles before a coin disappears
@@ -29,6 +29,7 @@ export default class {
     this.advancePosition();
     mainContext.save();
     mainContext.globalAlpha = this.timeFade / TIME_FADE;
+    if(this.timeFade <= 2) { mainContext.globalAlpha = 0;}
     mainContext.globalCompositeOperation = 'source-over';
     let squish = Math.min(this.deltaTotal, 24);
     let drawWidth  = 32 - squish;
