@@ -10,7 +10,7 @@
   z-index: 500;
   padding: 2rem;
   position: fixed;
-  background: white;
+  background: $color-background-bright;
   width: 80%;
   top: 2.5%;
   left: 10%;
@@ -40,7 +40,7 @@
     @media (max-width: 500px) {
       width: 90%;
       padding: 1rem;
-      border: 1px solid black;
+      border: 1px solid $color-border-strong;
       border-radius: 5px;
       top: 5%;
     }

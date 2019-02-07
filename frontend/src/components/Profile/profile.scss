@@ -12,7 +12,7 @@
   flex-direction: column;
 
   .Profile_profileHeader {
-    background: #EBEDE8;
+    background: $color-background-bright;
   }
 
   .profile_content {
@@ -54,7 +54,7 @@
 
     .profile_userCardMain {
       border: 1px solid $color-primary;
-      background: #EBEDE8;
+      background: $color-background-bright;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -90,7 +90,7 @@
 
           button {
             background: $color-primary;
-            color: #EBEDE8;
+            color: $color-background-bright;
             font-size: 1.4rem;
             margin: 5% auto;
             padding: 5%;
@@ -115,7 +115,7 @@
 
               .submit {
                 background: $color-primary;
-                color: #EBEDE8;
+                color: $color-background-bright;
                 font-size: 1.6rem;
                 padding: 5%;
               }
@@ -131,12 +131,12 @@
 
               .upload {
                 background: $color-primary;
-                color: #EBEDE8;
+                color: $color-background-bright;
               }
 
               .delete {
-                background: #8C4646;
-                color: #EBEDE8;
+                background: $color-danger;
+                color: $color-background-bright;
                 font-size: 1.4rem;
               }
             }
@@ -156,10 +156,10 @@
 
       //FriendsList component
       .profile_friendsListMain {
-        border: 1px solid black;
+        border: 1px solid $color-border-strong;
         broder-radius: 5px;
         width: 100%;
-        background: #EBEDE8;
+        background: $color-background-bright;
         padding: 20px 10%;
         line-height: 1.7;
         font-size: 2.6rem;
@@ -172,7 +172,7 @@
           font-size: 2.4rem;
 
           a {
-            color: black;
+            color: inherit;
             font-size: 2.2rem;
           }
 
@@ -182,7 +182,7 @@
           .profile_friendsListIcon {
             cursor: pointer;
             font-size: 2.6rem;
-            color: #8C4646;
+            color: $color-danger;
           }
         }
 

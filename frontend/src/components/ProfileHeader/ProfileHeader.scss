@@ -5,7 +5,7 @@
 .profile_pageContainer {
 //header component
   .Profile_profileHeader {
-    background: white;
+    background: $color-background-bright;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -42,7 +42,7 @@
       //dropdown component
     .profile_userDropDown {
       width: 40%;
-      border: 1px solid black;
+      border: 1px solid $color-border-strong;
       border-radius: 40px;
       text-align: center;
       font-size: 1.6rem;
