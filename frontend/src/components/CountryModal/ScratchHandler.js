@@ -81,14 +81,26 @@ export default class extends React.Component {
           level: this.state.itchyLevel,
         },
         update: (cache, {data: {createVisit}}) => {
-          const result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId } });
+          const result = cache.readQuery({
+            query: QUERY_USERVISITS_MODAL,
+            variables: {id: this.props.displayId }
+          });
           const visits = result.user.visits
           const newVisit = createVisit
-          cache.writeQuery({
+          const updateData = {
             query: QUERY_USERVISITS_MODAL,
             variables: {id: result.user.id },
-            data: {user: {id: result.user.id, scratchingAutomated: result.user.scratchingAutomated, visits: [...visits, newVisit], __typename: 'Visit'}, __typename: 'User'}
-          });
+            data: {
+              user: {
+                id: result.user.id,
+                scratchingAutomated: result.user.scratchingAutomated,
+                visits: [...visits, newVisit],
+                __typename: 'Visit'
+              },
+                __typename: 'User'
+            }
+          }
+          cache.writeQuery(updateData);
         }
       };
     // Handle update visit mutations (user already has data for country)
@@ -98,14 +110,22 @@ export default class extends React.Component {
           id: visitId,
           level: this.state.itchyLevel,
         },
-        update: (cache, {data: {updateVisit}}) => {
+        update: (cache, response) => {
+          const updateVisit = response.data.updateVisit;//{data: {updateVisit}}
           const result = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: this.props.displayId } });
-          const visits = result.user.visits
-          const level = updateVisit['level']
+          const visits = result.user.visits;
+          const level = updateVisit['level'];
           cache.writeQuery({
             query: QUERY_USERVISITS_MODAL,
             variables: {id: result.user.id },
-            data: {user: {id: result.user, scratchingAutomated: result.user.scratchingAutomated, visits: visits.map(v => v.id === visitId ? {...v, level} : v), __typename: 'Visit'}, __typename: 'User'}
+            data: {
+              user: {
+                id: result.user.id,
+                scratchingAutomated: result.user.scratchingAutomated,
+                visits: visits.map(v => v.id === visitId ? {...v, level} : v),
+                __typename: 'User'
+              }
+            }
           });
         }
       };
