@@ -26,11 +26,15 @@
       align-items: center;
       justify-content: center;
       .item {
+        width: 16rem;
+        display: flex;
+        justify-content: center;
         margin: auto 7%!important;
         @media (max-width: 980px) {
           margin: auto 2%!important;
         }
         @media (max-width: 760px) {
+          margin: auto!important;
         }
       }
       @media (max-width: 760px) {
@@ -177,8 +181,12 @@
     }//end profile_userCardMain
 
     .visits-chart {
-      width: 80%;
+      width: 90%;
+      height: 40rem;
       margin: 1rem auto;
+      .recharts-responsive-container {
+        margin: auto!important;
+      }
     }
     @media (max-width: 760px) {
       width: 90%;
