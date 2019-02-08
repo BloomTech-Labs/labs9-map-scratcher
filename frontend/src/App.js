@@ -68,5 +68,5 @@ function authRedirect(props, ComponentToRender) {
     return <React.Fragment />
   }
   // Allow user to view content
-  return <ComponentToRender {...props} login={auth.login} />
+  return <ComponentToRender {...props} login={auth.login} logout={auth.logout}/>
 }
