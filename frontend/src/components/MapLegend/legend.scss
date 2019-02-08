@@ -1,3 +1,7 @@
+
+// Import variables from central location
+@import '../../sass/global_theme.scss';
+
 .ui.card.legend_main {
   background: #F3F3F3;
   border: 1px solid darkgray;
