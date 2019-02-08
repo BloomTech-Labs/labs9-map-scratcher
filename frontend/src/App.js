@@ -2,7 +2,8 @@
 
 //== Root App Component ======================================================
 /*
-    This component is responsible for rendering the application's content
+  This component is responsible for rendering the application's content. It is
+  mostly concerned with Routing and Authentication redirects.
 */
 
 //-- Dependencies --------------------------------
@@ -16,11 +17,6 @@ import Friends from './pages/friends';
 import Profile from './pages/profile';
 import Travels from './pages/travels';
 import AlpacaFacts from './components/AlpacaFacts/AlpacaFacts.js';
-/*import Callback from './components/Callback/Callback';
-  Legacy callback code, using a Dimmer and a Loader. I'd like to be able to
-  encorporate this code, but couldn't develop a good design. If you can work it
-  in, please do. If not, then we can remove this legacy code.
-*/
 
 //-- Project Constants ---------------------------
 //creates a rew instance of Auth to check the result of authentication
@@ -33,18 +29,16 @@ const handleAuthentication = (nextState, replace) => {
     auth.handleAuthentication()
   }
 }
-//== React Specific ============================================================
 
-//-- Initialization and Definition -----------------
-
-class App extends Component {
+//-- React Implementation ------------------------
+export default class App extends Component {
   render() {
     return (
       <Fragment>
         <Route exact path='/' render={(props) => <Landing {...props}  login={auth.login} />} />
-        <Route path='/friends/:id' render={(props) => <Friends {...props} logout={auth.logout}/>} />
-        <Route path='/profile' render={(props) => <Profile {...props} logout={auth.logout}/>} />
-        <Route path='/travels' render={(props) => <Travels {...props} logout={auth.logout}/>} />
+        <Route path='/friends/:id' render={(props) => authRedirect(props, Friends)} />
+        <Route path='/profile' render={(props) => authRedirect(props, Profile)} />
+        <Route path='/travels' render={(props) => authRedirect(props, Travels)} />
         <Route path='/callback' render={(props) => {
           handleAuthentication(props)
           return <AlpacaFacts {...props} />
@@ -54,4 +48,25 @@ class App extends Component {
   }
 }
 
-export default App;
+
+//== Subcomponents and Utilities ===============================================
+
+/*-- Authorization Redirect ----------------------
+  This function checks if the user has a valid token, and redirects to the
+  landing page if they don't. If they do, then it returns JSX to render a
+  component.
+*/
+function authRedirect(props, ComponentToRender) {
+  // Check token validity
+  const expire = localStorage.getItem('expires_at');
+  const token = localStorage.getItem('access_token');
+  const now = new Date().getTime();
+  const valid = (token && (now < expire));
+  // If the token isn't valid, redirect to the landing page
+  if(!valid) {
+    props.history.push('/');
+    return <React.Fragment />
+  }
+  // Allow user to view content
+  return <ComponentToRender {...props} login={auth.login} />
+}
