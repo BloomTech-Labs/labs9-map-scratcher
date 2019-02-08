@@ -8,6 +8,7 @@
 //-- Dependencies --------------------------------
 import React, { Component, Fragment } from 'react';
 import { Query } from 'react-apollo';
+import { Menu, Card } from 'semantic-ui-react';
 import {
   QUERY_USERS_PROFILE,
   QUERY_ME_PROFILE
@@ -22,8 +23,17 @@ import '../components/Profile/profile.scss';
 //-- React Implementation ------------------------
 
 export default class Profile extends Component {
+  state = {
+    activeItem: 'userCard'
+  }
 
+  toggleView = (event, { name }) => {
+    this.setState({
+      activeItem: name
+    })
+  }
   render() {
+    const { activeItem } = this.state
     return (
         <div className='profile_pageContainer'>
             {/* #region UserCard component */}
@@ -58,9 +68,28 @@ export default class Profile extends Component {
                     </Query>
                   {/* #endregion Header component end */}
                   <div className='profile_content'>
-                    {(me.visits.length > 0) ? <VisitsChart user={me} /> : null}
-                    <UserCard user={me} {...this.props}/>
-                    {(me.friends.length > 0) ? <FriendsList userId={me.id} friends={me.friends} /> : null}
+                  <Menu pointing secondary className='profile_menu'>
+                    <Menu.Item
+                      name='userCard'
+                      active={activeItem === 'userCard'}
+                      onClick={this.toggleView}
+                      />
+                    <Menu.Item
+                      name='visitsChart'
+                      active={activeItem === 'visitsChart'}
+                      onClick={this.toggleView}
+                    />
+                    <Menu.Item
+                      name='friendList'
+                      active={activeItem === 'friendList'}
+                      onClick={this.toggleView}
+                      />
+                    </Menu>
+                    <Card.Content>
+                      {this.state.activeItem === 'visitsChart' &&  <VisitsChart user={me} />}
+                      {this.state.activeItem === 'userCard' && <UserCard user={me} {...this.props} />}
+                      {this.state.activeItem === 'friendList' && <FriendsList userId={me.id} friends={me.friends} />}
+                    </Card.Content>
                   </div>
                   </Fragment>
                 );
