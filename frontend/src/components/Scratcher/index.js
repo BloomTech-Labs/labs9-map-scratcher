@@ -153,10 +153,23 @@ export default class extends React.Component {
 
     //-- Draw Canvas ---------------------------------
     draw() {
+        // If a draw is already scheduled, do nothing
+        if(this.drawingActive){ return;}
         // Redraw canvas on animation frame
-        requestAnimationFrame(() => {
-            utilities.draw(this.drawingState);
-        })
+        const scheduleDraw = () => {
+            requestAnimationFrame(() => {
+                this.drawingActive = true;
+                utilities.draw(this.drawingState);
+                // Continue redrawing so long as animations are active
+                if(this.drawingState.coin.active()) {
+                    scheduleDraw();
+                } else {
+                    this.drawingActive = false;
+                }
+            });
+        }
+        //
+        scheduleDraw();
     }
     
     //-- Handle Mouse & Touch Movements --------------
