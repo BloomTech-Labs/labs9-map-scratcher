@@ -1,6 +1,6 @@
 import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
-
+import { Button } from 'semantic-ui-react'
 
 const VisitsChart = ({user}) => {
   const distribution = {
@@ -36,7 +36,7 @@ const VisitsChart = ({user}) => {
       <text 
         x={x} 
         y={y} 
-        fill="white" 
+        fill={percent > 0 ? 'black' : 'none'} 
         textAnchor={x > cx ? 'start' : 'end'} 
         dominantBaseline="central" 
         key={`label-${item.value}`}
@@ -45,25 +45,32 @@ const VisitsChart = ({user}) => {
       </text>
     )
   };
-  
   return (
     <div className='visits-chart'>
-      <PieChart width={400} height={400}>
-        <Pie
-          dataKey='value'
-          data={data} 
-          cx={200} 
-          cy={200} 
-          labelLine={true}
-          label={renderLabel}
-          outerRadius={80} 
-          fill='#8884d8'
-        >
-          {data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} key={index}/>)}
-        </Pie>
-      </PieChart>
+    {user.visits.length > 0 ?
+      (
+        <PieChart width={600} height={500}>
+          <Pie
+            dataKey='value'
+            data={data} 
+            labelLine={true}
+            label={renderLabel}
+            outerRadius={120} 
+            fill='#8884d8'
+          >
+            {data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} key={index}/>)}
+          </Pie>
+        </PieChart>
+      ) : (
+        <div>You don't have any visits yet!
+        <Button
+          fluid
+          onClick={() => this.props.history.push('/travels')}
+        >Explore Your Map</Button>
+        </div>
+      )
+    } 
     </div>
-    
   )
 }
 
