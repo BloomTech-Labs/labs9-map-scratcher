@@ -15,7 +15,7 @@
   left: 5%;
   min-height: 560px;
   min-width: 260px;
-  width: 80%;
+  width: 40%;
   overflow-y: hidden;
   position: absolute;
   z-index: 500;
@@ -64,7 +64,7 @@
 
     a {
       display: flex;
-      justify-content: center; 
+      justify-content: center;
       width: 33%;
     }
   } // end modal Header
