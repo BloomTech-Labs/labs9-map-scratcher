@@ -27,10 +27,8 @@ const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
    if (whitelist.indexOf(origin) !== -1 || !origin) {
-     console.log('whitelisted domain', origin);
      callback(null, true)
    } else {
-     console.log('go away')
      callback(new Error('Not allowed by CORS'))
    }
  }};
@@ -65,7 +63,6 @@ server.express.post(
 
 //-- getUser added to request middleware --------------------------------
 server.express.post(server.options.endpoint, (req, res, done ) => {
-  console.log('the request is', req.headers)
   return getUser(req, res, done, prisma)
 })
 
@@ -75,6 +72,6 @@ const opts = {
   cors: corsOptions
 }
 //-- Start Server ---------------------------------------
-server.start(opts, () => console.log(`Server is running on http://localhost:4000`))
+server.start(opts)
 
 // Redeployment change

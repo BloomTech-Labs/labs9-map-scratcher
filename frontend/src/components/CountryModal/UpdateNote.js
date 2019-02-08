@@ -44,7 +44,6 @@ export default class UpdateNote extends Component {
           update={(cache, {data: {updateVisit}}) => {
             const data = cache.readQuery({ query: QUERY_USERVISITS_MODAL, variables: {id: displayId } });
             const visits = data.user.visits
-            console.log(visits)
             const note = updateVisit.note
             cache.writeQuery({
               query: QUERY_USERVISITS_MODAL,

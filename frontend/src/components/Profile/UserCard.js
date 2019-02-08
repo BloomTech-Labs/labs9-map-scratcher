@@ -57,7 +57,6 @@ export default class UserCard extends Component {
       cloud_name: 'dr9p6aaos',
       upload_preset: 'vchytrzk'},
       (error, result) => {
-        console.log(error, result)
         if(result) {
         this.setState({ pictureUrl: result[0].secure_url })
         }

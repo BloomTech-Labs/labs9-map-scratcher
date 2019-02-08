@@ -68,7 +68,6 @@ export const resolvers = {
     toggleBorders: (_obj, args, {cache}) => {
       const query = QUERY_VIEWBORDERS_HEADER;
       const currentState = cache.readQuery({ query });
-      console.log('currentCheck', currentState)
       const data = {
         viewBorders: !currentState.viewBorders
       }

@@ -46,7 +46,6 @@ export default class FriendsVisits extends Component {
           };
           friendsList = friendArray.map(friend => {
             friend[1] = icons[friend[1]];
-            console.log(friend)
             return friend;
           });
         }

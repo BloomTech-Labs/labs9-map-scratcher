@@ -31,14 +31,13 @@ export default class CountryModal extends Component {
     })
   }
   render() {
-    const { activeItem } = this.state;
+    // const { activeItem } = this.state;
     return (
       <Query query={QUERY_CLIENT_MODAL}>
       {({ loading, data }) => {
         if (loading) {
           return null;
         }
-        console.log(data);
         let displayId, disabled
         if (data.viewingFriend) {
           displayId = data.friendId
