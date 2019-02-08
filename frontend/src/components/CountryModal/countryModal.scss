@@ -4,7 +4,7 @@
 
 // width attribute set on ui card breaks scratcher
 .modal {
-  background: #F3F3F3;
+  background: $color-background-bright;
   border-radius: 10px;
 
   top: 20%;
@@ -86,7 +86,7 @@
     }
 
     .ui.input {
-      border: 1px solid darkgray;
+      border: 1px solid $color-form-border;
       border-radius: 5px;
       width: 100%;
       min-height: 10rem;

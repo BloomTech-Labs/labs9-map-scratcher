@@ -4,7 +4,7 @@
 
 .landing_mainDiv {
     background: $color-primary;
-    color: #EBEDE8;
+    color: $color-background-bright;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -30,7 +30,7 @@
                         text-align: center;
                     }
                   button {
-                    background: #EBEDE8;
+                    background: $color-background-bright;
                     color: $color-primary;
                     font-size: 1.4rem;
                     margin-right: 5%;
