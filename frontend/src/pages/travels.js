@@ -17,6 +17,7 @@ import CountryModal from '../components/CountryModal/CountryModal';
 import ViewBordersCheckbox from '../components/MapHeader/ViewBordersCheckbox';
 import { fixData } from '../components/Map/mapHelpers';
 import '../components/Map/map.scss';
+import { green } from '../components/Map/countryStyles';
 import {
   QUERY_ME_TRAVELS,
   QUERY_CLIENT_TRAVELS,
@@ -34,6 +35,17 @@ import {
 
 //-- React Implementation ------------------------
 export default class Travels extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      theme: green
+    }
+  }
+  
+  setTheme = (color) => {
+    this.setState({theme: color})
+  }
+  
   render() {
     return (
       <div className='travels_map-container'>
@@ -62,10 +74,9 @@ export default class Travels extends Component {
                     </Dimmer>
                   )
                 }
-                console.log('me in tra',me);
                 let visitsUser = [];
                 if (me.visits && me.visits.length > 0) {
-                  visitsUser.push(me                           );
+                  visitsUser.push(me);
                 }
                 visitsUser = (fixData(visitsUser))
                 let colors, borders;
@@ -86,7 +97,13 @@ export default class Travels extends Component {
                 }
                 return (
                   <Fragment>
-                    <StaticMap colors={colors} borders={borders} viewBorders={viewBorders} viewingCountry={localState.countryId}/>
+                    <StaticMap 
+                      theme={this.state.theme}
+                      colors={colors} 
+                      borders={borders} 
+                      viewBorders={viewBorders} 
+                      viewingCountry={localState.countryId}
+                    />
                     <Query query={QUERY_MODAL_TRAVELS}>
                     {({ loading, data }) => {
                       if (loading) return <div>Loading</div>
@@ -97,7 +114,7 @@ export default class Travels extends Component {
                       }
                       if (data.modalOpen) {
                         return (
-                          <CountryModal {...this.props} userId={me.id}/>
+                          <CountryModal {...this.props} userId={me.id} theme={this.state.theme}/>
                         );
                       }
                     }}
@@ -113,7 +130,7 @@ export default class Travels extends Component {
         <div className='travels_checkboxMobile'>
         <ViewBordersCheckbox />
         </div>
-        <Legend />
+        <Legend setTheme={this.setTheme}/>
       </div>
     );
   }

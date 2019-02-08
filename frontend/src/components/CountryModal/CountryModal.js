@@ -58,6 +58,7 @@ export default class CountryModal extends Component {
                 countryId={data.countryId}
                 displayId={displayId}
                 disabled={disabled}
+                theme={this.props.theme}
               />
               </div>}
               {this.state.activeItem === 'note' &&

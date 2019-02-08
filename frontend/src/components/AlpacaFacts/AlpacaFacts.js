@@ -22,6 +22,9 @@ const facts = [
   new Fact(97, 'Alpaca is Aymara for "Alpaca."'),
   new Fact(135, 'Alpacas practice community support.'),
   new Fact(68, 'Alpacas can spit 10 feet, but choose not to.'),
+  new Fact(22, 'Alpacas are not permitted on most commercial airlines.'),
+  new Fact(104, 'Alpacas are much fluffier than the average house plant.'),
+  new Fact(94, 'Alpacas have teeth, just like you and me.'),
 ];
 
 //-- React Implementation ------------------------
@@ -38,7 +41,7 @@ export default function (props) {
               <Backpaca />
             </Item.Image>
             <Item.Content>
-              <Item.Header as='a'>Did you know?</Item.Header>
+              <Item.Header>Did you know?</Item.Header>
               <Item.Meta>Alpaca Fact #{randomFact.number}</Item.Meta>
               <Item.Description>
                 {randomFact.text}

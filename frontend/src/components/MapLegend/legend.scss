@@ -3,62 +3,50 @@
 @import '../../sass/global_theme.scss';
 
 .ui.card.legend_main {
-    background: #F3F3F3;
-    border: 1px solid darkgray;
-    bottom: 10%;
-    left: 85%;
-    max-height: 15vh;
-    min-height: 10vh;
-    position: absolute;
-    width: 12rem;
-    z-index: 400;
+  background: #F3F3F3;
+  border: 1px solid darkgray;
+  bottom: 10%;
+  left: 85%;
+  max-height: 15vh;
+  min-height: 16rem;
+  position: absolute;
+  width: 15rem;
+  z-index: 400;
+  padding: 0.5rem;
+  @media (max-width: 900px) {
+    left: 75%;
+  }
 
-    @media (max-width: 900px) {
-      left: 75%;
-    }
+  @media (max-width: 600px) {
+    left: 65%;
+    bottom: 2%;
+  }
 
-    @media (max-width: 600px) {
-      left: 65%;
-      bottom: 2%;
-      max-height: 17vh;
+  .legend-button {
+    margin: 1rem 0.1rem;
+    font-size: 1.2rem;
+  }
+
+  .form {
+    .field {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin: 0;
     }
-        //individual cards
-        .legend_div {
-            display: flex;
-            align-items: baseline;
-            padding-top: 3%;
-            align-content: center;
-                .legend_wishlist {
-                    border: 1px solid darkgray;
-                    border-radius: 3px;
-                    width: 1rem;
-                    height: 1rem;
-                    margin-right: 5%;
-                    background: #D96459;
-                }
-                .legend_visited {
-                    border: 1px solid darkgray;
-                    border-radius: 3px;
-                    width: 1rem;
-                    height: 1rem;
-                    margin-right: 5%;
-                    background: #c21807;
-                }
-                .legend_transited {
-                    border: 1px solid darkgray;
-                    border-radius: 3px;
-                    width: 1rem;
-                    height: 1rem;
-                    margin-right: 5%;
-                    background: #800000;
-                }
-                .legend_lived {
-                    border: 1px solid darkgray;
-                    border-radius: 3px;
-                    width: 1rem;
-                    height: 1rem;
-                    margin-right: 5%;
-                    background: #7c0a02;
-                }
+  }
+  
+  .legend_div {
+    display: flex;
+    align-items: baseline;
+    align-content: center;
+    padding-bottom: 0.5rem;
+    .legend_box {
+      border: 1px solid darkgray;
+      border-radius: 3px;
+      width: 1rem;
+      height: 1rem;
+      margin-right: 5%;
     }
+  }
 }
