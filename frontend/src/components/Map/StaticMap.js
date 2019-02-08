@@ -17,7 +17,7 @@
 
 //-- Dependencies --------------------------------
 // Libraries
-import React from 'react';
+import React, { Component } from 'react';
 import L from 'leaflet';
 import { Query, Mutation } from 'react-apollo';
 import { Map, GeoJSON } from 'react-leaflet';
@@ -27,7 +27,7 @@ import whichPolygon from 'which-polygon';
 import geojson from './countries.geo.json';
 import { getFeature } from './mapHelpers';
 import {
-  colors, defaultStyle, hoverStyle, colorStyle, borderStyle,
+  defaultStyle, hoverStyle, colorStyle, borderStyle
 } from './countryStyles';
 import {
   MUTATION_OPENMODAL_TRAVELS,
@@ -54,7 +54,7 @@ export default class WorldMap extends React.Component {
     super(props);
     this.state = {
       hovering: null,
-      mouse: null,
+      mouse: null
     }
   }
 
@@ -67,7 +67,10 @@ export default class WorldMap extends React.Component {
   //-- When Receiving Props ------------------------
   componentDidUpdate(prevProps) {
     if (prevProps.colors !== this.props.colors) {
-      //console.log('was', prevProps.colors, 'is', this.props.colors)
+      this.geoKey = Math.random();
+      this.forceUpdate();
+    }
+    if (prevProps.theme !== this.props.theme) {
       this.geoKey = Math.random();
       this.forceUpdate();
     }
@@ -106,7 +109,7 @@ export default class WorldMap extends React.Component {
 
   //-- Final React Render --------------------------
   render() {
-    return (
+    return (    
       <Map
         className="map"
         animate={true}
@@ -129,7 +132,7 @@ export default class WorldMap extends React.Component {
           const level = visit[3];
           let style = {
             ...colorStyle,
-            fillColor: colors[level]
+            fillColor: this.props.theme[level]
           };
           const feature = getFeature(geojson, visit[2])
           return (
@@ -145,7 +148,7 @@ export default class WorldMap extends React.Component {
             const level = visit[3];
             let style = {
               ...borderStyle,
-              color: colors[level]
+              color: this.props.theme[level]
             }
             const feature = getFeature(geojson, visit[2]);
             return (<GeoJSON

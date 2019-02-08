@@ -24,15 +24,13 @@ import {
   MUTATION_UPDATEVISIT_MODAL,
 } from '../../services/requests/modal';
 import Scratcher from '../Scratcher/index.js';
-import { colors } from '../Map/countryStyles.js';
 import './scratch-handler.scss';
 
 //-- Project Constants ---------------------------
 const VISITLEVEL_NONE = 0;
-/*const VISITLEVEL_WISHLIST = 1;
-const VISITLEVEL_TRANSITED = 2;
-const VISITLEVEL_VISITED = 3;
-*/
+// const VISITLEVEL_WISHLIST = 1;
+// const VISITLEVEL_TRANSITED = 2;
+// const VISITLEVEL_VISITED = 3;
 const VISITLEVEL_LIVED = 4;
 
 
@@ -131,14 +129,21 @@ export default class extends React.Component {
     // Put scratcher back in default state
     this.setState({itchy: false});
   }
-  handleChangeVisit = (newVisitLevel) => {
+  handleChangeVisit = (newVisitLevel, baseVisitLevel) => {
     /* handleChangeVisist is called whenever the user changes the visit level
     using the slider. It makes the map "itchy" but does not perform a mutation.
     */
-    this.setState({
-      itchy: true,
-      itchyLevel: newVisitLevel,
-    });
+    if(newVisitLevel === baseVisitLevel) {
+      this.setState({
+        itchy: false,
+        itchyLevel: undefined,
+      });
+    } else {
+      this.setState({
+        itchy: true,
+        itchyLevel: newVisitLevel,
+      });
+    }
   }
 
   //-- Rendering -----------------------------------
@@ -184,7 +189,7 @@ export default class extends React.Component {
                 displayLevel = visitLevel;
               }
               // Determine scratcher background color
-              let colorOutline = colors[displayLevel];
+              let colorOutline = this.props.theme[displayLevel];
               // Determine Mutation type
               let gqlMutation = MUTATION_CREATEVISIT_MODAL;
               if(visitId) {
@@ -208,6 +213,7 @@ export default class extends React.Component {
                     )}</Mutation>
                   </div>
                   <VisitSlider
+                    baseVisitLevel={visitLevel}
                     visitLevel={displayLevel}
                     disabled={this.props.disabled}
                     onChange={this.handleChangeVisit}
@@ -228,6 +234,7 @@ export default class extends React.Component {
 
 /*-- Visit Slider ----------------------------------
   The slider expects the following props:
+    baseVisitLevel(number): The user's current visit level for this country
     onChange(function): a function to invoke when a new visit level is selected
     visitLevel(number): The current visit level selected, or from the database
     disabled(boolean): Whether or not to display the slider
@@ -253,8 +260,14 @@ function VisitSlider(props) {
         min={VISITLEVEL_NONE}
         max={VISITLEVEL_LIVED}
         onChange={(eventChange) => {
-          const newValue = Number(eventChange.currentTarget.value);
-          props.onChange(newValue);
+          let newValue = Number(eventChange.currentTarget.value);
+          if(
+            props.baseVisitLevel !== VISITLEVEL_NONE
+            && newValue === VISITLEVEL_NONE
+          ) {
+            newValue = 1;
+          }
+          props.onChange(newValue, props.baseVisitLevel);
         }}
       />
     </div>

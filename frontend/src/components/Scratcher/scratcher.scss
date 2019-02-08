@@ -1,4 +1,6 @@
 
+// Import variables from central location
+@import '../../sass/global_theme.scss';
 
 //== SASS styles for use with the Scratcher Component ==========================
 
@@ -8,5 +10,6 @@
   canvas {
     width: 200px;//100%;
     height: 200px;//100%;
+    cursor: none;
   }
 }

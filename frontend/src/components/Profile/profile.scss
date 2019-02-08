@@ -1,69 +1,56 @@
-//Main page
 
-$color-primary: #243352;
+// Import variables from central location
+@import '../../sass/global_theme.scss';
+
+//Main page
 
 .profile_pageContainer {
   height: 100vh;
   width: 100vw;
   background: $color-primary;
-  display: flex;
-  flex-direction: column;
-
-  .Profile_profileHeader {
-    background: #EBEDE8;
-  }
 
   .profile_content {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    margin: 15% auto 0;
-    width: 90%;
-
-
-    @media (max-width: 800px) {
-      flex-wrap: wrap;
+    width: 60%;
+    margin: 15rem auto 0;
+    background: #EBEDE8;
+    min-height: 70rem;
+    @media (max-width: 760px) {
+      margin: 25rem auto 5rem;
     }
 
-    @media (max-width: 700px) {
-      margin: 30% auto 0;
-    }
-
-    @media (max-width: 650px) {
-      margin: 35% auto 0;
-    }
-
-    @media (max-width: 550px) {
-      margin: 40% auto 0;
+    .profile_menu {
       width: 100%;
-    }
-
-    @media (max-width: 500px) {
-      margin: 45% auto 0;
-    }
-
-    @media (max-width: 420px) {
-      margin: 50% auto 0;
-    }
-
-    @media (max-width: 400px) {
-      margin-top: 60%;
+      font-size: 2rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      .item {
+        margin: auto 7%!important;
+        @media (max-width: 980px) {
+          margin: auto 2%!important;
+        }
+        @media (max-width: 760px) {
+        }
+      }
+      @media (max-width: 760px) {
+        flex-direction: column;
+      }
     }
 
     .profile_userCardMain {
-      border: 1px solid $color-primary;
       background: #EBEDE8;
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 30%;
+      width: 70%;
+      margin: 1rem auto;
+      min-width: 180px;
+      min-height: 60rem;
       line-height: 1.7;
+      box-shadow: none;
 
-      @media (max-width: 1100px) {
-        width: 45%;
-      }
-
-      @media (max-width: 800px) {
+      @media (max-width: 760px) {
         width: 90%;
       }
 
@@ -72,7 +59,24 @@ $color-primary: #243352;
         cursor: pointer;
         color: $color-primary;
         font-size: 2.6rem;
-        padding-right: 5%;
+        padding: 1rem 20% 1rem 1rem;
+      }
+
+      .card-meta {
+        color: black;
+        font-size: 1.8rem;
+      }
+
+      .user-preferences {
+        font-style: oblique;
+        color: grey;
+        font-size: 1.6rem;
+        margin: 1rem auto;
+        width: 70%;
+      }
+      
+      #card-header {
+        font-size: 2.6rem;
       }
 
       .profile_userCardProfilePic {
@@ -83,28 +87,43 @@ $color-primary: #243352;
         border-radius: 50%!important;
       }
         .content {
-          width: 90%;
+          width: 60%;
           text-align: center;
-
+          margin-top: 1rem;
+          padding-top: 3rem;
+          @media (max-width: 760px) {
+            width: 70%;
+          }
           button {
-            background: $color-primary;
-            color: #EBEDE8;
-            font-size: 1.4rem;
+            border: 1px solid $color-primary;
+            background: #EBEDE8;
+            color: $color-primary;
+            font-size: 1.6rem;
             margin: 5% auto;
-            padding: 5%;
+            padding: 2rem 5%;
+            width: 80%;
+            &:hover {
+              background: $color-primary;
+              color: #EBEDE8;
+            }
           }
 
-
           .profile_userCardForm {
-            padding-top: 5%;
+            padding-top: 1rem;
             font-size: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
               .ui.slider.checkbox {
                 font-size: 1.5rem;
+                width: 20rem;
               }
 
               .profile_userCardInput {
                 background: $color-primary;
+                border-radius: 5px;
+                border: 1px solid $color-primary;
               }
 
               button {
@@ -115,63 +134,91 @@ $color-primary: #243352;
                 background: $color-primary;
                 color: #EBEDE8;
                 font-size: 1.6rem;
-                padding: 5%;
+                padding: 1rem 5%;
+                width: 20rem;
+                &:hover {
+                  border: 1px solid $color-primary;
+                  background: #EBEDE8;
+                  color: $color-primary;
+                }
               }
           } //end form
 
 
             .profile_editButtons {
               button {
-                margin: 5% auto;
-                padding: 5%;
+                width: 40%;
+                margin: 1rem auto;
+                padding: 1rem 5%;
                 font-size: 1.6rem;
               }
 
               .upload {
                 background: $color-primary;
                 color: #EBEDE8;
+                width: 20rem;
+                &:hover {
+                  border: 1px solid $color-primary;
+                  background: #EBEDE8;
+                  color: $color-primary;
+                }
               }
 
               .delete {
+                border: 1px solid #8C4646;
                 background: #8C4646;
                 color: #EBEDE8;
                 font-size: 1.4rem;
+                margin: 2px auto;
               }
             }
         } //end content
 
     }//end profile_userCardMain
-    .profile_friendsContainer {
-      width: 30%;
 
+    .visits-chart {
+      width: 80%;
+      margin: 1rem auto;
+    }
+    @media (max-width: 760px) {
+      width: 90%;
+    }
+    .profile_friendsContainer {
+      width: 80%;
+      margin: 1rem auto;
       @media (max-width: 1100px) {
         width: 45%;
       }
-
-      @media (max-width: 800px) {
+      @media (max-width: 760px) {
         width: 90%;
       }
-
       //FriendsList component
       .profile_friendsListMain {
-        border: 1px solid black;
-        broder-radius: 5px;
-        width: 100%;
+        min-width: 12rem;
         background: #EBEDE8;
-        padding: 20px 10%;
-        line-height: 1.7;
-        font-size: 2.6rem;
+        padding: 2rem 10%;
+        line-height: 2.8;
+        font-size: 2.2rem;
         text-align: center;
+        .header {
+          padding: 0.8rem 1rem 1rem;
+          margin-bottom: 0.8rem;
+          border-bottom: 1px solid lightgrey; 
+        }
 
         .profile_friendsListContent {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          font-size: 2.4rem;
-
+          font-size: 1.8rem;
+          margin: 1rem auto;
           a {
             color: black;
-            font-size: 2.2rem;
+            font-size: 1.8rem;
+            padding: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
 
           img {
@@ -179,8 +226,9 @@ $color-primary: #243352;
           }
           .profile_friendsListIcon {
             cursor: pointer;
-            font-size: 2.6rem;
+            font-size: 2rem;
             color: #8C4646;
+            margin: 0 2px;
           }
         }
 
@@ -188,6 +236,4 @@ $color-primary: #243352;
     }
   }
 			//Usercard component
-
-
-		}//end container
+}//end container

@@ -1,81 +1,85 @@
 
-.profile_pageContainer {
+// Import variables from central location
+@import '../../sass/global_theme.scss';
+
 //header component
-  .Profile_profileHeader {
-    background: white;
-    border-radius: 10px;
+.Profile_profileHeader {
+  background: #EBEDE8;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  z-index: 500;
+  padding: 2rem;
+  position: absolute;
+  width: 80%;
+  top: 2.5%;
+  left: 10%;
+  right: 10%;
+  @media (max-width: 700px) {
+    height: 18rem;
+    flex-direction: column;
+    justify-content: space-evenly;
+    top: 1%;
+    padding: 3%;
+  }
+  // logo
+  .logo {
+    display: block;
+    font-weight: bold;
+    margin-left: 2rem;
+    padding-right: 30rem;
+    width: 30%;
     display: flex;
     align-items: center;
-    z-index: 500;
-    padding: 2rem;
-    position: absolute;
-    width: 80%;
-    top: 2.5%;
-    left: 10%;
-    right: 10%;
+    @media(max-width: 1750px) {
+      padding-right: 0rem;
+      width: 25%;
+    }
+    @media (max-width: 870px) {
+      display: none;
+    }
+  }
+    //dropdown component
+  .profile_userDropDown {
+    width: 40%;
+    border: 1px solid black;
+    border-radius: 40px;
+    text-align: center;
+    font-size: 1.6rem;
+    min-width: 30rem;
+    min-height: 1rem;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 27rem;
+    @media(max-width: 1400px) {
+      margin-right: 18rem;
+    }
+    @media(max-width: 1000px) {
+      margin-right: 9rem;
+    }
     @media (max-width: 700px) {
-      height: 18rem;
-      flex-direction: column-reverse;
-      top: 1%;
-      padding: 2%;
+      width: 90%;
+      min-width: 20rem;
+      margin: 1rem 0;
     }
-    // logo
-    .logo {
-      display: block;
-      font-weight: bold;
-      margin-left: 2rem;
-      padding-right: 30rem;
-      width: 30%;
-      display: flex;
-      align-items: center;
-      @media(max-width: 1750px) {
-        padding-right: 0rem;
-        width: 25%;
-      }
-      @media (max-width: 860px) {
-        display: none;
-      }
+    //the actual dropdown
+    .visible.menu.transition {
+      width: 100%;
     }
-      //dropdown component
-    .profile_userDropDown {
-      width: 40%;
-      border: 1px solid black;
-      border-radius: 40px;
-      text-align: center;
-      font-size: 1.6rem;
-      min-width: 30rem;
-      min-height: 1rem;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      margin-right: 27rem;
-      @media(max-width: 1400px) {
-        margin-right: 18rem;
-      }
-      @media(max-width: 1000px) {
-        margin-right: 9rem;
-      }
-      @media (max-width: 700px) {
-        width: 90%;
-        margin: 0rem;
-      }
-      //the actual dropdown
-      .visible.menu.transition {
-        width: 100%;
-      }
+    i {
+      text-align: left;
+    }
+    //inside the drop down, each item
+    .profile_dropList {
       i {
-        text-align: left;
+        font-size: 1.3rem;
+        padding: 1rem;
       }
-      //inside the drop down, each item
-      .profile_dropList {
-        i {
-          font-size: 1.3rem;
-          padding: 0rem;
-        }
-        span {
-          font-size: 1.3rem;
-        }
+      span {
+        font-size: 1.3rem;
       }
     }
   }
 }
+
