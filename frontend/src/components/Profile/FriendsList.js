@@ -25,7 +25,7 @@ const FriendsList = ({ friends, userId }) => (
   <div className='profile_friendsContainer'>
   <List className='profile_friendsListMain'>
   <List.Header>Your Friends</List.Header>
-  {!friends && <List.Item><List.Content>You don't have any friends yet! Explore the app to find some!</List.Content></List.Item>}
+  {friends.length < 1 && <List.Item><List.Content>You don't have any friends yet! Explore the app to find some!</List.Content></List.Item>}
   {/* Takes friends from props and maps over each friend creating a seperate list item */}
   {friends.map(friend => {
     return (
