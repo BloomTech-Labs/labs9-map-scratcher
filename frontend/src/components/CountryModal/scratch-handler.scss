@@ -32,32 +32,12 @@
 //------------------------------------------------
 // From https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css
 
-$track-color: #424242;
-$thumb-color: #555bc8;
-
-$thumb-radius: 8px;
 $thumb-height: 4rem;
 $thumb-width: 4rem;
-$thumb-shadow-size: 1px;
-$thumb-shadow-blur: 1px;
-$thumb-shadow-color: #111;
-$thumb-border-width: 1px;
-$thumb-border-color: white;
 
 $track-width: 100%;
 $track-height: 4rem;
-$track-shadow-size: 2px;
-$track-shadow-blur: 2px;
-$track-shadow-color: #222;
 $track-border-width: 0.1rem;
-$track-border-color: trasparent;
-
-$track-radius: 5px;
-$contrast: 5%;
-
-@mixin shadow($shadow-size,$shadow-blur,$shadow-color) {
-  box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0px 0px $shadow-size lighten($shadow-color,5%);
-}
 
 @mixin track() {
   width: $track-width;
@@ -69,14 +49,10 @@ $contrast: 5%;
 }
 
 @mixin thumb() {
-  //.shadow($thumb-shadow-size,$thumb-shadow-blur,$thumb-shadow-color);
-  //border: $thumb-border-width solid $thumb-border-color;
   border: none;
   background-color: transparent;
   height: $thumb-height;
   width: $thumb-width;
-  //border-radius: $thumb-radius;
-  //background: $thumb-color;
   background-image: url('../../static/coin.png');
   background-size: contain;
   background-repeat: no-repeat;
