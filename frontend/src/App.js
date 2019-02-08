@@ -24,7 +24,6 @@ const auth = new Auth((result) => console.log('auth result', result), client)
 
 //handleAuthentication is retrieved from the auth helper file and processes authentication logic.
 const handleAuthentication = (nextState, replace) => {
-  console.log(nextState.location.hash)
   if (/access_token|id_token|error/.test(nextState.location.hash)) {
     auth.handleAuthentication()
   }

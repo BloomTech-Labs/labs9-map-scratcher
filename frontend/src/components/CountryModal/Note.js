@@ -56,7 +56,6 @@ export default class Note extends Component {
                 <DisabledNote disabled={true} />
               );
             }
-            console.log('I failed', existing, this.props, this.props.displayId);
             return null;
           }}
         </Query>

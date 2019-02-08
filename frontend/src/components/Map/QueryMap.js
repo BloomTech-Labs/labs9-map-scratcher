@@ -37,12 +37,9 @@ export default class QueryMap extends Component {
         {({ loading: loadinguser, data }) => {
           const localState = data;
           const id = localState.userId;
-          console.log(id);
-          console.log({id});
           return (
             <Query query={QUERY_USERVISITS_TRAVELS} variables={{id}}>
             {({ loading: loadingVisits, data} ) => {
-              console.log('uservisits', data);
               let visitsUser = [];
               visitsUser.push(data.user);
               visitsUser = fixData(visitsUser);
@@ -51,21 +48,15 @@ export default class QueryMap extends Component {
                   {({ loading: loadingFriendVisits, data: { friends }}) => {
                     let colors, borders;
                     let viewBorders = localState.viewBorders ? true: false;
-                    console.log('is this asshole triggering', localState.friendID);
                     if (!localState.viewingFriend) {
-                      console.log('no friend');
                       colors = visitsUser;
                       borders = fixData(friends);
-                      console.log(borders);
                     }
                     if (localState.viewingFriend && localState.friendId) {
-                      console.log('view a friend');
                       let oneFriend = friends.filter(
                         friend => friend.id === localState.friendId
                       );
-                      console.log('in oneFriend', oneFriend);
                       oneFriend = fixData(oneFriend);
-                      console.log('singleFriend', oneFriend);
                       colors = oneFriend;
                       borders = visitsUser;
                     }

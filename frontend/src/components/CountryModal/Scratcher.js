@@ -72,7 +72,7 @@ export default class Scratcher extends Component {
                       handleScratchAll={() => {
                         scratchingComplete();
                       }}
-                      handleLoadingError={(error) => console.log('cannot load image', error)} 
+                      handleLoadingError={(error) => error} 
                       style={{ height: '200px' }} />
                     )}
                   </Mutation>

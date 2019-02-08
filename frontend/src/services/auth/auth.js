@@ -59,7 +59,6 @@ class Auth {
     this.lock.on('authenticated', this.setSession.bind(this))
     // Add a callback for Lock's `authorization_error` event
     this.lock.on('authorization_error', err => {
-      console.log(err)
       alert(`Error: ${err.error}. Check the console for further details.`)
       const data = { status: `error`, errMessage: err.error }
       this.cb(data)
@@ -103,7 +102,7 @@ class Auth {
           } else {
             window.location.reload()
           }
-        }).catch(err => console.log('Sign in or create account error: ', err))
+        }).catch(err => err)
   }
 // Clear access token and ID token from local storage on logout button press.
   logout() {

@@ -17,7 +17,7 @@
 
 //-- Dependencies --------------------------------
 // Libraries
-import React, { Component } from 'react';
+import React from 'react';
 import L from 'leaflet';
 import { Query, Mutation } from 'react-apollo';
 import { Map, GeoJSON } from 'react-leaflet';

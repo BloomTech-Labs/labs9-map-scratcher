@@ -7,7 +7,7 @@
 
 //-- Dependencies --------------------------------
 import React, { Component } from 'react'
-import { Card, Button, Icon, Menu } from 'semantic-ui-react'
+import { Button, Icon, Menu } from 'semantic-ui-react'
 import { Query, Mutation } from 'react-apollo'
 import {
   QUERY_COUNTRYID_MODAL,

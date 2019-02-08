@@ -30,9 +30,7 @@ export default class Legend extends Component {
   }
 
   toggleEditing = (prev) => {
-    console.log('pre', this.state.editing)
     this.setState({editing: !prev})
-    console.log('post', this.state.editing)
   }
 
   changeTheme = (color) => {

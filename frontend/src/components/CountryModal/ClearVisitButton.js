@@ -6,7 +6,6 @@ import {
   QUERY_USERVISITS_MODAL } from '../../services/requests/modal';
 
 const ClearVisitButton = ({ countryId, userId, friendId, disabled, history }) => {
-  console.log(disabled);
   return (
     disabled ?
       <Button onClick={() => history.push(`/friends/${friendId}`)}>
@@ -33,7 +32,6 @@ const ClearVisitButton = ({ countryId, userId, friendId, disabled, history }) =>
                 const visits = result.user.visits.filter(visit => visit.id !== deletedVisit.id);
                 let user = result.user
                 user.visits = visits;
-                console.log(result);
                 cache.writeQuery({
                   query: QUERY_USERVISITS_MODAL,
                   variables: {id: userId},
