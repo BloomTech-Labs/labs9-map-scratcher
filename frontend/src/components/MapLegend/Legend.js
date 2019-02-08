@@ -19,7 +19,8 @@ export default class Legend extends Component {
     super(props);
     this.state = {
       editing: false,
-      theme: green
+      theme: green,
+      value: ''
     }
     this.levels = [
       { 1: "Wishlist" },
@@ -43,40 +44,46 @@ export default class Legend extends Component {
       <Card className="legend_main">
       {this.state.editing ? (
         <Card.Content>
-          <Form className='form' onSubmit={() => this.toggleEditing(this.state.editing)}>
-            <Form.Field>
+          <Form className='form' name='colorOptions' onSubmit={() => this.toggleEditing(this.state.editing)}>
+            <Form.Field name='colorOptions'>
               <Radio
                 label='Red'
                 name='colorOptions'
                 value='red'
+                checked={this.state.theme === red}
                 onChange={() => this.changeTheme(red)}
               />
               <Radio
                 label='Purple'
                 name='colorOptions'
                 value='purple'
+                checked={this.state.theme === purple}
                 onChange={() => this.changeTheme(purple)}
               />
               <Radio
                 label='Green'
                 name='colorOptions'
                 value='green'
+                checked={this.state.theme === green}
                 onChange={() => this.changeTheme(green)}
               />
               <Radio
                 label='Grey'
                 name='colorOptions'
                 value='grey'
+                checked={this.state.theme === grey}
                 onChange={() => this.changeTheme(grey)}
               />
               <Radio
                 label='Tan'
                 name='colorOptions'
                 value='tan'
+                checked={this.state.theme === tan}
                 onChange={() => this.changeTheme(tan)}
               />
             </Form.Field>
             <Button 
+              type='submit'
               className='legend-button'
               onClick={() => this.toggleEditing(this.state.editing)}
             >Save</Button>

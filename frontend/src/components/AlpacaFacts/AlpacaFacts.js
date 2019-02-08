@@ -24,7 +24,6 @@ const facts = [
   new Fact(68, 'Alpacas can spit 10 feet, but choose not to.'),
   new Fact(22, 'Alpacas are not permitted on most commercial airlines.'),
   new Fact(104, 'Alpacas are much fluffier than the average house plant.'),
-  new Fact(94, 'Alpacas have teeth, just like you and me.'),
 ];
 
 //-- React Implementation ------------------------
