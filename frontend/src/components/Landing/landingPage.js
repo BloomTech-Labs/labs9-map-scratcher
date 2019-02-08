@@ -18,7 +18,7 @@ export default class LandingPage extends Component {
   getToken = () => {
     const expire = localStorage.getItem('expires_at');
     const token = localStorage.getItem('access_token');
-    
+
     const now = new Date().getTime()
     if (token && now < expire) {
       this.props.history.push('/profile')
@@ -35,9 +35,9 @@ export default class LandingPage extends Component {
           <h1 className='landing_title'>Backpaca</h1>
           <Login login={this.props.login} logout={this.props.logout}/>
         </div>
-        <Backpaca />
         <div className='landing_mainContent'>
-          Brag about your travels. Share your dreams. Discover your friends' notes about the places you've been and the places you want to go.
+        <Backpaca />
+        <h2>  Brag about your travels. Share your dreams. Discover your friends' notes about the places you've been and the places you want to go.</h2>
         </div>
       </div>
     );
