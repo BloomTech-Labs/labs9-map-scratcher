@@ -21,14 +21,14 @@
   }
 
   button {
-    background: #243352;
-    color: #EBEDE8;
+    background: $color-primary;
+    color: $color-background-bright;
     font-size: 1.6rem;
     margin: 2rem auto;
     padding: 5%;
   }
 
   .delete {
-    background: #8C4646;
+    background: $color-danger;
   }
 }

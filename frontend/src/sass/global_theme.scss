@@ -1,3 +1,14 @@
 
 $color-primary: #243352;
-// Color Primary - The main theme color of the website.
+// Primary - The main theme color of the website
+$color-background-bright: #EBEDE8;
+// Bright Background - Components with near-white backgrounds
+$color-danger: #8C4646;
+// Danger - Used to confirm actions, like in a delete button
+$color-form-border: darkgray;
+$color-visit-wishlist: #D96459;
+$color-visit-transited: #800000;
+$color-visit-visited: #c21807;
+$color-visit-lived: #7c0a02;
+$color-border-strong: black;
+// Strong Border - Only used in one place, consider consolidating

@@ -12,7 +12,7 @@
   .profile_content {
     width: 60%;
     margin: 15rem auto 0;
-    background: #EBEDE8;
+    background: $color-background-bright;
     min-height: 70rem;
     @media (max-width: 760px) {
       margin: 25rem auto 5rem;
@@ -39,7 +39,7 @@
     }
 
     .profile_userCardMain {
-      background: #EBEDE8;
+      background: $color-background-bright;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -96,7 +96,7 @@
           }
           button {
             border: 1px solid $color-primary;
-            background: #EBEDE8;
+            background: $color-background-bright;
             color: $color-primary;
             font-size: 1.6rem;
             margin: 5% auto;
@@ -104,7 +104,7 @@
             width: 80%;
             &:hover {
               background: $color-primary;
-              color: #EBEDE8;
+              color: $color-background-bright;
             }
           }
 
@@ -132,13 +132,13 @@
 
               .submit {
                 background: $color-primary;
-                color: #EBEDE8;
+                color: $color-background-bright;
                 font-size: 1.6rem;
                 padding: 1rem 5%;
                 width: 20rem;
                 &:hover {
                   border: 1px solid $color-primary;
-                  background: #EBEDE8;
+                  background: $color-background-bright;
                   color: $color-primary;
                 }
               }
@@ -155,19 +155,19 @@
 
               .upload {
                 background: $color-primary;
-                color: #EBEDE8;
+                color: $color-background-bright;
                 width: 20rem;
                 &:hover {
                   border: 1px solid $color-primary;
-                  background: #EBEDE8;
+                  background: $color-background-bright;
                   color: $color-primary;
                 }
               }
 
               .delete {
-                border: 1px solid #8C4646;
-                background: #8C4646;
-                color: #EBEDE8;
+                border: 1px solid $color-danger;
+                background: $color-danger;
+                color: $color-background-bright;
                 font-size: 1.4rem;
                 margin: 2px auto;
               }
@@ -195,7 +195,7 @@
       //FriendsList component
       .profile_friendsListMain {
         min-width: 12rem;
-        background: #EBEDE8;
+        background: $color-background-bright;
         padding: 2rem 10%;
         line-height: 2.8;
         font-size: 2.2rem;
@@ -203,7 +203,7 @@
         .header {
           padding: 0.8rem 1rem 1rem;
           margin-bottom: 0.8rem;
-          border-bottom: 1px solid lightgrey; 
+          border-bottom: 1px solid $color-form-border; 
         }
 
         .profile_friendsListContent {
@@ -213,7 +213,7 @@
           font-size: 1.8rem;
           margin: 1rem auto;
           a {
-            color: black;
+            color: inherit;
             font-size: 1.8rem;
             padding: 1rem;
             white-space: nowrap;
@@ -227,7 +227,7 @@
           .profile_friendsListIcon {
             cursor: pointer;
             font-size: 2rem;
-            color: #8C4646;
+            color: $color-danger;
             margin: 0 2px;
           }
         }
