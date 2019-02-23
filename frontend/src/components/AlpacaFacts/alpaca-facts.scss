@@ -11,15 +11,19 @@
 }
 #fact_container {
   margin: auto;
-  /*border-radius: 25% 0 25% 0;
-  background: transparent;*/
-}
-#fact_container .header {
-  font-size: 6rem;
-  font-style: italic;
-  font-weight: bold;
-}
-#fact_container .description {
-  font-size: 3rem;
-  max-width: 50rem;
+  .header {
+    font-size: 6rem;
+    font-style: italic;
+    font-weight: bold;
+    color: $color-background-bright;
+  }
+  .description {
+    font-size: 3rem;
+    max-width: 50rem;
+    color: $color-background-bright;
+  }
+  .meta {
+    font-size: 2rem;
+    color: $color-background-bright;
+  }
 }

@@ -246,7 +246,7 @@ function VisitSlider(props) {
   }
   // Render a basic slider
   return (
-    <div>
+    <div className='slider-container'>
       <div className="scratch-handler_visit-labels">
         <span></span>
         <span>Wishlist</span>
