@@ -50,55 +50,43 @@ export default class CountryModal extends Component {
         return (
           <div className='modal'>
             <Card.Content>
-              <Header id={data.countryId} toggleView={this.toggleView} activeItem={this.state.activeItem}/>
-              {this.state.activeItem === 'scratcher' &&
-              <div className='top-content'>
-              <ScratchHandler
-                countryId={data.countryId}
-                displayId={displayId}
-                disabled={disabled}
-                theme={this.props.theme}
-              />
-              </div>}
-              {this.state.activeItem === 'note' &&
-              <div className='middle-content'>
-              <Note
-                countryId={data.countryId}
-                displayId={displayId}
-                disabled={disabled}
-              />
-              </div>}
-              {this.state.activeItem === 'friends' && <div className='bottom-content'>
-              <FriendsVisits
-                id={data.countryId}
-                displayId={displayId}
-              />
-              </div>}
-              <div className='delete'>
-              <ClearVisitButton
-                countryId={data.countryId}
-                userId={data.userId}
-                friendId={data.friendId}
-                disabled={disabled}
-                {...this.props}
-              />
+              <Header id={data.countryId} toggleView={this.toggleView} activeItem={this.state.activeItem} />
+              <div className='content'>
+                {this.state.activeItem === 'scratcher' &&
+                  <ScratchHandler
+                    countryId={data.countryId}
+                    displayId={displayId}
+                    disabled={disabled}
+                    theme={this.props.theme}
+                  />
+                  
+                }
+                {this.state.activeItem === 'note' &&
+                  <Note
+                    countryId={data.countryId}
+                    displayId={displayId}
+                    disabled={disabled}
+                  />
+                }
+                {this.state.activeItem === 'friends' &&
+                  <FriendsVisits
+                    id={data.countryId}
+                    displayId={displayId}
+                  />
+                }
+                <div className='delete'>
+                  <ClearVisitButton
+                    countryId={data.countryId}
+                    userId={data.userId}
+                    friendId={data.friendId}
+                    disabled={disabled}
+                    {...this.props}
+                  />
+                </div>
               </div>
             </Card.Content>
           </div>
         );
-        /* Legacy code. Delete once slider component has replaced buttons, and
-          all merge conflicts have been resolved.
-        return (
-          <Card>
-            <Card.Content>
-              <Header id={data.countryId} />
-              <Scratcher countryId={data.countryId} displayId={displayId} disabled={disabled} />
-              <LevelOfVisit countryId={data.countryId} displayId={displayId} disabled={disabled} />
-              <Note countryId={data.countryId} displayId={displayId} disabled={disabled} />
-              <FriendsVisits id={data.countryId} displayId={displayId} />
-            </Card.Content>
-          </Card>
-        )*/
       }}
       </Query>
     );
