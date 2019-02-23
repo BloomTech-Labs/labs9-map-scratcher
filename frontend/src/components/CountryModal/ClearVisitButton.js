@@ -15,7 +15,7 @@ const ClearVisitButton = ({ countryId, userId, friendId, disabled, history }) =>
     (
       <Query query={QUERY_USERVISITS_MODAL} variables={{id: userId}}>
         {({ loading, data: {user} }) => {
-          if (loading) return <div>Loading</div>
+          if (loading) return null
           let visits = user.visits
           let visit = visits.find(visit => visit.country.id === countryId);
           if (!visit) {
@@ -41,7 +41,7 @@ const ClearVisitButton = ({ countryId, userId, friendId, disabled, history }) =>
             >
               {deleteVisit => (
                 <Button
-                  negative
+                  className='clear-button'
                   onClick={deleteVisit}
                 >Clear Visit</Button>
               )}
