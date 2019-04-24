@@ -14,7 +14,7 @@
 
 ## Deployment links
 
-- front-end: https://backpaca.surge.sh/
+- front-end: https://backpaca.app/
 - back-end: https://backpaca-yoga.herokuapp.com/
 - database: https://backpaca-ed6c7c4fde.herokuapp.com/backpaca/prod
 
